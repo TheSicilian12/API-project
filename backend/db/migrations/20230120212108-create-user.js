@@ -2,7 +2,7 @@
 
 // const { options } = require('../../routes');
 
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 
 // all sequelize migrations and seeder files will need the following block of code.
 let options = {};
