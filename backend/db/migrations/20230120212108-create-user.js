@@ -1,8 +1,16 @@
 'use strict';
 
-const { options } = require('../../routes');
+// const { options } = require('../../routes');
 
 /** @type {import('sequelize-cli').Migration} */
+
+// all sequelize migrations and seeder files will need the following block of code.
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
