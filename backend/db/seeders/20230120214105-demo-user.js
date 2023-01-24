@@ -26,52 +26,72 @@ module.exports = {
       {
         email: 'demo@user.io',
         username: 'DemoUser',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Elizabeth",
+        lastName: "Bennet"
       },
       {
         email: 'demo2@user.io',
         username: 'DemoUser2',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Fitzwilliam",
+        lastName: "Darcy"
       },
       {
         email: 'demo3@user.io',
         username: 'DemoUser3',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Jane",
+        lastName: "Bennet"
       },
       {
         email: 'demo4@user.io',
         username: 'DemoUser4',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Charles",
+        lastName: "Bingley"
       },
       {
         email: 'demo5@user.io',
         username: 'DemoUser5',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Louisa",
+        lastName: "Hurst"
       },
       {
         email: 'demo6@user.io',
         username: 'DemoUser6',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "William",
+        lastName: "Lucas"
       },
       {
         email: 'demo7@user.io',
         username: 'DemoUser7',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Anne",
+        lastName: "de Bourgh"
       },
       {
         email: 'demo8@user.io',
         username: 'DemoUser8',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Fitzwilliam",
+        lastName: "Darcy"
       },
       {
         email: 'demo9@user.io',
         username: 'DemoUser9',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "George",
+        lastName: "Wickham"
       },
       {
         email: 'demo10@user.io',
         username: 'DemoUser10',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "William",
+        lastName: "Collins"
       }
     ], {})
 

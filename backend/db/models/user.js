@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     toSafeObject() {
-      const { id, username, email } = this; // context will be the User instance
-      return { id, username, email };
+      const { id, username, email, firstName, lastName } = this; // context will be the User instance
+      return { id, username, email, firstName, lastName };
     }
 
     validatePassword(password) {
@@ -34,16 +34,18 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
         email,
-        hashedPassword
+        hashedPassword,
+        firstName,
+        lastName
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
-    
+
     static associate(models) {
       // define association here
     }
@@ -51,6 +53,14 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
