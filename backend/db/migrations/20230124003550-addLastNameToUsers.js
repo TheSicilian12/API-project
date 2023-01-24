@@ -2,6 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 
+//the followin code block is extremely important to include on every migration.
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object

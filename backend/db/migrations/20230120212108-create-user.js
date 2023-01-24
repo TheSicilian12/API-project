@@ -47,7 +47,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "User";
+    options.tableName = "User"; //important! this needs to be on every migration.
     await queryInterface.dropTable(options);
   }
 };
