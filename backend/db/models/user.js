@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       return { id, username, email, firstName, lastName };
     }
 
+    toSignUpReturn() {
+      const { email, firstName, lastName, password } = this; // context will be the User instance
+      return { email, firstName, lastName, password };
+    }
+
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }

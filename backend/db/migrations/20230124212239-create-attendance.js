@@ -1,39 +1,28 @@
 'use strict';
+/** @type {import('sequelize-cli').Migration} */
 
-// const { options } = require('../../routes');
-
-// /** @type {import('sequelize-cli').Migration} */
-
-// all sequelize migrations and seeder files will need the following block of code.
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "Users"; //important! this needs to be on every migration.
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Attendances', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false,
-        unique: true
+      eventId: {
+        type: Sequelize.INTEGER
       },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-        unique: true
+      userId: {
+        type: Sequelize.INTEGER
       },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
-        allowNull: false
+      status: {
+        type: Sequelize.ENUM
       },
       createdAt: {
         allowNull: false,
@@ -48,7 +37,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users"; //important! this needs to be on every migration.
+    options.tableName = "Attendances"; //important! this needs to be on every migration.
     await queryInterface.dropTable(options);
   }
 };
