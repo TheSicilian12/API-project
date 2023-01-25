@@ -63,7 +63,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       firstName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          // isNotAnEmptyString(value) {
+          //   if (value === "") {
+
+          //     throw new Error("First Name is required")
+          //   }
+          // }
+        }
       },
       lastName: {
         type: DataTypes.STRING,
