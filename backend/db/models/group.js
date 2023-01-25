@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Group.init({
-    organizerId: DataTypes.INTEGER,
+    organizerId: {
+      type: DataTypes.INTEGER,
+      references: {model: "Users"}
+    },
     name: DataTypes.STRING,
     about: DataTypes.TEXT,
     type: DataTypes.ENUM ("test1", "test2"),
