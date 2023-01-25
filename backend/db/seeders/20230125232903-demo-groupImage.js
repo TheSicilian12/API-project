@@ -6,7 +6,8 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = 'Memberships';
+options.tableName = 'GroupImages';
+
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -19,44 +20,28 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
-    options.tableName = "Memberships";
+    options.tableName = "GroupImages";
     return queryInterface.bulkInsert(options, [
       {
-        userId: 1,
         groupId: 1,
-        status: "test1"
+        url: 'www.group1-groupImage',
+        preview: true,
       },
       {
-        userId: 1,
         groupId: 2,
-        status: "test1"
+        url: 'www.group2-groupImage',
+        preview: false,
       },
       {
-        userId: 2,
-        groupId: 1,
-        status: "test1"
+        groupId: 3,
+        url: 'www.group3-groupImage',
+        preview: true,
       },
       {
-        userId: 2,
-        groupId: 2,
-        status: "test1"
-      },
-      {
-        userId: 3,
         groupId: 4,
-        status: "test1"
-      },
-      {
-        userId: 3,
-        groupId: 1,
-        status: "test1"
-      },
-      {
-        userId: 4,
-        groupId: 1,
-        status: "test1"
-      },
+        url: 'www.group4-groupImage',
+        preview: true,
+      }
     ], {})
 
   },
@@ -68,10 +53,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Memberships';
+    options.tableName = 'GroupImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      status: { [Op.in]: ['test1'] }
+      url: { [Op.in]: ['www.group1-groupImage', 'www.group2-groupImage', 'www.group3-groupImage', 'www.group4-groupImage'] }
     }, {});
   }
 };

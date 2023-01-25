@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User, Group } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize } = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
@@ -18,8 +18,43 @@ const { handleValidationErrors } = require('../../utils/validation');
 // ];
 
 router.get('/', async (req, res) => {
-    let groups = await Group.findAll()
-    return res.json(groups)
+    let groupObj = {}
+    groupObj.Groups = []
+
+    let groups = await Group.findAll({
+        include: [{model: Membership}, {model: GroupImage}]
+    })
+
+
+
+    for (let group of groups) {
+        // console.log(group.GroupImages[0].dataValues.url)
+        // console.log("-----------")
+
+        let item = {};
+
+        item.id = group.id
+        item.organizerId = group.organizerId
+        item.name = group.name
+        item.about = group.about
+        item.type = group.type
+        item.private = group.private
+        item.city = group.city
+        item.state = group.state
+        item.createdAt = group.createdAt
+        item.updatedAt = group.updatedAt
+        item.numMembers = group.Memberships.length
+        item.previewImage = group.GroupImages[0].dataValues.url
+
+        groupObj.Groups.push(item);
+        console.log()
+    }
+
+    return res.json(groupObj)
+
+    const numReviews = await Review.count({
+        where: { spotId: spot.id }
+       })
 })
 
 
