@@ -22,7 +22,6 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         name: "Group1",
-        organizerId: 10,
         about: "about group1",
         type: "test1",
         private: true,
@@ -31,7 +30,6 @@ module.exports = {
       },
       {
         name: "Group2",
-        organizerId: 2,
         about: "about group2",
         type: "test1",
         private: true,
@@ -40,7 +38,6 @@ module.exports = {
       },
       {
         name: "Group3",
-        organizerId: 4,
         about: "about group3",
         type: "test1",
         private: true,
@@ -49,7 +46,6 @@ module.exports = {
       },
       {
         name: "Group4",
-        organizerId: 3,
         about: "about group4",
         type: "test2",
         private: false,

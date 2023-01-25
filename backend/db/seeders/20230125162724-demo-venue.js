@@ -63,7 +63,7 @@ module.exports = {
     options.tableName = 'Venues';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      state: { [Op.in]: ['Ohio', 'Michigan', 'Colorado'] }
+      address: { [Op.in]: ['1111 road A', '2222 road B', '3333 road C', '4444 road D'] }
     }, {});
   }
 };
