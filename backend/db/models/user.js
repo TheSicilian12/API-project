@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       return { id, username, email, firstName, lastName };
     }
 
+    toSignUpReturn() {
+      const { email, firstName, lastName, password } = this; // context will be the User instance
+      return { email, firstName, lastName, password };
+    }
+
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
@@ -48,6 +53,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(models.Attendance, {foreignKey: 'userId'})
+      User.hasMany(models.Group, {foreignKey: 'organizerId'})
+      User.hasMany(models.Membership, {foreignKey: 'userId'})
     }
   };
 
@@ -55,11 +63,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       firstName: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
       },
       lastName: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
       },
       username: {
         type: DataTypes.STRING,
