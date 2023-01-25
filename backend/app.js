@@ -75,10 +75,12 @@ app.use((err, _req, res, _next) => {
     title: err.title || 'Server Error',
     message: err.message,
     errors: err.errors,
+
+    //added status code for display
+    statusCode: err.status,
+    
     stack: isProduction ? null : err.stack
   });
 });
 
   module.exports = app;
-
-  

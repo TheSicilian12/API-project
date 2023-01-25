@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    options.tableName = "Attendances"; //important! this needs to be on every migration.
     await queryInterface.createTable('Attendances', {
       id: {
         allowNull: false,
@@ -16,13 +17,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       eventId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'Events'}
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'Users'}
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM ("test1", "test2"),
+        defaultValue: "test1"
       },
       createdAt: {
         allowNull: false,

@@ -1,7 +1,6 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 
-// all sequelize migrations and seeder files will need the following block of code.
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -9,23 +8,37 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "EventImages"; //important! this needs to be on every migration.
-    await queryInterface.createTable('EventImages', {
+    options.tableName = "Groups"; //important! this needs to be on every migration.
+
+    await queryInterface.createTable('Groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      eventId: {
+      organizerId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Events'}
+        references: {model: 'Users'}
       },
-      url: {
+      name: {
         type: Sequelize.STRING
       },
-      preview: {
+      about: {
+        type: Sequelize.TEXT
+      },
+      type: {
+        type: Sequelize.ENUM ("test1", "test2"),
+        defaultValue: "test1"
+      },
+      private: {
         type: Sequelize.BOOLEAN
+      },
+      city: {
+        type: Sequelize.STRING
+      },
+      state: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -40,7 +53,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "EventImages"; //important! this needs to be on every migration.
-    await queryInterface.dropTable('EventImages');
+    options.tableName = "Groups"; //important! this needs to be on every migration.
+    await queryInterface.dropTable(options);
   }
 };

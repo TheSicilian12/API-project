@@ -9,23 +9,25 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "EventImages"; //important! this needs to be on every migration.
-    await queryInterface.createTable('EventImages', {
+    options.tableName = "Memberships"; //important! this needs to be on every migration.
+    await queryInterface.createTable('Memberships', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      eventId: {
+      userId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Events'}
+        references: {model: 'Users'}
       },
-      url: {
-        type: Sequelize.STRING
+      groupId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Groups'}
       },
-      preview: {
-        type: Sequelize.BOOLEAN
+      status: {
+        type: Sequelize.ENUM ("test1", "test2"),
+        defaultValue: "test1"
       },
       createdAt: {
         allowNull: false,
@@ -40,7 +42,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "EventImages"; //important! this needs to be on every migration.
-    await queryInterface.dropTable('EventImages');
+    options.tableName = "Memberships"; //important! this needs to be on every migration.
+    await queryInterface.dropTable(options);
   }
 };
