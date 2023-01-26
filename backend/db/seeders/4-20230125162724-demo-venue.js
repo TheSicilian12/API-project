@@ -23,6 +23,7 @@ module.exports = {
     options.tableName = "Venues";
     return queryInterface.bulkInsert(options, [
       {
+        groupId: 1,
         address: '1111 road A',
         city: 'Denver',
         state: 'Colorado',
@@ -30,6 +31,7 @@ module.exports = {
         lng: 222.2,
       },
       {
+        groupId: 2,
         address: '2222 road B',
         city: 'Columbus',
         state: 'Ohio',
@@ -37,6 +39,7 @@ module.exports = {
         lng: 4545.2,
       },
       {
+        groupId: 3,
         address: '3333 road C',
         city: 'Detroit',
         state: 'Michigan',
@@ -44,6 +47,7 @@ module.exports = {
         lng: 8787.2,
       },
       {
+        groupId: 4,
         address: '4444 road D',
         city: 'Dayton',
         state: 'Ohio',
