@@ -7,8 +7,13 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     toSafeObject() {
-      const { id, username, email } = this; // context will be the User instance
-      return { id, username, email };
+      const { id, username, email, firstName, lastName } = this; // context will be the User instance
+      return { id, username, email, firstName, lastName };
+    }
+
+    toSignUpReturn() {
+      const { email, firstName, lastName, password } = this; // context will be the User instance
+      return { email, firstName, lastName, password };
     }
 
     validatePassword(password) {
@@ -34,23 +39,44 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
         email,
-        hashedPassword
+        hashedPassword,
+        firstName,
+        lastName
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
-    
+
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Event, {through: models.Attendance})
+      User.hasMany(models.Group, {foreignKey: 'organizerId'})
+      User.belongsToMany(models.Group, {through: models.Membership})
     }
   };
 
   User.init(
     {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          // isNotAnEmptyString(value) {
+          //   if (value === "") {
+
+          //     throw new Error("First Name is required")
+          //   }
+          // }
+        }
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,

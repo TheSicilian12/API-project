@@ -17,6 +17,8 @@ const validateLogin = [
   handleValidationErrors
 ];
 
+
+
 // Log in
 router.post(
     '/',
@@ -30,6 +32,7 @@ router.post(
         const err = new Error('Login failed');
         err.status = 401;
         err.title = 'Login failed';
+        err.message = "Invalid credentials";
         err.errors = ['The provided credentials were invalid.'];
         return next(err);
       }
@@ -37,7 +40,7 @@ router.post(
       await setTokenCookie(res, user);
 
       return res.json({
-        user: user
+        user: user.toSafeObject()
       });
     }
   );
