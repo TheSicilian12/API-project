@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     })
 
 // console.log(events[4].Venue)
-console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
+// console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
 
     for (let event of events) {
         let item = {};
@@ -28,7 +28,7 @@ console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
         let numAttend = await Attendance.findAll({
             where: {
-                eventId: event.id,
+                // eventId: event.id,
                 status: "attending" //ATTENDANCE ENUM VALUE!!!!!!!!!!!!!!!!!!!
             }
         })
