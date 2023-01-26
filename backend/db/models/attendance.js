@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    status: DataTypes.ENUM (true, false),
+    status: DataTypes.ENUM ("attending", "not attending"),
   }, {
     sequelize,
     modelName: 'Attendance',
