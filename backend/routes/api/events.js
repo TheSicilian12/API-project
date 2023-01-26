@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize, Venue} = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     eventObj.Events = []
 
     let events = await Event.findAll({
-        include: [{model: Group}]
+        include: [{model: Group}, {model: Venue}]
     })
 
     for (let event of events) {
@@ -34,6 +34,11 @@ router.get('/', async (req, res) => {
         item.Group.name = event.Group.dataValues.name;
         item.Group.city = event.Group.dataValues.city;
         item.Group.state = event.Group.dataValues.state;
+
+        item.Venue = {};
+        item.Venue.id = event.Venue.dataValues.id;
+        item.Venue.city = event.Venue.dataValues.city;
+        item.Venue.state = event.Venue.dataValues.state;
 
         eventObj.Events.push(item)
         console.log(event)
