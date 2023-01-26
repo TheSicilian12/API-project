@@ -2,8 +2,11 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-const groupRouter = require('./groups.js')
+const groupRouter = require('./groups.js');
+const eventRouter = require('./events.js');
 const { restoreUser } = require('../../utils/auth.js');
+
+// update router and then update the route.
 
 router.use(restoreUser);
 
@@ -12,6 +15,8 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 
 router.use('/groups', groupRouter);
+
+router.use('/events', eventRouter);
 
 
 // router.post('/test', function(req, res) {

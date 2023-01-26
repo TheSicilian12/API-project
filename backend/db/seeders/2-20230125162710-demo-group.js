@@ -1,12 +1,14 @@
 'use strict';
 
+/** @type {import('sequelize-cli').Migration} */
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 options.tableName = 'Groups';
 
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -40,7 +42,7 @@ module.exports = {
       },
       {
         name: "Group3",
-        organizerId: 4,
+        organizerId: 3,
         about: "about group3",
         type: "test1",
         private: true,
@@ -49,7 +51,7 @@ module.exports = {
       },
       {
         name: "Group4",
-        organizerId: 3,
+        organizerId: 4,
         about: "about group4",
         type: "test2",
         private: false,

@@ -20,12 +20,14 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         references: {model: 'Users'},
-        allowNull: false
+        allowNull: false,
+        onDelete: "CASCADE"
       },
       groupId: {
         type: Sequelize.INTEGER,
         references: {model: 'Groups'},
-        allowNull: false
+        allowNull: false,
+        onDelete: "CASCADE"
       },
       status: {
         type: Sequelize.ENUM ("test1", "test2"),
