@@ -64,6 +64,17 @@ module.exports = {
         price: 10,
         startDate: "2023-07-01",
         endDate: "2023-07-07"
+      },
+      {
+        venueId: null,
+        groupId: 3,
+        name: "event5",
+        description: "event5 description",
+        type: "test1",
+        capacity: 5,
+        price: 10,
+        startDate: "2024-08-01",
+        endDate: "2024-08-07"
       }
     ], {})
 
@@ -80,7 +91,7 @@ module.exports = {
     options.tableName = 'Events';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['event1', 'event2', 'event3', 'event4'] }
+      name: { [Op.in]: ['event1', 'event2', 'event3', 'event4', 'event5'] }
     }, {});
 
 
