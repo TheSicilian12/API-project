@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
         item.previewImage = group.GroupImages[0].dataValues.url
 
         groupObj.Groups.push(item);
-        
+
     }
 
     return res.json(groupObj)
