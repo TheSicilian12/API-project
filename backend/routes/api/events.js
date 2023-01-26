@@ -33,10 +33,15 @@ console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             }
         })
 
+        // if (image[0]) {
+        //     console.log("hello ", event.id, " -----------------------------")
+        // } else console.log("hahahahahahahahahahahahahahaha")
 
+        if (image[0]) {
         // console.log("--------------")
-        // console.log(numAttend.length)
-
+        // console.log(image[0].dataValues)
+        item.previewImage = image[0].dataValues.url
+        }
 
         item.id = event.id
         item.groupId = event.groupId
