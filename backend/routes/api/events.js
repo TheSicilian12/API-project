@@ -23,12 +23,12 @@ router.get('/', async (req, res) => {
         let item = {};
 
         let image = await EventImage.findAll({
-            // where: EventImage.eventId = event.id
+            where: EventImage.eventId = event.id
         })
 
         let numAttend = await Attendance.findAll({
             where: {
-                // eventId: event.id,
+                eventId: event.id,
                 status: "attending" //ATTENDANCE ENUM VALUE!!!!!!!!!!!!!!!!!!!
             }
         })
