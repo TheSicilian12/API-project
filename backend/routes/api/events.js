@@ -29,7 +29,7 @@ console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         let numAttend = await Attendance.findAll({
             where: {
                 eventId: event.id,
-                status: true
+                status: "attending" //ATTENDANCE ENUM VALUE!!!!!!!!!!!!!!!!!!!
             }
         })
 
