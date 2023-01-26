@@ -1,12 +1,14 @@
 'use strict';
 
+/** @type {import('sequelize-cli').Migration} */
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = 'Groups';
+options.tableName = 'Venues';
 
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -18,42 +20,41 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = "Groups";
+    options.tableName = "Venues";
     return queryInterface.bulkInsert(options, [
       {
-        name: "Group1",
-        about: "about group1",
-        type: "test1",
-        private: true,
-        city: "Columbus",
-        state: "Ohio"
+        groupId: 1,
+        address: '1111 road A',
+        city: 'Denver',
+        state: 'Colorado',
+        lat: 111.1,
+        lng: 222.2,
       },
       {
-        name: "Group2",
-        about: "about group2",
-        type: "test1",
-        private: true,
-        city: "Columbus",
-        state: "Ohio"
+        groupId: 2,
+        address: '2222 road B',
+        city: 'Columbus',
+        state: 'Ohio',
+        lat: 1212.1,
+        lng: 4545.2,
       },
       {
-        name: "Group3",
-        about: "about group3",
-        type: "test1",
-        private: true,
-        city: "Detroit",
-        state: "Michigan"
+        groupId: 3,
+        address: '3333 road C',
+        city: 'Detroit',
+        state: 'Michigan',
+        lat: 7878.1,
+        lng: 8787.2,
       },
       {
-        name: "Group4",
-        about: "about group4",
-        type: "test2",
-        private: false,
-        city: "Denver",
-        state: "Colorado"
+        groupId: 4,
+        address: '4444 road D',
+        city: 'Dayton',
+        state: 'Ohio',
+        lat: 31.1,
+        lng: 654.2,
       },
     ], {})
-
   },
 
   async down (queryInterface, Sequelize) {
@@ -63,10 +64,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Groups';
+    options.tableName = 'Venues';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4'] }
+      address: { [Op.in]: ['1111 road A', '2222 road B', '3333 road C', '4444 road D'] }
     }, {});
   }
 };

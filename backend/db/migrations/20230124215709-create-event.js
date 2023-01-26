@@ -18,11 +18,15 @@ module.exports = {
       },
       venueId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Venues'}
+        references: {model: 'Venues'},
+        allowNull: false,
+        onDelete: "CASCADE"
       },
       groupId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Groups'}
+        references: {model: 'Groups'},
+        allowNull: false,
+        onDelete: "CASCADE"
       },
       name: {
         type: Sequelize.STRING

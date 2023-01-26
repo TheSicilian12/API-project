@@ -47,14 +47,14 @@ router.get('/', async (req, res) => {
         item.previewImage = group.GroupImages[0].dataValues.url
 
         groupObj.Groups.push(item);
-        console.log()
+        
     }
 
     return res.json(groupObj)
 
-    const numReviews = await Review.count({
-        where: { spotId: spot.id }
-       })
+    // const numReviews = await Review.count({
+    //     where: { spotId: spot.id }
+    //    })
 })
 
 

@@ -6,7 +6,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = 'Venues';
+options.tableName = 'Groups';
 
 
 module.exports = {
@@ -20,37 +20,46 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = "Venues";
+    options.tableName = "Groups";
     return queryInterface.bulkInsert(options, [
       {
-        address: '1111 road A',
-        city: 'Denver',
-        state: 'Colorado',
-        lat: 111.1,
-        lng: 222.2,
+        name: "Group1",
+        organizerId: 1,
+        about: "about group1",
+        type: "test1",
+        private: true,
+        city: "Columbus",
+        state: "Ohio"
       },
       {
-        address: '2222 road B',
-        city: 'Columbus',
-        state: 'Ohio',
-        lat: 1212.1,
-        lng: 4545.2,
+        name: "Group2",
+        organizerId: 2,
+        about: "about group2",
+        type: "test1",
+        private: true,
+        city: "Columbus",
+        state: "Ohio"
       },
       {
-        address: '3333 road C',
-        city: 'Detroit',
-        state: 'Michigan',
-        lat: 7878.1,
-        lng: 8787.2,
+        name: "Group3",
+        organizerId: 3,
+        about: "about group3",
+        type: "test1",
+        private: true,
+        city: "Detroit",
+        state: "Michigan"
       },
       {
-        address: '4444 road D',
-        city: 'Dayton',
-        state: 'Ohio',
-        lat: 31.1,
-        lng: 654.2,
+        name: "Group4",
+        organizerId: 4,
+        about: "about group4",
+        type: "test2",
+        private: false,
+        city: "Denver",
+        state: "Colorado"
       },
     ], {})
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -60,10 +69,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Venues';
+    options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['1111 road A', '2222 road B', '3333 road C', '4444 road D'] }
+      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4'] }
     }, {});
   }
 };

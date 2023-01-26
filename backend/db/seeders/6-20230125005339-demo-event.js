@@ -22,6 +22,8 @@ module.exports = {
     options.tableName = "Events";
     return queryInterface.bulkInsert(options, [
       {
+        venueId: 1,
+        groupId: 1,
         name: "event1",
         description: "event1 description",
         type: "test1",
@@ -31,6 +33,8 @@ module.exports = {
         endDate: "2023-02-01"
       },
       {
+        venueId: 2,
+        groupId: 2,
         name: "event2",
         description: "event2 description",
         type: "test1",
@@ -40,6 +44,8 @@ module.exports = {
         endDate: "2024-04-01"
       },
       {
+        venueId: 3,
+        groupId: 4,
         name: "event3",
         description: "event3 description",
         type: "test2",
@@ -49,6 +55,8 @@ module.exports = {
         endDate: "2023-08-08"
       },
       {
+        venueId: 4,
+        groupId: 3,
         name: "event4",
         description: "event4 description",
         type: "test1",
