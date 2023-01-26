@@ -24,29 +24,28 @@ module.exports = {
       {
         eventId: 1,
         userId: 1,
-        status: true
+        status: "attending"
       },
       {
         eventId: 2,
         userId: 1,
-        status: false
+        status: "not attending"
       },
       {
         eventId: 1,
         userId: 2,
-        status: true
+        status: "attending"
       },
       {
         eventId: 2,
         userId: 2,
-        status: false
+        status: "not attending"
       },
       {
         eventId: 2,
         userId: 10,
-        status: true
+        status: "attending"
       },
-
     ], {})
 
   },
