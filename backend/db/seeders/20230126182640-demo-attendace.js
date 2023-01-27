@@ -24,27 +24,27 @@ module.exports = {
       {
         eventId: 1,
         userId: 1,
-        status: "attending"
+        status: "test1"
       },
       {
         eventId: 2,
         userId: 1,
-        status: "attending"
+        status: "test1"
       },
       {
         eventId: 1,
         userId: 2,
-        status: "not attending"
+        status: "test2"
       },
       {
         eventId: 2,
         userId: 2,
-        status: "not attending"
+        status: "test2"
       },
       {
         eventId: 2,
         userId: 10,
-        status: "attending"
+        status: "test1"
       },
     ], {})
 

@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
         let numAttend = await Attendance.findAll({
             where: {
                 eventId: event.id,
-                status: "attending" //ATTENDANCE ENUM VALUE!!!!!!!!!!!!!!!!!!!
+                status: "test1" //ATTENDANCE ENUM VALUE!!!!!!!!!!!!!!!!!!!
             }
         })
 
