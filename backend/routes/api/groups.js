@@ -1,5 +1,5 @@
 const express = require('express')
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize } = require('../../db/models');
 const router = express.Router();
 
@@ -17,6 +17,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 //   handleValidationErrors
 // ];
 
+//GET ALL GROUPS
 router.get('/', async (req, res) => {
     // let groupObj = {}
     // groupObj.Groups = []
@@ -64,8 +65,8 @@ router.get('/', async (req, res) => {
     let groups = await Group.findAll({
         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
         include: [
-            {model: Membership},
-            {model: GroupImage}
+            { model: Membership },
+            { model: GroupImage }
         ]
     })
 
@@ -96,7 +97,117 @@ router.get('/', async (req, res) => {
 
 })
 
+//GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USER
+router.get('/current', requireAuth, async (req, res) => {
+    // console.log(req.user.toJSON().id)
 
+    //set up
+    // let groupObj = {};
+    // groupObj.Groups = [];
+    // let organizerNum = [];
+    // let groupNumMem = [];
+
+    // let currentId = req.user.toJSON().id
+
+    // let groups = await Group.findAll({
+    //     include: [
+    //         {model: Membership},
+    //         {model: GroupImage}
+    //     ]
+    // })
+
+    // let members = await Membership.findAll()
+
+    // //organizerId groups and organizerNum
+    // for (let group of groups) {
+    //     if (group.organizerId === currentId) {
+    //         groupObj.Groups.push(group.toJSON())
+    //         organizerNum.push(group.toJSON().id)
+    //         // console.log(group.dataValues.Memberships)
+    //         console.log(group.Memberships)
+    //         console.log("---------------------------")
+    //     }
+    // }
+
+    // //groupId from memberships
+    // for (let member of members) {
+    //     // console.log(member.userId)
+    //     if (member.userId === currentId) {
+    //         // tempArrForMem.push(member.toJSON())
+    //         groupNumMem.push(member.toJSON().groupId)
+    //     }
+    // }
+
+    // // checking for groups in both organizer and member arrays
+    // for (let number of groupNumMem) {
+    //     if (!organizerNum.includes(number)) {
+    //         let group = await Group.findAll({
+    //             where: Group.id = number
+    //         })
+    //         groupObj.Groups.push(group[0])
+    //     }
+    // }
+
+
+
+
+    // return res.json(groupObj)
+
+    let tempObj = {};
+    tempObj.Groups = [];
+
+    let groupObj = {};
+    groupObj.Groups = [];
+
+    let groupTracker = [];
+
+    let currentId = req.user.toJSON().id
+
+    let groups = await Group.findAll({
+        include: [
+            { model: Membership },
+            { model: GroupImage }
+        ]
+    })
+
+
+    // json
+    for (let group of groups) {
+        tempObj.Groups.push(group.toJSON())
+    }
+
+    for (let group of tempObj.Groups) {
+        if (group.organizerId === currentId) {
+            groupTracker.push(group.id)
+            group.numMembers = group.Memberships.length
+
+            if (group.GroupImages[0]) {
+                group.previewImage = group.GroupImages[0].url
+            } else group.previewImage = null;
+
+            groupObj.Groups.push(group)
+        }
+        for (let member of group.Memberships) {
+            // console.log(member.userId)
+            if (!groupTracker.includes(member.groupId) && member.userId === currentId) {
+                groupTracker.push(member.groupId)
+                group.numMembers = group.Memberships.length;
+
+                if (group.GroupImages[0]) {
+                    group.previewImage = group.GroupImages[0].url
+                } else group.previewImage = null;
+
+                groupObj.Groups.push(group);
+            }
+        }
+
+        delete group.GroupImages
+        delete group.Memberships
+    }
+
+    return res.json(groupObj)
+
+})
 
 
 

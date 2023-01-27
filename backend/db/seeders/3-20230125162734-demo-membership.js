@@ -43,6 +43,16 @@ module.exports = {
         status: "test1"
       },
       {
+        userId: 2,
+        groupId: 3,
+        status: "test1"
+      },
+      {
+        userId: 2,
+        groupId: 5,
+        status: "test1"
+      },
+      {
         userId: 3,
         groupId: 4,
         status: "test1"

@@ -58,6 +58,15 @@ module.exports = {
         city: "Denver",
         state: "Colorado"
       },
+      {
+        name: "Group5",
+        organizerId: 2,
+        about: "about group5",
+        type: "test1",
+        private: false,
+        city: "Denver",
+        state: "Colorado"
+      },
     ], {})
 
   },
@@ -72,7 +81,7 @@ module.exports = {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4'] }
+      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4', 'Group5'] }
     }, {});
   }
 };
