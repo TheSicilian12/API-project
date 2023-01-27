@@ -29,8 +29,8 @@ module.exports = {
         type: "test1",
         capacity: 10,
         price: 100,
-        startDate: "2023-02-01",
-        endDate: "2023-02-01"
+        startDate: "2023-03-01",
+        endDate: "2023-03-01"
       },
       {
         venueId: 2,
@@ -51,7 +51,7 @@ module.exports = {
         type: "test2",
         capacity: 100,
         price: 50,
-        startDate: "2023-08-01",
+        startDate: "2023-08-08",
         endDate: "2023-08-08"
       },
       {
@@ -63,7 +63,7 @@ module.exports = {
         capacity: 5,
         price: 10,
         startDate: "2023-07-01",
-        endDate: "2023-07-07"
+        endDate: "2023-07-01"
       },
       {
         venueId: null,
@@ -74,7 +74,7 @@ module.exports = {
         capacity: 5,
         price: 10,
         startDate: "2024-08-01",
-        endDate: "2024-08-07"
+        endDate: "2024-08-01"
       }
     ], {})
 
