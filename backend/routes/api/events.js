@@ -1,5 +1,7 @@
 const express = require('express')
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
+
+
 const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize, Venue, Attendance, EventImage } = require('../../db/models');
 const router = express.Router();
 
@@ -7,6 +9,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
+//GET ALL EVENTS
 router.get('/', async (req, res) => {
     //return setup
     let eventObj = {};
