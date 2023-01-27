@@ -18,43 +18,82 @@ const { handleValidationErrors } = require('../../utils/validation');
 // ];
 
 router.get('/', async (req, res) => {
-    let groupObj = {}
-    groupObj.Groups = []
+    // let groupObj = {}
+    // groupObj.Groups = []
 
+    // let groups = await Group.findAll({
+    //     include: [{model: Membership}, {model: GroupImage}]
+    // })
+
+
+
+    // for (let group of groups) {
+    //     // console.log(group.GroupImages[0].dataValues.url)
+    //     // console.log("-----------")
+
+    //     let item = {};
+
+    //     item.id = group.id
+    //     item.organizerId = group.organizerId
+    //     item.name = group.name
+    //     item.about = group.about
+    //     item.type = group.type
+    //     item.private = group.private
+    //     item.city = group.city
+    //     item.state = group.state
+    //     item.createdAt = group.createdAt
+    //     item.updatedAt = group.updatedAt
+    //     item.numMembers = group.Memberships.length
+    //     item.previewImage = group.GroupImages[0].dataValues.url
+
+    //     groupObj.Groups.push(item);
+
+    // }
+
+    // return res.json(groupObj)
+
+    // // const numReviews = await Review.count({
+    // //     where: { spotId: spot.id }
+    // //    })
+
+    //return setup
+    let groupObj = {};
+    groupObj.Groups = [];
+
+    //main search
     let groups = await Group.findAll({
-        include: [{model: Membership}, {model: GroupImage}]
+        attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
+        include: [
+            {model: Membership},
+            {model: GroupImage}
+        ]
     })
 
-
-
+    //json
     for (let group of groups) {
-        // console.log(group.GroupImages[0].dataValues.url)
-        // console.log("-----------")
-
-        let item = {};
-
-        item.id = group.id
-        item.organizerId = group.organizerId
-        item.name = group.name
-        item.about = group.about
-        item.type = group.type
-        item.private = group.private
-        item.city = group.city
-        item.state = group.state
-        item.createdAt = group.createdAt
-        item.updatedAt = group.updatedAt
-        item.numMembers = group.Memberships.length
-        item.previewImage = group.GroupImages[0].dataValues.url
-
-        groupObj.Groups.push(item);
-
+        groupObj.Groups.push(group.toJSON())
     }
 
-    return res.json(groupObj)
+    //num members
+    for (let group of groupObj.Groups) {
+        // console.log(group.Memberships.length)
+        // console.log("------------------")
+        if (group.Memberships.length) {
+            group.numMembers = group.Memberships.length;
+        } else group.numMembers = 0;
+        delete group.Memberships;
+    }
 
-    // const numReviews = await Review.count({
-    //     where: { spotId: spot.id }
-    //    })
+    //preview image add
+    for (let group of groupObj.Groups) {
+        if (group.GroupImages[0]) {
+            group.previewImage = group.GroupImages[0].url
+        } else group.previewImage = null;
+        delete group.GroupImages;
+    }
+
+    res.json(groupObj)
+
 })
 
 
