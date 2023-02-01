@@ -16,15 +16,17 @@ router.get('/', async (req, res) => {
     eventObj.Events = [];
 
     //main search
-    let events = await Event.findAll({
-        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
-        include: [
-            { model: Venue, attributes: ["id", "city", "state"] },
-            { model: Group, attributes: ["id", "name", "city", "state"] },
-            { model: EventImage, attributes: ['url'] },
-            { model: Attendance }
-        ]
-    })
+    // let events = await Event.findAll({
+    //     attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
+    //     include: [
+    //         { model: Venue, attributes: ["id", "city", "state"] },
+    //         { model: Group, attributes: ["id", "name", "city", "state"] },
+    //         { model: EventImage, attributes: ['url'] },
+    //         { model: Attendance }
+    //     ]
+    // })
+
+    let events = await Event.findAll()
 
     //json
     for (let event of events) {
