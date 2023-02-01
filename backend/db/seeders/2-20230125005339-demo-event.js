@@ -58,7 +58,7 @@ module.exports = {
         venueId: 4,
         groupId: 3,
         name: "event4",
-        description: "event4 description",
+        description: "event4 description. Yay! Event 4!",
         type: "test1",
         capacity: 5,
         price: 10,
