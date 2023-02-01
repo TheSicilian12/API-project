@@ -99,58 +99,6 @@ router.get('/', async (req, res) => {
 
 //GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USER
 router.get('/current', requireAuth, async (req, res) => {
-    // console.log(req.user.toJSON().id)
-
-    //set up
-    // let groupObj = {};
-    // groupObj.Groups = [];
-    // let organizerNum = [];
-    // let groupNumMem = [];
-
-    // let currentId = req.user.toJSON().id
-
-    // let groups = await Group.findAll({
-    //     include: [
-    //         {model: Membership},
-    //         {model: GroupImage}
-    //     ]
-    // })
-
-    // let members = await Membership.findAll()
-
-    // //organizerId groups and organizerNum
-    // for (let group of groups) {
-    //     if (group.organizerId === currentId) {
-    //         groupObj.Groups.push(group.toJSON())
-    //         organizerNum.push(group.toJSON().id)
-    //         // console.log(group.dataValues.Memberships)
-    //         console.log(group.Memberships)
-    //         console.log("---------------------------")
-    //     }
-    // }
-
-    // //groupId from memberships
-    // for (let member of members) {
-    //     // console.log(member.userId)
-    //     if (member.userId === currentId) {
-    //         // tempArrForMem.push(member.toJSON())
-    //         groupNumMem.push(member.toJSON().groupId)
-    //     }
-    // }
-
-    // // checking for groups in both organizer and member arrays
-    // for (let number of groupNumMem) {
-    //     if (!organizerNum.includes(number)) {
-    //         let group = await Group.findAll({
-    //             where: Group.id = number
-    //         })
-    //         groupObj.Groups.push(group[0])
-    //     }
-    // }
-
-
-
-
     // return res.json(groupObj)
 
     let tempObj = {};
@@ -187,9 +135,11 @@ router.get('/current', requireAuth, async (req, res) => {
 
             groupObj.Groups.push(group)
         }
+
         for (let member of group.Memberships) {
             // console.log(member.userId)
-            if (!groupTracker.includes(member.groupId) && member.userId === currentId) {
+
+            if (member.userId === currentId && !groupTracker.includes(member.groupId)) {
                 groupTracker.push(member.groupId)
                 group.numMembers = group.Memberships.length;
 
@@ -201,8 +151,8 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         }
 
-        delete group.GroupImages
-        delete group.Memberships
+        // delete group.GroupImages
+        // delete group.Memberships
     }
 
     return res.json(groupObj)
