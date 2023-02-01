@@ -66,7 +66,7 @@ module.exports = {
         endDate: "2023-07-01"
       },
       {
-        venueId: null,
+        venueId: 4,
         groupId: 3,
         name: "event5",
         description: "event5 description",

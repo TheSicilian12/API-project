@@ -58,6 +58,7 @@ router.get('/', async (req, res) => {
     //     delete e.Attendances
     // }
 
+    
     // res.json(eventObj)
     res.json(events)
 })
