@@ -30,6 +30,7 @@ router.get('/', async (req, res) => {
     for (let event of events) {
         eventObj.Events.push(event.toJSON())
     }
+    
 
     // //preview image add
     // for (let e of eventObj.Events) {
