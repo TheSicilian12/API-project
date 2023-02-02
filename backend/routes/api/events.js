@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
         }
         delete e.EventImages
     }
-
+    // update
     //num attending add
     for (let e of eventObj.Events) {
         if (e.Attendances.length) {
