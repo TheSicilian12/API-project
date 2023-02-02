@@ -151,8 +151,8 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         }
 
-        // delete group.GroupImages
-        // delete group.Memberships
+        delete group.GroupImages
+        delete group.Memberships
     }
 
     return res.json(groupObj)
