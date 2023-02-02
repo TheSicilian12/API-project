@@ -34,33 +34,32 @@ router.get('/', async (req, res) => {
     }
 
 
-    // //preview image add
-    // for (let e of eventObj.Events) {
-    //     // console.log(e.EventImages)
-    //     if (e.EventImages[0]) {
-    //         e.previewImage = e.EventImages[0].url
-    //     }
-    //     delete e.EventImages
-    // }
+    //preview image add
+    for (let e of eventObj.Events) {
+        // console.log(e.EventImages)
+        if (e.EventImages[0]) {
+            e.previewImage = e.EventImages[0].url
+        }
+        delete e.EventImages
+    }
 
-    // //num attending add
-    // for (let e of eventObj.Events) {
-    //     if (e.Attendances.length) {
-    //         let count = []
-    //         for (let attend of e.Attendances) {
-    //             // console.log(attend.status)
-    //             if (attend.status === "test1") { // THIS WOULD BE WHERE AN ENUM CHANGE WOULD TAKE PLACE
-    //                 count.push(attend)
-    //             }
-    //         }
-    //         e.numAttending = count.length
-    //     } else e.numAttending = 0;
-    //     delete e.Attendances
-    // }
+    //num attending add
+    for (let e of eventObj.Events) {
+        if (e.Attendances.length) {
+            let count = []
+            for (let attend of e.Attendances) {
+                // console.log(attend.status)
+                if (attend.status === "test1") { // THIS WOULD BE WHERE AN ENUM CHANGE WOULD TAKE PLACE
+                    count.push(attend)
+                }
+            }
+            e.numAttending = count.length
+        } else e.numAttending = 0;
+        delete e.Attendances
+    }
 
-    
-    // res.json(eventObj)
-    res.json(events)
+
+    res.json(eventObj)
 })
 
 
