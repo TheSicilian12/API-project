@@ -153,6 +153,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         delete group.GroupImages
         delete group.Memberships
+        // test;
     }
 
     return res.json(groupObj)
