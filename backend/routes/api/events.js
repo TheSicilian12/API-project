@@ -62,6 +62,38 @@ router.get('/', async (req, res) => {
     res.json(eventObj)
 })
 
+//GET DETAILS OF AN EVENT SPECIFIED BY ITS ID
+router.get('/:eventId', async (req, res, next) => {
+    let event = await Event.findByPk(req.params.eventId, {
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        },
+        include: [{model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']}, {model: EventImage, attributes: ['id', 'url', 'preview']}, {model: Attendance, attributes: ['status']}]
+    })
 
+    //If no event exists
+    if(!event) {
+        const err = new Error("Couldn't find a Event with the specified id");
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    //add Number attending
+    let numberAttending = 0;
+    for (let attendee of event.Attendances) {
+        console.log(attendee.dataValues.status)
+        if (attendee.dataValues.status === "true") {
+            numberAttending++;
+        }
+    }
+
+
+    let adjustedEvent = event.toJSON()
+    adjustedEvent.numAttending = numberAttending;
+    delete adjustedEvent.Attendances
+
+    return res.json(adjustedEvent)
+})
 
 module.exports = router;
