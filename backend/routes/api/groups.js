@@ -171,7 +171,7 @@ router.get('/:groupId', async (req, res, next) => {
         include: [
             { model: Membership },
             { model: GroupImage, attributes: ['id', 'url', 'preview'] },
-            { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']}
+            { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] }
         ]
     })
 
@@ -195,7 +195,7 @@ router.get('/:groupId', async (req, res, next) => {
     groupObj.Groups.push(group.toJSON())
 
     //add Organizer
-    groupObj.Groups[0].Organizer = {id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName:organizer.dataValues.lastName}
+    groupObj.Groups[0].Organizer = { id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName: organizer.dataValues.lastName }
 
     //add numMembers
     groupObj.Groups[0].numMembers = groupObj.Groups[0].Memberships.length;
@@ -211,8 +211,8 @@ router.get('/:groupId', async (req, res, next) => {
 
 
 //CREATE A GROUP
-router.post('/',requireAuth, async (req, res) => {
-    const {name, about, type, private, city, state} = req.body
+router.post('/', requireAuth, async (req, res) => {
+    const { name, about, type, private, city, state } = req.body
 
     // let group = await Group.create({
     //     organizerId: ,
@@ -230,7 +230,7 @@ router.post('/',requireAuth, async (req, res) => {
 
 
 // GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
-router.get('/:groupId/members', async (req, res) => {
+router.get('/:groupId/members', async (req, res, next) => {
     //find a user
     // const { user } = req;
     // if (user) {
@@ -241,18 +241,61 @@ router.get('/:groupId/members', async (req, res) => {
     //   });
     // } else return res.json({ user: null });
 
-    const {user} = req;
+    const { user } = req;
 
     let group = await Group.findByPk(req.params.groupId, {
-        include: [{model: Membership}]
+        include: [{model: Membership, include: [{model: User}]}]
     })
 
-    //check if current user is the organizer or co-host
+    if (!group) {
+        const err = new Error("Couldn't find a Group with the specified id");
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    let groupJSON = group.toJSON()
+    let memberObj = {}
+    memberObj.Members = []
+    let arrayCounter = 0;
+
+    //identify organizer
+    let organizerId = groupJSON.organizerId
+
+    //identify co-host ids
+    let coHosts = new Set()
+    for (let member of groupJSON.Memberships) {
+        if (member.status === 'co-host')
+            coHosts.add(member.id)
+    }
 
 
+    //collect all members
+    for (let member of groupJSON.Memberships) {
+        delete member.User.username
 
-    return res.json(group)
-    // return res.json("test")
+        memberObj.Members.push(
+            member.User,
+        );
+        memberObj.Members[memberObj.Members.length - 1].Membership = {status: member.status};
+        // console.log(memberObj.Members[memberObj.Members.length - 1])
+    }
+
+    //check if current user is the organizer or co-host, return all members
+    if (user.id === organizerId || coHosts.has(user.id)) {
+        return res.json(memberObj)
+    } else {
+    //check if current user is NOT the organizer or co-host, return all members excpet pending
+        for (let member of memberObj.Members) {
+            // console.log(member)
+            if (member.Membership.status === 'pending') {
+                memberObj.Members.splice(arrayCounter,1)
+            }
+            arrayCounter++;
+        }
+    }
+
+    return res.json(memberObj)
 })
 
 
