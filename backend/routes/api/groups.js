@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Event, Venue, Sequelize, sequelize } = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
@@ -151,12 +151,108 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         }
 
-        // delete group.GroupImages
-        // delete group.Memberships
+        delete group.GroupImages
+        delete group.Memberships
+        // test;
     }
 
     return res.json(groupObj)
 
+})
+
+//GET DETAILS OF A GROUP FROM AN ID
+router.get('/:groupId', async (req, res, next) => {
+    let groupObj = {}
+    groupObj.Groups = []
+    let currentId = req.params.groupId
+
+    let group = await Group.findOne({
+        where: { id: currentId },
+        include: [
+            { model: Membership },
+            { model: GroupImage, attributes: ['id', 'url', 'preview'] },
+            { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']}
+        ]
+    })
+
+
+    if (!group) {
+        // const err = new Error('Group does not exist');
+        // err.status = 404;
+        // err.title = 'Group does not exist';
+        // err.message = "Invalid group id";
+        // err.errors = ['The provided group id was wrong.'];
+
+        const err = new Error("Couldn't find a Group with the specified id");
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    let organizer = await User.findByPk(group.organizerId)
+
+
+    groupObj.Groups.push(group.toJSON())
+
+    //add Organizer
+    groupObj.Groups[0].Organizer = {id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName:organizer.dataValues.lastName}
+
+    //add numMembers
+    groupObj.Groups[0].numMembers = groupObj.Groups[0].Memberships.length;
+    delete groupObj.Groups[0].Memberships
+
+    //add previewImage
+    // console.log(groupObj.Groups[0].GroupImages[0].url)
+    groupObj.Groups[0].previewImage = groupObj.Groups[0].GroupImages[0].url;
+    // delete groupObj.Groups[0].GroupImages
+
+    return res.json(groupObj)
+})
+
+
+//CREATE A GROUP
+router.post('/',requireAuth, async (req, res) => {
+    const {name, about, type, private, city, state} = req.body
+
+    // let group = await Group.create({
+    //     organizerId: ,
+    //     name,
+    //     about,
+    //     type,
+    //     private,
+    //     city,
+    //     state
+    // })
+
+    return res.json("test")
+
+})
+
+
+// GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
+router.get('/:groupId/members', async (req, res) => {
+    //find a user
+    // const { user } = req;
+    // if (user) {
+
+    //     console.log(user)
+    //   return res.json({
+    //     user: user.toSafeObject()
+    //   });
+    // } else return res.json({ user: null });
+
+    const {user} = req;
+
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{model: Membership}]
+    })
+
+    //check if current user is the organizer or co-host
+
+
+
+    return res.json(group)
+    // return res.json("test")
 })
 
 
