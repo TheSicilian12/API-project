@@ -183,7 +183,7 @@ router.get('/:groupId', async (req, res, next) => {
         // err.message = "Invalid group id";
         // err.errors = ['The provided group id was wrong.'];
 
-        const err = new Error(" Couldn't find a Group with the specified id");
+        const err = new Error("Couldn't find a Group with the specified id");
         err.status = 404
         err.message = "Group couldn't be found"
         return next(err);
