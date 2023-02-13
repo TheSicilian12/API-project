@@ -68,32 +68,31 @@ router.get('/:eventId', async (req, res, next) => {
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         },
-        include: [{model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']}, {model: EventImage, attributes: ['id', 'url', 'preview']}, {model: Attendance, attributes: ['status']}]
+        include: [{ model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] }, { model: EventImage, attributes: ['id', 'url', 'preview'] }, { model: Attendance, attributes: ['status'] }]
     })
 
+    let eventJSON = event.toJSON()
+
     //If no event exists
-    if(!event) {
+    if (!event) {
         const err = new Error("Couldn't find a Event with the specified id");
         err.status = 404
         err.message = "Event couldn't be found"
         return next(err);
     }
 
-    //add Number attending
+    //test for live site
     let numberAttending = 0;
-    for (let attendee of event.Attendances) {
-        console.log(attendee.dataValues.status)
-        if (attendee.dataValues.status === "true") {
-            numberAttending++;
+    for (let attendee of eventJSON.Attendances) {
+        if (attendee.status === 'true') {
+            numberAttending++
         }
     }
 
+    eventJSON.numAttending = numberAttending;
+    delete eventJSON.Attendances
 
-    let adjustedEvent = event.toJSON()
-    adjustedEvent.numAttending = numberAttending;
-    delete adjustedEvent.Attendances
-
-    return res.json(adjustedEvent)
+    return res.json(eventJSON)
 })
 
 module.exports = router;
