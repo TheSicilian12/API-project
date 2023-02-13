@@ -229,6 +229,32 @@ router.post('/',requireAuth, async (req, res) => {
 })
 
 
+// GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
+router.get('/:groupId/members', async (req, res) => {
+    //find a user
+    // const { user } = req;
+    // if (user) {
+
+    //     console.log(user)
+    //   return res.json({
+    //     user: user.toSafeObject()
+    //   });
+    // } else return res.json({ user: null });
+
+    const {user} = req;
+
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{model: Membership}]
+    })
+
+    //check if current user is the organizer or co-host
+
+
+
+    return res.json(group)
+    // return res.json("test")
+})
+
 
 
 
