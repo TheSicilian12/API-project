@@ -404,7 +404,7 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
-    if (group.id !== user.id) {
+    if (group.organizerId !== user.id) {
         let err = new Error('Body validation error')
         err.message = "You are not an authorized user."
         err.status = 404
@@ -455,6 +455,54 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     await group.save()
 
     return res.json(group)
+ })
+
+ //ADD AN IMAGE TO A GROUP BASED ON TEH GROUP'S ID
+ router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const {url, preview} = req.body
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{model: GroupImage}]
+    })
+
+    //Check if there is a group
+    if (!group) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.message = "Group couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    //Check if current user is the organizer of the group
+    if (group.organizerId !== user.id) {
+        let err = new Error('Body validation error')
+        err.message = "You are not an authorized user."
+        err.status = 404
+        return next(err)
+    }
+
+    let newGroupImage = await GroupImage.create({
+        groupId: group.id,
+        url,
+        preview
+    })
+
+    let newGroupImageJSON = newGroupImage.toJSON()
+
+    delete newGroupImageJSON.updatedAt
+    delete newGroupImageJSON.createdAt
+    delete newGroupImageJSON.groupId
+
+    return res.json(newGroupImageJSON)
  })
 
 
