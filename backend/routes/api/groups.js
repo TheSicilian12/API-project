@@ -505,5 +505,41 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     return res.json(newGroupImageJSON)
  })
 
+//DELETE A GROUP
+router.delete('/:groupId', requireAuth, async (req, res, next) => {
+    const { user } = req
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let group = await Group.findByPk(req.params.groupId)
+
+    if (!group) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.message = "Group couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    if (group.organizerId !== user.id) {
+        let err = new Error('Body validation error')
+        err.message = "You are not an authorized user."
+        err.status = 404
+        return next(err)
+    }
+
+    await group.destroy();
+
+    return res.status(200).json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+      })
+})
+
 
 module.exports = router;
