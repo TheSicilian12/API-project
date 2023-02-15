@@ -30,8 +30,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       type: {
-        type: Sequelize.ENUM ("test1", "test2"),
-        defaultValue: "test1"
+        type: Sequelize.ENUM ('In person', 'Online'),
+        defaultValue: 'In person'
       },
       private: {
         type: Sequelize.BOOLEAN
