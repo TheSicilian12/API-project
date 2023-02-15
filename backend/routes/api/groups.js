@@ -377,11 +377,85 @@ router.post('/', requireAuth, async (req, res, next) => {
         city,
         state
     })
-    
+
 
     return res.status(201).json(newGroup)
 })
 
+//EDIT A GROUP
+router.put('/:groupId', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const {name, about, type, private, city, state} = req.body
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let group = await Group.findByPk(req.params.groupId)
+
+    if (!group) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.message = "Group couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    if (group.id !== user.id) {
+        let err = new Error('Body validation error')
+        err.message = "You are not an authorized user."
+        err.status = 404
+        return next(err)
+    }
+
+    let errors = {}
+    if (name && name.length > 60) {
+        let name = "Name must be 60 characters or less"
+        errors.name = name
+    }
+    if (about && about.length < 50) {
+        let about = "About must be 50 characters or more"
+        errors.about = about
+    }
+    if (type && type !== 'Online' && type !== 'In person') {
+        let type = "Type must be 'Online' or 'In person'"
+        errors.type = type
+    }
+    if (private && private !== true && private !== false) {
+        let private = "Private must be a boolean"
+        errors.private = private
+    }
+    if (city && !city) {
+        let city = "City is required"
+        errors.city = city
+    }
+    if (state && !state) {
+        let state = "State is required"
+        errors.state = state
+    }
+
+    if (Object.keys(errors).length > 0) {
+        const err = new Error('Body validation error')
+        err.message = "Validation Error"
+        err.status = 400
+        err.errors = errors
+        return next(err)
+    }
+
+    if (name) group.name = name
+    if (about) group.about = about
+    if (type) group.type = type
+    if (private) group.private = private
+    if (city) group.city = city
+    if (state) group.state = state
+
+    await group.save()
+
+    return res.json(group)
+ })
 
 
 module.exports = router;
