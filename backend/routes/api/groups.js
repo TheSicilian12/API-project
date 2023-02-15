@@ -185,7 +185,7 @@ router.get('/:groupId', async (req, res, next) => {
 
     let organizer = await User.findByPk(group.organizerId)
 
-    
+
 
     groupObj.Groups.push(group.toJSON())
 
@@ -198,10 +198,10 @@ router.get('/:groupId', async (req, res, next) => {
 
     //add previewImage
     // console.log(groupObj.Groups[0].GroupImages[0].url)
-    groupObj.Groups[0].previewImage = groupObj.Groups[0].GroupImages[0].url;
+    // groupObj.Groups[0].previewImage = groupObj.Groups[0].GroupImages[0].url;
     // delete groupObj.Groups[0].GroupImages
 
-    return res.json(groupObj)
+    return res.json(groupObj.Groups[0])
 })
 
 
