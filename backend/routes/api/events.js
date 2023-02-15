@@ -68,10 +68,13 @@ router.get('/:eventId', async (req, res, next) => {
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         },
-        include: [{ model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] }, { model: EventImage, attributes: ['id', 'url', 'preview'] }, { model: Attendance, attributes: ['status'] }]
+        include: [
+        { model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] },
+        { model: EventImage, attributes: ['id', 'url', 'preview'] },
+        { model: Attendance, attributes: ['status'] },
+        { model: Group, attributes: ['id', 'name', 'private', 'city', 'state']} //add attributes
+        ]
     })
-
-    let eventJSON = event.toJSON()
 
     //If no event exists
     if (!event) {
@@ -80,6 +83,8 @@ router.get('/:eventId', async (req, res, next) => {
         err.message = "Event couldn't be found"
         return next(err);
     }
+
+    let eventJSON = event.toJSON()
 
     //test for live site
     let numberAttending = 0;
