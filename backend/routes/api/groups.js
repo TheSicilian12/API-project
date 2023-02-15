@@ -204,26 +204,6 @@ router.get('/:groupId', async (req, res, next) => {
     return res.json(groupObj.Groups[0])
 })
 
-
-//CREATE A GROUP
-router.post('/', requireAuth, async (req, res) => {
-    const { name, about, type, private, city, state } = req.body
-
-    // let group = await Group.create({
-    //     organizerId: ,
-    //     name,
-    //     about,
-    //     type,
-    //     private,
-    //     city,
-    //     state
-    // })
-
-    return res.json("test")
-
-})
-
-
 // GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/members', async (req, res, next) => {
     //find a user
@@ -246,7 +226,7 @@ router.get('/:groupId/members', async (req, res, next) => {
     }
 
     let group = await Group.findByPk(req.params.groupId, {
-        include: [{model: Membership, include: [{model: User}]}]
+        include: [{ model: Membership, include: [{ model: User }] }]
     })
 
     if (!group) {
@@ -279,7 +259,7 @@ router.get('/:groupId/members', async (req, res, next) => {
         memberObj.Members.push(
             member.User,
         );
-        memberObj.Members[memberObj.Members.length - 1].Membership = {status: member.status};
+        memberObj.Members[memberObj.Members.length - 1].Membership = { status: member.status };
         // console.log(memberObj.Members[memberObj.Members.length - 1])
     }
 
@@ -287,11 +267,11 @@ router.get('/:groupId/members', async (req, res, next) => {
     if (user.id === organizerId || coHosts.has(user.id)) {
         return res.json(memberObj)
     } else {
-    //check if current user is NOT the organizer or co-host, return all members excpet pending
+        //check if current user is NOT the organizer or co-host, return all members excpet pending
         for (let member of memberObj.Members) {
             // console.log(member)
             if (member.Membership.status === 'pending') {
-                memberObj.Members.splice(arrayCounter,1)
+                memberObj.Members.splice(arrayCounter, 1)
             }
             arrayCounter++;
         }
@@ -302,7 +282,7 @@ router.get('/:groupId/members', async (req, res, next) => {
 
 //GET ALL VENUES FOR A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
-    const {user} = req
+    const { user } = req
 
     if (!user) {
         const err = new Error("You must be logged in.");
@@ -312,7 +292,7 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
     }
 
     let group = await Group.findByPk(req.params.groupId, {
-        include: [{model: Membership}, {model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']}]
+        include: [{ model: Membership }, { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] }]
     })
     groupJSON = group.toJSON()
 
@@ -338,7 +318,68 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
     }
 })
 
+//CREATE A GROUP
+router.post('/', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const { name, about, type, private, city, state } = req.body
 
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //checking for errors
+    let errors = {}
+    if (name.length > 60) {
+        let name = "Name must be 60 characters or less"
+        errors.name = name
+    }
+    if (about.length < 50) {
+        let about = "About must be 50 characters or more"
+        errors.about = about
+    }
+    if (type !== 'Online' && type !== 'In person') {
+        let type = "Type must be 'Online' or 'In person'"
+        errors.type = type
+    }
+    if (private !== true && private !== false) {
+        let private = "Private must be a boolean"
+        errors.private = private
+    }
+    if (!city) {
+        let city = "City is required"
+        errors.city = city
+    }
+    if (!state) {
+        let state = "State is required"
+        errors.state = state
+    }
+
+    if (Object.keys(errors).length > 0) {
+        const err = new Error('Body validation error')
+        err.message = "Validation Error"
+        err.status = 400
+        err.errors = errors
+        return next(err)
+    }
+
+    organizerId = user.id
+
+    let newGroup = await Group.create({
+        organizerId: organizerId,
+        name,
+        about,
+        type,
+        private,
+        city,
+        state
+    })
+
+    return res.status(201).json(newGroup)
+})
 
 
 
