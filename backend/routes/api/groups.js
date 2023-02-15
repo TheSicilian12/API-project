@@ -377,6 +377,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         city,
         state
     })
+    
 
     return res.status(201).json(newGroup)
 })
