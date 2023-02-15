@@ -34,8 +34,8 @@ module.exports = {
       {
         name: "Group2",
         organizerId: 2,
-        about: 'Online',
-        type: "test1",
+        about: 'about group2',
+        type: 'Online',
         private: true,
         city: "Columbus",
         state: "Ohio"
