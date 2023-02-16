@@ -576,11 +576,11 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 
     //Check for organizer
     let organizerId = group.organizerId
-    console.log(group.organizerId)
+    // console.log(group.organizerId)
 
     //Check for host and cohost
     let status = group.Memberships[0].status
-    console.log(status)
+    // console.log(status)
 
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {

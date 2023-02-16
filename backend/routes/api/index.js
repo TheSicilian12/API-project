@@ -4,6 +4,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const groupRouter = require('./groups.js');
 const eventRouter = require('./events.js');
+const venueRouter = require('./venues.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 // update router and then update the route.
@@ -18,6 +19,7 @@ router.use('/groups', groupRouter);
 
 router.use('/events', eventRouter);
 
+router.use('/venues', venueRouter);
 
 // router.post('/test', function(req, res) {
 //     res.json({ requestBody: req.body });
