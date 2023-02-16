@@ -40,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    type: DataTypes.ENUM ("test1", "test2"),
+    type: {
+      type: DataTypes.ENUM ("Online", "In Person"),
+      defaultValue: "In Person"
+    },
     capacity: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     startDate: DataTypes.DATE,

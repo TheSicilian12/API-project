@@ -26,7 +26,7 @@ module.exports = {
         groupId: 1,
         name: "event1",
         description: "event1 description",
-        type: "test1",
+        type: "Online",
         capacity: 10,
         price: 100,
         startDate: "2023-03-01",
@@ -37,7 +37,7 @@ module.exports = {
         groupId: 2,
         name: "event2",
         description: "event2 description",
-        type: "test1",
+        type: "In Person",
         capacity: 2,
         price: 1000,
         startDate: "2024-04-01",
@@ -48,7 +48,7 @@ module.exports = {
         groupId: 4,
         name: "event3",
         description: "event3 description",
-        type: "test2",
+        type: "Online",
         capacity: 100,
         price: 50,
         startDate: "2023-08-08",
@@ -59,7 +59,7 @@ module.exports = {
         groupId: 3,
         name: "event4",
         description: "event4 description. Yay! Event 4!",
-        type: "test1",
+        type: "In Person",
         capacity: 5,
         price: 10,
         startDate: "2023-07-01",
@@ -70,12 +70,34 @@ module.exports = {
         groupId: 3,
         name: "event5",
         description: "event5 description",
-        type: "test1",
+        type: "Online",
         capacity: 5,
         price: 10,
         startDate: "2024-08-01",
         endDate: "2024-08-01"
-      }
+      },
+      {
+        venueId: 1,
+        groupId: 1,
+        name: "event6",
+        description: "event6 description",
+        type: "In Person",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-03-01",
+        endDate: "2023-03-01"
+      },
+      {
+        venueId: 2,
+        groupId: 1,
+        name: "event6",
+        description: "event6 description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-03-01",
+        endDate: "2023-03-01"
+      },
     ], {})
 
 
