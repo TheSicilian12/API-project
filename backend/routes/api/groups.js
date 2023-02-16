@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { User, Group, Membership, GroupImage, Event, Venue, Sequelize, sequelize } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Event, Venue, Attendance, EventImage, Sequelize, sequelize } = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
@@ -544,7 +544,7 @@ router.delete('/:groupId', requireAuth, async (req, res, next) => {
 //CREATE A NEW VENUE FOR A GROUP SPECIFIED BY ITS ID
 router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
     const { user } = req
-    const {address, city, state, lat, lng} = req.body
+    const { address, city, state, lat, lng } = req.body
 
     //Check if there is a user
     if (!user) {
@@ -607,7 +607,7 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
         let lat = "Latitude is not valid"
         errors.lat = lat
     }
-    if (!lng ||  typeof lng !== 'number') {
+    if (!lng || typeof lng !== 'number') {
         let lng = "Longitude is not valid"
         errors.lng = lng
     }
@@ -633,6 +633,49 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
     delete newVenueJSON.updatedAt
     delete newVenueJSON.createdAt
     return res.json(newVenueJSON)
+})
+
+//GET ALL EVENTS OF A GROUP SPECIFIED BY ITS ID
+router.get('/:groupId/events', async (req, res) => {
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [
+            {
+                model: Event, attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate'],
+                include: [
+                    { model: Venue, attributes: ['id', 'city', 'state'] },
+                    {model: Attendance},
+                    {model: EventImage}
+                ]
+            },
+        ]
+    })
+
+    let groupJSON = group.toJSON()
+
+    for (let attendance of groupJSON.Events) {
+        let numAttending = 0;
+
+        if (attendance.Attendances.length > 0) {
+            for (let person of attendance.Attendances) {
+                if (person.status === "true") numAttending++
+            }
+        }
+        // console.log(attendance.EventImages)
+        if (attendance.EventImages.length) {
+            attendance.previewImage = attendance.EventImages[0].url
+        } else attendance.previewImage = null
+        attendance.numAttending = numAttending
+        // attendance.previewImage =
+        delete attendance.Attendances
+        delete attendance.EventImages
+    }
+
+
+
+    let eventObj = {}
+    eventObj.Events = groupJSON.Events
+
+    return res.json(eventObj)
 })
 
 module.exports = router;
