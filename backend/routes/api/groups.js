@@ -385,7 +385,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 //EDIT A GROUP
 router.put('/:groupId', requireAuth, async (req, res, next) => {
     const { user } = req
-    const {name, about, type, private, city, state} = req.body
+    const { name, about, type, private, city, state } = req.body
 
     //Check if there is a user
     if (!user) {
@@ -455,12 +455,12 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     await group.save()
 
     return res.json(group)
- })
+})
 
- //ADD AN IMAGE TO A GROUP BASED ON TEH GROUP'S ID
- router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+//ADD AN IMAGE TO A GROUP BASED ON TEH GROUP'S ID
+router.post('/:groupId/images', requireAuth, async (req, res, next) => {
     const { user } = req
-    const {url, preview} = req.body
+    const { url, preview } = req.body
 
     //Check if there is a user
     if (!user) {
@@ -471,7 +471,7 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     }
 
     let group = await Group.findByPk(req.params.groupId, {
-        include: [{model: GroupImage}]
+        include: [{ model: GroupImage }]
     })
 
     //Check if there is a group
@@ -503,7 +503,7 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     delete newGroupImageJSON.groupId
 
     return res.json(newGroupImageJSON)
- })
+})
 
 //DELETE A GROUP
 router.delete('/:groupId', requireAuth, async (req, res, next) => {
@@ -538,8 +538,101 @@ router.delete('/:groupId', requireAuth, async (req, res, next) => {
     return res.status(200).json({
         "message": "Successfully deleted",
         "statusCode": 200
-      })
+    })
 })
 
+//CREATE A NEW VENUE FOR A GROUP SPECIFIED BY ITS ID
+router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const {address, city, state, lat, lng} = req.body
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let groupGeneral = await Group.findByPk(req.params.groupId)
+
+    if (!groupGeneral) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{ model: Membership, where: { userId: user.id } }]
+    })
+
+    if (!group) {
+        const err = new Error("You are not an authorized user.")
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    //Check for organizer
+    let organizerId = group.organizerId
+    console.log(group.organizerId)
+
+    //Check for host and cohost
+    let status = group.Memberships[0].status
+    console.log(status)
+
+
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error("You are not an authorized user.")
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let errors = {}
+    if (!address) {
+        let address = "Street address is required"
+        errors.address = address
+    }
+    if (!city) {
+        let city = "City is required"
+        errors.city = city
+    }
+    if (!state) {
+        let state = "State is required"
+        errors.state = state
+    }
+    if (!lat || typeof lat !== 'number') {
+        let lat = "Latitude is not valid"
+        errors.lat = lat
+    }
+    if (!lng ||  typeof lng !== 'number') {
+        let lng = "Longitude is not valid"
+        errors.lng = lng
+    }
+
+    if (Object.keys(errors).length > 0) {
+        const err = new Error('Body validation error')
+        err.message = "Validation Error"
+        err.status = 400
+        err.errors = errors
+        return next(err)
+    }
+
+    let newVenue = await Venue.create({
+        groupId: group.id,
+        address,
+        city,
+        state,
+        lat,
+        lng
+    })
+
+    let newVenueJSON = newVenue.toJSON()
+    delete newVenueJSON.updatedAt
+    delete newVenueJSON.createdAt
+    return res.json(newVenueJSON)
+})
 
 module.exports = router;
