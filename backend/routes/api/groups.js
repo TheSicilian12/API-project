@@ -643,9 +643,9 @@ router.get('/:groupId/events', async (req, res, next) => {
                 model: Event, attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate'],
                 include: [
                     { model: Venue, attributes: ['id', 'city', 'state'] },
-                    {model: Attendance},
-                    {model: EventImage},
-                    {model: Group, attributes: ['id', 'name', 'city', 'state']}
+                    { model: Attendance },
+                    { model: EventImage },
+                    { model: Group, attributes: ['id', 'name', 'city', 'state'] }
                 ]
             },
         ]
@@ -689,7 +689,7 @@ router.get('/:groupId/events', async (req, res, next) => {
 //CREATE AN EVENT FOR A GROUP SPECIFIED BY ITS ID
 router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     const { user } = req
-    const {venueId, name, type, capacity, price, description, startDate, endDate} = req.body
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
     if (!user) {
@@ -701,7 +701,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 
     let groupTest = await Group.findByPk(req.params.groupId)
 
-    if(!groupTest) {
+    if (!groupTest) {
         const err = new Error("Couldn't find a Group with the specified id")
         err.status = 404
         err.message = "Group couldn't be found"
@@ -709,7 +709,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     }
 
     let group = await Group.findByPk(req.params.groupId, {
-        include: [{model: Membership, where: {userId: user.id}}]
+        include: [{ model: Membership, where: { userId: user.id } }]
     })
 
     if (!group) {
@@ -732,18 +732,27 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let errors = {}
-    if (!venueId) {
-        let venueId = "Venue does not exist"
-        errors.venueId = venueId
-    }
-    //data needs to all exist
+    //data needs to exist
     //data needs to meet restrictions
-    if (venueId) {
-        let venue = await Venue.findByPk(venueId)
-        if (!venue) {
+    let errors = {}
+    if (venueId !== null) {
+
+        if (!venueId) {
             let venueId = "Venue does not exist"
             errors.venueId = venueId
+        }
+
+        if (!Number.isInteger(venueId)) {
+            let venueId = "Venue does not exist"
+            errors.venueId = venueId
+        }
+
+        if (Number.isInteger(venueId)) {
+            let venue = await Venue.findByPk(venueId)
+            if (!venue) {
+                let venueId = "Venue does not exist"
+                errors.venueId = venueId
+            }
         }
     }
     if (!name || name.length < 5) {
@@ -766,7 +775,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let description = "Description is required"
         errors.description = description
     }
-    if (!startDate || Date.parse(startDate) < Date.now()){
+    if (!startDate || Date.parse(startDate) < Date.now()) {
         let startDate = "Start date must be in the future"
         errors.startDate = startDate
     }
