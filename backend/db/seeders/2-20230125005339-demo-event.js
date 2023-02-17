@@ -100,8 +100,8 @@ module.exports = {
       },
       {
         groupId: 1,
-        name: "event6",
-        description: "event6 description",
+        name: "event7",
+        description: "event7 description",
         type: "Online",
         capacity: 10,
         price: 100,
