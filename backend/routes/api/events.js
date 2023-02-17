@@ -207,7 +207,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
-    
+
     if(venueId || venueId === null) event.venueId = venueId
     if(name) event.name = name
     if(type) event.type = type
@@ -224,6 +224,74 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     delete eventResponse.createdAt
 
     return res.json(eventResponse)
+})
+
+//ADD AN IMAGE TO A EVENT BASED ON THE EVENT'S ID
+router.post('/:eventId/images', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const {url, preview} = req.body
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let eventTest = await Event.findByPk(req.params.eventId)
+
+    if (!eventTest) {
+        const err = new Error(`Couldn't find an Event with the specified id`)
+        err.message = "Event couldn't be found"
+        err.status = 404
+        // err.errors = errors
+        return next(err)
+    }
+
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [{model: EventImage}, {model: Group, include: [{model: Membership, where: {userId: user.id}}]}]
+    })
+
+    if (!event) {
+        const err = new Error(`Couldn't find an Event with the specified id`)
+        err.message = "Event couldn't be found"
+        err.status = 404
+        // err.errors = errors
+        return next(err)
+    }
+
+    let eventJSON = event.toJSON()
+
+    if (!eventJSON.Group) {
+        const err = new Error(`This group does not exist`)
+        err.message = "This group does not exist"
+        err.status = 404
+        // err.errors = errors
+        return next(err)
+    }
+
+    let organizerId = eventJSON.Group.organizerId
+    let status = eventJSON.Group.Memberships[0].status
+
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error("You are not an authorized user.")
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let newEventImage = await EventImage.create({
+        eventId: event.id,
+        url,
+        preview
+    })
+
+    let newEventImageJSON = newEventImage.toJSON()
+    delete newEventImageJSON.updatedAt
+    delete newEventImageJSON.createdAt
+    delete newEventImageJSON.eventId
+
+    return res.json(newEventImageJSON)
 })
 
 module.exports = router;
