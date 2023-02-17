@@ -16,23 +16,21 @@ router.get('/', async (req, res) => {
     eventObj.Events = [];
 
     //main search
-    // let events = await Event.findAll({
-    //     attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
-    //     include: [
-    //         { model: Venue, attributes: ["id", "city", "state"] },
-    //         { model: Group, attributes: ["id", "name", "city", "state"] },
-    //         { model: EventImage, attributes: ['url'] },
-    //         { model: Attendance }
-    //     ]
-    // })
-
-    let events = await Event.findAll()
+    let events = await Event.findAll({
+        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
+        include: [
+            { model: Venue, attributes: ["id", "city", "state"] },
+            { model: Group, attributes: ["id", "name", "city", "state"] },
+            { model: EventImage, attributes: ['url'] },
+            { model: Attendance }
+        ]
+    })
 
     //json
     for (let event of events) {
         eventObj.Events.push(event.toJSON())
     }
-
+    // return res.json(events)
 
     //preview image add
     for (let e of eventObj.Events) {
