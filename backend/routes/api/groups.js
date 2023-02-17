@@ -795,8 +795,10 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         endDate
     })
 
-
-    return res.json(newEvent)
+    let newEventJSON = await newEvent.toJSON()
+    delete newEventJSON.updatedAt
+    delete newEventJSON.createdAt
+    return res.json(newEventJSON)
 })
 
 module.exports = router;
