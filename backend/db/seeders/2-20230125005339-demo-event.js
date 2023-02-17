@@ -98,6 +98,16 @@ module.exports = {
         startDate: "2023-03-01",
         endDate: "2023-03-01"
       },
+      {
+        groupId: 1,
+        name: "event6",
+        description: "event6 description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-03-01",
+        endDate: "2023-03-01"
+      },
     ], {})
 
 
