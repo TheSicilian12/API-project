@@ -686,4 +686,117 @@ router.get('/:groupId/events', async (req, res, next) => {
     return res.json(eventObj)
 })
 
+//CREATE AN EVENT FOR A GROUP SPECIFIED BY ITS ID
+router.post('/:groupId/events', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const {venueId, name, type, capacity, price, description, startDate, endDate} = req.body
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let groupTest = await Group.findByPk(req.params.groupId)
+
+    if(!groupTest) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{model: Membership, where: {userId: user.id}}]
+    })
+
+    if (!group) {
+        const err = new Error("You are not an authorized user.")
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let groupJSON = group.toJSON()
+
+    let organizerId = groupJSON.organizerId
+    let status = groupJSON.Memberships[0].status
+
+    //Check organizerId, host, and co-host valid user
+    if (!group || organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error("You are not an authorized user.")
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let errors = {}
+    if (!venueId) {
+        let venueId = "Venue does not exist"
+        errors.venueId = venueId
+    }
+    //data needs to all exist
+    //data needs to meet restrictions
+    if (venueId) {
+        let venue = await Venue.findByPk(venueId)
+        if (!venue) {
+            let venueId = "Venue does not exist"
+            errors.venueId = venueId
+        }
+    }
+    if (!name || name.length < 5) {
+        let name = "Name must be at least 5 characters"
+        errors.name = name
+    }
+    if (!type || type !== 'Online' && type !== 'In person') {
+        let type = "Type must be Online or In person"
+        errors.type = type
+    }
+    if (!capacity || !Number.isInteger(capacity)) {
+        let capacity = "Capacity must be an integer"
+        errors.capacity = capacity
+    }
+    if (!price || typeof price !== 'number') {
+        let price = "Price is invalid"
+        errors.price = price
+    }
+    if (!description) {
+        let description = "Description is required"
+        errors.description = description
+    }
+    if (!startDate || Date.parse(startDate) < Date.now()){
+        let startDate = "Start date must be in the future"
+        errors.startDate = startDate
+    }
+    if (!endDate || Date.parse(endDate) < Date.parse(startDate)) {
+        let endDate = "End date is less than start date"
+        errors.endDate = endDate
+    }
+
+    if (Object.keys(errors).length > 0) {
+        const err = new Error('Body validation error')
+        err.message = "Validation Error"
+        err.status = 400
+        err.errors = errors
+        return next(err)
+    }
+
+    let newEvent = await Event.create({
+        groupId: group.id,
+        venueId,
+        name,
+        type,
+        capacity,
+        price,
+        description,
+        startDate,
+        endDate
+    })
+
+
+    return res.json(newEvent)
+})
+
 module.exports = router;
