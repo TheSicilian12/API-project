@@ -636,7 +636,7 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 })
 
 //GET ALL EVENTS OF A GROUP SPECIFIED BY ITS ID
-router.get('/:groupId/events', async (req, res) => {
+router.get('/:groupId/events', async (req, res, next) => {
     let group = await Group.findByPk(req.params.groupId, {
         include: [
             {
@@ -644,11 +644,19 @@ router.get('/:groupId/events', async (req, res) => {
                 include: [
                     { model: Venue, attributes: ['id', 'city', 'state'] },
                     {model: Attendance},
-                    {model: EventImage}
+                    {model: EventImage},
+                    {model: Group, attributes: ['id', 'name', 'city', 'state']}
                 ]
             },
         ]
     })
+
+    if (!group) {
+        const err = new Error("Couldn't find a Group with the specified id")
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
 
     let groupJSON = group.toJSON()
 
