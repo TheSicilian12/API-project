@@ -810,4 +810,84 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     return res.json(newEventJSON)
 })
 
+//CHANGE THE STATUS OF A MEMBERSHIP FOR A GROUP SPECIFIED BY ID
+// router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
+//     //user: organizer, host, co-host to change pending to member
+//     //user: organizer, host to change member to co-host
+
+//     const { user } = req
+//     const {memberId, status} = req.body
+
+//     //Check if there is a user
+//     if (!user) {
+//         const err = new Error("You must be logged in.")
+//         err.status = 404
+//         err.message = "You must be logged in."
+//         return next(err);
+//     }
+
+//     let doesGroupExist = await Group.findByPk(req.params.groupId)
+
+//     let group = await Group.findByPk(req.params.groupId, {
+//         include: [{model: Membership, where: {userId: memberId}}]
+//     })
+
+//     let currentUserStatus = await Group.findByPk(req.params.groupId, {
+//         include: [{model: Membership, where: {userId: user.id}}]
+//     })
+
+//     //does group exist
+//     if (!doesGroupExist) {
+//         const err = new Error(`Couldn't find a Group with the specified id`)
+//         err.status = 404
+//         err.message = "Group couldn't be found"
+//         return next(err);
+//     }
+
+//     //does member exist
+//     if(!group) {
+//         const err = new Error(`Couldn't find a User with the specified memberId`)
+//         err.status = 400
+//         err.message = "Validation Error"
+//         err.errors = {
+//             memberId: "User couldn't be found"
+//         }
+//         return next(err);
+//     }
+
+//     if (!currentUserStatus) {
+//         const err = new Error(`You are not an authorized user.`)
+//         err.status = 404
+//         err.message = "You are not an authorized user."
+//         return next(err);
+//     }
+
+//     let groupJSON = group.toJSON()
+//     let currentUserStatusJSON = currentUserStatus.toJSON()
+//     let organizerId = groupJSON.organizerId
+//     let participantStatus = groupJSON.Memberships[0].status
+//     let userStatus = currentUserStatusJSON.Memberships[0].status
+
+//     let participantToChange = await Membership.findAll({
+//         where: {userId: memberId},
+//         include: [{model: Group, where: {id: req.params.groupId}}]
+//     })
+
+//     //changing a particpant to member status
+//     // if (status === 'member' && participantStatus === 'pending' ) {
+//     //     //current user status: organizerId, host, co-host
+//     //     if (organizerId === user.id || userStatus === 'host' || userStatus === 'co-host') {
+//     //         participantToChange.status = status
+//     //         // await participantToChange.status.save()
+//     //     }
+//     // }
+//     if (status) participantToChange.status = status
+//     console.log(participantToChange.status)
+//     await participantToChange.save()
+//     // if (status === 'co-host')
+
+//     return res.json(participantToChange)
+//     // return res.json(group)
+// })
+
 module.exports = router;
