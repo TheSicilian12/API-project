@@ -365,4 +365,74 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 //     return res.json(event)
 // })
 
+//DELETE ATTENDANCE TO AN EVENT SPECIFIED BY ID
+// router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
+//     const { user } = req
+//     const {userId} = req.body
+
+//     //Check if there is a user
+//     if (!user) {
+//         const err = new Error("You must be logged in.")
+//         err.status = 404
+//         err.message = "You must be logged in."
+//         return next(err);
+//     }
+
+//     let event = await Event.findByPk(req.params.eventId, {
+//         include: [{model: Group, include: [{model: Membership}]}]
+//     })
+
+//     if (!event) {
+//         const err = new Error(`Couldn't find an Event with the specified id`)
+//         err.status = 404
+//         err.message = "Event couldn't be found"
+//         return next(err);
+//     }
+
+//     let eventJSON = event.toJSON()
+//     let groupId = eventJSON.groupId
+
+//     let currentUser = await Group.findByPk(groupId, {
+//         include: [{model: Membership, where: {userId: user.id}}]
+//     })
+//     if (!currentUser) {
+//         const err = new Error(`You are not authorized.`)
+//         err.status = 404
+//         err.message = "You are not authorized."
+//         return next(err);
+//     }
+//     let currentUserJSON = currentUser.toJSON()
+
+//     let participant = await Group.findByPk(groupId, {
+//         include: [{model: Membership, where: {userId: userId}}]
+//     })
+//     if (!participant) {
+//         const err = new Error(`Attendance does not exist for this User`)
+//         err.status = 404
+//         err.message = "Attendance does not exist for this User"
+//         return next(err);
+//     }
+//     let participantJSON = participant.toJSON()
+
+
+
+//     let organizerId = eventJSON.Group.organizerId
+//     let userStatus = currentUserJSON.Memberships[0].status
+//     let participantStatus = participantJSON.Memberships[0].userId
+
+//     let attendance = await Attendance.findAll({
+//         where: {userId: userId, eventId: req.params.eventId}
+//     })
+
+//     if (organizerId === user.id || participant === userId || userStatus === 'host' ) {
+//         // await participant.destroy();
+//         await attendance.destroy();
+//         console.log("destoryed")
+//     } else {
+//         console.log('error')
+//     }
+
+//     return res.json("hello")
+// })
+
 module.exports = router;
