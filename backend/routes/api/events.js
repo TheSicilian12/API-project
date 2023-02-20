@@ -435,4 +435,99 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 //     return res.json("hello")
 // })
 
+//GET ALL ATTENDEES OF AN EVENT SPECIFIED BY ITS ID
+router.get('/:eventId/attendees', async (req, res, next) => {
+    //if you are the orgnaizer, host, co-host, show all attendees regardless of status
+    //if you are not the organizer, host, or co-host show all without status pending
+
+    const { user } = req
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let doesEventExist = await Event.findByPk(req.params.eventId)
+    if (!doesEventExist) {
+        const err = new Error(`Couldn't find an Event with the specified id`)
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }]
+    })
+    let eventJSON = event.toJSON()
+
+    if (!eventJSON.Group) {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let organizerId = eventJSON.Group.organizerId
+    let userStatus = eventJSON.Group.Memberships[0].status
+
+    //organizer, host, or co-host
+    if (organizerId === user.id || userStatus === 'host' || userStatus === 'co-host') {
+        let attendance = await User.findAll({
+            include: [{ model: Event, where: { id: req.params.eventId } }]
+        })
+
+        let attendanceJSON = JSON.parse(JSON.stringify(attendance))
+
+
+        let returnObj = {};
+        returnObj.Attendees = [];
+
+
+        for (let attend of attendanceJSON) {
+            returnObj.Attendees.push({
+                id: attend.id,
+                firstName: attend.firstName,
+                lastName: attend.lastName,
+                Attendance: {
+                    status: attend.Events[0].Attendance.status
+                }
+            })
+        }
+
+        return res.json(returnObj)
+    }
+
+    //member or anyone else
+
+        console.log(user)
+        let attendance = await User.findAll({
+            include: [{ model: Event, where: { id: req.params.eventId } }]
+        })
+
+        let attendanceJSON = JSON.parse(JSON.stringify(attendance))
+
+
+        let returnObj = {};
+        returnObj.Attendees = [];
+
+
+        for (let attend of attendanceJSON) {
+            if (attend.Events[0].Attendance.status !== 'pending') {
+                returnObj.Attendees.push({
+                    id: attend.id,
+                    firstName: attend.firstName,
+                    lastName: attend.lastName,
+                    Attendance: {
+                        status: attend.Events[0].Attendance.status
+                    }
+                })
+            }
+        }
+
+        return res.json(returnObj)
+})
+
 module.exports = router;
