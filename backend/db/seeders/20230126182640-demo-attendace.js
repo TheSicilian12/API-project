@@ -24,27 +24,27 @@ module.exports = {
       {
         eventId: 1,
         userId: 1,
-        status: "true"
+        status: "member"
       },
       {
         eventId: 2,
         userId: 1,
-        status: "false"
+        status: "waitlist"
       },
       {
         eventId: 1,
         userId: 2,
-        status: "false"
+        status: "pending"
       },
       {
         eventId: 2,
         userId: 2,
-        status: "false"
+        status: "pending"
       },
       {
         eventId: 2,
         userId: 10,
-        status: "true"
+        status: "member"
       },
     ], {})
 
