@@ -19,44 +19,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
-    // let groupObj = {}
-    // groupObj.Groups = []
-
-    // let groups = await Group.findAll({
-    //     include: [{model: Membership}, {model: GroupImage}]
-    // })
-
-
-
-    // for (let group of groups) {
-    //     // console.log(group.GroupImages[0].dataValues.url)
-    //     // console.log("-----------")
-
-    //     let item = {};
-
-    //     item.id = group.id
-    //     item.organizerId = group.organizerId
-    //     item.name = group.name
-    //     item.about = group.about
-    //     item.type = group.type
-    //     item.private = group.private
-    //     item.city = group.city
-    //     item.state = group.state
-    //     item.createdAt = group.createdAt
-    //     item.updatedAt = group.updatedAt
-    //     item.numMembers = group.Memberships.length
-    //     item.previewImage = group.GroupImages[0].dataValues.url
-
-    //     groupObj.Groups.push(item);
-
-    // }
-
-    // return res.json(groupObj)
-
-    // // const numReviews = await Review.count({
-    // //     where: { spotId: spot.id }
-    // //    })
-
     //return setup
     let groupObj = {};
     groupObj.Groups = [];
