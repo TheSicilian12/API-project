@@ -852,4 +852,106 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 //     // return res.json(group)
 // })
 
+//DELETE MEMBERSHIP TO A GROUP SPECIFIED BY ID
+router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
+
+    //current user must be host, user whose membership is to be deleted
+
+    //error if no user found with id
+
+    //error if no group
+
+    //error no membership
+
+    const { user } = req
+    const { memberId } = req.body
+    let memberToDeleteId = memberId
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //check if user to delete exists
+    let userTest = await User.findByPk(memberToDeleteId)
+    if (!userTest) {
+        const err = new Error(`Couldn't find a User with the specified memberId`)
+        err.status = 400
+        err.message = "Validation Error"
+        err.errors = {
+            memberId: "User couldn't be found"
+          }
+        return next(err);
+    }
+
+    //check if group exists
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`)
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+
+    //check if membership exists
+    let membershipTest = await Membership.findByPk(memberToDeleteId, {
+        include: [
+            {
+                model: Group,
+                where: {id: req.params.groupId},
+                attributes: ['id', 'organizerId']
+            }
+        ]
+    })
+    if (!membershipTest) {
+        const err = new Error(`Membership does not exist for this User`)
+        err.status = 404
+        err.message = "Membership does not exist for this User"
+        return next(err);
+    }
+
+
+    let membership = await Membership.findByPk(memberToDeleteId)
+    let currentUserMembership = await Membership.findByPk(user.id)
+
+    //check if there is a current user memberhsip
+    if (!currentUserMembership) {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    let membershipJSON = membership.toJSON()
+    let currentUserMembershipJSON = currentUserMembership.toJSON()
+
+    let memberStatus = membershipJSON.status
+    let memberUserId = membershipJSON.id
+    let currentUserStatus = currentUserMembershipJSON.status
+
+    // console.log(memberStatus)
+    console.log(memberUserId)
+    console.log(currentUserStatus)
+
+
+    //check if current user is the host or user whose membership is to be deleted
+    if (currentUserStatus !== 'host' && memberUserId !== user.id) {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    await membership.destroy()
+
+    return res.status(200).json({
+        "message": "Successfully deleted membership from group"
+      })
+})
+
+
 module.exports = router;
