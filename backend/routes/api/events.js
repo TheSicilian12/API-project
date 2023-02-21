@@ -550,4 +550,99 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     return res.json(returnObj)
 })
 
+//DELETE AN EVENT SPECIFIED BY ITS ID
+router.delete('/:eventId', requireAuth, async (req, res, next) => {
+    //current user must be organizer, host, co-host
+
+    //error event does not exist
+
+    const { user } = req
+
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //check if event exists
+    let eventTest = await Event.findByPk(req.params.eventId)
+    if (!eventTest) {
+        const err = new Error(`Couldn't find an Event with the specified id`)
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    let event = await Event.findByPk(req.params.eventId, {
+        attributes: ['id', 'groupId'],
+        include: [
+            {
+                model: Group,
+                attributes: ['id', 'organizerId'],
+                include: [
+                    {
+                        model: Membership,
+                        attributes: ['userId', 'status'],
+                        where: {
+                            userId: user.id
+                        }
+                    }
+                ]
+            }
+        ]
+    })
+
+    // let event = await Event.findByPk(req.params.eventId, {
+    //         attributes: ['id', 'groupId'],
+    //         include: [
+    //             {
+    //                 model: Group,
+    //                 attributes: ['id', 'organizerId'],
+    //                 include: [{model: Membership,
+    //                     where: {userId: user.id}
+    //                 }
+    //             ]
+    //             }
+    //         ]
+    //     })
+
+    let eventJSON = event.toJSON()
+
+    if (!eventJSON.Group) {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    if (!event.Group) {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    // check if current user is organizer, host, or co-host
+    let organizerId = eventJSON.Group.organizerId
+    let status = eventJSON.Group.Memberships[0].status
+
+    console.log(organizerId)
+    console.log(status)
+
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error(`You are not an authorized user.`)
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
+    await event.destroy()
+
+    return res.status(200).json({
+        "message": "Successfully deleted"
+      })
+})
+
 module.exports = router;

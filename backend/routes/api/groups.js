@@ -921,7 +921,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
     //check if there is a current user memberhsip
     if (!currentUserMembership) {
         const err = new Error(`You are not an authorized user.`)
-        err.status = 404
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
