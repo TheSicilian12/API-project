@@ -20,19 +20,20 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let imageCheck  =await EventImage.findByPk(req.params.imageId)
+    let imageCheck = await GroupImage.findByPk(req.params.imageId)
 
     if (!imageCheck) {
         const err = new Error(`Couldn't find an Image with the specified id`);
         err.status = 404
-        err.message = "Event Image couldn't be found"
+        err.message = "Group Image couldn't be found"
         return next(err);
     }
 
 
-    let image = await EventImage.findByPk(req.params.imageId, {
-        include: [{model: Event, attributes: ['id'], include: [{model: Group, attributes: ['organizerId'], include: [{model: Membership, attributes: ['userId', 'status'], where: {userId: user.id}}]}]}]
+    let image = await GroupImage.findByPk(req.params.imageId, {
+        include: [{model: Group, attributes: ['organizerId'], include: [{model: Membership, attributes: ['userId', 'status'], where: {userId: user.id}}]}]
     })
+
 
 
     if (!image || !image.Group || !image.Group.Memberships) {
@@ -44,8 +45,8 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
     //current user must be organizer, host, or co-host
     let imageJSON = image.toJSON()
-    let status = imageJSON.Event.Group.Memberships[0].status
-    let organizerId = imageJSON.Event.Group.organizerId
+    let status = imageJSON.Group.Memberships[0].status
+    let organizerId = imageJSON.Group.organizerId
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error("You are not an authorized user.");
@@ -62,11 +63,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 })
 
 //testing if image deleted
-// router.get('/:imageId', async (req, res) => {
-//     let image = await EventImage.findByPk(req.params.imageId)
+router.get('/:imageId', async (req, res) => {
+    let image = await GroupImage.findByPk(req.params.imageId)
 
-//     return res.json(image)
-// })
+    return res.json(image)
+})
 
 
 module.exports = router;
