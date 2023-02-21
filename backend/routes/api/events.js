@@ -365,8 +365,17 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 //     return res.json(event)
 // })
 
+
 //DELETE ATTENDANCE TO AN EVENT SPECIFIED BY ID
 router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
+    //current user must be organizer, host, or user to be deleted
+
+    //error if no event found
+
+    //error if no attendance found
+
+    //error if not the organizer, host, or user to be deleted
+
     const { user } = req
     const { userId } = req.body
     let userToDeleteId = userId
@@ -379,7 +388,7 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    //Does event exist?
+    //check event exists
     let eventTest = await Event.findByPk(req.params.eventId)
     if (!eventTest) {
         const err = new Error(`Couldn't find an Event with the specified id`)
@@ -388,52 +397,63 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    //Does attendnace exist?
-    let attendance = await Attendance.findAll({
-        where: {userId: userToDeleteId},
-        include: [{model: Event, where: {id: req.params.eventId}, attributes: ['id', 'groupId'], include: [{model: Group, attributes: ['id', 'organizerId'], include: {model: Membership, where: {userId: userToDeleteId}}}]}]
+    //check attendance exists
+    let attendanceTest = await Attendance.findOne({
+        where: { userId: userToDeleteId },
+        include: [{
+            model: Event,
+            where: { id: req.params.eventId }
+        }]
     })
-    if (!attendance || attendance.length === 0) {
+    if (!attendanceTest) {
         const err = new Error(`Attendance does not exist for this User`)
         err.status = 404
-        err.message =  "Attendance does not exist for this User"
+        err.message = "Attendance does not exist for this User"
         return next(err);
     }
 
-    let statusOfUser = await Membership.findByPk(user.id)
-    let statusOfUserJSON = statusOfUser.toJSON()
 
-    //current user must be organizer, host, or user whose attendance is to be deleted
+    let attendance = await Attendance.findOne({
+        where: {
+            userId: userToDeleteId
+        },
+        include: [
+            {
+                model: Event,
+                where: {
+                    id: req.params.eventId,
+                },
+                attributes: ['id'],
+                include: [
+                    {
+                        model: Group,
+                        attributes: ['id', 'organizerId']
+                    }
+                ]
+            },
+        ]
+    })
+
     let attendanceJSON = JSON.parse(JSON.stringify(attendance))
+    console.log(attendanceJSON.Event)
+    let organizerId = attendanceJSON.Event.Group.organizerId
 
 
-
-    if (!attendanceJSON[0].Event || attendanceJSON[0].Event) {
+    // check if organizer, host, or user to be deleted
+    if (organizerId !== user.id && user.id !== userToDeleteId) {
         const err = new Error(`Only the User or organizer may delete an Attendance`)
         err.status = 403
-        err.message =  "Only the User or organizer may delete an Attendance"
+        err.message = "Only the User or organizer may delete an Attendance"
         return next(err);
     }
 
-    let organizerId = attendanceJSON[0].Event.Group.organizerId
-    let userStatus = statusOfUserJSON.status
-
-    if (organizerId !== user.id && userStatus !== 'host' && user.id !== userToDeleteId) {
-        const err = new Error(`Only the User or organizer may delete an Attendance`)
-        err.status = 403
-        err.message =  "Only the User or organizer may delete an Attendance"
-        return next(err);
-    }
-
-
-    let attendDestroy = await Attendance.findByPk(userToDeleteId)
-
-    await attendDestroy.destroy();
+    await attendance.destroy()
 
     return res.status(200).json({
         "message": "Successfully deleted attendance from event"
       })
 })
+
 
 //GET ALL ATTENDEES OF AN EVENT SPECIFIED BY ITS ID
 router.get('/:eventId/attendees', async (req, res, next) => {
