@@ -34,6 +34,11 @@ module.exports = {
       {
         eventId: 1,
         userId: 2,
+        status: "member"
+      },
+      {
+        eventId: 1,
+        userId: 3,
         status: "pending"
       },
       {
