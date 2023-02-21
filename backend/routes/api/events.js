@@ -406,10 +406,12 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     //current user must be organizer, host, or user whose attendance is to be deleted
     let attendanceJSON = JSON.parse(JSON.stringify(attendance))
 
+
+
     if (!attendanceJSON[0].Event || attendanceJSON[0].Event) {
-        const err = new Error(`You are not authorized.`)
-        err.status = 404
-        err.message =  "You are not authorized."
+        const err = new Error(`Only the User or organizer may delete an Attendance`)
+        err.status = 403
+        err.message =  "Only the User or organizer may delete an Attendance"
         return next(err);
     }
 
