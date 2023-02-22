@@ -746,4 +746,99 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
     return res.json(attendanceJSON)
 })
 
+//REQUEST TO ATTEND AN EVENT BASED ON THE EVENT'S ID
+router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
+    //current user must be a member of the group
+
+    //error event doesn't exist
+
+    //error current user already has a pending attendance for the event
+
+    //error current user is already an accepted attendee of the event
+    const { user } = req
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //does event exist
+    let eventTest = await Event.findByPk(req.params.eventId)
+    if (!eventTest) {
+        const err = new Error(`Couldn't find an Event with the specified id`);
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    //is current user a member of the group
+    let memberTest = await Event.findByPk(req.params.eventId, {
+        include: [
+            {
+                model: Group,
+                include: [
+                    {
+                        model: Membership,
+                        where: { userId: user.id }
+                    }
+                ]
+            }
+        ]
+    })
+    let eventJSON = memberTest.toJSON()
+    if (!eventJSON.Group) {
+        const err = new Error(`Not a member of this group`);
+        err.status = 404
+        err.message = "Not a member of this group"
+        return next(err);
+    }
+
+    //current user pending or already attending
+    let eventAttendanceTest = await Event.findByPk(req.params.eventId, {
+        include: [
+            {
+                model: Attendance,
+                where: {
+                    userId: user.id
+                }
+            }
+        ]
+    })
+    if (eventAttendanceTest) {
+        let eventAttendanceTestJSON = eventAttendanceTest.toJSON()
+
+        let attendanceStatus = eventAttendanceTestJSON.Attendances[0].status
+
+        //check pending status
+        if (attendanceStatus === 'pending') {
+            const err = new Error(`Current User already has a pending attendance for the event`);
+            err.status = 400
+            err.message = "Attendance has already been requested"
+            return next(err);
+            //I'm not sure about the waitlist status, so I'm just putting waitlist and member together.
+        } else {
+            const err = new Error(`Current User is already an accepted attendee of the event`);
+            err.status = 400
+            err.message = "User is already an attendee of the event"
+            return next(err);
+        }
+    }
+
+    let attendanceRequest = await Attendance.create({
+        eventId: req.params.eventId,
+        userId: user.id,
+    })
+
+    let attendanceRequestJSON = attendanceRequest.toJSON()
+
+    delete attendanceRequestJSON.eventId
+    delete attendanceRequestJSON.updatedAt
+    delete attendanceRequestJSON.createdAt
+
+
+    return res.status(200).json(attendanceRequestJSON)
+})
+
 module.exports = router;
