@@ -1101,7 +1101,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
     delete membershipRequestJSON.createdAt
 
 
-    return res.json(membershipRequestJSON)
+    return res.status(200).json(membershipRequestJSON)
 })
 
 module.exports = router;
