@@ -140,7 +140,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    console.log(eventJSON)
+    // console.log(eventJSON)
 
     if (organizerId !== user.id && status !== 'host' && status !== "co-host") {
         const err = new Error("You are not an authorized user.");
@@ -286,7 +286,8 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         include: [{
             model: Event,
             where: { id: req.params.eventId }
-        }]
+        }],
+        where: {userId: user.id}
     })
     let attendanceJSON = attendance.toJSON()
 
@@ -299,6 +300,8 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
 
     let attendanceStatus = attendanceJSON.status
 
+    // console.log(user.id)
+    // console.log(attendanceJSON)
     if (organizerId !== user.id
         && status !== 'host'
         && status !== 'co-host'
