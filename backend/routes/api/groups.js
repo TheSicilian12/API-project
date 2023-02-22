@@ -855,10 +855,10 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 //CHANGE THE STATUS OF A MEMBERSHIP FOR A GROUP SPECIFIED BY ID
 router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //to change from pending to member
-        //current user must be organizer, host, or co-host
+    //current user must be organizer, host, or co-host
 
     //to change from member to co-host
-        //current user must be organizer, host
+    //current user must be organizer, host
 
     //error if changing membership status to pending, can't do that
 
@@ -870,12 +870,35 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     const { user } = req
     const { memberId, status } = req.body
+    if (!memberId) {
+        const err = new Error("memberId must be included.");
+        err.status = 404
+        err.message = "memberId must be included."
+        return next(err);
+    }
+    if (!status) {
+        const err = new Error("status must be included.");
+        err.status = 404
+        err.message = "status must be included."
+        return next(err);
+    }
     let changeStatusTo = status
 
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
         err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //does the status change go to pending
+    if (changeStatusTo === 'pending') {
+        const err = new Error(` If changing the membership status to "pending".`);
+        err.status = 400
+        err.message = "Validations Error"
+        err.errors = {
+            status: "Cannot change a membership status to pending"
+        }
         return next(err);
     }
 
@@ -887,7 +910,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = "Validation Error"
         err.errors = {
             memberId: "User couldn't be found"
-          }
+        }
         return next(err);
     }
 
@@ -905,10 +928,10 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //does membership exist
     let membershipTest = await Membership.findOne({
-        where: {userId: memberId},
+        where: { userId: memberId },
         include: [{
             model: Group,
-            where: {id: req.params.groupId}
+            where: { id: req.params.groupId }
         }]
     })
     if (!membershipTest) {
@@ -917,30 +940,78 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = "Membership between the user and the group does not exits"
         return next(err);
     }
+    let membershipTestJSON = membershipTest.toJSON()
+    let statusMemberToChange = membershipTestJSON.status
 
-    //working on returning current membership. check results, looks like it's working at the moment.
+    // if current user is not part of the group an erorr will appear.
+    // current membership
     let currentUserMembership = await Membership.findOne({
-        where: {userId: user.id},
+        where: { userId: user.id },
         include: [{
             model: Group,
-            where: {id: req.params.groupId}
+            where: { id: req.params.groupId }
         }]
     })
+    if (!currentUserMembership) {
+        const err = new Error(`You are not an authorized user.`);
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
+
     let currentUserMembershipJSON = currentUserMembership.toJSON()
     let currentStatus = currentUserMembershipJSON.status
 
-    return res.json(currentStatus)
+    // if (organizerId !== user.id && currentStatus !== 'host' && currentStatus !== 'co-host') {
+    //     const err = new Error(`You are not an authorized user.`);
+    //     err.status = 404
+    //     err.message = "You are not an authorized user."
+    //     return next(err);
+    // }
 
+    //status from pending to member, must be organizer, host, or co-host
+    if (statusMemberToChange === 'pending' && changeStatusTo === 'member') {
+        if (organizerId !== user.id && currentStatus !== 'host' && currentStatus !== 'co-host') {
+            const err = new Error(`You are not an authorized user.`);
+            err.status = 404
+            err.message = "You are not an authorized user."
+            return next(err);
+        }
+         //status from member to co-host, must be organizer, host
+    } else if (statusMemberToChange === 'member' && changeStatusTo === 'co-host') {
+        if (organizerId !== user.id && currentStatus !== 'host') {
+            const err = new Error(`You are not an authorized user.`);
+            err.status = 404
+            err.message = "You are not an authorized user."
+            return next(err);
+        }
+    } else {
+        const err = new Error(`This status change is not authorized.`);
+            err.status = 404
+            err.message = "This status change is not authorized."
+            return next(err);
+    }
 
+    let member = await Membership.findOne({
+        where: {userId: memberId},
+        include: [
+            {model: Group,
+            attributes: ['id'],
+            where: {id: req.params.groupId}}
+        ]
+    })
+    member.status = changeStatusTo
+    member.save()
 
+    let memberJSON = member.toJSON()
+    memberJSON.memberId = memberId
 
+    delete memberJSON.userId
+    delete memberJSON.createdAt
+    delete memberJSON.updatedAt
+    delete memberJSON.Group
 
-
-
-
-
-
-    return res.json(membershipTest)
+    return res.json(memberJSON)
 })
 
 
@@ -975,7 +1046,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = "Validation Error"
         err.errors = {
             memberId: "User couldn't be found"
-          }
+        }
         return next(err);
     }
 
@@ -994,7 +1065,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         include: [
             {
                 model: Group,
-                where: {id: req.params.groupId},
+                where: { id: req.params.groupId },
                 attributes: ['id', 'organizerId']
             }
         ]
@@ -1042,7 +1113,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     return res.status(200).json({
         "message": "Successfully deleted membership from group"
-      })
+    })
 })
 
 
