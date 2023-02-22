@@ -228,143 +228,102 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     return res.json(eventResponse)
 })
 
-// NEEDS MORE WORK! - ADD AN IMAGE TO A EVENT BASED ON THE EVENT'S ID
-// router.post('/:eventId/images', requireAuth, async (req, res, next) => {
-//     // const { user } = req
-//     // const {url, preview} = req.body
+//ADD AN IMAGE TO AN EVENT BASED ON THE EVENT'S ID
+router.post('/:eventId/images', requireAuth, async (req, res, next) => {
+    //current user must be attendee, host, or co-host
 
-//     // if (!user) {
-//     //     const err = new Error("You must be logged in.");
-//     //     err.status = 404
-//     //     err.message = "You must be logged in."
-//     //     return next(err);
-//     // }
+    //error if event doesn't exist
 
-//     // let eventTest = await Event.findByPk(req.params.eventId)
+    const { user } = req
+    const { url, preview } = req.body
 
-//     // if (!eventTest) {
-//     //     const err = new Error(`Couldn't find an Event with the specified id`)
-//     //     err.message = "Event couldn't be found"
-//     //     err.status = 404
-//     //     // err.errors = errors
-//     //     return next(err)
-//     // }
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
 
-//     // let event = await Event.findByPk(req.params.eventId, {
-//     //     include: [{model: EventImage}, {model: Group, include: [{model: Membership, where: {userId: user.id}}]}]
-//     // })
+    //does event exist
+    let eventTest = await Event.findByPk(req.params.eventId)
+    if (!eventTest) {
+        const err = new Error("Couldn't find an Event with the specified id");
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
 
-//     // if (!event) {
-//     //     const err = new Error(`Couldn't find an Event with the specified id`)
-//     //     err.message = "Event couldn't be found"
-//     //     err.status = 404
-//     //     // err.errors = errors
-//     //     return next(err)
-//     // }
+    //find organizerId and status
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [
+            {
+                model: Group,
+                attributes: ['id', 'organizerId'],
+                include: [
+                    {
+                        model: Membership,
+                        attributes: ['id', 'userId', 'groupId', 'status'],
+                        where: { userId: user.id }
+                    }
+                ]
+            }
+        ],
+        attributes: ['id', 'groupId']
+    })
+    let eventJSON = event.toJSON()
 
-//     // let eventJSON = event.toJSON()
+    if (!eventJSON.Group) {
+        const err = new Error("You are not an authorized user.");
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
 
-//     // if (!eventJSON.Group) {
-//     //     const err = new Error(`This group does not exist`)
-//     //     err.message = "This group does not exist"
-//     //     err.status = 404
-//     //     // err.errors = errors
-//     //     return next(err)
-//     // }
+    let organizerId = eventJSON.Group.organizerId
+    let status = eventJSON.Group.Memberships[0].status
 
-//     // let organizerId = eventJSON.Group.organizerId
-//     // let status = eventJSON.Group.Memberships[0].status
+    let attendance = await Attendance.findOne({
+        include: [{
+            model: Event,
+            where: { id: req.params.eventId }
+        }]
+    })
+    let attendanceJSON = attendance.toJSON()
 
-//     // if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-//     //     const err = new Error("You are not an authorized user.")
-//     //     err.status = 404
-//     //     err.message = "You are not an authorized user."
-//     //     return next(err);
-//     // }
+    if (!attendance) {
+        const err = new Error("You are not an authorized user.");
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
+    }
 
-//     // let newEventImage = await EventImage.create({
-//     //     eventId: event.id,
-//     //     url,
-//     //     preview
-//     // })
+    let attendanceStatus = attendanceJSON.status
 
-//     // let newEventImageJSON = newEventImage.toJSON()
-//     // delete newEventImageJSON.updatedAt
-//     // delete newEventImageJSON.createdAt
-//     // delete newEventImageJSON.eventId
+    if (organizerId !== user.id
+        && status !== 'host'
+        && status !== 'co-host'
+        && attendanceStatus !== 'member') {
+            const err = new Error("You are not an authorized user.");
+            err.status = 404
+            err.message = "You are not an authorized user."
+            return next(err);
+    }
 
-//     // return res.json(newEventImageJSON)
+    let newImage = await EventImage.create({
+        eventId: req.params.eventId,
+        url,
+        preview
+    })
 
+    let newImageJSON = newImage.toJSON()
 
-//     const { user } = req
-
-//     const { url, preview } = req.body
-
-//     if (!user) {
-//         const err = new Error("You must be logged in.");
-//         err.status = 404
-//         err.message = "You must be logged in."
-//         return next(err);
-//     }
-
-//     let eventTest = await Event.findByPk(req.params.eventId, {
-//         include: [{ model: Group }]
-//     })
-
-//     //Does an event exist
-//     if (!eventTest) {
-//         const err = new Error(`Couldn't find an Event with the specified id`)
-//         err.message = "Event couldn't be found"
-//         err.status = 404
-//         // err.errors = errors
-//         return next(err)
-//     }
-
-//     // gather data
-//     let event = await Event.findByPk(req.params.eventId, {
-//         include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }]
-//     })
-//     // let eventJSON = event.toJSON()
-
-//     let eventAttendance = await Event.findByPk(req.params.eventId, {
-//         include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }, {model: Attendance, where: {userId: user.id}}]
-//     })
-
-//     // let eventAttendanceJSON = eventAttendance.toJSON()
-//     // let attendStatus = eventAttendanceJSON.Attendances[0].status
+    delete newImageJSON.updatedAt
+    delete newImageJSON.createdAt
+    delete newImageJSON.eventId
 
 
-//     if (!event) {
-//         const err = new Error(`Couldn't find an Event with the specified id`)
-//         err.message = "Event couldn't be found"
-//         err.status = 404
-//         // err.errors = errors
-//         return next(err)
-//     }
-
-//     let status;
-//     if (eventJSON.Group) {
-//         status = eventJSON.Group.Memberships[0].status
-//     } else {
-//         status = 'not a member'
-//     }
-
-//     // let eventTestJSON = eventTest.toJSON()
-//     // let organizerId = eventTestJSON.Group.organizerId
-
-
-//     console.log(organizerId)
-//     console.log(status)
-//     console.log(attendStatus)
-
-//     if (organizerId !== user.id ) {
-//         console.log('fail')
-//     } else console.log('pass')
-
-
-//     return res.json(event)
-// })
-
+    return res.json(newImageJSON)
+})
 
 //DELETE ATTENDANCE TO AN EVENT SPECIFIED BY ID
 router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
@@ -451,7 +410,7 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     return res.status(200).json({
         "message": "Successfully deleted attendance from event"
-      })
+    })
 })
 
 
@@ -642,7 +601,7 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
 
     return res.status(200).json({
         "message": "Successfully deleted"
-      })
+    })
 })
 
 module.exports = router;
