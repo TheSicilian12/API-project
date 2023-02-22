@@ -287,7 +287,7 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
             model: Event,
             where: { id: req.params.eventId }
         }],
-        where: {userId: user.id}
+        where: { userId: user.id }
     })
     let attendanceJSON = attendance.toJSON()
 
@@ -306,10 +306,10 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         && status !== 'host'
         && status !== 'co-host'
         && attendanceStatus !== 'member') {
-            const err = new Error("You are not an authorized user.");
-            err.status = 404
-            err.message = "You are not an authorized user."
-            return next(err);
+        const err = new Error("You are not an authorized user.");
+        err.status = 404
+        err.message = "You are not an authorized user."
+        return next(err);
     }
 
     let newImage = await EventImage.create({
@@ -605,6 +605,143 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     return res.status(200).json({
         "message": "Successfully deleted"
     })
+})
+
+//CHANGE THE STATUS OF AN ATTENDNACE FOR AN EVENT SPECIFIED BY ID
+//The status of attending instead of member is being used in the docs.
+//Dan Chin replied to the question with: "we can think of "member" and "attending" as same thing. we can simply return the status here"
+//member is used in the below code.
+router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
+    // current user must be organizer, host, co-host
+
+    //error event does not exist
+
+    //error if changing attendance to pending
+
+    //error if attendance does not exist
+
+    const { user } = req
+    const { userId, status } = req.body
+    if (!userId) {
+        const err = new Error("userId must be included.");
+        err.status = 404
+        err.message = "userId must be included."
+        return next(err);
+    }
+    if (!status) {
+        const err = new Error("status must be included.");
+        err.status = 404
+        err.message = "status must be included."
+        return next(err);
+    }
+    let changeStatusTo = status
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //check if event exists
+    let eventTest = await Event.findByPk(req.params.eventId)
+    if (!eventTest) {
+        const err = new Error(`Couldn't find an Event with the specified id`);
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    //check pending
+    if (changeStatusTo === 'pending') {
+        const err = new Error(`If changing the attendance status to "pending".`);
+        err.status = 400
+        err.message = "Cannot change an attendance status to pending"
+        return next(err);
+    }
+
+    //check if attendnace exists (for participant to edit)
+    let attendanceTest = await Attendance.findOne({
+        where: { userId: userId },
+        include: [{
+            model: Event,
+            where: { id: req.params.eventId }
+        }]
+    })
+    if (!attendanceTest) {
+        const err = new Error(`If attendance does not exist`);
+        err.status = 404
+        err.message = "Attendance between the user and the event does not exist"
+        return next(err);
+    }
+    //check if attendance exists (for user)
+    let attendanceTestUser = await Attendance.findOne({
+        where: { userId: user.id },
+        include: [{
+            model: Event,
+            where: { id: req.params.eventId }
+        }]
+    })
+    if (!attendanceTestUser) {
+        const err = new Error(`If attendance does not exist`);
+        err.status = 404
+        err.message = "Attendance between the user and the event does not exist"
+        return next(err);
+    }
+
+
+    //organizerId
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Group }
+        ]
+    })
+    let eventJSON = event.toJSON()
+
+    let organizerId = eventJSON.Group.organizerId
+    let groupId = eventJSON.groupId
+
+
+    //status
+    let membership = await Membership.findOne({
+        where: {
+            userId: user.id,
+            groupId: groupId
+        }
+    })
+    if (!membership) {
+        const err = new Error(`You are not a member.`);
+        err.status = 404
+        err.message = "You are not a member."
+        return next(err);
+    }
+    let membershipJSON = membership.toJSON()
+    let statusUser = membershipJSON.status
+
+    //check if current user is the organizer, host, co-host
+    if (organizerId !== user.id && statusUser !== 'host' && statusUser !== 'co-host') {
+        const err = new Error(`You are not authorized.`);
+        err.status = 403
+        err.message = "You are not authorized."
+        return next(err);
+    }
+
+    let attendance = await Attendance.findOne({
+        where: {
+            userId: userId,
+            eventId: req.params.eventId
+        },
+        attributes: ['id', 'eventId', 'userId', 'status']
+    })
+
+    attendance.status = changeStatusTo
+    await attendance.save()
+
+    // let attendanceJSON = attendance.toJSON()
+    // delete attendanceJSON.createdAt
+    // delete attendanceJSON.updatedAt
+
+    return res.json(attendance)
 })
 
 module.exports = router;
