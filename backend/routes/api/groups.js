@@ -852,6 +852,98 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 //     // return res.json(group)
 // })
 
+//CHANGE THE STATUS OF A MEMBERSHIP FOR A GROUP SPECIFIED BY ID
+router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
+    //to change from pending to member
+        //current user must be organizer, host, or co-host
+
+    //to change from member to co-host
+        //current user must be organizer, host
+
+    //error if changing membership status to pending, can't do that
+
+    //error if user does not exist
+
+    //error group does not exist
+
+    //error membership does not exist
+
+    const { user } = req
+    const { memberId, status } = req.body
+    let changeStatusTo = status
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //does user exist
+    let userTest = await User.findByPk(memberId)
+    if (!userTest) {
+        const err = new Error(`Couldn't find a User with the specified memberId`);
+        err.status = 400
+        err.message = "Validation Error"
+        err.errors = {
+            memberId: "User couldn't be found"
+          }
+        return next(err);
+    }
+
+    //does group exist
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`);
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+    let groupJSON = groupTest.toJSON()
+    let organizerId = groupJSON.organizerId
+
+
+    //does membership exist
+    let membershipTest = await Membership.findOne({
+        where: {userId: memberId},
+        include: [{
+            model: Group,
+            where: {id: req.params.groupId}
+        }]
+    })
+    if (!membershipTest) {
+        const err = new Error(`If membership does not exist`);
+        err.status = 404
+        err.message = "Membership between the user and the group does not exits"
+        return next(err);
+    }
+
+    //working on returning current membership. check results, looks like it's working at the moment.
+    let currentUserMembership = await Membership.findOne({
+        where: {userId: user.id},
+        include: [{
+            model: Group,
+            where: {id: req.params.groupId}
+        }]
+    })
+    let currentUserMembershipJSON = currentUserMembership.toJSON()
+    let currentStatus = currentUserMembershipJSON.status
+
+    return res.json(currentStatus)
+
+
+
+
+
+
+
+
+
+
+    return res.json(membershipTest)
+})
+
+
 //DELETE MEMBERSHIP TO A GROUP SPECIFIED BY ID
 router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
