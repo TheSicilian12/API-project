@@ -51,6 +51,36 @@ module.exports = {
         userId: 10,
         status: "member"
       },
+      {
+        eventId: 7,
+        userId: 10,
+        status: "member"
+      },
+      {
+        eventId: 7,
+        userId: 1,
+        status: "member"
+      },
+      {
+        eventId: 7,
+        userId: 2,
+        status: "member"
+      },
+      {
+        eventId: 7,
+        userId: 3,
+        status: "member"
+      },
+      {
+        eventId: 7,
+        userId: 4,
+        status: "waitlist"
+      },
+      {
+        eventId: 7,
+        userId: 5,
+        status: "pending"
+      },
     ], {})
 
   },
