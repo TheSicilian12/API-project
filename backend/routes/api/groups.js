@@ -1036,5 +1036,72 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
     })
 })
 
+//REQUEST A MEMBERSHIP FOR A GROUP BASED ON THE GROUP'S ID
+router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
+    //error group doesn't exist
+
+    //error current user has a pending membership
+
+    //error current user is already an accepted member
+    const { user } = req
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //does group exist
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`);
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    //current user pending membership or accepted member
+    let membershipTest = await Membership.findOne({
+        where: {
+            groupId: req.params.groupId,
+            userId: user.id
+        }
+    })
+    //which means there is a memebership pending or accepted
+    if (membershipTest) {
+        let membershipJSON = membershipTest.toJSON()
+
+        let status = membershipJSON.status
+
+        if(status === 'pending') {
+            const err = new Error(`Current User already has a pending membership for the group`);
+            err.status = 400
+            err.message = "Membership has already been requested"
+            return next(err);
+        } else {
+            const err = new Error(`Current User is already an accepted member of the group`);
+            err.status = 400
+            err.message = "User is already a member of the group"
+            return next(err);
+        }
+    }
+
+    let membershipRequest = await Membership.create({
+        userId: user.id,
+        groupId: req.params.groupId
+    })
+    let membershipRequestJSON = membershipRequest.toJSON()
+    membershipRequestJSON.memberId = membershipRequestJSON.id
+
+    delete membershipRequestJSON.id
+    delete membershipRequestJSON.userId
+    delete membershipRequestJSON.groupId
+    delete membershipRequestJSON.updatedAt
+    delete membershipRequestJSON.createdAt
+
+
+    return res.json(membershipRequestJSON)
+})
 
 module.exports = router;

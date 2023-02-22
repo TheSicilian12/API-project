@@ -737,11 +737,13 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
     attendance.status = changeStatusTo
     await attendance.save()
 
-    // let attendanceJSON = attendance.toJSON()
+    //updated at still showed up. So I'm deleting it here.
+    let attendanceJSON = attendance.toJSON()
     // delete attendanceJSON.createdAt
-    // delete attendanceJSON.updatedAt
+    delete attendanceJSON.updatedAt
 
-    return res.json(attendance)
+
+    return res.json(attendanceJSON)
 })
 
 module.exports = router;
