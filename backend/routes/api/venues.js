@@ -41,8 +41,8 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     let venueJSON = venue.toJSON()
 
     if (!venueJSON.Group) {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -50,8 +50,8 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     let organizerId = venueJSON.Group.organizerId
     let status = venueJSON.Group.Memberships[0].status
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }

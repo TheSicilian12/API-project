@@ -367,10 +367,10 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     }
 
     if (group.organizerId !== user.id) {
-        let err = new Error('Body validation error')
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
-        err.status = 404
-        return next(err)
+        return next(err);
     }
 
     let errors = {}
@@ -446,10 +446,10 @@ router.post('/:groupId/images', requireAuth, async (req, res, next) => {
 
     //Check if current user is the organizer of the group
     if (group.organizerId !== user.id) {
-        let err = new Error('Body validation error')
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
-        err.status = 404
-        return next(err)
+        return next(err);
     }
 
     let newGroupImage = await GroupImage.create({
@@ -489,10 +489,10 @@ router.delete('/:groupId', requireAuth, async (req, res, next) => {
     }
 
     if (group.organizerId !== user.id) {
-        let err = new Error('Body validation error')
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
-        err.status = 404
-        return next(err)
+        return next(err);
     }
 
     await group.destroy();
@@ -530,8 +530,8 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
     })
 
     if (!group) {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -546,8 +546,8 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -675,8 +675,8 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     })
 
     if (!group) {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -688,8 +688,8 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 
     //Check organizerId, host, and co-host valid user
     if (!group || organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error("You are not an authorized user.")
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -873,8 +873,8 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
         }]
     })
     if (!currentUserMembership) {
-        const err = new Error(`You are not an authorized user.`);
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -892,32 +892,34 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //status from pending to member, must be organizer, host, or co-host
     if (statusMemberToChange === 'pending' && changeStatusTo === 'member') {
         if (organizerId !== user.id && currentStatus !== 'host' && currentStatus !== 'co-host') {
-            const err = new Error(`You are not an authorized user.`);
+            const err = new Error("You are not an authorized user.");
             err.status = 403
             err.message = "You are not an authorized user."
             return next(err);
         }
-         //status from member to co-host, must be organizer, host
+        //status from member to co-host, must be organizer, host
     } else if (statusMemberToChange === 'member' && changeStatusTo === 'co-host') {
         if (organizerId !== user.id && currentStatus !== 'host') {
-            const err = new Error(`You are not an authorized user.`);
+            const err = new Error("You are not an authorized user.");
             err.status = 403
             err.message = "You are not an authorized user."
             return next(err);
         }
     } else {
         const err = new Error(`This status change is not authorized.`);
-            err.status = 404
-            err.message = "This status change is not authorized."
-            return next(err);
+        err.status = 404
+        err.message = "This status change is not authorized."
+        return next(err);
     }
 
     let member = await Membership.findOne({
-        where: {userId: memberId},
+        where: { userId: memberId },
         include: [
-            {model: Group,
-            attributes: ['id'],
-            where: {id: req.params.groupId}}
+            {
+                model: Group,
+                attributes: ['id'],
+                where: { id: req.params.groupId }
+            }
         ]
     })
     member.status = changeStatusTo
@@ -1003,7 +1005,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //check if there is a current user memberhsip
     if (!currentUserMembership) {
-        const err = new Error(`You are not an authorized user.`)
+        const err = new Error("You are not an authorized user.");
         err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
@@ -1023,8 +1025,8 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //check if current user is the host or user whose membership is to be deleted
     if (currentUserStatus !== 'host' && memberUserId !== user.id) {
-        const err = new Error(`You are not an authorized user.`)
-        err.status = 404
+        const err = new Error("You are not an authorized user.");
+        err.status = 403
         err.message = "You are not an authorized user."
         return next(err);
     }
@@ -1074,7 +1076,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
 
         let status = membershipJSON.status
 
-        if(status === 'pending') {
+        if (status === 'pending') {
             const err = new Error(`Current User already has a pending membership for the group`);
             err.status = 400
             err.message = "Membership has already been requested"
