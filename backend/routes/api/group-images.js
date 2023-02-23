@@ -37,9 +37,9 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
 
     if (!image || !image.Group || !image.Group.Memberships) {
-       const err = new Error("You are not an authorized user.");
+       const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -49,9 +49,9 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let organizerId = imageJSON.Group.organizerId
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 

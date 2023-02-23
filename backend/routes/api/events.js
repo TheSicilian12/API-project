@@ -334,27 +334,27 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     eventJSON = event.toJSON()
 
     if (!event.Group) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
     let organizerId = eventJSON.Group.organizerId
     let status = eventJSON.Group.Memberships[0].status
 
     if (!event) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
     // console.log(eventJSON)
 
     if (organizerId !== user.id && status !== 'host' && status !== "co-host") {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -482,9 +482,9 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     let eventJSON = event.toJSON()
 
     if (!eventJSON.Group) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -501,9 +501,9 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     let attendanceJSON = attendance.toJSON()
 
     if (!attendance) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -515,9 +515,9 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         && status !== 'host'
         && status !== 'co-host'
         && attendanceStatus !== 'member') {
-            const err = new Error("You are not an authorized user.");
+            const err = new Error(`Require proper authorization`);
             err.status = 403
-            err.message = "You are not an authorized user."
+            err.message = `Forbidden`
             return next(err);
     }
 
@@ -655,9 +655,9 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     let eventJSON = event.toJSON()
 
     if (!eventJSON.Group) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -782,16 +782,16 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     let eventJSON = event.toJSON()
 
     if (!eventJSON.Group) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
     if (!event.Group) {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -803,9 +803,9 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     console.log(status)
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-       const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
@@ -929,9 +929,9 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     //check if current user is the organizer, host, co-host
     if (organizerId !== user.id && statusUser !== 'host' && statusUser !== 'co-host') {
-        const err = new Error("You are not an authorized user.");
+        const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = "You are not an authorized user."
+        err.message = `Forbidden`
         return next(err);
     }
 
