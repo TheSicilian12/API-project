@@ -29,8 +29,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-03-01",
-        endDate: "2023-03-01"
+        startDate: '2023-04-01',
+        endDate: '2023-04-01'
       },
       {
         venueId: 2,
@@ -40,8 +40,8 @@ module.exports = {
         type: "In Person",
         capacity: 2,
         price: 1000,
-        startDate: "2024-04-01",
-        endDate: "2024-04-01"
+        startDate: "2023-04-01",
+        endDate: "2023-04-01"
       },
       {
         venueId: 3,
@@ -51,8 +51,8 @@ module.exports = {
         type: "Online",
         capacity: 100,
         price: 50,
-        startDate: "2023-08-08",
-        endDate: "2023-08-08"
+        startDate: "2023-04-02",
+        endDate: "2023-04-02"
       },
       {
         venueId: 4,
@@ -62,8 +62,8 @@ module.exports = {
         type: "In Person",
         capacity: 5,
         price: 10,
-        startDate: "2023-07-01",
-        endDate: "2023-07-01"
+        startDate: "2023-04-03",
+        endDate: "2023-04-03"
       },
       {
         venueId: 4,
@@ -73,8 +73,8 @@ module.exports = {
         type: "Online",
         capacity: 5,
         price: 10,
-        startDate: "2024-08-01",
-        endDate: "2024-08-01"
+        startDate: "2023-04-04",
+        endDate: "2023-04-04"
       },
       {
         venueId: 1,
@@ -84,8 +84,8 @@ module.exports = {
         type: "In Person",
         capacity: 10,
         price: 100,
-        startDate: "2023-03-01",
-        endDate: "2023-03-01"
+        startDate: "2023-04-03",
+        endDate: "2023-04-03"
       },
       {
         venueId: 2,
@@ -95,8 +95,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-03-01",
-        endDate: "2023-03-01"
+        startDate: "2023-04-05",
+        endDate: "2023-04-05"
       },
       {
         groupId: 1,
@@ -105,8 +105,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-03-01",
-        endDate: "2023-03-01"
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
       },
     ], {})
 

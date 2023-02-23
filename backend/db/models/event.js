@@ -46,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     capacity: DataTypes.INTEGER,
     price: DataTypes.DECIMAL,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE
+    startDate: DataTypes.DATEONLY,
+    endDate: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Event',

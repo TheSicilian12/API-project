@@ -192,10 +192,24 @@ router.get('/', async (req, res, next) => {
         //     return res.json('test')
         // }
 
+        //check if startDate is a valid datetime
+        //YYYY-MM-DD
+        let startDateArray = startDate.split("-")
+        if (startDateArray.length !== 3) {
+            let startDate = "Start date must be a valid datetime"
+            errors.startDate = startDate
+        }
+        let year = parseInt(startDateArray[0])
+        let month = parseInt(startDateArray[1])
+        let day = parseInt(startDateArray[2])
 
-        
+        if (!year || !month || !day || year < 1000 || month < 1 || month > 12 || day < 1 || day > 31) {
+            let startDate = "Start date must be a valid datetime"
+            errors.startDate = startDate
+        }
 
 
+        query.where = { startDate: startDate, ...query.where }
     }
 
     if (Object.keys(errors).length > 0) {
