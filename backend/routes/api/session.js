@@ -7,19 +7,32 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateLogin = [
+  // check('credential')
+  //   .exists({ checkFalsy: true })
+  //   .notEmpty()
+  //   .withMessage('Please provide a valid email or username.'),
+  // check('password')
+  //   .exists({ checkFalsy: true })
+  //   .withMessage('Please provide a password.'),
+  // handleValidationErrors
+
+
+  //edited to match docs
+  //no idea how to make credential to email
   check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Email is required'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
 
 
 
 // Log in
+//not sure hot to allow for the credential to email shift
 router.post(
     '/',
     validateLogin,
@@ -36,6 +49,7 @@ router.post(
         err.errors = ['The provided credentials were invalid.'];
         return next(err);
       }
+
 
       await setTokenCookie(res, user);
 

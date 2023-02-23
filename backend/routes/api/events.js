@@ -10,10 +10,13 @@ const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
 //GET ALL EVENTS
+//ADD QUERY FILTERS TO GET ALL EVENTS
 router.get('/', async (req, res) => {
     //return setup
     let eventObj = {};
     eventObj.Events = [];
+
+    //search parameters
 
     //main search
     let events = await Event.findAll({
@@ -47,7 +50,7 @@ router.get('/', async (req, res) => {
             let count = []
             for (let attend of e.Attendances) {
                 // console.log(attend.status)
-                if (attend.status === "test1") { // THIS WOULD BE WHERE AN ENUM CHANGE WOULD TAKE PLACE
+                if (attend.status === "member") { // I'm not sure if this should just be "member" or also "waitlist"
                     count.push(attend)
                 }
             }
@@ -840,5 +843,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     return res.status(200).json(attendanceRequestJSON)
 })
+
+
 
 module.exports = router;
