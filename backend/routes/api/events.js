@@ -9,17 +9,208 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
-//GET ALL EVENTS
+
+//GET ALL EVENTS - In for example
 //ADD QUERY FILTERS TO GET ALL EVENTS
-router.get('/', async (req, res) => {
+// router.get('/', async (req, res) => {
+//     //return setup
+//     let eventObj = {};
+//     eventObj.Events = [];
+
+//     //main search
+//     let events = await Event.findAll({
+//         attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
+//         include: [
+//             { model: Venue, attributes: ["id", "city", "state"] },
+//             { model: Group, attributes: ["id", "name", "city", "state"] },
+//             { model: EventImage, attributes: ['url'] },
+//             { model: Attendance }
+//         ]
+//     })
+
+//     //json
+//     for (let event of events) {
+//         eventObj.Events.push(event.toJSON())
+//     }
+//     // return res.json(events)
+
+//     //preview image add
+//     for (let e of eventObj.Events) {
+//         // console.log(e.EventImages)
+//         if (e.EventImages[0]) {
+//             e.previewImage = e.EventImages[0].url
+//         }
+//         delete e.EventImages
+//     }
+//     // update
+//     //num attending add
+//     for (let e of eventObj.Events) {
+//         if (e.Attendances.length) {
+//             let count = []
+//             for (let attend of e.Attendances) {
+//                 // console.log(attend.status)
+//                 if (attend.status === "member") { // I'm not sure if this should just be "member" or also "waitlist"
+//                     count.push(attend)
+//                 }
+//             }
+//             e.numAttending = count.length
+//         } else e.numAttending = 0;
+//         delete e.Attendances
+//     }
+
+
+//     res.json(eventObj)
+// })
+
+
+
+//GET ALL EVENTS - edited for query
+//ADD QUERY FILTERS TO GET ALL EVENTS
+router.get('/', async (req, res, next) => {
     //return setup
     let eventObj = {};
     eventObj.Events = [];
 
+    //query
+    let query = {
+        where: {},
+    }
+    let pagination = {}
+
     //search parameters
+    //    /events?page=1&size=5
+    let { page, size, name, type, startDate } = req.query
+    let errors = {}
+
+    //page and size
+    //page min = 1, max = 10, default 1
+    if (page) {
+        let pageNum = parseInt(page)
+        // console.log(pageNum)
+        //check page min
+        if (pageNum === 0) {
+            pageNum = 1
+        }
+        // check if page is an integer
+        else if (!pageNum || pageNum < 0) {
+            let page = "Page must be greater than or equal to 1"
+            errors.page = page
+        }
+        page = pageNum
+        //page max
+        if (page > 10) page = 10
+        // console.log(page)
+    }
+    //size min = 1, max = 20, default 20
+    if (size) {
+        let sizeNum = parseInt(size)
+        // console.log(sizeNum)
+        //check size min
+        if (sizeNum === 0) {
+            sizeNum = 1
+        }
+        // check if size is an integer
+        else if (!sizeNum || sizeNum < 0) {
+            let size = "Size must be greater than or equal to 1"
+            errors.size = size
+        }
+        size = sizeNum
+        //size max
+        if (size > 20) size = 20
+        // console.log(size)
+    }
+
+    if (page && !size) {
+        let size = "Size must be greater than or equal to 1"
+        errors.size = size
+    }
+    if (!page && size) {
+        let page = "Page must be greater than or equal to 1"
+        errors.page = page
+    }
+    //setting pagination
+    if (page && size) {
+        pagination.limit = size
+        pagination.offset = size * (page - 1)
+        // return res.status(200).json(`${page}, ${size}`)
+        // return res.json(pagination)
+    }
+
+    //name
+    if (name) {
+        //check if name is an Integer
+        let nameParseInt = parseInt(name)
+        if (nameParseInt <= 0 || nameParseInt >= 0) {
+            let name = "Name must be a string"
+            errors.name = name
+        }
+
+        query.where = {name: name, ...query.where}
+    }
+
+    //type
+    if (type) {
+        //check if type is Online or In Person
+        if (type !== 'Online' && type !== 'In Person') {
+            let type = "Type must be 'Online' or 'In Person'"
+            errors.type = type
+        }
+
+        query.where = { type: type, ...query.where }
+    }
+
+    //startDate
+    if (startDate) {
+        //check if startDate is a valid datetime
+        //time not a concern, just the date.
+
+        // if (new Date(startDate) === 'Invalid Date') {
+        //     let startDate = "Start date must be a valid datetime"
+        //     errors.startDate = startDate
+        // }
+        // console.log(startDate)
+        // console.log(new Date(startDate))
+        // console.log(new Date(startDate) === Invalid)
+
+        // let newDateA = new Date(12-01-22)
+        // console.log('A: ', newDateA)
+        // console.log(typeof newDateA)
+        // let newDateB = new Date('12-1-22')
+        // console.log('B: ', newDateB)
+        // console.log(typeof newDateB)
+        // let newDateC = new Date('01 Dec 2022')
+        // console.log('C: ', newDateC)
+        // console.log(typeof newDateC)
+        // let newDateD = new Date('test')
+        // console.log('D: ', newDateD)
+        // console.log(typeof newDateD)
+        // let newDateE = new Date('123456789')
+        // console.log('E: ', newDateE)
+        // console.log(typeof newDateE)
+
+        // if (new Date('123456789') === 'Invalid Date') {
+        //     return res.json('test')
+        // }
+
+
+
+        
+    }
+
+    if (Object.keys(errors).length > 0) {
+        const err = new Error('Query parameter validation errors')
+        err.message = "Validation Error"
+        err.status = 400
+        err.errors = errors
+        return next(err)
+    }
+
 
     //main search
+    //with search options it's more likely for nothing to be returned. Look into if an error is needed or not.
     let events = await Event.findAll({
+        ...pagination,
+        ...query,
         attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
         include: [
             { model: Venue, attributes: ["id", "city", "state"] },
