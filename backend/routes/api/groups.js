@@ -535,8 +535,8 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //does the group exist
     let groupGeneral = await Group.findByPk(req.params.groupId)
-
     if (!groupGeneral) {
         const err = new Error("Couldn't find a Group with the specified id")
         err.status = 404
@@ -544,40 +544,40 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let group = await Group.findByPk(req.params.groupId, {
-        include: [{ model: Membership, where: { userId: user.id } }]
-    })
-
-    if (!group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
-
-    //Check for organizer
-    let organizerId = group.organizerId
-    // console.log(group.organizerId)
-
-    //Check for host and cohost
-    let status = group.Memberships[0].status
-    // console.log(status)
+     //Check for organizer
+     let organizerId = groupGeneral.organizerId
+     //this is actually checking for membership status
+     let status = "test"
+     let group = await Group.findByPk(req.params.groupId, {
+         include: [{ model: Membership, where: { userId: user.id } }]
+        })
+        if (group) {
+            // const err = new Error(`Require proper authorization`);
+            // err.status = 403
+            // err.message = `Forbidden`
+            // return next(err);
 
 
-    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
 
-    let errors = {}
-    if (!address) {
-        let address = "Street address is required"
-        errors.address = address
-    }
-    if (!city) {
-        let city = "City is required"
+            //Check for host and cohost
+            status = group.Memberships[0].status
+            // console.log(status)
+        }
+
+        if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+            const err = new Error(`Require proper authorization`);
+            err.status = 403
+            err.message = `Forbidden`
+            return next(err);
+        }
+
+        let errors = {}
+        if (!address) {
+            let address = "Street address is required"
+            errors.address = address
+        }
+        if (!city) {
+            let city = "City is required"
         errors.city = city
     }
     if (!state) {
@@ -602,7 +602,7 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
     }
 
     let newVenue = await Venue.create({
-        groupId: group.id,
+        groupId: req.params.groupId,
         address,
         city,
         state,
