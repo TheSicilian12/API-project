@@ -26,7 +26,7 @@ module.exports = {
         name: "Group1",
         organizerId: 1,
         about: "about group1",
-        type: "test1",
+        type: 'In person',
         private: true,
         city: "Columbus",
         state: "Ohio"
@@ -34,8 +34,8 @@ module.exports = {
       {
         name: "Group2",
         organizerId: 2,
-        about: "about group2",
-        type: "test1",
+        about: 'about group2',
+        type: 'Online',
         private: true,
         city: "Columbus",
         state: "Ohio"
@@ -44,7 +44,7 @@ module.exports = {
         name: "Group3",
         organizerId: 3,
         about: "about group3",
-        type: "test1",
+        type: 'In person',
         private: true,
         city: "Detroit",
         state: "Michigan"
@@ -53,7 +53,7 @@ module.exports = {
         name: "Group4",
         organizerId: 4,
         about: "about group4",
-        type: "test2",
+        type: 'Online',
         private: false,
         city: "Denver",
         state: "Colorado"
@@ -62,7 +62,7 @@ module.exports = {
         name: "Group5",
         organizerId: 2,
         about: "about group5",
-        type: "test1",
+        type: 'In person',
         private: false,
         city: "Denver",
         state: "Colorado"
