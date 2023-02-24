@@ -67,6 +67,15 @@ module.exports = {
         city: "Denver",
         state: "Colorado"
       },
+      {
+        name: "Group6",
+        organizerId: 1,
+        about: "about group6",
+        type: 'In person',
+        private: false,
+        city: "Denver",
+        state: "Colorado"
+      },
     ], {})
 
   },
