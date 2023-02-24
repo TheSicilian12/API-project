@@ -219,6 +219,7 @@ router.get('/', async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
+    
 
 
     //main search
