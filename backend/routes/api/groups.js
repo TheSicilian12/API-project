@@ -748,9 +748,11 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
     }
-    if (!price || typeof price !== 'number') {
-        let price = "Price is invalid"
-        errors.price = price
+    if (price !== 0) {
+        if (!price || typeof price !== 'number' || price < 0) {
+            let price = "Price is invalid"
+            errors.price = price
+        }
     }
     if (!description) {
         let description = "Description is required"
