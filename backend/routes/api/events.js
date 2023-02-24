@@ -219,7 +219,7 @@ router.get('/', async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
-    
+
 
 
     //main search
@@ -297,7 +297,7 @@ router.get('/:eventId', async (req, res, next) => {
     //test for live site
     let numberAttending = 0;
     for (let attendee of eventJSON.Attendances) {
-        if (attendee.status === 'true') {
+        if (attendee.status === 'member') { //member or attendee?
             numberAttending++
         }
     }
