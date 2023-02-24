@@ -328,7 +328,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         err.message = "Event couldn't be found"
         return next(err);
     }
-    
+
 
     let event = await Event.findByPk(req.params.eventId, {
         include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }, { model: Attendance }]
