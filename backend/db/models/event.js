@@ -45,7 +45,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "In Person"
     },
     capacity: DataTypes.INTEGER,
-    price: DataTypes.DECIMAL,
+    price: {
+      type: DataTypes.DECIMAL,
+      validate: {
+        min: 0
+      }
+    },
     startDate: DataTypes.DATEONLY,
     endDate: DataTypes.DATEONLY
   }, {
