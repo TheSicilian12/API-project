@@ -253,9 +253,18 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error("Couldn't find a Group with the specified id");
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
     let group = await Group.findByPk(req.params.groupId, {
         include: [{ model: Membership }, { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] }]
     })
+
     groupJSON = group.toJSON()
 
     //identify organizer
