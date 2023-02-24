@@ -145,7 +145,7 @@ router.get('/', async (req, res, next) => {
             errors.name = name
         }
 
-        query.where = {name: name, ...query.where}
+        query.where = { name: name, ...query.where }
     }
 
     //type
@@ -375,7 +375,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         if (Number.isInteger(venueId)) {
             let venue = await Venue.findByPk(venueId)
             if (!venue) {
-                const err = new Error(`Couldn't find a Venue with the specified id`)
+                const err = new Error(` Couldn't find a Venue with the specified id`)
                 err.message = "Venue couldn't be found"
                 err.status = 404
                 // err.errors = errors
@@ -395,9 +395,11 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
     }
-    if (!price || typeof price !== 'number') {
-        let price = "Price is invalid"
-        errors.price = price
+    if (price !== 0) {
+        if (!price || typeof price !== 'number' || price < 0) {
+            let price = "Price is invalid"
+            errors.price = price
+        }
     }
     if (!description) {
         let description = "Description is required"
@@ -424,7 +426,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     if (name) event.name = name
     if (type) event.type = type
     if (capacity) event.capacity = capacity
-    if (price) event.price = price
+    if (price || price === 0) event.price = price
     if (description) event.description = description
     if (startDate) event.startDate = startDate
     if (endDate) event.endDate = endDate
@@ -517,10 +519,10 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         && status !== 'host'
         && status !== 'co-host'
         && attendanceStatus !== 'member') {
-            const err = new Error(`Require proper authorization`);
-            err.status = 403
-            err.message = `Forbidden`
-            return next(err);
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
+        return next(err);
     }
 
     let newImage = await EventImage.create({
