@@ -27,10 +27,14 @@ const validateSignup = [
   // handleValidationErrors
 
   //update to better reflect the docs
+  // check('email')
+  //   .exists({ isUnique: true })
+  //   .isEmail()
+  //   .withMessage("test"),
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
+    .withMessage("Invalid email"),
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
@@ -43,6 +47,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage("First Name is required"),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage("Last Name is required"),
   handleValidationErrors
 ];
 
@@ -50,21 +60,45 @@ const validateSignup = [
 
 
 // Sign up
+// router.post(
+//   '/',
+//   validateSignup,
+//   async (req, res) => {
+//     const { email, password, username, firstName, lastName } = req.body;
+//     const user = await User.signup({ email, username, password, firstName, lastName });
+
+//     await setTokenCookie(res, user);
+
+//     return res.json({
+//       user: user.toSignUpReturn()
+//     });
+//   }
+// );
+
+//Sign up edit
 router.post(
   '/',
   validateSignup,
   async (req, res) => {
     const { email, password, username, firstName, lastName } = req.body;
+
+    // let test = await User.findOne()
+    // return res.json(test.email)
+
     const user = await User.signup({ email, username, password, firstName, lastName });
+
+
 
     await setTokenCookie(res, user);
 
-    return res.json({
-      user: user.toSignUpReturn()
-    });
+    // return res.json({
+    //   user: user.toSignUpReturn()
+    // });
+    let userId = { id: user.id }
+
+    return res.json({ ...userId, ...user.toSignUpReturn() })
   }
 );
-
 
 
 

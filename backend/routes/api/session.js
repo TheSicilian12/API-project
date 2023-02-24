@@ -33,6 +33,7 @@ const validateLogin = [
 
 // Log in
 //not sure hot to allow for the credential to email shift
+//message: "Validation error", not sure how to make that work
 router.post(
     '/',
     validateLogin,
@@ -42,7 +43,7 @@ router.post(
       const user = await User.login({ credential, password });
 
       if (!user) {
-        const err = new Error('Login failed');
+        const err = new Error('Invalid credentials');
         err.status = 401;
         err.title = 'Login failed';
         err.message = "Invalid credentials";

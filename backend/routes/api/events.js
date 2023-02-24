@@ -431,6 +431,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 
     eventResponse = event.toJSON()
     delete eventResponse.Group
+    delete eventResponse.Attendances
     delete eventResponse.updatedAt
     delete eventResponse.createdAt
 
