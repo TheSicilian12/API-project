@@ -79,22 +79,41 @@ router.get('/current', requireAuth, async (req, res) => {
             { model: GroupImage }
         ]
     })
-
+    // console.log(JSON.parse(JSON.stringify(groups)))
 
     // json
     for (let group of groups) {
         tempObj.Groups.push(group.toJSON())
     }
-
+    // console.log(tempObj)
     for (let group of tempObj.Groups) {
+        // console.log(group)
         if (group.organizerId === currentId) {
             groupTracker.push(group.id)
             group.numMembers = group.Memberships.length
 
-            if (group.GroupImages[0]) {
-                group.previewImage = group.GroupImages[0].url
+            if (group.GroupImages && group.GroupImages.length > 0) {
+
+                // console.log("-----------------------------")
+                // console.log(group.GroupImages)
+                // group.previewImage = group.GroupImages[0].url
+
+                for (let image of group.GroupImages) {
+                    console.log("----------------------")
+                    console.log(image)
+
+                    console.log(image.preview)
+                    if (image.preview) {
+
+                        group.previewImage = image.url
+
+                    }
+                }
+
             } else group.previewImage = null;
 
+            if (!group.previewImage) group.previewImage = null;
+            console.log(group.previewImage)
             groupObj.Groups.push(group)
         }
 
