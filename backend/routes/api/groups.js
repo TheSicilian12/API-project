@@ -376,19 +376,19 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     }
 
     let errors = {}
-    if (name && name.length > 60) {
+    if (!name || name.length > 60) {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (about && about.length < 50) {
+    if (!about || about.length < 50) {
         let about = "About must be 50 characters or more"
         errors.about = about
     }
-    if (type && type !== 'Online' && type !== 'In person') {
+    if (!type || type !== 'Online' && type !== 'In person') {
         let type = "Type must be 'Online' or 'In person'"
         errors.type = type
     }
-    if (private && private !== true && private !== false) {
+    if (!private || private !== true && private !== false) {
         let private = "Private must be a boolean"
         errors.private = private
     }
