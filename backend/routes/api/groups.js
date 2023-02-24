@@ -282,9 +282,9 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
         venueObj.Venues = groupJSON.Venues
         return res.json(venueObj)
     } else {
-        const err = new Error("Couldn't find a Group with the specified id");
-        err.status = 404
-        err.message = "Group couldn't be found"
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
         return next(err);
     }
 })
@@ -748,11 +748,9 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
     }
-    if (price !== 0) {
-        if (!price || typeof price !== 'number' || price < 0) {
-            let price = "Price is invalid"
-            errors.price = price
-        }
+    if (!price || typeof price !== 'number') {
+        let price = "Price is invalid"
+        errors.price = price
     }
     if (!description) {
         let description = "Description is required"
