@@ -344,6 +344,8 @@ router.post('/', requireAuth, async (req, res, next) => {
     return res.status(201).json(newGroup)
 })
 
+
+
 //EDIT A GROUP
 router.put('/:groupId', requireAuth, async (req, res, next) => {
     const { user } = req
@@ -390,11 +392,19 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         let private = "Private must be a boolean"
         errors.private = private
     }
-    if (city && !city) {
+    // if (city && !city) {
+    //     let city = "City is required"
+    //     errors.city = city
+    // }
+    // if (state && !state) {
+    //     let state = "State is required"
+    //     errors.state = state
+    // }
+    if (!city) {
         let city = "City is required"
         errors.city = city
     }
-    if (state && !state) {
+    if (!state) {
         let state = "State is required"
         errors.state = state
     }
@@ -419,7 +429,7 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     return res.json(group)
 })
 
-//ADD AN IMAGE TO A GROUP BASED ON TEH GROUP'S ID
+//ADD AN IMAGE TO A GROUP BASED ON THE GROUP'S ID
 router.post('/:groupId/images', requireAuth, async (req, res, next) => {
     const { user } = req
     const { url, preview } = req.body
@@ -884,9 +894,9 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     // if (organizerId !== user.id && currentStatus !== 'host' && currentStatus !== 'co-host') {
     //    const err = new Error(`Require proper authorization`);
-        // err.status = 403
-        // err.message = `Forbidden`
-        // return next(err);
+    // err.status = 403
+    // err.message = `Forbidden`
+    // return next(err);
     // }
 
     //status from pending to member, must be organizer, host, or co-host
@@ -901,9 +911,9 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     } else if (statusMemberToChange === 'member' && changeStatusTo === 'co-host') {
         if (organizerId !== user.id && currentStatus !== 'host') {
             const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+            err.status = 403
+            err.message = `Forbidden`
+            return next(err);
         }
     } else {
         const err = new Error(`This status change is not authorized.`);
