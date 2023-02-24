@@ -253,9 +253,18 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error("Couldn't find a Group with the specified id");
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
     let group = await Group.findByPk(req.params.groupId, {
         include: [{ model: Membership }, { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] }]
     })
+
     groupJSON = group.toJSON()
 
     //identify organizer
@@ -376,19 +385,19 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     }
 
     let errors = {}
-    if (name && name.length > 60) {
+    if (!name || name.length > 60) {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (about && about.length < 50) {
+    if (!about || about.length < 50) {
         let about = "About must be 50 characters or more"
         errors.about = about
     }
-    if (type && type !== 'Online' && type !== 'In person') {
+    if (!type || type !== 'Online' && type !== 'In person') {
         let type = "Type must be 'Online' or 'In person'"
         errors.type = type
     }
-    if (private && private !== true && private !== false) {
+    if (!private || private !== true && private !== false) {
         let private = "Private must be a boolean"
         errors.private = private
     }
