@@ -65,6 +65,7 @@ router.get('/', async (req, res, next) => {
         // console.log(size)
     }
 
+    //assuming if page or size is sent but not the other than an error should be thrown isntead of a default value set.
     if (page && !size) {
         let size = "Size must be greater than or equal to 1"
         errors.size = size
@@ -148,6 +149,8 @@ router.get('/', async (req, res, next) => {
         let month = parseInt(startDateArray[1])
         let day = parseInt(startDateArray[2])
 
+
+        //possible issues with how months and days work. currently this would be technically
         if (!year || !month || !day || year < 1000 || month < 1 || month > 12 || day < 1 || day > 31) {
             let startDate = "Start date must be a valid datetime"
             errors.startDate = startDate
@@ -238,7 +241,7 @@ router.get('/', async (req, res, next) => {
                     previewImage = image.url
                 }
             }
-          
+
         }
 
         //count attendances

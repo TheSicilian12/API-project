@@ -57,12 +57,13 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         ]
     })
 
-    let venueMembershipJSON = venueMembership.toJSON()
     let venueGroupJSON = venueGroup.toJSON()
+    let venueMembershipJSON = venueMembership.toJSON()
 
     let organizerId = venueGroupJSON.Group.organizerId
 
     let status = 'test';
+    // console.log(venueMembershipJSON)
     if (venueMembershipJSON.Group) {
         status = venueMembershipJSON.Group.Memberships[0].status
     }
