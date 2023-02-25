@@ -59,87 +59,135 @@ router.get('/', async (req, res) => {
 
 })
 
-//GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USER
+//GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USE
 router.get('/current', requireAuth, async (req, res) => {
-    // return res.json(groupObj)
+    //groups joined or organized by current user
 
-    let tempObj = {};
-    tempObj.Groups = [];
+    const { user } = req
 
-    let groupObj = {};
-    groupObj.Groups = [];
-
-    let groupTracker = [];
-
-    let currentId = req.user.toJSON().id
-
-    let groups = await Group.findAll({
-        include: [
-            { model: Membership },
-            { model: GroupImage }
-        ]
-    })
-    // console.log(JSON.parse(JSON.stringify(groups)))
-
-    // json
-    for (let group of groups) {
-        tempObj.Groups.push(group.toJSON())
+    //Check if there is a user
+    if (!user) {
+        const err = new Error("You must be logged in.")
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
     }
-    // console.log(tempObj)
-    for (let group of tempObj.Groups) {
-        // console.log(group)
-        if (group.organizerId === currentId) {
-            groupTracker.push(group.id)
-            group.numMembers = group.Memberships.length
+    //KEEP TRACK OF GROUP IDs!
+    let groupIdSet = new Set()
 
-            if (group.GroupImages && group.GroupImages.length > 0) {
+    //organized by current user
+    let groupsOrganized = await Group.findAll({
+        where: { organizerId: user.id }
+    })
+    //empty string if no groups organized
+    let groupsOrganizedJSON = (JSON.parse(JSON.stringify(groupsOrganized)))
 
-                // console.log("-----------------------------")
-                // console.log(group.GroupImages)
-                // group.previewImage = group.GroupImages[0].url
-
-                for (let image of group.GroupImages) {
-                    console.log("----------------------")
-                    console.log(image)
-
-                    console.log(image.preview)
-                    if (image.preview) {
-
-                        group.previewImage = image.url
-
-                    }
-                }
-
-            } else group.previewImage = null;
-
-            if (!group.previewImage) group.previewImage = null;
-            console.log(group.previewImage)
-            groupObj.Groups.push(group)
-        }
-
-        for (let member of group.Memberships) {
-            // console.log(member.userId)
-
-            if (member.userId === currentId && !groupTracker.includes(member.groupId)) {
-                groupTracker.push(member.groupId)
-                group.numMembers = group.Memberships.length;
-
-                if (group.GroupImages[0]) {
-                    group.previewImage = group.GroupImages[0].url
-                } else group.previewImage = null;
-
-                groupObj.Groups.push(group);
+    //add to set for groups organized
+    if (groupsOrganizedJSON.length > 0) {
+        for (let group of groupsOrganizedJSON) {
+            if (group.organizerId === user.id) {
+                groupIdSet.add(group.id)
             }
         }
+    }
 
-        delete group.GroupImages
-        delete group.Memberships
-        // test;
+    //member of a group
+    let membership = await Membership.findAll({
+        where: { userId: user.id },
+        include: [
+            { model: Group }
+        ]
+    })
+
+    //empty array possible
+    let membershipJSON = (JSON.parse(JSON.stringify(membership)))
+
+    //add to set for groups membership exists in
+    if (membershipJSON.length > 0) {
+        for (let membership of membershipJSON) {
+            if (membership.status === 'host' || membership.status === 'co-host' || membership.status === 'member') {
+                groupIdSet.add(membership.Group.id)
+            }
+        }
+    }
+
+    // let validGroup;
+    //go through each valid group
+    //transfer to a temp array cause I'm havving issues with the forEach function
+    let groupIdArray = []
+    groupIdSet.forEach(
+        value => {
+            groupIdArray.push(value)
+        }
+    )
+
+    let groupObj = {}
+    groupObj.Groups = []
+
+    //define numMembers outside of the if statement
+    let numMembers = 0;
+
+    //just making sure there's actually values in the array
+    if (groupIdArray.length > 0) {
+        for (let validGroupId of groupIdArray) {
+            console.log("current group Id: ", validGroupId)
+
+            let validGroup = await Group.findByPk(validGroupId)
+            let validGroupJSON = validGroup.toJSON()
+
+            let previewImageFind = await GroupImage.findOne({
+                where: [{ groupId: validGroupId }, { preview: true }]
+            })
+
+            let previewImageFindJSON = JSON.parse(JSON.stringify(previewImageFind))
+
+            //is preview true?
+            let previewImage;
+            if (previewImageFindJSON) {
+                previewImage = previewImageFindJSON.url
+            } else previewImage = null
+
+
+            // console.log(validGroupJSON)
+
+            //number members
+            //memberships key will be empty array if no memberships
+            let groupMembership = await Group.findByPk(validGroupId, {
+                include: [{model: Membership}]
+            })
+            let groupMembershipJSON = groupMembership.toJSON()
+
+            //check the existance of members
+
+            if (groupMembershipJSON.Memberships.length > 0) {
+                for (let member of groupMembershipJSON.Memberships) {
+                    // console.log(member.status)
+                    if (member.status === 'host' || member.status === 'co-host' || member.status === 'member') numMembers++
+                }
+            }
+
+            groupObj.Groups.push({
+                id: validGroupJSON.id,
+                organizerId: validGroupJSON.organizerId,
+                name: validGroupJSON.name,
+                about: validGroupJSON.about,
+                type: validGroupJSON.type,
+                private: validGroupJSON.private,
+                city: validGroupJSON.city,
+                state: validGroupJSON.state,
+                createdAt: validGroupJSON.createdAt,
+                updatedAt: validGroupJSON.updatedAt,
+                numMembers: numMembers,
+                previewImage: previewImage
+            })
+
+        }
     }
 
     return res.json(groupObj)
-
 })
+
+
 
 //GET DETAILS OF A GROUP FROM AN ID
 router.get('/:groupId', async (req, res, next) => {
@@ -563,40 +611,40 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-     //Check for organizer
-     let organizerId = groupGeneral.organizerId
-     //this is actually checking for membership status
-     let status = "test"
-     let group = await Group.findByPk(req.params.groupId, {
-         include: [{ model: Membership, where: { userId: user.id } }]
-        })
-        if (group) {
-            // const err = new Error(`Require proper authorization`);
-            // err.status = 403
-            // err.message = `Forbidden`
-            // return next(err);
+    //Check for organizer
+    let organizerId = groupGeneral.organizerId
+    //this is actually checking for membership status
+    let status = "test"
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{ model: Membership, where: { userId: user.id } }]
+    })
+    if (group) {
+        // const err = new Error(`Require proper authorization`);
+        // err.status = 403
+        // err.message = `Forbidden`
+        // return next(err);
 
 
 
-            //Check for host and cohost
-            status = group.Memberships[0].status
-            // console.log(status)
-        }
+        //Check for host and cohost
+        status = group.Memberships[0].status
+        // console.log(status)
+    }
 
-        if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-            const err = new Error(`Require proper authorization`);
-            err.status = 403
-            err.message = `Forbidden`
-            return next(err);
-        }
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
+        return next(err);
+    }
 
-        let errors = {}
-        if (!address) {
-            let address = "Street address is required"
-            errors.address = address
-        }
-        if (!city) {
-            let city = "City is required"
+    let errors = {}
+    if (!address) {
+        let address = "Street address is required"
+        errors.address = address
+    }
+    if (!city) {
+        let city = "City is required"
         errors.city = city
     }
     if (!state) {
@@ -665,7 +713,8 @@ router.get('/:groupId/events', async (req, res, next) => {
 
         if (attendance.Attendances.length > 0) {
             for (let person of attendance.Attendances) {
-                if (person.status === "true") numAttending++
+                // console.log(person)
+                if (person.status === "member" || person.status === "attending") numAttending++
             }
         }
         // console.log(attendance.EventImages)
