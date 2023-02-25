@@ -23,13 +23,18 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: "www.eventImage-1.com",
+        url: "www.eventImage-1(preview true).com",
         preview: true
+      },
+      {
+        eventId: 1,
+        url: "www.eventImage-1(preview false).com",
+        preview: false
       },
       {
         eventId: 2,
         url: "www.eventImage-2.com",
-        preview: true
+        preview: false
       },
       {
         eventId: 3,
