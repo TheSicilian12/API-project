@@ -6,22 +6,62 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-// const validateLogin = [
-//   check('credential')
-//     .exists({ checkFalsy: true })
-//     .notEmpty()
-//     .withMessage('Please provide a valid email or username.'),
-//   check('password')
-//     .exists({ checkFalsy: true })
-//     .withMessage('Please provide a password.'),
-//   handleValidationErrors
-// ];
+const validateLogin = [
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a valid email or username.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a password.'),
+  handleValidationErrors
+];
 
 //GET ALL GROUPS
+// router.get('/', async (req, res) => {
+//     //return setup
+//     let groupObj = {};
+//     groupObj.Groups = [];
+
+//     //main search
+//     let groups = await Group.findAll({
+//         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
+//         include: [
+//             { model: Membership },
+//             { model: GroupImage }
+//         ]
+//     })
+
+//     //json
+//     for (let group of groups) {
+//         groupObj.Groups.push(group.toJSON())
+//     }
+
+//     //num members
+//     for (let group of groupObj.Groups) {
+//         // console.log(group.Memberships.length)
+//         // console.log("------------------")
+//         if (group.Memberships.length) {
+//             group.numMembers = group.Memberships.length;
+//         } else group.numMembers = 0;
+//         delete group.Memberships;
+//     }
+
+//     //preview image add
+//     for (let group of groupObj.Groups) {
+//         if (group.GroupImages[0]) {
+//             group.previewImage = group.GroupImages[0].url
+//         } else group.previewImage = null;
+//         delete group.GroupImages;
+//     }
+
+//     res.json(groupObj)
+
+// })
+//GET ALL GROUPS
 router.get('/', async (req, res) => {
-    //return setup
-    let groupObj = {};
-    groupObj.Groups = [];
+
+
 
     //main search
     let groups = await Group.findAll({
@@ -32,27 +72,52 @@ router.get('/', async (req, res) => {
         ]
     })
 
-    //json
-    for (let group of groups) {
-        groupObj.Groups.push(group.toJSON())
-    }
+    let groupsJSON = JSON.parse(JSON.stringify(groups))
 
-    //num members
-    for (let group of groupObj.Groups) {
-        // console.log(group.Memberships.length)
-        // console.log("------------------")
-        if (group.Memberships.length) {
-            group.numMembers = group.Memberships.length;
-        } else group.numMembers = 0;
-        delete group.Memberships;
-    }
+    let groupObj = {};
+    groupObj.Groups = [];
 
-    //preview image add
-    for (let group of groupObj.Groups) {
-        if (group.GroupImages[0]) {
-            group.previewImage = group.GroupImages[0].url
-        } else group.previewImage = null;
-        delete group.GroupImages;
+    for (let group of groupsJSON) {
+
+
+        let numMembers = 0;
+        let previewImage = null;
+
+        //number of members in a group
+        if (group.Memberships.length > 0) {
+            for (let person of group.Memberships) {
+                if (person.status === 'member') {
+                    numMembers++
+                }
+            }
+        }
+
+        //preview image for a group
+        if (group.GroupImages.length > 0) {
+            for (let image of group.GroupImages) {
+                if (image.preview === true){
+                    previewImage = image.url
+                }
+            }
+
+        }
+
+
+
+        groupObj.Groups.push({
+            id: group.id,
+            organizerId: group.organizerId,
+            name: group.name,
+            about: group.about,
+            type: group.type,
+            private: group.private,
+            city: group.city,
+            state: group.state,
+            createdAt: group.createdAt,
+            updatedAt: group.updatedAt,
+            numMembers: numMembers,
+            preivewImage: previewImage
+        })
     }
 
     res.json(groupObj)
@@ -141,7 +206,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
             let previewImageFindJSON = JSON.parse(JSON.stringify(previewImageFind))
 
-            //is preview true?
+            //is preview true? previewImageFIndJSON set up to find only previews = true
             let previewImage;
             if (previewImageFindJSON) {
                 previewImage = previewImageFindJSON.url
@@ -745,16 +810,16 @@ router.get('/:groupId/events', async (req, res, next) => {
         //number attending
         let numAttending = 0;
         let attendance = await Attendance.findAll({
-            where: {eventId: event.id}
+            where: { eventId: event.id }
         })
         let attendanceJSON = JSON.parse(JSON.stringify(attendance))
 
         if (attendanceJSON.length > 0) {
-          for (let person of attendanceJSON) {
-            if (person.status === 'member' || person.status === "attending") {// I'm not sure if this should just be "member" or also "attending"
-                numAttending++
+            for (let person of attendanceJSON) {
+                if (person.status === 'member' || person.status === "attending") {// I'm not sure if this should just be "member" or also "attending"
+                    numAttending++
+                }
             }
-          }
         }
 
         eventObj.Events.push({
