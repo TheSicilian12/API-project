@@ -665,7 +665,8 @@ router.get('/:groupId/events', async (req, res, next) => {
 
         if (attendance.Attendances.length > 0) {
             for (let person of attendance.Attendances) {
-                if (person.status === "true") numAttending++
+                // console.log(person)
+                if (person.status === "member" || person.status === "attending") numAttending++
             }
         }
         // console.log(attendance.EventImages)
