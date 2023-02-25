@@ -386,6 +386,9 @@ router.get('/:groupId/members', async (req, res, next) => {
 
 //GET ALL VENUES FOR A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
+    //current user must be organizer, or co-host
+    //mg - or host?
+    //assuming organizer, host, co-host
     const { user } = req
 
     if (!user) {
@@ -408,18 +411,18 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
     })
 
     groupJSON = group.toJSON()
-
+    
     //identify organizer
     let organizerId = groupJSON.organizerId
 
     //identify co-host ids
-    let coHosts = new Set()
+    let hostsAndCoHosts = new Set()
     for (let member of groupJSON.Memberships) {
-        if (member.status === 'co-host')
-            coHosts.add(member.id)
+        if (member.status === 'co-host' || member.status === 'host')
+        hostsAndCoHosts.add(member.id)
     }
 
-    if (user.id === organizerId || coHosts.has(user.id)) {
+    if (user.id === organizerId || hostsAndCoHosts.has(user.id)) {
         let venueObj = {}
         venueObj.Venues = groupJSON.Venues
         return res.json(venueObj)
@@ -446,15 +449,15 @@ router.post('/', requireAuth, async (req, res, next) => {
 
     //checking for errors
     let errors = {}
-    if (name.length > 60) {
+    if (!name || name.length > 60) {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (about.length < 50) {
+    if (!about || about.length < 50) {
         let about = "About must be 50 characters or more"
         errors.about = about
     }
-    if (type !== 'Online' && type !== 'In person') {
+    if (!type || type !== 'Online' && type !== 'In person') {
         let type = "Type must be 'Online' or 'In person'"
         errors.type = type
     }
@@ -499,6 +502,9 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 //EDIT A GROUP
 router.put('/:groupId', requireAuth, async (req, res, next) => {
+    //group must belong to the current user.
+    //mg - organizer and/or host?
+    //assuming just oragnizer
     const { user } = req
     const { name, about, type, private, city, state } = req.body
 
@@ -582,6 +588,9 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
 
 //ADD AN IMAGE TO A GROUP BASED ON THE GROUP'S ID
 router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+    //current user must be the organizer for the group
+    //mg - or host?
+
     const { user } = req
     const { url, preview } = req.body
 
