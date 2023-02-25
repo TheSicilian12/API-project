@@ -35,7 +35,7 @@ module.exports = {
       {
         groupId: 3,
         url: 'www.group3-groupImage',
-        preview: true,
+        preview: false,
       },
       {
         groupId: 4,
