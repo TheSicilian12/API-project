@@ -200,6 +200,7 @@ router.get('/current', requireAuth, async (req, res) => {
             let validGroup = await Group.findByPk(validGroupId)
             let validGroupJSON = validGroup.toJSON()
 
+            //find preview image for group
             let previewImageFind = await GroupImage.findOne({
                 where: [{ groupId: validGroupId }, { preview: true }]
             })
