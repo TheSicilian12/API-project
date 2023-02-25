@@ -254,6 +254,7 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 
+
 //GET DETAILS OF A GROUP FROM AN ID
 router.get('/:groupId', async (req, res, next) => {
     //error if no group exists
