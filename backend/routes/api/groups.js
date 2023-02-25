@@ -7,14 +7,14 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors
+    check('credential')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email or username.'),
+    check('password')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
+    handleValidationErrors
 ];
 
 //GET ALL GROUPS
@@ -95,7 +95,7 @@ router.get('/', async (req, res) => {
         //preview image for a group
         if (group.GroupImages.length > 0) {
             for (let image of group.GroupImages) {
-                if (image.preview === true){
+                if (image.preview === true) {
                     previewImage = image.url
                 }
             }
@@ -304,7 +304,7 @@ router.get('/:groupId', async (req, res, next) => {
 
     delete groupJSON.Memberships
 
-    return res.json({...groupJSON, numMembers, Organizer})
+    return res.json({ ...groupJSON, numMembers, Organizer })
     // return res.json(groupObj.Groups[0])
 })
 
@@ -411,7 +411,7 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
     })
 
     groupJSON = group.toJSON()
-    
+
     //identify organizer
     let organizerId = groupJSON.organizerId
 
@@ -419,7 +419,7 @@ router.get('/:groupId/venues', requireAuth, async (req, res, next) => {
     let hostsAndCoHosts = new Set()
     for (let member of groupJSON.Memberships) {
         if (member.status === 'co-host' || member.status === 'host')
-        hostsAndCoHosts.add(member.id)
+            hostsAndCoHosts.add(member.id)
     }
 
     if (user.id === organizerId || hostsAndCoHosts.has(user.id)) {
@@ -675,6 +675,14 @@ router.delete('/:groupId', requireAuth, async (req, res, next) => {
 
 //CREATE A NEW VENUE FOR A GROUP SPECIFIED BY ITS ID
 router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
+    //current user mus tbe the organizer or co-host
+    //mg - or host?
+    //assuming organizer, host, or co-host
+
+    //error group doesn't exist
+
+    //error body validation failure
+
     const { user } = req
     const { address, city, state, lat, lng } = req.body
 
@@ -697,19 +705,14 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 
     //Check for organizer
     let organizerId = groupGeneral.organizerId
+
     //this is actually checking for membership status
     let status = "test"
     let group = await Group.findByPk(req.params.groupId, {
         include: [{ model: Membership, where: { userId: user.id } }]
     })
+    //if membership where userId = user.id does not exist group should not exist as well
     if (group) {
-        // const err = new Error(`Require proper authorization`);
-        // err.status = 403
-        // err.message = `Forbidden`
-        // return next(err);
-
-
-
         //Check for host and cohost
         status = group.Memberships[0].status
         // console.log(status)
@@ -735,13 +738,17 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
         let state = "State is required"
         errors.state = state
     }
-    if (!lat || typeof lat !== 'number') {
-        let lat = "Latitude is not valid"
-        errors.lat = lat
+    if (lat !== 0) {
+        if (!lat || typeof lat !== 'number' || lat < -90 || lat > 90) {
+            let lat = "Latitude is not valid"
+            errors.lat = lat
+        }
     }
-    if (!lng || typeof lng !== 'number') {
-        let lng = "Longitude is not valid"
-        errors.lng = lng
+    if (lng !== 0) {
+        if (!lng || typeof lng !== 'number' || lng < -180 || lng > 180) {
+            let lng = "Longitude is not valid"
+            errors.lng = lng
+        }
     }
 
     if (Object.keys(errors).length > 0) {
