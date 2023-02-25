@@ -176,25 +176,31 @@ router.get('/', async (req, res, next) => {
         include: [
             { model: Venue, attributes: ["id", "city", "state"] },
             { model: Group, attributes: ["id", "name", "city", "state"] },
-            { model: EventImage, attributes: ['url'] },
+            { model: EventImage, attributes: ['url', 'preview'] },
             { model: Attendance }
         ]
     })
+    // let eventJSON = JSON.parse(JSON.stringify(events))
 
-    //json
-    for (let event of events) {
-        eventObj.Events.push(event.toJSON())
-    }
-    // return res.json(events)
 
-    //preview image add
-    for (let e of eventObj.Events) {
-        // console.log(e.EventImages)
-        if (e.EventImages[0]) {
-            e.previewImage = e.EventImages[0].url
-        }
-        delete e.EventImages
-    }
+
+
+
+
+    // for (let e of eventObj.Events) {
+    //     // console.log(e.EventImages)
+    //     // if (e.EventImages[0]) {
+    //     //     e.previewImage = e.EventImages[0].url
+    //     // }
+    //     // delete e.EventImages
+    //     if (e.EventImages.length > 0) {
+    //         console.log(e.EventImages)
+    //         console.log(e.EventImages.preview)
+    //     } else e.previewImage = null
+
+    // }
+
+
     // update
     //num attending add
     for (let e of eventObj.Events) {
@@ -211,6 +217,52 @@ router.get('/', async (req, res, next) => {
         delete e.Attendances
     }
 
+
+
+
+    for (let event of events) {
+        let previewImage = null;
+        let numAttending = 0;
+
+        let eventJSON = event.toJSON()
+
+
+
+        // console.log(eventJSON.EventImages)
+        //identify images
+        if (eventJSON.EventImages.length > 0) {
+
+
+            for (let image of eventJSON.EventImages) {
+                if (image.preview === true) {
+                    previewImage = image.url
+                }
+            }
+          
+        }
+
+        //count attendances
+
+        if (eventJSON.Attendances.length > 0) {
+            // console.log("---------------------------")
+            for (let person of eventJSON.Attendances) {
+                // console.log(person)
+                if (person.status === 'member' || person.status === "attending") {// I'm not sure if this should just be "member" or also "attending"
+                    numAttending++
+                }
+            }
+        }
+
+
+        eventJSON.previewImage = previewImage
+        eventJSON.numAttending = numAttending
+
+        delete eventJSON.EventImages
+        delete eventJSON.Attendances
+
+        //moving things to the return object
+        eventObj.Events.push(eventJSON)
+    }
 
     res.json(eventObj)
 })

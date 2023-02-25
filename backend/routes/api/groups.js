@@ -153,7 +153,7 @@ router.get('/current', requireAuth, async (req, res) => {
             //number members
             //memberships key will be empty array if no memberships
             let groupMembership = await Group.findByPk(validGroupId, {
-                include: [{model: Membership}]
+                include: [{ model: Membership }]
             })
             let groupMembershipJSON = groupMembership.toJSON()
 
@@ -685,52 +685,93 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 
 //GET ALL EVENTS OF A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/events', async (req, res, next) => {
-    let group = await Group.findByPk(req.params.groupId, {
-        include: [
-            {
-                model: Event, attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate'],
-                include: [
-                    { model: Venue, attributes: ['id', 'city', 'state'] },
-                    { model: Attendance },
-                    { model: EventImage },
-                    { model: Group, attributes: ['id', 'name', 'city', 'state'] }
-                ]
-            },
-        ]
-    })
-
-    if (!group) {
+    //does group exist
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
         const err = new Error("Couldn't find a Group with the specified id")
         err.status = 404
         err.message = "Group couldn't be found"
         return next(err);
     }
 
-    let groupJSON = group.toJSON()
-
-    for (let attendance of groupJSON.Events) {
-        let numAttending = 0;
-
-        if (attendance.Attendances.length > 0) {
-            for (let person of attendance.Attendances) {
-                // console.log(person)
-                if (person.status === "member" || person.status === "attending") numAttending++
-            }
-        }
-        // console.log(attendance.EventImages)
-        if (attendance.EventImages.length) {
-            attendance.previewImage = attendance.EventImages[0].url
-        } else attendance.previewImage = null
-        attendance.numAttending = numAttending
-        // attendance.previewImage =
-        delete attendance.Attendances
-        delete attendance.EventImages
-    }
-
+    let event = await Event.findAll({
+        where: { groupId: req.params.groupId },
+        include: [
+            { model: EventImage },
+            { model: Group },
+            { model: Venue }
+        ]
+    })
+    let eventJSON = JSON.parse(JSON.stringify(event))
+    // console.log(eventJSON)
 
 
     let eventObj = {}
-    eventObj.Events = groupJSON.Events
+    eventObj.Events = []
+
+    for (let event of eventJSON) {
+
+
+        //format response
+        let group = null;
+        if (event.Group) {
+            group = {
+                id: event.Group.id,
+                name: event.Group.name,
+                city: event.Group.city,
+                state: event.Group.state
+            }
+        }
+        // console.log(eventJSON)
+        let venue = null;
+        if (event.Venue) {
+            venue = {
+                id: event.Venue.id,
+                city: event.Venue.city,
+                state: event.Venue.state
+            }
+        }
+
+        //event preview image
+        let previewImage = null
+        if (event.EventImages.length > 0) {
+            for (let image of event.EventImages) {
+                if (image.preview === true) {
+                    previewImage = image.url
+                }
+            }
+        }
+
+        //number attending
+        let numAttending = 0;
+        let attendance = await Attendance.findAll({
+            where: {eventId: event.id}
+        })
+        let attendanceJSON = JSON.parse(JSON.stringify(attendance))
+
+        if (attendanceJSON.length > 0) {
+          for (let person of attendanceJSON) {
+            if (person.status === 'member' || person.status === "attending") {// I'm not sure if this should just be "member" or also "attending"
+                numAttending++
+            }
+          }
+        }
+
+        eventObj.Events.push({
+            id: event.id,
+            groupId: event.groupId,
+            venueId: event.venueId,
+            name: event.name,
+            type: event.type.Attendance,
+            startDate: event.startDate,
+            endDate: event.endDate,
+            numAttending: numAttending,
+            previewImage: previewImage,
+            Group: group,
+            Venue: venue
+        })
+    }
+
 
     return res.json(eventObj)
 })
