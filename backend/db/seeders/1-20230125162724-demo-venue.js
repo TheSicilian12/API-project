@@ -54,6 +54,14 @@ module.exports = {
         lat: 31.1,
         lng: 654.2,
       },
+      {
+        groupId: 6,
+        address: '4444 road D',
+        city: 'Dayton',
+        state: 'Ohio',
+        lat: 31.1,
+        lng: 654.2,
+      },
     ], {})
   },
 

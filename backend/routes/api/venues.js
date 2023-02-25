@@ -8,7 +8,9 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
+const { HostNotFoundError } = require('sequelize');
 
+//EDIT A VENUE SPECIFIED BY ITS ID
 router.put('/:venueId', requireAuth, async (req, res, next) => {
     const { user } = req
     const { address, city, state, lat, lng } = req.body
@@ -31,6 +33,16 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //organizerId
+    let venueOrganizerId = await Venue.findByPk(req.params.venueId, {
+        include: [
+            {model: Group}
+        ]
+    })
+    let venueOrganizerIdJSON = venueOrganizerId.toJSON()
+    let organizerId = venueOrganizerIdJSON.Group.organizerId
+
+    // return res.json(venueOrganizerIdJSON)
     //checking authorized users
     let venue = await Venue.findByPk(req.params.venueId, {
         include: [
@@ -43,18 +55,32 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     if (!venueJSON.Group) {
         const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = `Forbidden`
+        // err.message = `Forbidden`
+        err.message = 'error in the venueJSON.Group'
+        return next(err);
+    }
+    console.log('user: ', user.id)
+    console.log('organizerId: ', organizerId)
+
+    let status = venueJSON.Group.Memberships[0].status
+    // if (organizerId !== user.id || status !== 'host' || status !== 'co-host') {
+    //     const err = new Error(`Require proper authorization`);
+    //     err.status = 403
+    //     err.message = `Forbidden`
+    //     return next(err);
+    // }
+     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        // err.message = `Forbidden`
+        err.message = 'THIS ERROR, HERE!'
         return next(err);
     }
 
-    let organizerId = venueJSON.Group.organizerId
-    let status = venueJSON.Group.Memberships[0].status
-    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
+
+    // st 1   is organizerId then true turned false. whole thing false.
+    // st 2   is Host. then true
+    // st 3
 
     let errors = {}
     if (!address) {
