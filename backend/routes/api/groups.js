@@ -254,11 +254,10 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 
-
 //GET DETAILS OF A GROUP FROM AN ID
 router.get('/:groupId', async (req, res, next) => {
-    let groupObj = {}
-    groupObj.Groups = []
+    //error if no group exists
+
     let currentId = req.params.groupId
 
     let group = await Group.findOne({
@@ -278,25 +277,34 @@ router.get('/:groupId', async (req, res, next) => {
         return next(err);
     }
 
-    let organizer = await User.findByPk(group.organizerId)
+    let groupJSON = group.toJSON()
 
+    let organizerData = await User.findByPk(group.organizerId)
 
+    let organizerJSON = organizerData.toJSON()
+    delete organizerJSON.username;
 
-    groupObj.Groups.push(group.toJSON())
+    // groupObj.Groups.push(group.toJSON())
 
     //add Organizer
-    groupObj.Groups[0].Organizer = { id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName: organizer.dataValues.lastName }
+    // groupObj.Groups[0].Organizer = { id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName: organizer.dataValues.lastName }
 
     //add numMembers
-    groupObj.Groups[0].numMembers = groupObj.Groups[0].Memberships.length;
-    delete groupObj.Groups[0].Memberships
+    let numMembers = 0;
+    if (groupJSON.Memberships.length > 0) {
+        for (let person of groupJSON.Memberships) {
+            if (person.status === 'member') {
+                numMembers++
+            }
+        }
+    }
 
-    //add previewImage
-    // console.log(groupObj.Groups[0].GroupImages[0].url)
-    // groupObj.Groups[0].previewImage = groupObj.Groups[0].GroupImages[0].url;
-    // delete groupObj.Groups[0].GroupImages
+    let Organizer = organizerJSON;
 
-    return res.json(groupObj.Groups[0])
+    delete groupJSON.Memberships
+
+    return res.json({...groupJSON, numMembers, Organizer})
+    // return res.json(groupObj.Groups[0])
 })
 
 // GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
