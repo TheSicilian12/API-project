@@ -8,7 +8,9 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
+const { HostNotFoundError } = require('sequelize');
 
+//EDIT A VENUE SPECIFIED BY ITS ID
 router.put('/:venueId', requireAuth, async (req, res, next) => {
     const { user } = req
     const { address, city, state, lat, lng } = req.body
@@ -21,7 +23,7 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    //venue with a specified Id
+    //venue with a specified Id, does the venue exist
     let venueGeneral = await Venue.findByPk(req.params.venueId)
 
     if (!venueGeneral) {
@@ -31,28 +33,58 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //organizerId
+    // let venueOrganizerId = await Venue.findByPk(req.params.venueId, {
+    //     include: [
+    //         {model: Group}
+    //     ]
+    // })
+    // let venueOrganizerIdJSON = venueOrganizerId.toJSON()
+    // let organizerId = venueOrganizerIdJSON.Group.organizerId
+
+    // return res.json(venueOrganizerIdJSON)
     //checking authorized users
-    let venue = await Venue.findByPk(req.params.venueId, {
+
+    //if no members Group will return as null.
+    let venueMembership = await Venue.findByPk(req.params.venueId, {
         include: [
             { model: Group, include: [{ model: Membership, where: { userId: user.id } }] },
         ]
     })
+    let venueGroup = await Venue.findByPk(req.params.venueId, {
+        include: [
+            { model: Group }
+        ]
+    })
 
-    let venueJSON = venue.toJSON()
+    let venueMembershipJSON = venueMembership.toJSON()
+    let venueGroupJSON = venueGroup.toJSON()
 
-    if (!venueJSON.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let organizerId = venueGroupJSON.Group.organizerId
+
+    let status = 'test';
+    if (venueMembershipJSON.Group) {
+        status = venueMembershipJSON.Group.Memberships[0].status
     }
 
-    let organizerId = venueJSON.Group.organizerId
-    let status = venueJSON.Group.Memberships[0].status
+    // return res.json(status)
+
+    // if (!venueMembershipJSON.Group) {
+    //     const err = new Error(`Require proper authorization`);
+    //     err.status = 403
+    //     // err.message = `Forbidden`
+    //     err.message = 'error in the venueJSON.Group'
+    //     return next(err);
+    // }
+    // console.log('user: ', user.id)
+    // console.log('organizerId: ', organizerId)
+
+
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
-        err.message = `Forbidden`
+        // err.message = `Forbidden`
+        err.message = 'THIS ERROR, HERE!'
         return next(err);
     }
 
@@ -69,13 +101,15 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         let state = "State is required"
         errors.state = state
     }
-    if (!lat || typeof lat !== 'number') {
-        let lat = "Latitude is not valid"
-        errors.lat = lat
-    }
-    if (!lng || typeof lng !== 'number') {
-        let lng = "Longitude is not valid"
-        errors.lng = lng
+    if (lat !== 0) {
+        if (!lat || typeof lat !== 'number') {
+            let lat = "Latitude is not valid"
+            errors.lat = lat
+        }
+        if (!lng || typeof lng !== 'number') {
+            let lng = "Longitude is not valid"
+            errors.lng = lng
+        }
     }
 
     if (Object.keys(errors).length > 0) {
@@ -86,19 +120,19 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
-    if (address) venue.address = address
-    if (city) venue.city = city
-    if (state) venue.state = state
-    if (lat) venue.lat = lat
-    if (lng) venue.lng = lng
+    if (address) venueGeneral.address = address
+    if (city) venueGeneral.city = city
+    if (state) venueGeneral.state = state
+    if (lat || lat === 0) venueGeneral.lat = lat
+    if (lng || lng === 0) venueGeneral.lng = lng
 
-    await venue.save()
+    await venueGeneral.save()
 
-    let returnVenue = venue.toJSON()
+    let returnVenue = venueGeneral.toJSON()
 
     delete returnVenue.createdAt
     delete returnVenue.updatedAt
-    delete returnVenue.Group
+    // delete returnVenue.Group
 
     return res.json(returnVenue)
 })
