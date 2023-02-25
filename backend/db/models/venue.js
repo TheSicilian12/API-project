@@ -26,8 +26,20 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
-    lat: DataTypes.DECIMAL,
-    lng: DataTypes.DECIMAL
+    lat: {
+      type: DataTypes.DECIMAL,
+      validate: {
+        min: -90,
+        max: 90
+      }
+    },
+    lng: {
+     type: DataTypes.DECIMAL,
+     validate: {
+      min: -180,
+      max: 180
+     }
+    }
   }, {
     sequelize,
     modelName: 'Venue',
