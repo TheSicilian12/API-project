@@ -776,6 +776,8 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
 
 //GET ALL EVENTS OF A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/events', async (req, res, next) => {
+    //errors group doesn't exist
+
     //does group exist
     let groupTest = await Group.findByPk(req.params.groupId)
     if (!groupTest) {
@@ -853,7 +855,7 @@ router.get('/:groupId/events', async (req, res, next) => {
             groupId: event.groupId,
             venueId: event.venueId,
             name: event.name,
-            type: event.type.Attendance,
+            type: event.type,
             startDate: event.startDate,
             endDate: event.endDate,
             numAttending: numAttending,
