@@ -83,8 +83,8 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
-        // err.message = `Forbidden`
-        err.message = 'THIS ERROR, HERE!'
+        err.message = `Forbidden`
+        // err.message = 'THIS ERROR, HERE!'
         return next(err);
     }
 
