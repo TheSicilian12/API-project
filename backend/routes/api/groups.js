@@ -5,6 +5,7 @@ const router = express.Router();
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { ResultWithContext } = require('express-validator/src/chain');
 
 const validateLogin = [
     check('credential')
@@ -894,15 +895,15 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         err.message = "Group couldn't be found"
         return next(err);
     }
-
     let groupTestJSON = groupTest.toJSON()
 
     let organizerId = groupTestJSON.organizerId
 
+    //if member does not exist, then group should be null
     let group = await Group.findByPk(req.params.groupId, {
         include: [{ model: Membership, where: { userId: user.id } }]
     })
-
+    // return res.json(group)
     let status = 'test'
     if (group) {
         let groupMembershipJSON = group.toJSON()
@@ -981,8 +982,10 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
+    //there is a chance group is null, so don't reference group here.
     let newEvent = await Event.create({
-        groupId: group.id,
+        //groupId had referenced group.id which can be null, if error like this occurs again, double check what you are referencing.
+        groupId: req.params.groupId,
         venueId,
         name,
         type,
