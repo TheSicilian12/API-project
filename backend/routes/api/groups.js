@@ -871,6 +871,10 @@ router.get('/:groupId/events', async (req, res, next) => {
 
 //CREATE AN EVENT FOR A GROUP SPECIFIED BY ITS ID
 router.post('/:groupId/events', requireAuth, async (req, res, next) => {
+    //current user must be organizer or co-host
+    //mg - or host?
+    //assuming organizer, host, or co-host
+
     const { user } = req
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
@@ -891,24 +895,24 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    let groupTestJSON = groupTest.toJSON()
+
+    let organizerId = groupTestJSON.organizerId
+
     let group = await Group.findByPk(req.params.groupId, {
         include: [{ model: Membership, where: { userId: user.id } }]
     })
 
-    if (!group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let status = 'test'
+    if (group) {
+        let groupMembershipJSON = group.toJSON()
+        // console.log(groupMembershipJSON)
+        status = groupMembershipJSON.Memberships[0].status
+        // console.log(status)
     }
 
-    let groupJSON = group.toJSON()
-
-    let organizerId = groupJSON.organizerId
-    let status = groupJSON.Memberships[0].status
-
     //Check organizerId, host, and co-host valid user
-    if (!group || organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
         err.message = `Forbidden`
@@ -946,13 +950,15 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let type = "Type must be Online or In person"
         errors.type = type
     }
-    if (!capacity || !Number.isInteger(capacity)) {
+    if (!capacity || !Number.isInteger(capacity) || capacity < 1) {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
     }
-    if (!price || typeof price !== 'number') {
-        let price = "Price is invalid"
-        errors.price = price
+    if (price !== 0) {
+        if (!price || typeof price !== 'number' || price < 0) {
+            let price = "Price is invalid"
+            errors.price = price
+        }
     }
     if (!description) {
         let description = "Description is required"
