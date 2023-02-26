@@ -732,7 +732,7 @@ router.get('/:eventId/attendees', async (req, res, next) => {
             if (organizerId === user.id || status === 'host' || status === 'co-host') {
                 let user = await User.findByPk(attend.userId)
                 let userJSON = user.toJSON()
-                console.log(userJSON)
+                // console.log(userJSON)
 
                 attendeeObj.Attendees.push({
                     //I'm not sure if the id is for the attendee id or the user id.
@@ -745,14 +745,12 @@ router.get('/:eventId/attendees', async (req, res, next) => {
                     }
                 })
 
-
-
             } else {
                 //current user NOT organizer, host, or co-host
 
                 let user = await User.findByPk(attend.userId)
                 let userJSON = user.toJSON()
-                console.log(userJSON)
+                // console.log(userJSON)
 
                 if (attend.status !== 'pending') {
                     attendeeObj.Attendees.push({
@@ -766,8 +764,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
                         }
                     })
                 }
-
-
             }
         }
     }
