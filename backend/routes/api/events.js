@@ -1092,7 +1092,8 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     //check if a member of the group
     //not a member of the group
-    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+    // console.log(status)
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host' && status !== 'member') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
         err.message = `Forbidden`
