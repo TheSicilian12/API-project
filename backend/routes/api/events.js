@@ -312,6 +312,15 @@ router.get('/:eventId', async (req, res, next) => {
 
 //EDIT AN EVENT SPECIFIED BY ITS ID
 router.put('/:eventId', requireAuth, async (req, res, next) => {
+    //current user must be organizer, co-host
+    //mg - host?
+    //assuming organizer, host, and co-host
+
+    //error body validation
+
+    //error venue does not exist
+
+    //error event does not exist
     const { user } = req
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
@@ -322,8 +331,8 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //does event exist
     let eventTest = await Event.findByPk(req.params.eventId)
-
     if (!eventTest) {
         const err = new Error("Couldn't find an Event with the specified id");
         err.status = 404
@@ -331,30 +340,44 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-
-    let event = await Event.findByPk(req.params.eventId, {
-        include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }, { model: Attendance }]
+    //find organizerId
+    let eventOrganizer = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Group }
+        ]
     })
+    let eventOrganizerJSON = eventOrganizer.toJSON()
+
+    let organizerId = eventOrganizerJSON.Group.organizerId
+
+
+    //find status
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [
+            {
+                model: Group,
+                include: [
+                    {
+                        model: Membership,
+                        where: {
+                            userId: user.id
+                        }
+                    }
+                ]
+            }
+        ]
+    })
+
     eventJSON = event.toJSON()
 
-    if (!event.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
-    let organizerId = eventJSON.Group.organizerId
-    let status = eventJSON.Group.Memberships[0].status
-
-    if (!event) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    //if no member then event.Group will be null
+    let status = 'test'
+    if (eventJSON.Group) {
+        status = eventJSON.Group.Memberships[0].status
+        // console.log(status)
     }
 
-    // console.log(eventJSON)
-
+    //is this a valid user
     if (organizerId !== user.id && status !== 'host' && status !== "co-host") {
         const err = new Error(`Require proper authorization`);
         err.status = 403
@@ -394,7 +417,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         let type = "Type must be Online or In person"
         errors.type = type
     }
-    if (!capacity || !Number.isInteger(capacity)) {
+    if (!capacity || !Number.isInteger(capacity) || capacity < 1) {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
     }
@@ -441,6 +464,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     delete eventResponse.updatedAt
     delete eventResponse.createdAt
 
+    // return res.json('end of route')
     return res.json(eventResponse)
 })
 
