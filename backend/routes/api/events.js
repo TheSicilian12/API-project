@@ -1032,7 +1032,20 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //find organizerId
+    let eventOrganizer = await Event.findByPk(req.params.eventId, {
+        include: [{model: Group}]
+    })
+    let eventOrganizerJSON = eventOrganizer.toJSON()
+
+    let organizerId = eventOrganizerJSON.Group.organizerId
+
+
+
+
     //is current user a member of the group
+    //find status
+    //group should be null if membership value is false
     let memberTest = await Event.findByPk(req.params.eventId, {
         include: [
             {
@@ -1046,15 +1059,26 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
             }
         ]
     })
-    let eventJSON = memberTest.toJSON()
-    if (!eventJSON.Group) {
-        const err = new Error(`Not a member of this group`);
-        err.status = 404
-        err.message = "Not a member of this group"
+    let memberJSON = await memberTest.toJSON()
+
+    let status = 'test'
+    if (memberJSON.Group) {
+        status = memberJSON.Group.Memberships[0].status
+    }
+    // console.log(status)
+
+    //check if a member of the group
+    //not a member of the group
+    if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
         return next(err);
     }
 
-    //current user pending or already attending
+    //find attendStatus
+    //current user pending or already attending event
+    //null if no attendance and will error out toJSON()
     let eventAttendanceTest = await Event.findByPk(req.params.eventId, {
         include: [
             {
@@ -1065,24 +1089,33 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
             }
         ]
     })
+
+    let attendStatus = 'test'
+    //if this exists attendStatus will retrieved
     if (eventAttendanceTest) {
-        let eventAttendanceTestJSON = eventAttendanceTest.toJSON()
 
-        let attendanceStatus = eventAttendanceTestJSON.Attendances[0].status
+        let eventAttendanceJSON = eventAttendanceTest.toJSON()
 
-        //check pending status
-        if (attendanceStatus === 'pending') {
+        // console.log("attendance exists")
+        attendStatus = eventAttendanceJSON.Attendances[0].status
+        // console.log(attendStatus)
+    }
+
+    //check if attendance already exists
+    if (attendStatus !== 'test') {
+        //I'm not sure about waitlist so I'm putting it with pending
+        if (attendStatus === 'pending' || attendStatus === 'waitlist') {
             const err = new Error(`Current User already has a pending attendance for the event`);
             err.status = 400
             err.message = "Attendance has already been requested"
             return next(err);
-            //I'm not sure about the waitlist status, so I'm just putting waitlist and member together.
         } else {
             const err = new Error(`Current User is already an accepted attendee of the event`);
             err.status = 400
             err.message = "User is already an attendee of the event"
             return next(err);
         }
+
     }
 
     let attendanceRequest = await Attendance.create({
@@ -1096,10 +1129,9 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
     delete attendanceRequestJSON.updatedAt
     delete attendanceRequestJSON.createdAt
 
-
+    // return res.json('end of the route')
     return res.status(200).json(attendanceRequestJSON)
 })
-
 
 
 module.exports = router;
