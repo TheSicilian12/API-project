@@ -1056,10 +1056,9 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //error if user does not exist
 
     //error group does not exist
-
+    //test
     //error membership does not exist
 
-    //ADDED ERROR HANDLING FOR memberID and status. Possible issue?
     const { user } = req
     const { memberId, status } = req.body
     if (!memberId) {
@@ -1178,16 +1177,9 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
             return next(err);
         }
     } else {
-        //if attempting anything other than pending -> member or member -> co-host
-
-        // const err = new Error(`This status change is not authorized.`);
-        // err.status = 404
-        // err.message = "This status change is not authorized."
-        // return next(err);
-
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
+        const err = new Error(`This status change is not authorized.`);
+        err.status = 404
+        err.message = "This status change is not authorized."
         return next(err);
     }
 
