@@ -447,6 +447,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 //ADD AN IMAGE TO AN EVENT BASED ON THE EVENT'S ID
 router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     //current user must be attendee, host, or co-host
+    //mg - assuming organizerId as well
 
     //error if event doesn't exist
 
@@ -469,7 +470,17 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    //find organizerId and status
+    //find organizerId
+    let eventGroup = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Group }
+        ]
+    })
+    let eventGroupJSON = eventGroup.toJSON()
+
+    let organizerId = eventGroupJSON.Group.organizerId
+
+    // find status
     let event = await Event.findByPk(req.params.eventId, {
         include: [
             {
@@ -486,42 +497,41 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         ],
         attributes: ['id', 'groupId']
     })
-    let eventJSON = event.toJSON()
 
-    if (!eventJSON.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let status = 'test'
+    if (event) {
+        let eventJSON = event.toJSON()
+
+        if (eventJSON.Group) {
+            status = eventJSON.Group.Memberships[0].status
+        }
+
+        //     return res.json(status)
     }
+    // console.log(status)
 
-    let organizerId = eventJSON.Group.organizerId
-    let status = eventJSON.Group.Memberships[0].status
-
-    let attendance = await Attendance.findOne({
-        include: [{
-            model: Event,
-            where: { id: req.params.eventId }
-        }],
-        where: { userId: user.id }
+    //find attendance
+    let attendance = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Attendance, where: { userId: user.id } }
+        ]
     })
-    let attendanceJSON = attendance.toJSON()
 
-    if (!attendance) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    //if statement prevents errors when where does not exist
+    let attendanceStatus = 'test';
+    if (attendance) {
+        let attendanceJSON = attendance.toJSON()
+        attendanceStatus = attendanceJSON.Attendances[0].status
     }
-
-    let attendanceStatus = attendanceJSON.status
+    // console.log(attendanceStatus)
 
     // console.log(user.id)
     // console.log(attendanceJSON)
     if (organizerId !== user.id
         && status !== 'host'
         && status !== 'co-host'
-        && attendanceStatus !== 'member') {
+        && attendanceStatus !== 'member'
+        && attendanceStatus !== 'attending') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
         err.message = `Forbidden`
@@ -539,8 +549,9 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     delete newImageJSON.updatedAt
     delete newImageJSON.createdAt
     delete newImageJSON.eventId
-
-
+    // console.log(status)
+    // console.log(attendanceStatus)
+    // return res.json('end of the route')
     return res.json(newImageJSON)
 })
 
