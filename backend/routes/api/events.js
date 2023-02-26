@@ -673,7 +673,9 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
 // check if organizer, host, or user to be deleted
 //assuming organizer should be included.
-if (organizerId !== user.id && user.id !== userToDeleteId || status !== 'host') {
+// console.log(user.id)
+// console.log(userToDeleteId)
+if (organizerId !== user.id && user.id !== userToDeleteId && status !== 'host') {
     const err = new Error(`Only the User or organizer may delete an Attendance`)
     err.status = 403
     err.message = "Only the User or organizer may delete an Attendance"
