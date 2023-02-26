@@ -20,7 +20,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let imageCheck  =await EventImage.findByPk(req.params.imageId)
+    let imageCheck = await EventImage.findByPk(req.params.imageId)
 
     if (!imageCheck) {
         const err = new Error(`Couldn't find an Image with the specified id`);
@@ -31,22 +31,49 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
 
     let image = await EventImage.findByPk(req.params.imageId, {
-        include: [{model: Event, attributes: ['id'], include: [{model: Group, attributes: ['organizerId'], include: [{model: Membership, attributes: ['userId', 'status'], where: {userId: user.id}}]}]}]
+        include: [{ model: Event, attributes: ['id'], include: [{ model: Group, attributes: ['organizerId'], include: [{ model: Membership, attributes: ['userId', 'status'], where: { userId: user.id } }] }] }]
     })
 
+    //find organizerId
+    let event = await Event.findOne({
+        include: [
+            {
+                model: EventImage,
+                where: {
+                    id: req.params.imageId
+                }
+            },
+            { model: Group }
+        ]
+    })
+    let eventJSON = event.toJSON()
 
-    if (!image || !image.Group || !image.Group.Memberships) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let organizerId = eventJSON.Group.organizerId
+
+    //event id
+    let groupId = eventJSON.groupId
+
+    //find status
+
+    let groupMembership = await Group.findByPk(groupId, {
+        include: [
+            {
+                model: Membership,
+                where: {
+                    userId: user.id
+                }
+            }
+        ]
+    })
+
+    let status = "test"
+    if (groupMembership) {
+        let groupMembershipJSON = groupMembership.toJSON()
+        let status = groupMembershipJSON.Memberships[0].status
+        // console.log(groupMembershipJSON.Memberships[0].status)
     }
 
     //current user must be organizer, host, or co-host
-    let imageJSON = image.toJSON()
-    let status = imageJSON.Event.Group.Memberships[0].status
-    let organizerId = imageJSON.Event.Group.organizerId
-
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
@@ -56,9 +83,10 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
     await image.destroy();
 
+    // return res.json('end of route')
     return res.status(200).json({
         "message": "Successfully deleted"
-      })
+    })
 })
 
 //testing if image deleted
