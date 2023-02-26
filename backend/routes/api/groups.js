@@ -375,7 +375,7 @@ router.get('/:groupId/members', async (req, res, next) => {
     })
     let groupMembershipJSON = groupMembership.toJSON()
 
-    
+
     let memberObj = {}
     memberObj.Members = []
     // let arrayCounter = 0;
@@ -1059,6 +1059,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //error membership does not exist
 
+    //ADDED ERROR HANDLING FOR memberID and status. Possible issue?
     const { user } = req
     const { memberId, status } = req.body
     if (!memberId) {
@@ -1177,9 +1178,16 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
             return next(err);
         }
     } else {
-        const err = new Error(`This status change is not authorized.`);
-        err.status = 404
-        err.message = "This status change is not authorized."
+        //if attempting anything other than pending -> member or member -> co-host
+
+        // const err = new Error(`This status change is not authorized.`);
+        // err.status = 404
+        // err.message = "This status change is not authorized."
+        // return next(err);
+
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
         return next(err);
     }
 

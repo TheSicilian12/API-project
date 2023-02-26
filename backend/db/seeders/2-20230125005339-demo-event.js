@@ -108,6 +108,16 @@ module.exports = {
         startDate: "2023-04-30",
         endDate: "2023-04-30"
       },
+      {
+        groupId: 8,
+        name: "this event should have no members",
+        description: "really, no members",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
     ], {})
 
 
