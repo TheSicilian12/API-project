@@ -272,6 +272,8 @@ router.get('/', async (req, res, next) => {
 
 //GET DETAILS OF AN EVENT SPECIFIED BY ITS ID
 router.get('/:eventId', async (req, res, next) => {
+    //error event does not exist
+
     let event = await Event.findByPk(req.params.eventId, {
         attributes: {
             exclude: ['createdAt', 'updatedAt']
