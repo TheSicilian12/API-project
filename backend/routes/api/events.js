@@ -683,6 +683,7 @@ router.get('/:eventId/attendees', async (req, res, next) => {
         return next(err);
     }
 
+    //does the event exist
     let doesEventExist = await Event.findByPk(req.params.eventId)
     if (!doesEventExist) {
         const err = new Error(`Couldn't find an Event with the specified id`)
@@ -691,76 +692,83 @@ router.get('/:eventId/attendees', async (req, res, next) => {
         return next(err);
     }
 
+    //find organizerId
+    let eventGroup = await Event.findByPk(req.params.eventId, {
+        include: [{ model: Group }]
+    })
+    let eventGroupJSON = eventGroup.toJSON()
+    let organizerId = eventGroupJSON.Group.organizerId
+    // console.log(organizerId)
+
+    //find status
+    //group will be null if no members meet the criteria (pretty sure if they don't meet the criteria)
     let event = await Event.findByPk(req.params.eventId, {
         include: [{ model: Group, include: [{ model: Membership, where: { userId: user.id } }] }]
     })
     let eventJSON = event.toJSON()
 
-    if (!eventJSON.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let status = "test"
+    if (eventJSON.Group) {
+        status = eventJSON.Group.Memberships[0].status
     }
+    // console.log(status)
 
-    let organizerId = eventJSON.Group.organizerId
-    let userStatus = eventJSON.Group.Memberships[0].status
-
-    //organizer, host, or co-host
-    if (organizerId === user.id || userStatus === 'host' || userStatus === 'co-host') {
-        let attendance = await User.findAll({
-            include: [{ model: Event, where: { id: req.params.eventId } }]
-        })
-
-        let attendanceJSON = JSON.parse(JSON.stringify(attendance))
-
-
-        let returnObj = {};
-        returnObj.Attendees = [];
-
-
-        for (let attend of attendanceJSON) {
-            returnObj.Attendees.push({
-                id: attend.id,
-                firstName: attend.firstName,
-                lastName: attend.lastName,
-                Attendance: {
-                    status: attend.Events[0].Attendance.status
-                }
-            })
-        }
-
-        return res.json(returnObj)
-    }
-
-    //member or anyone else
-
-    console.log(user)
-    let attendance = await User.findAll({
-        include: [{ model: Event, where: { id: req.params.eventId } }]
+    //if no attendance empty array
+    let eventAttendee = await Event.findByPk(req.params.eventId, {
+        include: [{ model: Attendance }]
     })
+    let eventAttendeeJSON = eventAttendee.toJSON()
 
-    let attendanceJSON = JSON.parse(JSON.stringify(attendance))
+    let attendeeObj = {}
+    attendeeObj.Attendees = []
 
+    //attendances exist
+    if (eventAttendeeJSON.Attendances.length > 0) {
 
-    let returnObj = {};
-    returnObj.Attendees = [];
+        //iterate over all of the attendances
+        for (let attend of eventAttendeeJSON.Attendances) {
 
+            //current user organizer, host, or co-host
+            if (organizerId === user.id || status === 'host' || status === 'co-host') {
+                let user = await User.findByPk(attend.userId)
+                let userJSON = user.toJSON()
+                // console.log(userJSON)
 
-    for (let attend of attendanceJSON) {
-        if (attend.Events[0].Attendance.status !== 'pending') {
-            returnObj.Attendees.push({
-                id: attend.id,
-                firstName: attend.firstName,
-                lastName: attend.lastName,
-                Attendance: {
-                    status: attend.Events[0].Attendance.status
+                attendeeObj.Attendees.push({
+                    //I'm not sure if the id is for the attendee id or the user id.
+                    //I'm going to assume for the user id.
+                    id: attend.userId,
+                    firstName: userJSON.firstName,
+                    lastName: userJSON.lastName,
+                    Attendance: {
+                        status: attend.status
+                    }
+                })
+
+            } else {
+                //current user NOT organizer, host, or co-host
+
+                let user = await User.findByPk(attend.userId)
+                let userJSON = user.toJSON()
+                // console.log(userJSON)
+
+                if (attend.status !== 'pending') {
+                    attendeeObj.Attendees.push({
+                        //I'm not sure if the id is for the attendee id or the user id.
+                        //I'm going to assume for the user id.
+                        id: attend.userId,
+                        firstName: userJSON.firstName,
+                        lastName: userJSON.lastName,
+                        Attendance: {
+                            status: attend.status
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 
-    return res.json(returnObj)
+    return res.json(attendeeObj)
 })
 
 //DELETE AN EVENT SPECIFIED BY ITS ID
