@@ -921,7 +921,7 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     //check if attendnace exists (for participant to edit)
     let attendanceTest = await Attendance.findOne({
-        where: { userId: userId },
+        where: { userId: userId },  //participant
         include: [{
             model: Event,
             where: { id: req.params.eventId }
@@ -933,20 +933,23 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
         err.message = "Attendance between the user and the event does not exist"
         return next(err);
     }
+
+    //Initially checking if the current user had an attendance.
+    //This does not need to be the case.
     //check if attendance exists (for user)
-    let attendanceTestUser = await Attendance.findOne({
-        where: { userId: user.id },
-        include: [{
-            model: Event,
-            where: { id: req.params.eventId }
-        }]
-    })
-    if (!attendanceTestUser) {
-        const err = new Error(`If attendance does not exist`);
-        err.status = 404
-        err.message = "Attendance between the user and the event does not exist"
-        return next(err);
-    }
+    // let attendanceTestUser = await Attendance.findOne({
+    //     where: { userId: user.id }, //current user
+    //     include: [{
+    //         model: Event,
+    //         where: { id: req.params.eventId }
+    //     }]
+    // })
+    // if (!attendanceTestUser) {
+    //     const err = new Error(`If attendance does not exist`);
+    //     err.status = 404
+    //     err.message = "Attendance between the user and the event does not exist"
+    //     return next(err);
+    // }
 
 
     //organizerId
@@ -961,21 +964,19 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
     let groupId = eventJSON.groupId
 
 
-    //status
+    //find status
     let membership = await Membership.findOne({
         where: {
             userId: user.id,
             groupId: groupId
         }
     })
-    if (!membership) {
-        const err = new Error(`You are not a member.`);
-        err.status = 404
-        err.message = "You are not a member."
-        return next(err);
+    let statusUser = 'test'
+    if (membership) {
+        let membershipJSON = membership.toJSON()
+        statusUser = membershipJSON.status
     }
-    let membershipJSON = membership.toJSON()
-    let statusUser = membershipJSON.status
+
 
     //check if current user is the organizer, host, co-host
     if (organizerId !== user.id && statusUser !== 'host' && statusUser !== 'co-host') {
@@ -1034,7 +1035,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     //find organizerId
     let eventOrganizer = await Event.findByPk(req.params.eventId, {
-        include: [{model: Group}]
+        include: [{ model: Group }]
     })
     let eventOrganizerJSON = eventOrganizer.toJSON()
 
