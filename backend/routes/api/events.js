@@ -768,7 +768,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
         }
     }
 
-
     return res.json(attendeeObj)
 })
 
