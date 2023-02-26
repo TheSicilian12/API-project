@@ -651,20 +651,40 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     console.log(attendanceJSON.Event)
     let organizerId = attendanceJSON.Event.Group.organizerId
 
+    let groupId = attendanceJSON.Event.Group.id
 
-    // check if organizer, host, or user to be deleted
-    if (organizerId !== user.id && user.id !== userToDeleteId) {
-        const err = new Error(`Only the User or organizer may delete an Attendance`)
-        err.status = 403
-        err.message = "Only the User or organizer may delete an Attendance"
-        return next(err);
+    //find status
+    let membershipTest = await Group.findByPk(groupId, {
+        include: [
+            {model: Membership,
+            where: {
+                userId: user.id
+            }
+        }
+        ]
+    })
+
+    let status = 'test'
+    if (membershipTest) {
+        let membershipJSON = membershipTest.toJSON()
+        status = membershipTest.Memberships[0].status
     }
 
-    await attendance.destroy()
 
-    return res.status(200).json({
-        "message": "Successfully deleted attendance from event"
-    })
+// check if organizer, host, or user to be deleted
+//assuming organizer should be included.
+if (organizerId !== user.id && user.id !== userToDeleteId || status !== 'host') {
+    const err = new Error(`Only the User or organizer may delete an Attendance`)
+    err.status = 403
+    err.message = "Only the User or organizer may delete an Attendance"
+    return next(err);
+}
+
+await attendance.destroy()
+
+return res.status(200).json({
+    "message": "Successfully deleted attendance from event"
+})
 })
 
 
