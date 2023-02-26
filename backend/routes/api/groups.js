@@ -311,6 +311,12 @@ router.get('/:groupId', async (req, res, next) => {
 
 // GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/members', async (req, res, next) => {
+    //organizer, co-host
+    //mg - or host?
+    //assuming organizer, host, or co-host
+
+    //error group does not exist
+
     //find a user
     // const { user } = req;
     // if (user) {
@@ -330,58 +336,93 @@ router.get('/:groupId/members', async (req, res, next) => {
         return next(err);
     }
 
-    let group = await Group.findByPk(req.params.groupId, {
-        include: [{ model: Membership, include: [{ model: User }] }]
-    })
-
-    if (!group) {
+    //does group exist
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
         const err = new Error("Couldn't find a Group with the specified id");
         err.status = 404
         err.message = "Group couldn't be found"
         return next(err);
     }
+    let groupTestJSON = groupTest.toJSON()
 
-    let groupJSON = group.toJSON()
+    //find organizerId
+    let organizerId = groupTestJSON.organizerId
+
+
+    //find status
+    //if userId !== user.id group should be null/error out
+    let group = await Group.findByPk(req.params.groupId, {
+        include: [{
+            model: Membership, where: {
+                userId: user.id
+            }
+        }]
+    })
+
+    let status = "test"
+    if (group) {
+        let groupJSON = group.toJSON()
+        console.log(groupJSON)
+        status = groupJSON.Memberships[0].status
+    }
+
+    //membership should result in array with this query
+    let groupMembership = await Group.findByPk(req.params.groupId, {
+        include: [
+            { model: Membership }
+        ]
+    })
+    let groupMembershipJSON = groupMembership.toJSON()
+
+    
     let memberObj = {}
     memberObj.Members = []
-    let arrayCounter = 0;
+    // let arrayCounter = 0;
+    // console.log(groupMembershipJSON.Memberships.length)
 
-    //identify organizer
-    let organizerId = groupJSON.organizerId
-
-    //identify co-host ids
-    let coHosts = new Set()
-    for (let member of groupJSON.Memberships) {
-        if (member.status === 'co-host')
-            coHosts.add(member.id)
-    }
-
-
-    //collect all members
-    for (let member of groupJSON.Memberships) {
-        delete member.User.username
-
-        memberObj.Members.push(
-            member.User,
-        );
-        memberObj.Members[memberObj.Members.length - 1].Membership = { status: member.status };
-        // console.log(memberObj.Members[memberObj.Members.length - 1])
-    }
-
-    //check if current user is the organizer or co-host, return all members
-    if (user.id === organizerId || coHosts.has(user.id)) {
-        return res.json(memberObj)
-    } else {
-        //check if current user is NOT the organizer or co-host, return all members excpet pending
-        for (let member of memberObj.Members) {
+    if (groupMembershipJSON.Memberships.length > 0) {
+        for (let member of groupMembershipJSON.Memberships) {
             // console.log(member)
-            if (member.Membership.status === 'pending') {
-                memberObj.Members.splice(arrayCounter, 1)
+
+            //current user organizer, host, or co-host
+            if (organizerId === user.id || status === 'host' || status === 'co-host') {
+                let user = await User.findByPk(member.userId)
+                let userJSON = user.toJSON()
+                // console.log(member)
+                // console.log(userJSON)
+
+                memberObj.Members.push({
+                    //I'm not sure if this id is supposed to be member id or user id. I'm going with member id
+                    id: member.id,
+                    firstName: userJSON.firstName,
+                    lastName: userJSON.lastName,
+                    Membership: {
+                        status: member.status
+                    }
+                })
+            } else {
+                //current user NOT organizer, host, or co-host
+                let user = await User.findByPk(member.userId)
+                let userJSON = user.toJSON()
+                // console.log(member)
+                // console.log(userJSON)
+
+                if (member.status !== 'pending') {
+                    memberObj.Members.push({
+                        //I'm not sure if this id is supposed to be member id or user id. I'm going with member id
+                        id: member.id,
+                        firstName: userJSON.firstName,
+                        lastName: userJSON.lastName,
+                        Membership: {
+                            status: member.status
+                        }
+                    })
+                }
             }
-            arrayCounter++;
         }
     }
-
+    // return res.json("end of the route")
     return res.json(memberObj)
 })
 
