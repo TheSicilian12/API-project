@@ -76,6 +76,24 @@ module.exports = {
         city: "Denver",
         state: "Colorado"
       },
+      {
+        name: "Group7",
+        organizerId: 1,
+        about: "about group7",
+        type: 'In person',
+        private: false,
+        city: "Denver",
+        state: "Colorado"
+      },
+      {
+        name: "Group8",
+        organizerId: 1,
+        about: "about group8",
+        type: 'In person',
+        private: false,
+        city: "Denver",
+        state: "Colorado"
+      },
     ], {})
 
   },
