@@ -375,6 +375,7 @@ router.get('/:groupId/members', async (req, res, next) => {
     })
     let groupMembershipJSON = groupMembership.toJSON()
 
+    
     let memberObj = {}
     memberObj.Members = []
     // let arrayCounter = 0;
