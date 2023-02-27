@@ -95,11 +95,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 })
 
 // testing if image deleted
-router.get('/:imageId', async (req, res) => {
-    let image = await EventImage.findAll()
+// router.get('/:imageId', async (req, res) => {
+//     let image = await EventImage.findAll()
 
-    return res.json(image)
-})
+//     return res.json(image)
+// })
 
 
 module.exports = router;
