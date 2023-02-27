@@ -830,8 +830,6 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     let organizerId = eventGroupJSON.Group.organizerId
     let groupId = eventGroupJSON.Group.id
 
-
-
     //find status
     //if membership is empty groupMember should be null
     let groupMember = await Group.findByPk(groupId, {
