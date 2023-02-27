@@ -41,6 +41,46 @@ module.exports = {
         groupId: 4,
         url: 'www.group4-groupImage',
         preview: true,
+      },
+      {
+        groupId: 10,
+        url: 'www.group10-groupImage',
+        preview: true,
+      },
+      {
+        groupId: 10,
+        url: 'www.group10-groupImage',
+        preview: false,
+      },
+      {
+        groupId: 10,
+        url: 'www.group10-groupImage',
+        preview: false,
+      },
+      {
+        groupId: 10,
+        url: 'www.group10-groupImage',
+        preview: false,
+      },
+      {
+        groupId: 9,
+        url: 'www.group9-groupImage',
+        preview: true,
+      },
+      {
+        groupId: 9,
+        url: 'www.group9-groupImage',
+        preview: false,
+      },
+      {
+        groupId: 9,
+        url: 'www.group9-groupImage',
+        preview: false,
+      },
+      {
+        groupId: 9,
+        url: 'www.group9-groupImage',
+        preview: false,
       }
     ], {})
 
