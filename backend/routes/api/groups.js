@@ -1231,17 +1231,18 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //this is invalid code
     //check if user to delete exists
-    let userTest = await User.findByPk(memberToDeleteId)
-    if (!userTest) {
-        const err = new Error(`Couldn't find a User with the specified memberId`)
-        err.status = 400
-        err.message = "Validation Error"
-        err.errors = {
-            memberId: "User couldn't be found"
-        }
-        return next(err);
-    }
+    // let userTest = await User.findByPk(memberToDeleteId)
+    // if (!userTest) {
+    //     const err = new Error(`Couldn't find a User with the specified memberId`)
+    //     err.status = 400
+    //     err.message = "Validation Error"
+    //     err.errors = {
+    //         memberId: "User couldn't be found"
+    //     }
+    //     return next(err);
+    // }
 
     //check if group exists
     let groupTest = await Group.findByPk(req.params.groupId)
@@ -1252,57 +1253,121 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-
     //check if membership exists
-    let membershipTest = await Membership.findByPk(memberToDeleteId, {
+    // let membershipTest = await Membership.findByPk(memberToDeleteId, {
+        //     include: [
+            //         {
+                //             model: Group,
+                //             where: { id: req.params.groupId },
+                //             attributes: ['id', 'organizerId']
+    //         }
+    //     ]
+    // })
+    // if (!membershipTest) {
+    //     const err = new Error(`Membership does not exist for this User`)
+    //     err.status = 404
+    //     err.message = "Membership does not exist for this User"
+    //     return next(err);
+    // }
+
+    //check if a membership exists (could be for any group!)
+    let membershipTest = await Membership.findByPk(memberToDeleteId)
+    if (!membershipTest) {
+        const err = new Error(`Validation Error`)
+        err.status = 400
+        err.message = "User couldn't be found"
+        return next(err);
+        // const err = new Error(`Membership does not exist for this User`)
+        // err.status = 404
+        // err.message = "Membership does not exist for this User"
+        // return next(err);
+    }
+
+    let membershipJSON = membershipTest.toJSON()
+
+    //set group Id to req.params
+    let groupId = req.params.groupId
+
+    //find status
+    let membershipGroup = await Membership.findByPk(memberToDeleteId, {
         include: [
             {
                 model: Group,
-                where: { id: req.params.groupId },
-                attributes: ['id', 'organizerId']
+                where: { id: groupId }
             }
         ]
     })
-    if (!membershipTest) {
+
+    if (!membershipGroup) {
         const err = new Error(`Membership does not exist for this User`)
         err.status = 404
         err.message = "Membership does not exist for this User"
         return next(err);
     }
 
+    let membershipGroupJSON = membershipGroup.toJSON()
 
-    let membership = await Membership.findByPk(memberToDeleteId)
-    let currentUserMembership = await Membership.findByPk(user.id)
+    let status = membershipGroupJSON.status
 
-    //check if there is a current user memberhsip
-    if (!currentUserMembership) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
+    //organzierId
+    let organizerId = membershipGroupJSON.Group.organizerId
 
-    let membershipJSON = membership.toJSON()
-    let currentUserMembershipJSON = currentUserMembership.toJSON()
-
-    let memberStatus = membershipJSON.status
-    let memberUserId = membershipJSON.id
-    let currentUserStatus = currentUserMembershipJSON.status
-
-    // console.log(memberStatus)
-    console.log(memberUserId)
-    console.log(currentUserStatus)
-
+    //userId from the memberId
+    let currentUserId = membershipGroupJSON.userId
 
     //check if current user is the host or user whose membership is to be deleted
-    if (currentUserStatus !== 'host' && memberUserId !== user.id) {
+    if (organizerId !== user.id && status !== 'host' && currentUserId !== user.id) {
         const err = new Error(`Require proper authorization`);
         err.status = 403
         err.message = `Forbidden`
         return next(err);
     }
 
+
+
+
+
+
+    // let membership = await Membership.findByPk(memberToDeleteId)
+    // let currentUserMembership = await Membership.findByPk(user.id)
+
+    // //check if there is a current user memberhsip
+    // if (!currentUserMembership) {
+    //     const err = new Error(`Require proper authorization`);
+    //     err.status = 403
+    //     err.message = `Forbidden`
+    //     return next(err);
+    // }
+
+    // let membershipJSON = membership.toJSON()
+    // let currentUserMembershipJSON = currentUserMembership.toJSON()
+
+    // let memberStatus = membershipJSON.status
+    // let memberUserId = membershipJSON.id
+    // let currentUserStatus = currentUserMembershipJSON.status
+
+    // // console.log(memberStatus)
+    // console.log(memberUserId)
+    // console.log(currentUserStatus)
+
+
+    // //check if current user is the host or user whose membership is to be deleted
+    // if (currentUserStatus !== 'host' && memberUserId !== user.id) {
+    //     const err = new Error(`Require proper authorization`);
+    //     err.status = 403
+    //     err.message = `Forbidden`
+    //     return next(err);
+    // }
+
+
+    let membership = await Membership.findByPk(memberId, {
+        where: {groupId: groupId}
+    })
+
+    // return res.json(membership)
     await membership.destroy()
+
+
 
     return res.status(200).json({
         "message": "Successfully deleted membership from group"
