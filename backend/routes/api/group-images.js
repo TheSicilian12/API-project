@@ -9,8 +9,12 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
-//DELETE AN IMAGE FOR AN EVENT
+//DELETE AN IMAGE FOR A GROUP
 router.delete('/:imageId', requireAuth, async (req, res, next) => {
+    //current user organizer or co-host
+    //mg - also host?
+    //assuming organizer, host, or co-host
+
     const { user } = req;
 
     if (!user) {
@@ -30,23 +34,45 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     }
 
 
-    let image = await GroupImage.findByPk(req.params.imageId, {
-        include: [{model: Group, attributes: ['organizerId'], include: [{model: Membership, attributes: ['userId', 'status'], where: {userId: user.id}}]}]
+    // let image = await GroupImage.findByPk(req.params.imageId, {
+    //     include: [{model: Group, attributes: ['organizerId'], include: [{model: Membership, attributes: ['userId', 'status'], where: {userId: user.id}}]}]
+    // })
+
+    //find organizerId
+    let imageGroup = await GroupImage.findByPk(req.params.imageId, {
+        include: [
+            { model: Group }
+        ]
+    })
+    let imageGroupJSON = imageGroup.toJSON()
+
+    let groupId = imageGroupJSON.Group.id
+    let organizerId = imageGroupJSON.Group.organizerId
+
+
+
+    //find status
+    // if no membership then membership should return null
+    let membership = await Group.findByPk(groupId, {
+        include: [
+            {
+                model: Membership,
+                where: {
+                    userId: user.id
+                }
+            }
+        ]
     })
 
-
-
-    if (!image || !image.Group || !image.Group.Memberships) {
-       const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let status = 'test'
+    if (membership) {
+        let membershipJSON = membership.toJSON()
+        // console.log(membershipJSON)
+        // console.log(membershipJSON.Memberships[0].status)
+        status = membershipJSON.Memberships[0].status
     }
+    console.log(status)
 
-    //current user must be organizer, host, or co-host
-    let imageJSON = image.toJSON()
-    let status = imageJSON.Group.Memberships[0].status
-    let organizerId = imageJSON.Group.organizerId
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
@@ -59,7 +85,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
     return res.status(200).json({
         "message": "Successfully deleted"
-      })
+    })
 })
 
 //testing if image deleted
@@ -69,5 +95,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 //     return res.json(image)
 // })
 
+//quick test added code
+router.get('/:imageId', async (req, res) => {
+    let groupImages = await GroupImage.findAll()
+
+    return res.json(groupImages)
+})
 
 module.exports = router;
