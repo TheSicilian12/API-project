@@ -83,7 +83,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
     let image = await GroupImage.findByPk(req.params.imageId)
 
-    // await image.destroy();
+    await image.destroy();
 
     return res.status(200).json({
         message: "Successfully deleted",
