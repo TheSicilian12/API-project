@@ -83,6 +83,8 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    let image = await EventImage.findByPk(req.params.imageId)
+
     await image.destroy();
 
     // return res.json('end of route')
