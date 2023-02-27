@@ -11,6 +11,10 @@ const attendance = require('../../db/models/attendance');
 
 //DELETE AN IMAGE FOR AN EVENT
 router.delete('/:imageId', requireAuth, async (req, res, next) => {
+    //current user must be organizer or co-host
+    //mg - or host?
+    //assuming organizer, host, or co-host
+
     const { user } = req;
 
     if (!user) {
@@ -20,6 +24,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    //does the image exist
     let imageCheck = await EventImage.findByPk(req.params.imageId)
 
     if (!imageCheck) {
@@ -30,32 +35,29 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     }
 
 
-    let image = await EventImage.findByPk(req.params.imageId, {
-        include: [{ model: Event, attributes: ['id'], include: [{ model: Group, attributes: ['organizerId'], include: [{ model: Membership, attributes: ['userId', 'status'], where: { userId: user.id } }] }] }]
-    })
+    // let image = await EventImage.findByPk(req.params.imageId, {
+    //     include: [{ model: Event, attributes: ['id'], include: [{ model: Group, attributes: ['organizerId'], include: [{ model: Membership, attributes: ['userId', 'status'], where: { userId: user.id } }] }] }]
+    // })
 
     //find organizerId
-    let event = await Event.findOne({
+    let imageGroup = await EventImage.findByPk(req.params.imageId, {
         include: [
-            {
-                model: EventImage,
-                where: {
-                    id: req.params.imageId
-                }
-            },
-            { model: Group }
+            {model: Event,
+                include: [
+                    {model: Group}
+                ]
+            }
         ]
     })
-    let eventJSON = event.toJSON()
+    let imageGroupJSON = imageGroup.toJSON()
 
-    let organizerId = eventJSON.Group.organizerId
+    let organizerId = imageGroupJSON.Event.Group.organizerId
+    let groupId = imageGroupJSON.Event.Group.id
 
-    //event id
-    let groupId = eventJSON.groupId
 
     //find status
-
-    let groupMembership = await Group.findByPk(groupId, {
+    //if no membership then membership should return null
+    let membership = await Group.findByPk(groupId, {
         include: [
             {
                 model: Membership,
@@ -66,11 +68,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         ]
     })
 
-    let status = "test"
-    if (groupMembership) {
-        let groupMembershipJSON = groupMembership.toJSON()
-        let status = groupMembershipJSON.Memberships[0].status
-        // console.log(groupMembershipJSON.Memberships[0].status)
+    let status = 'test'
+    if (membership) {
+        let membershipJSON = membership.toJSON()
+        // console.log(membershipJSON.Memberships[0].status)
+        status = membershipJSON.Memberships[0].status
     }
 
     //current user must be organizer, host, or co-host
@@ -89,12 +91,12 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     })
 })
 
-//testing if image deleted
-// router.get('/:imageId', async (req, res) => {
-//     let image = await EventImage.findByPk(req.params.imageId)
+// testing if image deleted
+router.get('/:imageId', async (req, res) => {
+    let image = await EventImage.findAll()
 
-//     return res.json(image)
-// })
+    return res.json(image)
+})
 
 
 module.exports = router;
