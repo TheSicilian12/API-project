@@ -845,6 +845,7 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
         ]
     })
 
+    
     let status = 'test'
     if (groupMember) {
         let groupMemberJSON = groupMember.toJSON()
