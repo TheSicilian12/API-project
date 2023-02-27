@@ -111,7 +111,7 @@ module.exports = {
         private: false,
         city: "Denver",
         state: "Colorado"
-      },
+      }
     ], {})
 
   },

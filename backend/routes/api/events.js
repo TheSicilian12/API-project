@@ -656,11 +656,12 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     //find status
     let membershipTest = await Group.findByPk(groupId, {
         include: [
-            {model: Membership,
-            where: {
-                userId: user.id
+            {
+                model: Membership,
+                where: {
+                    userId: user.id
+                }
             }
-        }
         ]
     })
 
@@ -671,22 +672,22 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     }
 
 
-// check if organizer, host, or user to be deleted
-//assuming organizer should be included.
-// console.log(user.id)
-// console.log(userToDeleteId)
-if (organizerId !== user.id && user.id !== userToDeleteId && status !== 'host') {
-    const err = new Error(`Only the User or organizer may delete an Attendance`)
-    err.status = 403
-    err.message = "Only the User or organizer may delete an Attendance"
-    return next(err);
-}
+    // check if organizer, host, or user to be deleted
+    //assuming organizer should be included.
+    // console.log(user.id)
+    // console.log(userToDeleteId)
+    if (organizerId !== user.id && user.id !== userToDeleteId && status !== 'host') {
+        const err = new Error(`Only the User or organizer may delete an Attendance`)
+        err.status = 403
+        err.message = "Only the User or organizer may delete an Attendance"
+        return next(err);
+    }
 
-await attendance.destroy()
+    await attendance.destroy()
 
-return res.status(200).json({
-    "message": "Successfully deleted attendance from event"
-})
+    return res.status(200).json({
+        "message": "Successfully deleted attendance from event"
+    })
 })
 
 
@@ -818,62 +819,45 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let event = await Event.findByPk(req.params.eventId, {
-        attributes: ['id', 'groupId'],
+    //find organizerId
+    let eventGroup = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Group }
+        ]
+    })
+    let eventGroupJSON = eventGroup.toJSON()
+
+    let organizerId = eventGroupJSON.Group.organizerId
+    let groupId = eventGroupJSON.Group.id
+
+
+
+    //find status
+    //if membership is empty groupMember should be null
+    let groupMember = await Group.findByPk(groupId, {
         include: [
             {
-                model: Group,
-                attributes: ['id', 'organizerId'],
-                include: [
-                    {
-                        model: Membership,
-                        attributes: ['userId', 'status'],
-                        where: {
-                            userId: user.id
-                        }
-                    }
-                ]
+                model: Membership,
+                where: {
+                    userId: user.id
+                }
             }
         ]
     })
 
-    // let event = await Event.findByPk(req.params.eventId, {
-    //         attributes: ['id', 'groupId'],
-    //         include: [
-    //             {
-    //                 model: Group,
-    //                 attributes: ['id', 'organizerId'],
-    //                 include: [{model: Membership,
-    //                     where: {userId: user.id}
-    //                 }
-    //             ]
-    //             }
-    //         ]
-    //     })
-
-    //possible issue here.
-    let eventJSON = event.toJSON()
-
-    if (!eventJSON.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
+    let status = 'test'
+    if (groupMember) {
+        let groupMemberJSON = groupMember.toJSON()
+        // console.log(groupMemberJSON.Memberships[0].status)
+        status = groupMemberJSON.Memberships[0].status
     }
+    // console.log(status)
 
-    if (!event.Group) {
-        const err = new Error(`Require proper authorization`);
-        err.status = 403
-        err.message = `Forbidden`
-        return next(err);
-    }
 
     // check if current user is organizer, host, or co-host
-    let organizerId = eventJSON.Group.organizerId
-    let status = eventJSON.Group.Memberships[0].status
 
-    console.log(organizerId)
-    console.log(status)
+    // console.log(organizerId)
+    // console.log(status)
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
@@ -882,8 +866,11 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    let event = await Event.findByPk(req.params.eventId)
+
     await event.destroy()
 
+    // return res.json('end of route')
     return res.status(200).json({
         message: "Successfully deleted"
         // statusCode: 200
