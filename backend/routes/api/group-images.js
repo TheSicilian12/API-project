@@ -100,10 +100,10 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
 // })
 
 //quick test added code
-router.get('/:imageId', async (req, res) => {
-    let groupImages = await GroupImage.findAll()
+// router.get('/:imageId', async (req, res) => {
+//     let groupImages = await GroupImage.findAll()
 
-    return res.json(groupImages)
-})
+//     return res.json(groupImages)
+// })
 
 module.exports = router;
