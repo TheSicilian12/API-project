@@ -121,7 +121,7 @@ module.exports = {
       {
         groupId: 10,
         name: "associated with group 10",
-        description: "really, no members",
+        description: "description",
         type: "Online",
         capacity: 10,
         price: 100,
@@ -131,13 +131,96 @@ module.exports = {
       {
         groupId: 9,
         name: "associated with group 10",
-        description: "really, no members",
+        description: "description",
         type: "Online",
         capacity: 10,
         price: 100,
         startDate: "2023-04-30",
         endDate: "2023-04-30"
       },
+      {
+        venueId: 6,
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        venueId: 6,
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        venueId: 6,
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        groupId: 10,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        groupId: 9,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      },
+      {
+        groupId: 9,
+        name: "associated with group 10",
+        description: "description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: "2023-04-30",
+        endDate: "2023-04-30"
+      }
     ], {})
 
 
