@@ -851,6 +851,7 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     //         ]
     //     })
 
+    //possible issue here.
     let eventJSON = event.toJSON()
 
     if (!eventJSON.Group) {

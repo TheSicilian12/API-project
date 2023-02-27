@@ -106,10 +106,21 @@ module.exports = {
         userId: 2,
         groupId: 4,
         status: "member"
-      },{
+      },
+      {
         userId: 1,
         groupId: 4,
         status: "member"
+      },
+      {
+        userId: 1,
+        groupId: 10,
+        status: "co-host"
+      },
+      {
+        userId: 2,
+        groupId: 10,
+        status: "host"
       },
     ], {})
 
