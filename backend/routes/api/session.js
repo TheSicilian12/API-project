@@ -42,9 +42,13 @@ router.post(
 
       await setTokenCookie(res, user);
 
-      return res.json({
-        user: user.toSafeObject()
-      });
+      // return res.json({
+      //   user: user.toSafeObject()
+      // });
+      
+      return res.json({user})
+      // return res.json({ ...userId, username, ...user.toSignUpReturn() })
+
     }
   );
 
