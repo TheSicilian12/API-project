@@ -108,8 +108,11 @@ router.post(
     //   user: user.toSignUpReturn()
     // });
     let userId = { id: user.id }
-
-    return res.json({ ...userId, username, ...user.toSignUpReturn() })
+    let userJSON = user.toJSON();
+    let createdAt = {createdAt: userJSON.createdAt};
+    let updatedAt = {updatedAt: userJSON.updatedAt};
+    return res.json({...userId, ...createdAt, ...updatedAt, ...user.toSignUpReturn()})
+    // return res.json({ ...userId, username, ...user.toSignUpReturn() })
   }
 );
 
