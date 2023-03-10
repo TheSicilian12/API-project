@@ -109,7 +109,7 @@ router.post(
     // });
     let userId = { id: user.id }
 
-    return res.json({ ...userId, ...user.toSignUpReturn() })
+    return res.json({ ...userId, username, ...user.toSignUpReturn() })
   }
 );
 
