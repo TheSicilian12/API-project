@@ -32,7 +32,7 @@ function ProfileButton({ user }) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-
+  console.log('showMenu: ', showMenu)
   return (
     <>
       <button onClick={openMenu}>

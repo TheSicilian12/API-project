@@ -1,3 +1,7 @@
 li {
     border: 2px solid blue;
 }
+
+.hidden {
+    display: none
+}
