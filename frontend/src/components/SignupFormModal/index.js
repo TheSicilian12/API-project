@@ -21,8 +21,11 @@ function SignupFormModal() {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
         .then(closeModal)
+
+        //errors here could crash the app
         .catch(async (res) => {
           const data = await res.json();
+          //change data.errors to an array because of the object issue in setErrors
           if (data && data.errors) setErrors(data.errors);
         });
     }
