@@ -1,10 +1,10 @@
 import React from 'react';
-import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllGroups.css';
-import {getAllGroups} from '../../store/groupsThunk'
+import { getAllGroups } from '../../store/groupsThunk'
 
 export default function AllGroups() {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function AllGroups() {
     const groups = useSelector((state) => state.groups)
 
     if (!Object.keys(groups).length) {
-       return <div> loading </div>
+        return <div> loading </div>
     }
     // console.log('state test groups: ', groups.allGroups)
 
@@ -30,18 +30,27 @@ export default function AllGroups() {
     console.log('key 1: ', groups.allGroups['1'])
     // }
 
-//{Object.keys(groups.allGroups).map(e => console.log(e))}
+    //{Object.keys(groups.allGroups).map(e => console.log(e))}
     return (
         <div className='AllGroups'>
             Groups
 
 
             {Object.keys(groups.allGroups).map(e =>
-                <div className={`AllGroups_group${groups.allGroups[e].id}`}>
-                    <div className='image'>
-                        {`${groups.allGroups[e].preivewImage}`}
+                <NavLink to='/details'>
+                    <div className='AllGroups_group'
+                        key={`AllGroups_group${groups.allGroups[e].id}`}
+                        >
+                        <div className='image' key={`${groups.allGroups[e].id}`}>
+                            {`${groups.allGroups[e].preivewImage}`}
+                        </div>
+                        <div className='details' key={`details_${groups.allGroups[e].name}`}>
+                            <h2> {`${groups.allGroups[e].name}`}</h2>
+                            <h4> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
+                            <p>{`${groups.allGroups[e].about}`}</p>
+                        </div>
                     </div>
-                </div>
+                </NavLink>
             )}
 
             {/* {[1, 2, 3, 4].map(e => <div>{e}</div>)} */}
