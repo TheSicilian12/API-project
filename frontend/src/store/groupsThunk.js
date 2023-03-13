@@ -1,10 +1,16 @@
 import { READ_GROUPS, MAKE_GROUPS, EDIT_GROUPS, DELETE_GROUPS } from "./groups"
 
 const LOAD = '/groups';
+const LOAD_DETAILS = '/groups:id'
 
 const load = (list) => ({
     type: LOAD,
     list
+});
+
+const load_details = (group) => ({
+    type: LOAD_DETAILS,
+    group
 });
 
 // thunk - fetches all groups
@@ -21,7 +27,19 @@ export const getAllGroups = () => async (dispatch) => {
     }
 }
 
-
+// thunk - fetches a group
+export const getGroup = (groupId) => async (dispatch) => {
+    //call the thunk that gets all groups
+   const response = await fetch(`/api/groups/${groupId}`)
+    // console.log(response)
+    if (response.ok) {
+        const group = await response.json();
+        // console.log('group: ', group)
+        // dispatch(load_details(group));
+         const group2 = normalizeSingleGroup(group)
+         dispatch(load_details(group2))
+    }
+}
 
 //normalizer (array to obj. uses id as the key for the obj)
 const state = {};
@@ -38,6 +56,16 @@ function normalizeIdArrToObj(list) {
     return state;
 };
 
+//normalizer (single group)
+function normalizeSingleGroup(group) {
+    state.groups = {}
+    // console.log('state: ', state)
+    // console.log('normalize: ', group)
+    state.groups.singleGroup = { ...group }
+    // console.log('state: ', state)
+    return state;
+}
+
 // console.log('state: ', state)
 
 const initialState = {}
@@ -51,6 +79,12 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...allGroups,
                 // ...state,
+            }
+        case LOAD_DETAILS:
+            const singleGroup = action
+            // console.log('singleGroup: ', action.group)
+            return {
+                ...singleGroup
             }
         default:
             // console.log('default')
