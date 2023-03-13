@@ -15,15 +15,16 @@ export const getAllGroups = () => async (dispatch) => {
         const list = await response.json();
         // console.log('list: ', list)
         const list2 = normalizeIdArrToObj(list);
-        console.log('list2: ', list2)
+        // console.log('list2: ', list2)
+        // console.log(dispatch)
         dispatch(load(list2));
     }
 
 }
 
 //normalizer (array to obj. uses id as the key for the obj)
+const state = {};
 function normalizeIdArrToObj(list) {
-    const state = {};
     state.allGroups = {};
     // console.log('normalize: ', list)
     // console.log(Object.values(list))
@@ -36,28 +37,22 @@ function normalizeIdArrToObj(list) {
     return state;
 };
 
+// console.log('state: ', state)
 
 const initialState = {}
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
-    console.log('reducer')
     switch(action.type) {
         case LOAD:
-          
-            // const allGroups = {};
-            // action.list.forEach(group => {
-            //     allGroups[group.id] = group
-            // });
-            // return {
-            //     // ...allGroups,
-            //     // ...state,
-            //     // list: sortList(action.list)
-            //    ...state
-            // }
-            console.log('test')
-
-
+            const allGroups = action.list
+            // console.log('allGroups: ', allGroups)
+            // console.log('reducer', action.list)
+            return {
+                ...allGroups,
+                // ...state,
+            }
         default:
+            console.log('default')
             return state
     }
 }
