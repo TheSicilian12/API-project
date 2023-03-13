@@ -37,7 +37,7 @@ export default function AllGroups() {
 
 
             {Object.keys(groups.allGroups).map(e =>
-                <NavLink to='/details'>
+                <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                     <div className='AllGroups_group'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
                         >
@@ -54,8 +54,6 @@ export default function AllGroups() {
             )}
 
             {/* {[1, 2, 3, 4].map(e => <div>{e}</div>)} */}
-
-            <div>test</div>
         </div>
     )
 }
