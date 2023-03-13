@@ -2,37 +2,48 @@ import { READ_GROUPS, MAKE_GROUPS, EDIT_GROUPS, DELETE_GROUPS } from "./groups"
 
 const LOAD = '/groups';
 
-const load = list => ({
+const load = (list) => ({
     type: LOAD,
     list
 });
 
-
-
-
 // thunk - fetches all groups
-export const getAllGroups = () => async dispatch => {
+export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
-
     // console.log(response)
     if (response.ok) {
         const list = await response.json();
-        console.log('list: ', list)
-        // dispatch(load(list));
+        // console.log('list: ', list)
+        const list2 = normalizeIdArrToObj(list);
+        console.log('list2: ', list2)
+        dispatch(load(list2));
     }
-    // console.log('test')
+
 }
 
+//normalizer (array to obj. uses id as the key for the obj)
+function normalizeIdArrToObj(list) {
+    const state = {};
+    state.allGroups = {};
+    // console.log('normalize: ', list)
+    // console.log(Object.values(list))
+    const arr = Object.values(list);
+    // console.log('test: ', arr[0])
+    arr[0].forEach(a => {
+        // console.log('test: ', a)
+        state.allGroups[a.id] = a;
+    })
+    return state;
+};
 
-const initialState = {
-    list: ['initial state test']
-}
 
+const initialState = {}
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
     console.log('reducer')
     switch(action.type) {
         case LOAD:
+          
             // const allGroups = {};
             // action.list.forEach(group => {
             //     allGroups[group.id] = group
@@ -43,7 +54,11 @@ const groupReducer = (state = initialState, action) => {
             //     // list: sortList(action.list)
             //    ...state
             // }
-            // console.log('reducer test')
+            console.log('test')
+
+
+        default:
+            return state
     }
 }
 
