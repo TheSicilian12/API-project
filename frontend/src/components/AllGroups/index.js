@@ -10,6 +10,7 @@ export default function AllGroups() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log('useEffect test')
         dispatch(getAllGroups());
       }, [])
 
