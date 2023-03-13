@@ -19,8 +19,9 @@ export const getAllGroups = () => async (dispatch) => {
         // console.log(dispatch)
         dispatch(load(list2));
     }
-
 }
+
+
 
 //normalizer (array to obj. uses id as the key for the obj)
 const state = {};
@@ -52,7 +53,7 @@ const groupReducer = (state = initialState, action) => {
                 // ...state,
             }
         default:
-            console.log('default')
+            // console.log('default')
             return state
     }
 }
