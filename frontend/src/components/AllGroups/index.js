@@ -27,7 +27,7 @@ export default function AllGroups() {
 
     // if (Object.keys(groups).length) {
     // console.log('test: ', Object.keys(groups.allGroups))
-    console.log('key 1: ', groups.allGroups['1'])
+    // console.log('key 1: ', groups.allGroups['1'])
     // }
 
     //{Object.keys(groups.allGroups).map(e => console.log(e))}
