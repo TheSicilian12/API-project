@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './CreateGroupForm.css';
@@ -8,12 +8,46 @@ function CreateGroupForm() {
     const [location, setLocation] = useState('');
     const [groupName, setGroupName] = useState('');
     const [groupAbout, setGroupAbout] = useState('');
-    const [groupMeetings, setGroupMeetings] = useState('In Person');
-    const [groupStatus, setGroupStatus] = useState('Private');
+    const [groupMeetingType, setGroupMeetingType] = useState('In Person');
+    const [groupStatus, setGroupStatus] = useState(true);
     const [groupImage, setGroupImage] = useState('');
+    const [errors, setErrors] = useState({})
+    // console.log('groupMeetingType: ', groupMeetingType)
+    // console.log('groupStatus: ', groupStatus)
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!location) {
+            setErrors('test')
+        }
+
+        console.log('errors: ', errors)
+
+        console.log('location: ', location);
+        let splitLocation = location.split(',');
+        let city = splitLocation[0];
+        let state = splitLocation[1];
+        // console.log(splitLocation);
+        console.log('test: ',
+            {
+                //location needs to be parsed for city and state
+                city,
+                state,
+                name: groupName,
+                about: groupAbout,
+                type: groupMeetingType,
+                private: groupStatus,
+                //groupImage is added after a group is made
+            }
+        )
+    }
+    // console.log('groupStatus: ', groupStatus)
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div>
                 <h2>
                     We'll walk you through a few steps to build your local community
@@ -31,7 +65,7 @@ function CreateGroupForm() {
                     placeholder='City, STATE'
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    ></input>
+                ></input>
             </div>
             <div>
                 <h2>
@@ -48,7 +82,7 @@ function CreateGroupForm() {
                     placeholder='What is your group name?'
                     value={groupName}
                     onChange={(e) => setGroupName(e.target.value)}
-                    ></input>
+                ></input>
             </div>
             <div>
                 <h2>
@@ -62,34 +96,60 @@ function CreateGroupForm() {
                     <li>Who should join?</li>
                     <li>What will you do at your events?</li>
                 </ol>
-                <textarea placeholder='Please write at least 30 characters'></textarea>
+                <textarea
+                    placeholder='Please write at least 30 characters'
+                    value={groupAbout}
+                    onChange={(e) => setGroupAbout(e.target.value)}
+                ></textarea>
             </div>
             <div>
                 <h2>
-                   Final steps...
+                    Final steps...
                 </h2>
                 <p>
-                   Is this an in person or online group?
+                    Is this an in person or online group?
                 </p>
-                <select>
+                <select
+                    onChange={(e) => setGroupMeetingType(e.target.value)}
+                    value={groupMeetingType}
+                >
                     <option>In Person</option>
                     <option>Online</option>
                 </select>
                 <p>
                     Is this group private or public?
                 </p>
-                <select>
-                    <option>Private</option>
-                    <option>Public</option>
+                <select
+                onChange={(e) => setGroupStatus(e.target.value)}
+                // value={groupStatus}
+                >
+                    <option
+                        value={true}
+                        checked={groupStatus === true}
+                        onChange={() => setGroupStatus(true)}
+                    >Private</option>
+                    <option
+                        value={false}
+                        checked={groupStatus === false}
+                        onChange={() => setGroupStatus(false)}
+                    >Public</option>
                 </select>
                 <p>
                     Please add an image url for your group below:
                 </p>
-                <input type='text' placeholder='Image Url'></input>
+                <input
+                    type='text'
+                    placeholder='Image Url'
+                    value={groupImage}
+                    onChange={(e) => setGroupImage(e.target.value)}
+                ></input>
                 {/* possibly need to adjust the input type for image */}
             </div>
             <div>
-                <button>
+                <button
+                    type='submit'
+                    // disabled={Object.keys(errors).length > 0}
+                    >
                     Create group
                 </button>
             </div>
