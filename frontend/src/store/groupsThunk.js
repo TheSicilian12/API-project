@@ -1,5 +1,3 @@
-import { READ_GROUPS, MAKE_GROUPS, EDIT_GROUPS, DELETE_GROUPS } from "./groups"
-
 const LOAD = '/groups';
 const LOAD_DETAILS = '/groups:id'
 
@@ -16,75 +14,102 @@ const load_details = (group) => ({
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
-    // console.log(response)
     if (response.ok) {
         const list = await response.json();
-        // console.log('list: ', list)
-        const list2 = normalizeIdArrToObj(list);
-        // console.log('list2: ', list2)
-        // console.log(dispatch)
-        dispatch(load(list2));
+        console.log('list: ', list)
+        dispatch(load(list));
     }
 }
 
 // thunk - fetches a group
 export const getGroup = (groupId) => async (dispatch) => {
     //call the thunk that gets all groups
-   const response = await fetch(`/api/groups/${groupId}`)
+    const response = await fetch(`/api/groups/${groupId}`)
     // console.log(response)
     if (response.ok) {
         const group = await response.json();
         // console.log('group: ', group)
         // dispatch(load_details(group));
-         const group2 = normalizeSingleGroup(group)
-         dispatch(load_details(group2))
+        // const group2 = normalizeSingleGroup(group)
+        dispatch(load_details(group))
     }
 }
 
 //normalizer (array to obj. uses id as the key for the obj)
-const state = {};
-function normalizeIdArrToObj(list) {
-    state.allGroups = {};
-    // console.log('normalize: ', list)
-    // console.log(Object.values(list))
-    const arr = Object.values(list);
-    // console.log('test: ', arr[0])
-    arr[0].forEach(a => {
-        // console.log('test: ', a)
-        state.allGroups[a.id] = a;
-    })
-    return state;
+// const state = {};
+function normalizeIdArrToObj(array) {
+    // console.log('list: ', array)
+    const allGroups = {};
+    array.map((e) => allGroups[e.id] = e)
+    // console.log('allGroups: ', allGroups)
+    return allGroups;
 };
 
-//normalizer (single group)
-function normalizeSingleGroup(group) {
-    state.groups = {}
-    // console.log('state: ', state)
-    // console.log('normalize: ', group)
-    state.groups.singleGroup = { ...group }
-    // console.log('state: ', state)
-    return state;
+// normalizer (single group)
+function normalizeSingleGroup(object) {
+    // console.log('normalizegroup: ', object)
+    const singleGroup = {
+        ...object
+    };
+    // console.log('singleGroup: ', singleGroup)
+    return singleGroup;
 }
 
 // console.log('state: ', state)
 
-const initialState = {}
+// const initialState = {}
+const initialState = {
+    session: {},
+    groups: {
+        allGroups: {
+            // [groupId]: { groupData, },
+            //  optionalOrderedList: [],
+        },
+        singleGroup: {
+            // groupData,
+            GroupImages: [],
+            Organizer: {
+                // organizerData,
+                },
+            Venues: [],
+        }
+    },
+    events:
+    {
+        allEvents:
+        {
+            // [eventId]:
+            // {
+            //     eventData,
+            //     Group: {
+            //         groupData,
+            //     },
+            //     Venue:
+            //     {
+            //         venueData,
+            //     },
+            // },
+        },
+        // In this slice we have much more info about the event than in the allEvents slice. singleEvent: { eventData, Group: { groupData, }, // Note that venue here will have more information than venue did in the all events slice. (Refer to your API Docs for more info) Venue: { venueData, }, EventImages: [imagesData], // These would be extra features, not required for your first 2 CRUD features Members: [membersData], Attendees: [attendeeData], }, }, };
+    }
+}
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case LOAD:
-            const allGroups = action.list
-            // console.log('allGroups: ', allGroups)
-            // console.log('reducer', action.list)
+            const returnState = {}
+            returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
+            // console.log('returnState: ', returnState.allGroups[1])
+
             return {
-                ...allGroups,
-                // ...state,
+                ...returnState,
             }
         case LOAD_DETAILS:
-            const singleGroup = action
-            // console.log('singleGroup: ', action.group)
+            const returnSingleGroup = {}
+            returnSingleGroup.singleGroup = normalizeSingleGroup(action.group)
+            // console.log('singleGroup: ', singleGroup)
             return {
-                ...singleGroup
+                ...returnSingleGroup
             }
         default:
             // console.log('default')
