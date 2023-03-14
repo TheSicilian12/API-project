@@ -12,7 +12,7 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -26,23 +26,22 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           //change data.errors to an array because of the object issue in setErrors
-          if (data && data.errors) setErrors(data.errors);
-          console.log('data: ', data)
-          console.log('errors: ', errors)
-          console.log('data.')
+          if (data && data.errors) {
+            // setErrors(data.errors);
+            // console.log(Object.values(data.errors))
+            setErrors([...Object.values(data.errors)])
+          }
         });
     }
-    // console.log('test')
-    // console.log('errors test: ', errors)
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
-
+  console.log('errors: ', errors)
   return (
     <>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ul>
-          {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <label>
           Email
