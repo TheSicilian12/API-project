@@ -8,30 +8,56 @@ function CreateGroupForm() {
     const [location, setLocation] = useState('');
     const [groupName, setGroupName] = useState('');
     const [groupAbout, setGroupAbout] = useState('');
-    const [groupMeetingType, setGroupMeetingType] = useState('In Person');
-    const [groupStatus, setGroupStatus] = useState(true);
+    const [groupMeetingType, setGroupMeetingType] = useState('(select one)');
+    const [groupStatus, setGroupStatus] = useState('(select one)');
     const [groupImage, setGroupImage] = useState('');
     const [errors, setErrors] = useState({})
     // console.log('groupMeetingType: ', groupMeetingType)
-    // console.log('groupStatus: ', groupStatus)
-
+    console.log('groupStatus: ', groupStatus)
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const errors = {};
         if (!location) {
-            setErrors('test')
+           errors.location = 'Location is required'
+        }
+        if (!groupName) {
+            errors.name = 'Name is required'
+        }
+        if (groupAbout.length < 30) {
+            errors.about = 'Description must be at least 30 characters long'
+        }
+        let imageCheckArr = groupImage.split('.')
+        let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
+        if (imageCheckVal !== 'png' ||
+            imageCheckVal !== 'jpg' ||
+            imageCheckVal !== 'jpeg') {
+                errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
+            }
+        if (groupMeetingType !== 'In Person' ||
+            groupMeetingType !== 'Online') {
+                errors.meetingType = 'Group Type is required';
+            }
+        if (groupStatus === '(select one)') {
+            errors.groupStatus = 'Visibility Type is required'
         }
 
-        console.log('errors: ', errors)
+        // console.log('errors: ', errors)
 
-        console.log('location: ', location);
-        let splitLocation = location.split(',');
-        let city = splitLocation[0];
-        let state = splitLocation[1];
-        // console.log(splitLocation);
-        console.log('test: ',
+        // console.log('location: ', location);
+
+        if (Object.keys(errors).length > 0) setErrors(errors);
+
+
+        if (Object.keys(errors).length = 0) {
+
+            let splitLocation = location.split(',');
+            let city = splitLocation[0];
+            let state = splitLocation[1];
+            // console.log(splitLocation);
+            console.log('test: ',
             {
                 //location needs to be parsed for city and state
                 city,
@@ -42,7 +68,8 @@ function CreateGroupForm() {
                 private: groupStatus,
                 //groupImage is added after a group is made
             }
-        )
+            )
+        }
     }
     // console.log('groupStatus: ', groupStatus)
 
@@ -66,6 +93,7 @@ function CreateGroupForm() {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                 ></input>
+                <p>{errors.location}</p>
             </div>
             <div>
                 <h2>
@@ -83,6 +111,7 @@ function CreateGroupForm() {
                     value={groupName}
                     onChange={(e) => setGroupName(e.target.value)}
                 ></input>
+                <p>{errors.name}</p>
             </div>
             <div>
                 <h2>
@@ -101,6 +130,7 @@ function CreateGroupForm() {
                     value={groupAbout}
                     onChange={(e) => setGroupAbout(e.target.value)}
                 ></textarea>
+                <p>{errors.about}</p>
             </div>
             <div>
                 <h2>
@@ -113,9 +143,11 @@ function CreateGroupForm() {
                     onChange={(e) => setGroupMeetingType(e.target.value)}
                     value={groupMeetingType}
                 >
+                    <option>(select one)</option>
                     <option>In Person</option>
                     <option>Online</option>
                 </select>
+                <p>{errors.meetingType}</p>
                 <p>
                     Is this group private or public?
                 </p>
@@ -123,6 +155,7 @@ function CreateGroupForm() {
                 onChange={(e) => setGroupStatus(e.target.value)}
                 // value={groupStatus}
                 >
+                    <option>(select one)</option>
                     <option
                         value={true}
                         checked={groupStatus === true}
@@ -134,6 +167,7 @@ function CreateGroupForm() {
                         onChange={() => setGroupStatus(false)}
                     >Public</option>
                 </select>
+                <p>{errors.groupStatus}</p>
                 <p>
                     Please add an image url for your group below:
                 </p>
@@ -143,6 +177,7 @@ function CreateGroupForm() {
                     value={groupImage}
                     onChange={(e) => setGroupImage(e.target.value)}
                 ></input>
+                <p>{errors.image}</p>
                 {/* possibly need to adjust the input type for image */}
             </div>
             <div>
