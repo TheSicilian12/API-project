@@ -7,9 +7,9 @@ function StartGroup() {
     return (
         <div className='landingPage_startGroup'>
             <img classNameclassName='landingPage_startGroup_img'></img>
-            <h3 className='landingPage_startGroup_mainText'>
+            <NavLink to='/groups/new'className='landingPage_startGroup_mainText'>
                 Start a new group
-            </h3>
+            </NavLink>
             <p className='landingPage_startGroup_additionalText'>
                 additional text
             </p>
