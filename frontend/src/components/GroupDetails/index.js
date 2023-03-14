@@ -15,16 +15,26 @@ function GroupDetails() {
         dispatch(getGroup(groupId));
     }, [])
 
-    const groups = useSelector((state) => state.groups)
+    const group = useSelector((state) => state.groups)
 
-    if (!Object.keys(groups).length) {
-        return <div> loading </div>
+    // console.log('groups: ', groups)
+
+    // if (!Object.keys(groups).length) {
+    //     return <div> loading </div>
+    // }
+
+    if (!group.singleGroup) {
+        return <div>loading</div>
     }
 
-    const group = groups.group.groups.singleGroup
-    console.log('groups: ', group)
+    // console.log('group status: ', group.singleGroup.private)
+    let groupStatus = 'Public'
+    if (group.singleGroup.private) {
+        groupStatus = 'Private'
+    }
 
     return (
+        // <h1>test</h1>
         <div className='GroupDetails'>
             <div className='GroupDetails_GroupsButton'>
                 <p>{'<'}</p>
@@ -35,26 +45,53 @@ function GroupDetails() {
 
                 </div>
                 <h1 className='GroupDetails_Details_GroupName'>
-                    {`${group.name}`}
+                    {`${group.singleGroup.name}`}
                 </h1>
                 <h4 className='GroupDetails_Details_Location'>
-                    {`${group.city}, ${group.state}`}
+                    {`${group.singleGroup.city}, ${group.singleGroup.state}`}
                 </h4>
                 <div>
                     <h4>
+                        Number of events still needed
                         {/* number of events */}
                     </h4>
                     <h4>
-                        {/* public/private status */}
+                       {groupStatus}
                     </h4>
                 </div>
                 <h4>
-                    {`Organized by ${group.Organizer.firstName} ${group.Organizer.lastName}`}
+                    {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                 </h4>
                 <button>
                     Join this group
                     {/* alert for no implementation */}
                 </button>
+            </div>
+            <div>
+                <h2>
+                    Organizer
+                </h2>
+                <h4>
+                {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                </h4>
+                <h2>
+                    What we're about
+                </h2>
+                <p>
+                    {group.about}
+                </p>
+            </div>
+            <div>
+                <h2>
+                    Upcoming Events still needed
+                    {/* add in upcoming events */}
+                </h2>
+            </div>
+            <div>
+                <h2>
+                    Past Events still needed
+                    {/* add in past events */}
+                </h2>
             </div>
         </div>
 

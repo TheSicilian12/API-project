@@ -18,24 +18,26 @@ export default function AllGroups() {
         dispatch(getAllGroups());
     }, [])
 
+    // const groups = useSelector((state) => state.groups)
     const groups = useSelector((state) => state.groups)
 
-    if (!Object.keys(groups).length) {
-        return <div> loading </div>
-    }
-    // console.log('state test groups: ', groups.allGroups)
-
-    // if (Object.keys(groups).length) {
-    // console.log('test: ', Object.keys(groups.allGroups))
-    console.log('key 1: ', groups.allGroups['1'])
+    // if (!Object.keys(groups).length) {
+    //     return <div> loading </div>
     // }
 
-    //{Object.keys(groups.allGroups).map(e => console.log(e))}
+    if (!groups.allGroups) {
+        return <div>loading</div>
+    }
+
+    console.log('groups: ', groups)
+
+    // if (!groups) {
+    //     console.log('ERROR!')
+    // }
+
     return (
         <div className='AllGroups'>
             Groups
-
-
             {Object.keys(groups.allGroups).map(e =>
                 <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                     <div className='AllGroups_group'

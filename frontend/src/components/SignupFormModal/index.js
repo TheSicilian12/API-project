@@ -26,12 +26,16 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           //change data.errors to an array because of the object issue in setErrors
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) {
+            // setErrors(data.errors);
+            // console.log(Object.values(data.errors))
+            setErrors([...Object.values(data.errors)])
+          }
         });
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
-
+  console.log('errors: ', errors)
   return (
     <>
       <h1>Sign Up</h1>
