@@ -24,6 +24,11 @@ function GroupDetails() {
     const group = groups.group.groups.singleGroup
     console.log('groups: ', group)
 
+    let groupStatus = 'Public'
+    if (group.private) {
+        groupStatus = 'Private'
+    }
+
     return (
         <div className='GroupDetails'>
             <div className='GroupDetails_GroupsButton'>
@@ -42,10 +47,11 @@ function GroupDetails() {
                 </h4>
                 <div>
                     <h4>
+                        Number of events still needed
                         {/* number of events */}
                     </h4>
                     <h4>
-                        {/* public/private status */}
+                       {groupStatus}
                     </h4>
                 </div>
                 <h4>
@@ -55,6 +61,32 @@ function GroupDetails() {
                     Join this group
                     {/* alert for no implementation */}
                 </button>
+            </div>
+            <div>
+                <h2>
+                    Organizer
+                </h2>
+                <h4>
+                {`${group.Organizer.firstName} ${group.Organizer.lastName}`}
+                </h4>
+                <h2>
+                    What we're about
+                </h2>
+                <p>
+                    {group.about}
+                </p>
+            </div>
+            <div>
+                <h2>
+                    Upcoming Events still needed
+                    {/* add in upcoming events */}
+                </h2>
+            </div>
+            <div>
+                <h2>
+                    Past Events still needed
+                    {/* add in past events */}
+                </h2>
             </div>
         </div>
 
