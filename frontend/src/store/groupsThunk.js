@@ -1,5 +1,6 @@
 const LOAD = '/groups';
 const LOAD_DETAILS = '/groups:id'
+const SUBMIT_DETAILS = 'groups/new'
 
 const load = (list) => ({
     type: LOAD,
@@ -10,6 +11,11 @@ const load_details = (group) => ({
     type: LOAD_DETAILS,
     group
 });
+
+const submit_details = (group) => ({
+    type: SUBMIT_DETAILS,
+    group
+})
 
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
@@ -33,6 +39,24 @@ export const getGroup = (groupId) => async (dispatch) => {
         // const group2 = normalizeSingleGroup(group)
         dispatch(load_details(group))
     }
+}
+
+//thunk - submits a group
+export const submitGroup = (groupObj) => async (dispatch) => {
+    //private key is a string
+    console.log('thunk groupObj: ', groupObj)
+
+    let newGroupObj = {}
+    newGroupObj.name = groupObj.name;
+    newGroupObj.about = groupObj.about;
+    newGroupObj.type = groupObj.type;
+    newGroupObj.city = groupObj.city;
+    newGroupObj.state = groupObj.state;
+
+    if (groupObj.private === 'true') newGroupObj.private = true;
+    if (groupObj.private === 'false') newGroupObj.private = false;
+
+    console.log('newGroupObj: ', newGroupObj)
 }
 
 //normalizer (array to obj. uses id as the key for the obj)

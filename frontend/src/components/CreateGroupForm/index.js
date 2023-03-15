@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './CreateGroupForm.css';
+import {submitGroup} from '../../store/groupsThunk';
 
 function CreateGroupForm() {
     const [location, setLocation] = useState('');
@@ -11,9 +12,11 @@ function CreateGroupForm() {
     const [groupMeetingType, setGroupMeetingType] = useState('(select one)');
     const [groupStatus, setGroupStatus] = useState('(select one)');
     const [groupImage, setGroupImage] = useState('');
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
+    const dispatch = useDispatch();
+
     // console.log('groupMeetingType: ', groupMeetingType)
-    console.log('groupStatus: ', groupStatus)
+    // console.log('groupStatus: ', groupStatus)
 
 
     const handleSubmit = async (e) => {
@@ -69,6 +72,22 @@ function CreateGroupForm() {
                 //groupImage is added after a group is made
             }
             )
+
+            const payload = {
+                city,
+                state,
+                name: groupName,
+                about: groupAbout,
+                type: groupMeetingType,
+                private: groupStatus,
+            }
+
+            let createGroup = await dispatch(submitGroup(payload));
+            if (createGroup) {
+                //add an image
+                console.log('dont forget to add an image!')
+            }
+
         }
     }
     // console.log('groupStatus: ', groupStatus)
