@@ -7,7 +7,7 @@ import LandingPage from "./components/LandingPage";
 import EventsGroupsNav from "./components/EventsGroupsNav";
 import AllGroups from "./components/AllGroups"
 import GroupDetails from "./components/GroupDetails"
-import CreateGroupForm from "./components/GroupForm"
+import GroupForm from "./components/GroupForm"
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +31,8 @@ function App() {
           <Route path='/events' exact>
             <EventsGroupsNav />
           </Route>
-          <Route path ='/groups/new' exact>
-            <CreateGroupForm />
+          <Route path ={['/groups/new', '/groups/:id/edit']} exact>
+            <GroupForm />
           </Route>
           <Route path='/groups/:id' exact>
             <GroupDetails />
