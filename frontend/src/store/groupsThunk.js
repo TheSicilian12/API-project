@@ -1,3 +1,5 @@
+import { csrfFetch } from './csrf';
+
 const LOAD = '/groups';
 const LOAD_DETAILS = '/groups:id'
 const SUBMIT_DETAILS = 'groups/new'
@@ -44,7 +46,7 @@ export const getGroup = (groupId) => async (dispatch) => {
 //thunk - submits a group
 export const submitGroup = (groupObj) => async (dispatch) => {
     //private key is a string
-    console.log('thunk groupObj: ', groupObj)
+    // console.log('thunk groupObj: ', groupObj)
 
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
@@ -56,7 +58,24 @@ export const submitGroup = (groupObj) => async (dispatch) => {
     if (groupObj.private === 'true') newGroupObj.private = true;
     if (groupObj.private === 'false') newGroupObj.private = false;
 
-    console.log('newGroupObj: ', newGroupObj)
+    // console.log('newGroupObj: ', newGroupObj)
+
+    const response = await csrfFetch('/api/groups', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newGroupObj)
+        // body: newGroupObj
+    })
+    if (response.ok) {
+        const newGroup = await response.json();
+        // console.log('newGroup: ', newGroup)
+        // console.log('newGroup.id: ', newGroup.id)
+        dispatch(getGroup(newGroup.id));
+        return newGroup
+    }
+
 }
 
 //normalizer (array to obj. uses id as the key for the obj)

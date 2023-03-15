@@ -60,19 +60,20 @@ function CreateGroupForm() {
             let city = splitLocation[0];
             let state = splitLocation[1];
             // console.log(splitLocation);
-            console.log('test: ',
-            {
-                //location needs to be parsed for city and state
-                city,
-                state,
-                name: groupName,
-                about: groupAbout,
-                type: groupMeetingType,
-                private: groupStatus,
-                //groupImage is added after a group is made
-            }
-            )
+            // console.log('test: ',
+            // {
+            //     //location needs to be parsed for city and state
+            //     city,
+            //     state,
+            //     name: groupName,
+            //     about: groupAbout,
+            //     type: groupMeetingType,
+            //     private: groupStatus,
+            //     //groupImage is added after a group is made
+            // }
+            // )
 
+            console.log('groupMeetingType: ', groupMeetingType)
             const payload = {
                 city,
                 state,
@@ -80,6 +81,9 @@ function CreateGroupForm() {
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
+            }
+            if (groupMeetingType === 'In Person') {
+               payload.type = 'In person'
             }
 
             let createGroup = await dispatch(submitGroup(payload));
