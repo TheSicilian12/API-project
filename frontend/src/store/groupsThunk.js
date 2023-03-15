@@ -84,7 +84,8 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 
         // console.log('newImageObj: ', newImageObj)
 
-        dispatch(addAGroupImage(newImageObj))
+        // dispatch(addAGroupImage(newImageObj))
+       dispatch(addAGroupImage(newImageObj))
 
         // dispatch(getGroup(newGroup.id));
         return newGroup
@@ -93,11 +94,21 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 }
 
 //thunk - adds an image to a group
-export const addAGroupImage = (groupImageObj) => {
+export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     //groupImageObj needs to include the groupId, url, and preview.
-
     console.log('add a group image')
-    return console.log('return')
+
+    const response = await csrfFetch(`/api/groups/${groupImageObj.groupId}/images`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(groupImageObj)
+    })
+    if (response.ok) {
+        const newImage = await response.json();
+        return console.log('return')
+    }
 }
 
 //normalizer (array to obj. uses id as the key for the obj)
