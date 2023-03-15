@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
-import { submitGroup, editGroupThunk } from '../../store/groupsThunk';
+import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 
 function CreateGroupForm() {
     const [location, setLocation] = useState('');
@@ -16,23 +16,35 @@ function CreateGroupForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const data = useLocation();
-    // console.log('useParams: ', useParams());
+    const { id } = useParams();
     const pathArray = data.pathname.split('/');
-    let formSpecifics = pathArray[pathArray.length - 1];
-    // console.log(formSpecifics)
 
+    let formSpecifics = pathArray[pathArray.length - 1];
+    useEffect(() => {
+        // console.log('useEffect test')
+        dispatch(getGroup(id));
+    }, [])
+    const currentGroup = useSelector((state) => state.groups)
+
+    if (id && !currentGroup.singleGroup) {
+        return <div>loading</div>
+    }
+
+
+    // console.log('currentGroup: ', currentGroup.singleGroup.city)
     //form specifics === 'new'
     let newGroup = 'on';
     let editGroup = 'off';
-    // if (formSpecifics === 'new') {
 
-    // }
+    //form specifics === 'edit
     if (formSpecifics === 'edit') {
         newGroup = 'off';
         editGroup = 'on';
+
+        // setLocation('test')
+
     }
-    // console.log('groupMeetingType: ', groupMeetingType)
-    // console.log('groupStatus: ', groupStatus)
+
 
 
     const handleSubmit = async (e) => {
@@ -72,7 +84,6 @@ function CreateGroupForm() {
 
         if (Object.keys(errors).length > 0) setErrors(errors);
 
-
         if (Object.keys(errors).length === 0) {
 
             let splitLocation = location.split(',');
@@ -98,6 +109,7 @@ function CreateGroupForm() {
             }
             let updateGroup;
             if (editGroup === 'on') {
+                payload.groupId = id;
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
             if (createGroup) {
@@ -110,6 +122,7 @@ function CreateGroupForm() {
 
     return (
         <form onSubmit={handleSubmit}>
+            {/* {editGroup} */}
             <div>
                 <h3 className={newGroup}>BECOME AN ORGANIZER</h3>
                 <h3 className={editGroup}>UPDATE YOUR GROUP'S INFORMATION</h3>

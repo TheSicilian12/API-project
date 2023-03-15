@@ -46,7 +46,7 @@ export const getGroup = (groupId) => async (dispatch) => {
 //thunk - submits a group
 export const submitGroup = (groupObj) => async (dispatch) => {
     //private key is a string
-    console.log('thunk groupObj: ', groupObj)
+    // console.log('thunk groupObj: ', groupObj)
 
     //create a group obj info
     let newGroupObj = {}
@@ -107,8 +107,8 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     if (groupObj.private === 'true') newGroupObj.private = true;
     if (groupObj.private === 'false') newGroupObj.private = false;
 
-    const response = await csrfFetch('/api/groups/:groupId', {
-        method: 'POST',
+    const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
