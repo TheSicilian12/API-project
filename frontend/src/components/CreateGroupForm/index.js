@@ -81,6 +81,7 @@ function CreateGroupForm() {
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
+                url: groupImage
             }
             if (groupMeetingType === 'In Person') {
                payload.type = 'In person'
