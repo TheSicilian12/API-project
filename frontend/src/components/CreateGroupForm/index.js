@@ -31,12 +31,12 @@ function CreateGroupForm() {
         }
         let imageCheckArr = groupImage.split('.')
         let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
-        if (imageCheckVal !== 'png' ||
-            imageCheckVal !== 'jpg' ||
+        if (imageCheckVal !== 'png' &&
+            imageCheckVal !== 'jpg' &&
             imageCheckVal !== 'jpeg') {
                 errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
             }
-        if (groupMeetingType !== 'In Person' ||
+        if (groupMeetingType !== 'In Person' &&
             groupMeetingType !== 'Online') {
                 errors.meetingType = 'Group Type is required';
             }
@@ -51,7 +51,7 @@ function CreateGroupForm() {
         if (Object.keys(errors).length > 0) setErrors(errors);
 
 
-        if (Object.keys(errors).length = 0) {
+        if (Object.keys(errors).length === 0) {
 
             let splitLocation = location.split(',');
             let city = splitLocation[0];
@@ -93,7 +93,7 @@ function CreateGroupForm() {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                 ></input>
-                <p>{errors.location}</p>
+                <p className='error'>{errors.location}</p>
             </div>
             <div>
                 <h2>
@@ -111,7 +111,7 @@ function CreateGroupForm() {
                     value={groupName}
                     onChange={(e) => setGroupName(e.target.value)}
                 ></input>
-                <p>{errors.name}</p>
+                <p className='error'>{errors.name}</p>
             </div>
             <div>
                 <h2>
@@ -130,7 +130,7 @@ function CreateGroupForm() {
                     value={groupAbout}
                     onChange={(e) => setGroupAbout(e.target.value)}
                 ></textarea>
-                <p>{errors.about}</p>
+                <p className='error'>{errors.about}</p>
             </div>
             <div>
                 <h2>
@@ -147,7 +147,7 @@ function CreateGroupForm() {
                     <option>In Person</option>
                     <option>Online</option>
                 </select>
-                <p>{errors.meetingType}</p>
+                <p className='error'>{errors.meetingType}</p>
                 <p>
                     Is this group private or public?
                 </p>
@@ -167,7 +167,7 @@ function CreateGroupForm() {
                         onChange={() => setGroupStatus(false)}
                     >Public</option>
                 </select>
-                <p>{errors.groupStatus}</p>
+                <p className='error'>{errors.groupStatus}</p>
                 <p>
                     Please add an image url for your group below:
                 </p>
@@ -177,7 +177,7 @@ function CreateGroupForm() {
                     value={groupImage}
                     onChange={(e) => setGroupImage(e.target.value)}
                 ></input>
-                <p>{errors.image}</p>
+                <p className='error'>{errors.image}</p>
                 {/* possibly need to adjust the input type for image */}
             </div>
             <div>
