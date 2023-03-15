@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './CreateGroupForm.css';
-import {submitGroup} from '../../store/groupsThunk';
+import { submitGroup } from '../../store/groupsThunk';
 
 function CreateGroupForm() {
     const [location, setLocation] = useState('');
@@ -14,6 +14,7 @@ function CreateGroupForm() {
     const [groupImage, setGroupImage] = useState('');
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // console.log('groupMeetingType: ', groupMeetingType)
     // console.log('groupStatus: ', groupStatus)
@@ -24,7 +25,7 @@ function CreateGroupForm() {
 
         const errors = {};
         if (!location) {
-           errors.location = 'Location is required'
+            errors.location = 'Location is required'
         }
         if (!groupName) {
             errors.name = 'Name is required'
@@ -37,12 +38,12 @@ function CreateGroupForm() {
         if (imageCheckVal !== 'png' &&
             imageCheckVal !== 'jpg' &&
             imageCheckVal !== 'jpeg') {
-                errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
-            }
+            errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
+        }
         if (groupMeetingType !== 'In Person' &&
             groupMeetingType !== 'Online') {
-                errors.meetingType = 'Group Type is required';
-            }
+            errors.meetingType = 'Group Type is required';
+        }
         if (groupStatus === '(select one)') {
             errors.groupStatus = 'Visibility Type is required'
         }
@@ -73,7 +74,7 @@ function CreateGroupForm() {
             // }
             // )
 
-            console.log('groupMeetingType: ', groupMeetingType)
+            // console.log('groupMeetingType: ', groupMeetingType)
             const payload = {
                 city,
                 state,
@@ -84,13 +85,13 @@ function CreateGroupForm() {
                 url: groupImage
             }
             if (groupMeetingType === 'In Person') {
-               payload.type = 'In person'
+                payload.type = 'In person'
             }
 
             let createGroup = await dispatch(submitGroup(payload));
             if (createGroup) {
-                //add an image
-                console.log('dont forget to add an image!')
+                // console.log('createGroup: ', createGroup)
+                history.push(`/groups/${createGroup.id}`)
             }
 
         }
@@ -176,7 +177,7 @@ function CreateGroupForm() {
                     Is this group private or public?
                 </p>
                 <select
-                onChange={(e) => setGroupStatus(e.target.value)}
+                    onChange={(e) => setGroupStatus(e.target.value)}
                 // value={groupStatus}
                 >
                     <option>(select one)</option>
@@ -207,8 +208,8 @@ function CreateGroupForm() {
             <div>
                 <button
                     type='submit'
-                    // disabled={Object.keys(errors).length > 0}
-                    >
+                // disabled={Object.keys(errors).length > 0}
+                >
                     Create group
                 </button>
             </div>
