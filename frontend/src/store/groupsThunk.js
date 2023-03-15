@@ -46,7 +46,7 @@ export const getGroup = (groupId) => async (dispatch) => {
 //thunk - submits a group
 export const submitGroup = (groupObj) => async (dispatch) => {
     //private key is a string
-    console.log('thunk groupObj: ', groupObj)
+    // console.log('thunk groupObj: ', groupObj)
 
     //create a group obj info
     let newGroupObj = {}
@@ -91,6 +91,30 @@ export const submitGroup = (groupObj) => async (dispatch) => {
         return newGroup;
     }
 
+}
+
+//thunk - edits a group
+export const editGroupThunk = (groupObj) => async (dispatch) => {
+    console.log('editGroup thunk: ', groupObj)
+
+    let newGroupObj = {}
+    newGroupObj.name = groupObj.name;
+    newGroupObj.about = groupObj.about;
+    newGroupObj.type = groupObj.type;
+    newGroupObj.city = groupObj.city;
+    newGroupObj.state = groupObj.state;
+
+    if (groupObj.private === 'true') newGroupObj.private = true;
+    if (groupObj.private === 'false') newGroupObj.private = false;
+
+    const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newGroupObj)
+        // body: newGroupObj
+    })
 }
 
 //thunk - adds an image to a group
