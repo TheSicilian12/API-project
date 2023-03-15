@@ -28,14 +28,23 @@ function CreateGroupForm() {
         dispatch(getGroup(id));
     }, [])
     const currentGroup = useSelector((state) => state.groups)
+    console.log('currentGroup: ', currentGroup)
+
+    // if (id && !currentGroup.singleGroup) {
+    //     return <div>loading</div>
+    // }
 
     useEffect(() => {
-        // if (id && !currentGroup.singleGroup) {
-        //     return <div>loading</div>
-        // }
+        if (id && !currentGroup.singleGroup) {
+            return <div>loading</div>
+        }
 
         if (formSpecifics === 'edit') {
             setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
+            setGroupName(`${currentGroup.singleGroup.name}`)
+            setGroupAbout(`${currentGroup.singleGroup.about}`)
+            // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
+            // setGroupStatus(`${currentGroup.singleGroup.private}`)
         }
     }, []);
 
