@@ -7,7 +7,7 @@ import LandingPage from "./components/LandingPage";
 import EventsGroupsNav from "./components/EventsGroupsNav";
 import AllGroups from "./components/AllGroups"
 import GroupDetails from "./components/GroupDetails"
-import CreateGroupForm from "./components/CreateGroupForm"
+import CreateGroupForm from "./components/GroupForm"
 
 function App() {
   const dispatch = useDispatch();
