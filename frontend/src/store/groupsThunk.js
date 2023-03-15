@@ -1,5 +1,8 @@
+import { csrfFetch } from './csrf';
+
 const LOAD = '/groups';
 const LOAD_DETAILS = '/groups:id'
+const SUBMIT_DETAILS = '/groups/new'
 
 const load = (list) => ({
     type: LOAD,
@@ -10,6 +13,11 @@ const load_details = (group) => ({
     type: LOAD_DETAILS,
     group
 });
+
+const submit_details = (group) => ({
+    type: SUBMIT_DETAILS,
+    group
+})
 
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
@@ -32,6 +40,74 @@ export const getGroup = (groupId) => async (dispatch) => {
         // dispatch(load_details(group));
         // const group2 = normalizeSingleGroup(group)
         dispatch(load_details(group))
+    }
+}
+
+//thunk - submits a group
+export const submitGroup = (groupObj) => async (dispatch) => {
+    //private key is a string
+    console.log('thunk groupObj: ', groupObj)
+
+    //create a group obj info
+    let newGroupObj = {}
+    newGroupObj.name = groupObj.name;
+    newGroupObj.about = groupObj.about;
+    newGroupObj.type = groupObj.type;
+    newGroupObj.city = groupObj.city;
+    newGroupObj.state = groupObj.state;
+
+    if (groupObj.private === 'true') newGroupObj.private = true;
+    if (groupObj.private === 'false') newGroupObj.private = false;
+
+    // console.log('newGroupObj: ', newGroupObj)
+
+    //add an image to a group obj info
+    //since this is during the creation of a group, the first image would be the preview by default
+
+    const response = await csrfFetch('/api/groups', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newGroupObj)
+        // body: newGroupObj
+    })
+    if (response.ok) {
+        const newGroup = await response.json();
+        // console.log('newGroup: ', newGroup)
+        // console.log('newGroup.id: ', newGroup.id)
+
+        let newImageObj = {};
+            newImageObj.url = groupObj.url;
+            newImageObj.preview = true;
+            newImageObj.groupId = newGroup.id
+
+        // console.log('newImageObj: ', newImageObj)
+
+        // dispatch(addAGroupImage(newImageObj))
+       dispatch(addAGroupImage(newImageObj))
+
+        // dispatch(getGroup(newGroup.id));
+        return newGroup
+    }
+
+}
+
+//thunk - adds an image to a group
+export const addAGroupImage = (groupImageObj) => async (dispatch) => {
+    //groupImageObj needs to include the groupId, url, and preview.
+    console.log('add a group image')
+
+    const response = await csrfFetch(`/api/groups/${groupImageObj.groupId}/images`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(groupImageObj)
+    })
+    if (response.ok) {
+        const newImage = await response.json();
+        return console.log('return')
     }
 }
 
