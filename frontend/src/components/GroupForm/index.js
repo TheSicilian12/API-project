@@ -20,11 +20,24 @@ function CreateGroupForm() {
     const pathArray = data.pathname.split('/');
 
     let formSpecifics = pathArray[pathArray.length - 1];
+
+
+
     useEffect(() => {
         // console.log('useEffect test')
         dispatch(getGroup(id));
     }, [])
     const currentGroup = useSelector((state) => state.groups)
+
+    useEffect(() => {
+        // if (id && !currentGroup.singleGroup) {
+        //     return <div>loading</div>
+        // }
+
+        if (formSpecifics === 'edit') {
+            setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
+        }
+    }, []);
 
     if (id && !currentGroup.singleGroup) {
         return <div>loading</div>
@@ -42,8 +55,8 @@ function CreateGroupForm() {
         editGroup = 'on';
 
         // setLocation('test')
-
     }
+
 
 
 
@@ -122,7 +135,6 @@ function CreateGroupForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* {editGroup} */}
             <div>
                 <h3 className={newGroup}>BECOME AN ORGANIZER</h3>
                 <h3 className={editGroup}>UPDATE YOUR GROUP'S INFORMATION</h3>
