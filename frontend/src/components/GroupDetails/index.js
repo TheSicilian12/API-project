@@ -16,25 +16,36 @@ function GroupDetails() {
     }, [])
 
     const group = useSelector((state) => state.groups)
+    const user = useSelector((state) => state.session.user)
 
-    // console.log('groups: ', groups)
-
-    // if (!Object.keys(groups).length) {
-    //     return <div> loading </div>
-    // }
+    // console.log('group: ', group)
+    // console.log('user: ', user)
 
     if (!group.singleGroup) {
         return <div>loading</div>
     }
 
-    // console.log('group status: ', group.singleGroup.private)
     let groupStatus = 'Public'
     if (group.singleGroup.private) {
         groupStatus = 'Private'
     }
 
+    //determine the userStatus / display
+    //organizer or creator, currently just checking if organizer
+    let joinGroup = 'on'
+    let options = 'off'
+    // console.log('group - further: ', group.singleGroup)
+    // console.log('user: ', user.id)
+
+    if (user) {
+        if (group.singleGroup.Organizer.id === user.id) {
+            joinGroup = 'off'
+            options = 'on'
+        }
+    }
+
+
     return (
-        // <h1>test</h1>
         <div className='GroupDetails'>
             <div className='GroupDetails_GroupsButton'>
                 <p>{'<'}</p>
@@ -56,23 +67,43 @@ function GroupDetails() {
                         {/* number of events */}
                     </h4>
                     <h4>
-                       {groupStatus}
+                        {groupStatus}
                     </h4>
                 </div>
                 <h4>
                     {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                 </h4>
-                <button>
-                    Join this group
-                    {/* alert for no implementation */}
-                </button>
+                <div className={joinGroup}>
+                    <button>
+                        Join this group
+                        {/* alert for no implementation */}
+                    </button>
+                </div>
+                <div className={options}>
+                    <NavLink to={`/groups/${groupId}/events/new`}>
+                        <button>
+                            Create event
+                        </button>
+                    </NavLink>
+                    <NavLink to={`/groups/${groupId}/edit`}>
+                    <button>
+                        Update
+                    </button>
+                    </NavLink>
+                    <NavLink to='/test'>
+                    <button>
+                        Delete
+                        {/* it really needs a pop up and then redirect */}
+                    </button>
+                    </NavLink>
+                </div>
             </div>
             <div>
                 <h2>
                     Organizer
                 </h2>
                 <h4>
-                {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                    {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                 </h4>
                 <h2>
                     What we're about

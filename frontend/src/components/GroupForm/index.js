@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './CreateGroupForm.css';
+import './GroupForm.css';
 import { submitGroup } from '../../store/groupsThunk';
 
 function CreateGroupForm() {
