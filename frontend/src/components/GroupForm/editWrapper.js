@@ -6,20 +6,21 @@ import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import GroupForm from './index'
 
 
-function editWrapper() {
+export default function EditWrapper() {
     const { id } = useParams();
-
+    const dispatch = useDispatch();
+    console.log('EditWrapperRunning')
 
     useEffect(() => {
-        // console.log('useEffect test')
         dispatch(getGroup(id));
     }, [id])
 
     const currentGroup = useSelector((state) => state.groups.singleGroup);
+    console.log('editWrapper: ', currentGroup)
     if (!currentGroup) return null;
 
     return (
-        <GroupForm currentGroup = {currentGroup}/>
+        <GroupForm currentGroup={currentGroup} formType={'edit'}/>
     )
 
 }
