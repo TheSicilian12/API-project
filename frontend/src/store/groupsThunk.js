@@ -1,8 +1,9 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = '/groups';
-const LOAD_DETAILS = '/groups:id'
-const SUBMIT_DETAILS = '/groups/new'
+const LOAD_DETAILS = '/groups:id';
+const SUBMIT_DETAILS = '/groups/new';
+const DELETE_GROUP = '/groups/:groupId';
 
 const load = (list) => ({
     type: LOAD,
@@ -19,6 +20,10 @@ const submit_details = (group) => ({
     group
 })
 
+const delete_group = (group) => ({
+    type: DELETE_GROUP,
+    group
+})
 
 
 

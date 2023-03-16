@@ -4,7 +4,15 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import '../DeleteGroupModal'
 
+
+
 function DeleteGroupModal () {
+
+    const deleteGroup = async (e) => {
+        e.preventDefault();
+
+
+    }
 
     const { closeModal } = useModal();
     return (
@@ -13,7 +21,7 @@ function DeleteGroupModal () {
             <p>Are you sure you want to remove this group?</p>
 
             <div>
-                <button>Yes (Delete Group)</button>
+                <button onClick={deleteGroup}>Yes (Delete Group)</button>
                 <button
                 onClick={closeModal}
                 >No (Keep Group)</button>
