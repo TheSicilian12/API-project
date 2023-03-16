@@ -22,4 +22,5 @@ function DeleteGroupModal () {
     )
 }
 
+
 export default DeleteGroupModal
