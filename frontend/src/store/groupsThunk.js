@@ -46,7 +46,7 @@ export const getGroup = (groupId) => async (dispatch) => {
 //thunk - submits a group
 export const submitGroup = (groupObj) => async (dispatch) => {
     //private key is a string
-    console.log('thunk groupObj: ', groupObj)
+    // console.log('thunk groupObj: ', groupObj)
 
     //create a group obj info
     let newGroupObj = {}
@@ -80,23 +80,47 @@ export const submitGroup = (groupObj) => async (dispatch) => {
         let newImageObj = {};
             newImageObj.url = groupObj.url;
             newImageObj.preview = true;
-            newImageObj.groupId = newGroup.id
+            newImageObj.groupId = newGroup.id;
 
         // console.log('newImageObj: ', newImageObj)
 
         // dispatch(addAGroupImage(newImageObj))
-       dispatch(addAGroupImage(newImageObj))
+       dispatch(addAGroupImage(newImageObj));
 
         // dispatch(getGroup(newGroup.id));
-        return newGroup
+        return newGroup;
     }
 
+}
+
+//thunk - edits a group
+export const editGroupThunk = (groupObj) => async (dispatch) => {
+    console.log('editGroup thunk: ', groupObj)
+
+    let newGroupObj = {}
+    newGroupObj.name = groupObj.name;
+    newGroupObj.about = groupObj.about;
+    newGroupObj.type = groupObj.type;
+    newGroupObj.city = groupObj.city;
+    newGroupObj.state = groupObj.state;
+
+    if (groupObj.private === 'true') newGroupObj.private = true;
+    if (groupObj.private === 'false') newGroupObj.private = false;
+
+    const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newGroupObj)
+        // body: newGroupObj
+    })
 }
 
 //thunk - adds an image to a group
 export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     //groupImageObj needs to include the groupId, url, and preview.
-    console.log('add a group image')
+    // console.log('add a group image')
 
     const response = await csrfFetch(`/api/groups/${groupImageObj.groupId}/images`, {
         method: 'POST',
@@ -107,7 +131,8 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     })
     if (response.ok) {
         const newImage = await response.json();
-        return console.log('return')
+
+        return newImage;
     }
 }
 

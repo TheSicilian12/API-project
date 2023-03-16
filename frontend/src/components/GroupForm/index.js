@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './CreateGroupForm.css';
-import {submitGroup} from '../../store/groupsThunk';
+import './GroupForm.css';
+import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 
 function CreateGroupForm() {
     const [location, setLocation] = useState('');
@@ -14,9 +14,59 @@ function CreateGroupForm() {
     const [groupImage, setGroupImage] = useState('');
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
+    const history = useHistory();
+    const data = useLocation();
+    const { id } = useParams();
+    const pathArray = data.pathname.split('/');
 
-    // console.log('groupMeetingType: ', groupMeetingType)
-    // console.log('groupStatus: ', groupStatus)
+    let formSpecifics = pathArray[pathArray.length - 1];
+
+
+
+    useEffect(() => {
+        // console.log('useEffect test')
+        dispatch(getGroup(id));
+    }, [])
+    const currentGroup = useSelector((state) => state.groups)
+    console.log('currentGroup: ', currentGroup)
+
+    // if (id && !currentGroup.singleGroup) {
+    //     return <div>loading</div>
+    // }
+
+    useEffect(() => {
+        if (id && !currentGroup.singleGroup) {
+            return <div>loading</div>
+        }
+
+        if (formSpecifics === 'edit') {
+            setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
+            setGroupName(`${currentGroup.singleGroup.name}`)
+            setGroupAbout(`${currentGroup.singleGroup.about}`)
+            // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
+            // setGroupStatus(`${currentGroup.singleGroup.private}`)
+        }
+    }, []);
+
+    if (id && !currentGroup.singleGroup) {
+        return <div>loading</div>
+    }
+
+
+    // console.log('currentGroup: ', currentGroup.singleGroup.city)
+    //form specifics === 'new'
+    let newGroup = 'on';
+    let editGroup = 'off';
+
+    //form specifics === 'edit
+    if (formSpecifics === 'edit') {
+        newGroup = 'off';
+        editGroup = 'on';
+
+        // setLocation('test')
+    }
+
+
 
 
     const handleSubmit = async (e) => {
@@ -24,7 +74,7 @@ function CreateGroupForm() {
 
         const errors = {};
         if (!location) {
-           errors.location = 'Location is required'
+            errors.location = 'Location is required'
         }
         if (!groupName) {
             errors.name = 'Name is required'
@@ -32,17 +82,20 @@ function CreateGroupForm() {
         if (groupAbout.length < 30) {
             errors.about = 'Description must be at least 30 characters long'
         }
-        let imageCheckArr = groupImage.split('.')
-        let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
-        if (imageCheckVal !== 'png' &&
-            imageCheckVal !== 'jpg' &&
-            imageCheckVal !== 'jpeg') {
+        // console.log('groupImage: ', groupImage)
+        if (editGroup === 'on' && groupImage) {
+            let imageCheckArr = groupImage.split('.')
+            let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
+            if (imageCheckVal !== 'png' &&
+                imageCheckVal !== 'jpg' &&
+                imageCheckVal !== 'jpeg') {
                 errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
             }
+        }
         if (groupMeetingType !== 'In Person' &&
             groupMeetingType !== 'Online') {
-                errors.meetingType = 'Group Type is required';
-            }
+            errors.meetingType = 'Group Type is required';
+        }
         if (groupStatus === '(select one)') {
             errors.groupStatus = 'Visibility Type is required'
         }
@@ -53,27 +106,12 @@ function CreateGroupForm() {
 
         if (Object.keys(errors).length > 0) setErrors(errors);
 
-
         if (Object.keys(errors).length === 0) {
 
             let splitLocation = location.split(',');
             let city = splitLocation[0];
             let state = splitLocation[1];
-            // console.log(splitLocation);
-            // console.log('test: ',
-            // {
-            //     //location needs to be parsed for city and state
-            //     city,
-            //     state,
-            //     name: groupName,
-            //     about: groupAbout,
-            //     type: groupMeetingType,
-            //     private: groupStatus,
-            //     //groupImage is added after a group is made
-            // }
-            // )
 
-            console.log('groupMeetingType: ', groupMeetingType)
             const payload = {
                 city,
                 state,
@@ -84,32 +122,40 @@ function CreateGroupForm() {
                 url: groupImage
             }
             if (groupMeetingType === 'In Person') {
-               payload.type = 'In person'
+                payload.type = 'In person'
             }
 
-            let createGroup = await dispatch(submitGroup(payload));
+            let createGroup;
+            if (newGroup === 'on') {
+                createGroup = await dispatch(submitGroup(payload));
+            }
+            let updateGroup;
+            if (editGroup === 'on') {
+                payload.groupId = id;
+                updateGroup = await dispatch(editGroupThunk(payload));
+            }
             if (createGroup) {
-                //add an image
-                console.log('dont forget to add an image!')
+                // console.log('createGroup: ', createGroup)
+                history.push(`/groups/${createGroup.id}`)
             }
 
         }
     }
-    // console.log('groupStatus: ', groupStatus)
 
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <h2>
-                    We'll walk you through a few steps to build your local community
-                </h2>
+                <h3 className={newGroup}>BECOME AN ORGANIZER</h3>
+                <h3 className={editGroup}>UPDATE YOUR GROUP'S INFORMATION</h3>
+                <h2 className={newGroup}>We'll walk you through a few steps to build your local community</h2>
             </div>
             <div>
                 <h2>
                     First, set your group's location.
                 </h2>
                 <p>
-                    Fill in text later
+                    Meetup groups meet locally, in person and online. We'll connect you with people
+                    in your area, and more can join you online.
                 </p>
                 <input
                     type='text'
@@ -176,7 +222,7 @@ function CreateGroupForm() {
                     Is this group private or public?
                 </p>
                 <select
-                onChange={(e) => setGroupStatus(e.target.value)}
+                    onChange={(e) => setGroupStatus(e.target.value)}
                 // value={groupStatus}
                 >
                     <option>(select one)</option>
@@ -207,8 +253,8 @@ function CreateGroupForm() {
             <div>
                 <button
                     type='submit'
-                    // disabled={Object.keys(errors).length > 0}
-                    >
+                // disabled={Object.keys(errors).length > 0}
+                >
                     Create group
                 </button>
             </div>
