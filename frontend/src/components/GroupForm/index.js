@@ -202,6 +202,8 @@ function GroupForm({currentGroup, formType}) {
                     >Public</option>
                 </select>
                 <p className='error'>{errors.groupStatus}</p>
+                <div className={newForm}>
+
                 <p>
                     Please add an image url for your group below:
                 </p>
@@ -210,9 +212,10 @@ function GroupForm({currentGroup, formType}) {
                     placeholder='Image Url'
                     value={groupImage}
                     onChange={(e) => setGroupImage(e.target.value)}
-                ></input>
+                    ></input>
                 <p className='error'>{errors.image}</p>
                 {/* possibly need to adjust the input type for image */}
+                </div>
             </div>
             <div>
                 <button
