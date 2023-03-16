@@ -31,6 +31,7 @@ function App() {
           <Route path='/events' exact>
             <EventsGroupsNav />
           </Route>
+          {/* add in key for formType */}
           <Route path ={['/groups/new', '/groups/:id/edit']} exact>
             <GroupForm />
           </Route>
