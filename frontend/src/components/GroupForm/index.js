@@ -4,69 +4,25 @@ import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
+import {EditWrapper} from './editWrapper';
 
 
-function CreateGroupForm({currentGroup}) {
-    const [location, setLocation] = useState('');
-    const [groupName, setGroupName] = useState('');
-    const [groupAbout, setGroupAbout] = useState('');
-    const [groupMeetingType, setGroupMeetingType] = useState('(select one)');
-    const [groupStatus, setGroupStatus] = useState('(select one)');
+function GroupForm({currentGroup, formType}) {
+    // console.log('GroupFormRunning')
+    // console.log('currentGroup: ', currentGroup)
+
+    const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
+    const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
+    const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
+    const [groupMeetingType, setGroupMeetingType] = useState(currentGroup.id ? currentGroup.type : '(select one)');
+    const [groupStatus, setGroupStatus] = useState(currentGroup.id ? currentGroup.private : '(select one)');
     const [groupImage, setGroupImage] = useState('');
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
-    const data = useLocation();
-    const { id } = useParams();
-    const pathArray = data.pathname.split('/');
 
-    let formSpecifics = pathArray[pathArray.length - 1];
-
-    useEffect(() => {
-        // console.log('useEffect test')
-        dispatch(getGroup(id));
-    }, [])
-    const currentGroup = useSelector((state) => state.groups.singleGroup)
-    console.log('currentGroup: ', currentGroup)
-
-    // if (id && !currentGroup.singleGroup) {
-    //     return <div>loading</div>
-    // }
-
-    useEffect(() => {
-        if (id && !currentGroup.singleGroup) {
-            return <div>loading</div>
-        }
-
-        if (formSpecifics === 'edit') {
-
-
-                setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
-                setGroupName(`${currentGroup.singleGroup.name}`)
-                setGroupAbout(`${currentGroup.singleGroup.about}`)
-                // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
-                // setGroupStatus(`${currentGroup.singleGroup.private}`)
-
-        }
-    });
-
-    if (id && !currentGroup.singleGroup) {
-        return <div>loading</div>
-    }
-
-
-    // console.log('currentGroup: ', currentGroup.singleGroup.city)
-    //form specifics === 'new'
-    let newGroup = 'on';
-    let editGroup = 'off';
-
-    //form specifics === 'edit
-    if (formSpecifics === 'edit') {
-        newGroup = 'off';
-        editGroup = 'on';
-
-        // setLocation('test')
-    }
+    // console.log('groupStatus: ', groupStatus)
+    // console.log('groupType: ', groupMeetingType)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,7 +38,7 @@ function CreateGroupForm({currentGroup}) {
             errors.about = 'Description must be at least 30 characters long'
         }
         // console.log('groupImage: ', groupImage)
-        if (editGroup === 'on' && groupImage) {
+        if (groupImage) {
             let imageCheckArr = groupImage.split('.')
             let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
             if (imageCheckVal !== 'png' &&
@@ -125,13 +81,12 @@ function CreateGroupForm({currentGroup}) {
             }
 
             let createGroup;
-            if (newGroup === 'on') {
-                createGroup = await dispatch(submitGroup(payload));
+            if (formType === 'new') {
+                createGroup = await dispatch(submitGroup(currentGroup));
             }
             let updateGroup;
-            if (editGroup === 'on') {
-                payload.groupId = id;
-                updateGroup = await dispatch(editGroupThunk(payload));
+            if (formType === 'edit') {
+                updateGroup = await dispatch(editGroupThunk(currentGroup.id));
             }
             if (createGroup) {
                 // console.log('createGroup: ', createGroup)
@@ -143,10 +98,10 @@ function CreateGroupForm({currentGroup}) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <h3 className={newGroup}>BECOME AN ORGANIZER</h3>
-                <h3 className={editGroup}>UPDATE YOUR GROUP'S INFORMATION</h3>
-                <h2 className={newGroup}>We'll walk you through a few steps to build your local community</h2>
+             <div>
+                <h3 className={formType}>BECOME AN ORGANIZER</h3>
+                <h3 className={formType}>UPDATE YOUR GROUP'S INFORMATION</h3>
+                <h2 className={formType}>We'll walk you through a few steps to build your local community</h2>
             </div>
             <div>
                 <h2>
@@ -182,7 +137,7 @@ function CreateGroupForm({currentGroup}) {
                 ></input>
                 <p className='error'>{errors.name}</p>
             </div>
-            <div>
+           <div>
                 <h2>
                     Now describe what your group will be about
                 </h2>
@@ -222,7 +177,7 @@ function CreateGroupForm({currentGroup}) {
                 </p>
                 <select
                     onChange={(e) => setGroupStatus(e.target.value)}
-                // value={groupStatus}
+                    value={groupStatus}
                 >
                     <option>(select one)</option>
                     <option
@@ -252,7 +207,7 @@ function CreateGroupForm({currentGroup}) {
             <div>
                 <button
                     type='submit'
-                // disabled={Object.keys(errors).length > 0}
+                    className={formType}
                 >
                     Create group
                 </button>
@@ -261,4 +216,4 @@ function CreateGroupForm({currentGroup}) {
     )
 }
 
-export default CreateGroupForm;
+export default GroupForm;
