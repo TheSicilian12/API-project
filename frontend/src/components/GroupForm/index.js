@@ -8,9 +8,6 @@ import {EditWrapper} from './editWrapper';
 
 
 function GroupForm({currentGroup, formType}) {
-    // console.log('GroupFormRunning')
-    // console.log('currentGroup: ', currentGroup)
-
     const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
     const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
@@ -21,14 +18,18 @@ function GroupForm({currentGroup, formType}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // console.log('groupStatus: ', groupStatus)
-    // console.log('groupType: ', groupMeetingType)
+    let editForm = 'off';
+    let newForm = 'off';
+    formType === 'new' ? newForm = 'on' : editForm = 'on'
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         if (!location) {
+            errors.location = 'Location is required'
+        }
+        if (location.split(',').length !== 2) {
             errors.location = 'Location is required'
         }
         if (!groupName) {
@@ -38,7 +39,7 @@ function GroupForm({currentGroup, formType}) {
             errors.about = 'Description must be at least 30 characters long'
         }
         // console.log('groupImage: ', groupImage)
-        if (groupImage) {
+        if (formType === 'new' || groupImage) {
             let imageCheckArr = groupImage.split('.')
             let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
             if (imageCheckVal !== 'png' &&
@@ -47,7 +48,7 @@ function GroupForm({currentGroup, formType}) {
                 errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
             }
         }
-        if (groupMeetingType !== 'In Person' &&
+        if (groupMeetingType !== 'In person' &&
             groupMeetingType !== 'Online') {
             errors.meetingType = 'Group Type is required';
         }
@@ -63,34 +64,40 @@ function GroupForm({currentGroup, formType}) {
 
         if (Object.keys(errors).length === 0) {
 
-            let splitLocation = location.split(',');
-            let city = splitLocation[0];
-            let state = splitLocation[1];
+            let splitLocation = location.split(', ');
+            console.log('location? ', location)
+            let city = currentGroup.id ? currentGroup.city : splitLocation[0];
+            let state = currentGroup.id ? currentGroup.state : splitLocation[1];
+
+            // console.log('city: ', city)
+            // console.log('state: ', state)
 
             const payload = {
                 city,
-                state,
+                state: splitLocation[1],
                 name: groupName,
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
                 url: groupImage
             }
-            if (groupMeetingType === 'In Person') {
-                payload.type = 'In person'
-            }
 
             let createGroup;
             if (formType === 'new') {
-                createGroup = await dispatch(submitGroup(currentGroup));
+                createGroup = await dispatch(submitGroup(payload));
             }
-            let updateGroup;
+
+            let updateGroup
             if (formType === 'edit') {
-                updateGroup = await dispatch(editGroupThunk(currentGroup.id));
+                payload.groupId = currentGroup.id
+                updateGroup = await dispatch(editGroupThunk(payload));
             }
             if (createGroup) {
                 // console.log('createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
+            }
+            if (updateGroup) {
+                history.push(`/groups/${currentGroup.id}`)
             }
 
         }
@@ -99,9 +106,10 @@ function GroupForm({currentGroup, formType}) {
     return (
         <form onSubmit={handleSubmit}>
              <div>
-                <h3 className={formType}>BECOME AN ORGANIZER</h3>
-                <h3 className={formType}>UPDATE YOUR GROUP'S INFORMATION</h3>
-                <h2 className={formType}>We'll walk you through a few steps to build your local community</h2>
+                <h3 className={newForm}>BECOME AN ORGANIZER</h3>
+                <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
+                <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
+                <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
             </div>
             <div>
                 <h2>
@@ -168,8 +176,8 @@ function GroupForm({currentGroup, formType}) {
                     value={groupMeetingType}
                 >
                     <option>(select one)</option>
-                    <option>In Person</option>
-                    <option>Online</option>
+                    <option value='In person'>In Person</option>
+                    <option value='Online'>Online</option>
                 </select>
                 <p className='error'>{errors.meetingType}</p>
                 <p>
@@ -207,9 +215,15 @@ function GroupForm({currentGroup, formType}) {
             <div>
                 <button
                     type='submit'
-                    className={formType}
+                    className={newForm}
                 >
                     Create group
+                </button>
+                <button
+                    type='submit'
+                    className={editForm}
+                >
+                    Update group
                 </button>
             </div>
         </form>
