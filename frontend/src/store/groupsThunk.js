@@ -99,7 +99,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
-    console.log('editGroup thunk: ', groupObj)
+    // console.log('editGroup thunk: ', groupObj)
 
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
@@ -108,13 +108,22 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     newGroupObj.city = groupObj.city;
     newGroupObj.state = groupObj.state;
     newGroupObj.private = groupObj.private;
-    if (groupObj.private === 'true') {
-        newGroupObj.private = true;
-    } else {
-        newGroupObj.private = false;
+
+    if (typeof newGroupObj.private !== Boolean) {
+        // console.log('not a boolean')
+        if (newGroupObj.private === 'true') newGroupObj.private = true;
+        else newGroupObj.private = false;
     }
 
-    console.log('newGroup: ', newGroupObj);
+    // console.log('newGroupObj.private, val: ', newGroupObj.private);
+    // console.log('newGroupObj.private, type: ', typeof newGroupObj.private);
+    // if (groupObj.private === 'true') {
+    //     newGroupObj.private = true;
+    // } else {
+    //     newGroupObj.private = false;
+    // }
+
+    // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
         headers: {

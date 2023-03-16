@@ -587,7 +587,12 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         let type = "Type must be 'Online' or 'In person'"
         errors.type = type
     }
-    if (!private || private !== true && private !== false) {
+    // if (!private || private !== true && private !== false) {
+    //     let private = "Private must be a boolean"
+    //     errors.private = private
+    // }
+    console.log('backend: ', private)
+    if (typeof private !== 'boolean') {
         let private = "Private must be a boolean"
         errors.private = private
     }
@@ -1268,7 +1273,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     delete memberJSON.createdAt
     delete memberJSON.updatedAt
     delete memberJSON.Group
-    
+
     return res.status(200).json(memberJSON)
 })
 
