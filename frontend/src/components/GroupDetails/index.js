@@ -4,6 +4,9 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
 import { getGroup } from '../../store/groupsThunk'
+import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
+import DeleteGroupModal from '../DeleteGroupModal'
+// import SignupFormModal from '../SignupFormModal';
 
 function GroupDetails() {
     const { id } = useParams();
@@ -86,16 +89,22 @@ function GroupDetails() {
                         </button>
                     </NavLink>
                     <NavLink to={`/groups/${groupId}/edit`}>
-                    <button>
-                        Update
-                    </button>
+                        <button>
+                            Update
+                        </button>
                     </NavLink>
-                    <NavLink to='/test'>
+                    {/* <NavLink to='/test'>
                     <button>
                         Delete
-                        {/* it really needs a pop up and then redirect */}
+                        {/* it really needs a pop up and then redirect *}
                     </button>
-                    </NavLink>
+                    </NavLink> */}
+                    <div>
+                        <OpenModalDeleteGroupButton
+                            buttonText="Delete"
+                            modalComponent={<DeleteGroupModal />}
+                        />
+                    </div>
                 </div>
             </div>
             <div>

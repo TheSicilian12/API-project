@@ -21,8 +21,6 @@ function CreateGroupForm() {
 
     let formSpecifics = pathArray[pathArray.length - 1];
 
-
-
     useEffect(() => {
         // console.log('useEffect test')
         dispatch(getGroup(id));
@@ -34,26 +32,26 @@ function CreateGroupForm() {
     //     return <div>loading</div>
     // }
 
-    useEffect(() => {
-        if (id && !currentGroup.singleGroup) {
-            return <div>loading</div>
-        }
+    // useEffect(() => {
+    //     if (id && !currentGroup.singleGroup) {
+    //         return <div>loading</div>
+    //     }
 
-        if (formSpecifics === 'edit') {
-            // setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
-            // setGroupName(`${currentGroup.singleGroup.name}`)
-            // setGroupAbout(`${currentGroup.singleGroup.about}`)
-            // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
-            // setGroupStatus(`${currentGroup.singleGroup.private}`)
-            document.cookie = `locationKey=${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`
-            document.cookie = `groupNameKey=${currentGroup.singleGroup.name}`
-        }
-    }, []);
+    //     if (formSpecifics === 'edit') {
+    //         // setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
+    //         // setGroupName(`${currentGroup.singleGroup.name}`)
+    //         // setGroupAbout(`${currentGroup.singleGroup.about}`)
+    //         // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
+    //         // setGroupStatus(`${currentGroup.singleGroup.private}`)
+    //         document.cookie = `locationKey=${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`
+    //         document.cookie = `groupNameKey=${currentGroup.singleGroup.name}`
+    //     }
+    // }, []);
 
-    function getCookieValue(key) {
-        const cookies = document.cookie;
-        return cookies.split(`${key}=`)[1].split(';')[0]
-    }
+    // function getCookieValue(key) {
+    //     const cookies = document.cookie;
+    //     return cookies.split(`${key}=`)[1].split(';')[0]
+    // }
 
     // const allCookies = document.cookie;
     // console.log('allCookies: ', allCookies.split('locationKey=')[1].split(';')[0])
