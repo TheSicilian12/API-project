@@ -8,6 +8,7 @@ import EventsGroupsNav from "./components/EventsGroupsNav";
 import AllGroups from "./components/AllGroups"
 import GroupDetails from "./components/GroupDetails"
 import GroupForm from "./components/GroupForm"
+import EditWrapper from "./components/GroupForm/editWrapper"
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  const formNew = 'new'
+  const formEdit = 'edit'
 
   return (
     <>
@@ -31,8 +35,13 @@ function App() {
           <Route path='/events' exact>
             <EventsGroupsNav />
           </Route>
-          <Route path ={['/groups/new', '/groups/:id/edit']} exact>
-            <GroupForm />
+          {/* add in key for formType */}
+          {/* {['/groups/new', '/groups/:id/edit']} */}
+          <Route path= '/groups/:id/edit' exact>
+            <EditWrapper />
+          </Route>
+          <Route path= '/groups/new' exact>
+            <GroupForm currentGroup={{}} formType={'new'}/>
           </Route>
           <Route path='/groups/:id' exact>
             <GroupDetails />

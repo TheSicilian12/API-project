@@ -9,31 +9,16 @@ import { getAllGroups } from '../../store/groupsThunk'
 export default function AllGroups() {
     const dispatch = useDispatch();
 
-    // const groups = useSelector((state) => state.AllGroups)
-    // console.log('test function AllGroups')
-    // console.log('groups test: ', groups)
-
     useEffect(() => {
-        // console.log('useEffect test')
         dispatch(getAllGroups());
     }, [])
 
     // const groups = useSelector((state) => state.groups)
     const groups = useSelector((state) => state.groups)
 
-    // if (!Object.keys(groups).length) {
-    //     return <div> loading </div>
-    // }
-
     if (!groups.allGroups) {
         return <div>loading</div>
     }
-
-    console.log('groups: ', groups)
-
-    // if (!groups) {
-    //     console.log('ERROR!')
-    // }
 
     return (
         <div className='AllGroups'>
@@ -43,7 +28,7 @@ export default function AllGroups() {
                     <div className='AllGroups_group'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
                         >
-                        <div className='image' key={`${groups.allGroups[e].id}`}>
+                        <div className='image' key={`groups${groups.allGroups[e].id}`}>
                             {`${groups.allGroups[e].preivewImage}`}
                         </div>
                         <div className='details' key={`details_${groups.allGroups[e].name}`}>
@@ -54,8 +39,6 @@ export default function AllGroups() {
                     </div>
                 </NavLink>
             )}
-
-            {/* {[1, 2, 3, 4].map(e => <div>{e}</div>)} */}
         </div>
     )
 }

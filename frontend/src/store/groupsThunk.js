@@ -1,8 +1,9 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = '/groups';
-const LOAD_DETAILS = '/groups:id'
-const SUBMIT_DETAILS = '/groups/new'
+const LOAD_DETAILS = '/groups:id';
+const SUBMIT_DETAILS = '/groups/new';
+const DELETE_GROUP = '/groups/:groupId';
 
 const load = (list) => ({
     type: LOAD,
@@ -18,6 +19,14 @@ const submit_details = (group) => ({
     type: SUBMIT_DETAILS,
     group
 })
+
+const delete_group = (group) => ({
+    type: DELETE_GROUP,
+    group
+})
+
+
+
 
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
@@ -95,7 +104,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
-    console.log('editGroup thunk: ', groupObj)
+    // console.log('editGroup thunk: ', groupObj)
 
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
@@ -103,18 +112,34 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     newGroupObj.type = groupObj.type;
     newGroupObj.city = groupObj.city;
     newGroupObj.state = groupObj.state;
+    newGroupObj.private = groupObj.private;
 
-    if (groupObj.private === 'true') newGroupObj.private = true;
-    if (groupObj.private === 'false') newGroupObj.private = false;
+    if (typeof newGroupObj.private !== 'boolean') {
+        // console.log('not a boolean')
+        if (newGroupObj.private === 'true') newGroupObj.private = true;
+        else newGroupObj.private = false;
+    }
 
+    // console.log('newGroupObj.private, val: ', newGroupObj.private);
+    // console.log('newGroupObj.private, type: ', typeof newGroupObj.private);
+    // if (groupObj.private === 'true') {
+    //     newGroupObj.private = true;
+    // } else {
+    //     newGroupObj.private = false;
+    // }
+
+    // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newGroupObj)
-        // body: newGroupObj
     })
+    if (response.ok) {
+        const editedGroup = await response.json();
+        return editedGroup;
+    }
 }
 
 //thunk - adds an image to a group

@@ -4,76 +4,34 @@ import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
+import {EditWrapper} from './editWrapper';
 
-function CreateGroupForm() {
-    const [location, setLocation] = useState('');
-    const [groupName, setGroupName] = useState('');
-    const [groupAbout, setGroupAbout] = useState('');
-    const [groupMeetingType, setGroupMeetingType] = useState('(select one)');
-    const [groupStatus, setGroupStatus] = useState('(select one)');
+
+function GroupForm({currentGroup, formType}) {
+    const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
+    const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
+    const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
+    const [groupMeetingType, setGroupMeetingType] = useState(currentGroup.id ? currentGroup.type : '(select one)');
+    const [groupStatus, setGroupStatus] = useState(currentGroup.id ? currentGroup.private : '(select one)');
     const [groupImage, setGroupImage] = useState('');
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
-    const data = useLocation();
-    const { id } = useParams();
-    const pathArray = data.pathname.split('/');
 
-    let formSpecifics = pathArray[pathArray.length - 1];
+    // console.log('initial meetingStatus: ', typeof groupStatus)
 
-
-
-    useEffect(() => {
-        // console.log('useEffect test')
-        dispatch(getGroup(id));
-    }, [])
-    const currentGroup = useSelector((state) => state.groups)
-    console.log('currentGroup: ', currentGroup)
-
-    // if (id && !currentGroup.singleGroup) {
-    //     return <div>loading</div>
-    // }
-
-    useEffect(() => {
-        if (id && !currentGroup.singleGroup) {
-            return <div>loading</div>
-        }
-
-        if (formSpecifics === 'edit') {
-            setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
-            setGroupName(`${currentGroup.singleGroup.name}`)
-            setGroupAbout(`${currentGroup.singleGroup.about}`)
-            // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
-            // setGroupStatus(`${currentGroup.singleGroup.private}`)
-        }
-    }, []);
-
-    if (id && !currentGroup.singleGroup) {
-        return <div>loading</div>
-    }
-
-
-    // console.log('currentGroup: ', currentGroup.singleGroup.city)
-    //form specifics === 'new'
-    let newGroup = 'on';
-    let editGroup = 'off';
-
-    //form specifics === 'edit
-    if (formSpecifics === 'edit') {
-        newGroup = 'off';
-        editGroup = 'on';
-
-        // setLocation('test')
-    }
-
-
-
+    let editForm = 'off';
+    let newForm = 'off';
+    formType === 'new' ? newForm = 'on' : editForm = 'on'
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         if (!location) {
+            errors.location = 'Location is required'
+        }
+        if (location.split(',').length !== 2) {
             errors.location = 'Location is required'
         }
         if (!groupName) {
@@ -83,7 +41,7 @@ function CreateGroupForm() {
             errors.about = 'Description must be at least 30 characters long'
         }
         // console.log('groupImage: ', groupImage)
-        if (editGroup === 'on' && groupImage) {
+        if (formType === 'new' || groupImage) {
             let imageCheckArr = groupImage.split('.')
             let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
             if (imageCheckVal !== 'png' &&
@@ -92,7 +50,7 @@ function CreateGroupForm() {
                 errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
             }
         }
-        if (groupMeetingType !== 'In Person' &&
+        if (groupMeetingType !== 'In person' &&
             groupMeetingType !== 'Online') {
             errors.meetingType = 'Group Type is required';
         }
@@ -108,35 +66,40 @@ function CreateGroupForm() {
 
         if (Object.keys(errors).length === 0) {
 
-            let splitLocation = location.split(',');
-            let city = splitLocation[0];
-            let state = splitLocation[1];
+            let splitLocation = location.split(', ');
+            // console.log('location? ', location)
+            let city = currentGroup.id ? currentGroup.city : splitLocation[0];
+            let state = currentGroup.id ? currentGroup.state : splitLocation[1];
+
+            // console.log('city: ', city)
+            // console.log('state: ', state)
 
             const payload = {
                 city,
-                state,
+                state: splitLocation[1],
                 name: groupName,
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
                 url: groupImage
             }
-            if (groupMeetingType === 'In Person') {
-                payload.type = 'In person'
-            }
 
             let createGroup;
-            if (newGroup === 'on') {
+            if (formType === 'new') {
                 createGroup = await dispatch(submitGroup(payload));
             }
-            let updateGroup;
-            if (editGroup === 'on') {
-                payload.groupId = id;
+
+            let updateGroup
+            if (formType === 'edit') {
+                payload.groupId = currentGroup.id
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
             if (createGroup) {
                 // console.log('createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
+            }
+            if (updateGroup) {
+                history.push(`/groups/${currentGroup.id}`)
             }
 
         }
@@ -144,10 +107,11 @@ function CreateGroupForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <h3 className={newGroup}>BECOME AN ORGANIZER</h3>
-                <h3 className={editGroup}>UPDATE YOUR GROUP'S INFORMATION</h3>
-                <h2 className={newGroup}>We'll walk you through a few steps to build your local community</h2>
+             <div>
+                <h3 className={newForm}>BECOME AN ORGANIZER</h3>
+                <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
+                <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
+                <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
             </div>
             <div>
                 <h2>
@@ -183,7 +147,7 @@ function CreateGroupForm() {
                 ></input>
                 <p className='error'>{errors.name}</p>
             </div>
-            <div>
+           <div>
                 <h2>
                     Now describe what your group will be about
                 </h2>
@@ -214,8 +178,8 @@ function CreateGroupForm() {
                     value={groupMeetingType}
                 >
                     <option>(select one)</option>
-                    <option>In Person</option>
-                    <option>Online</option>
+                    <option value='In person'>In Person</option>
+                    <option value='Online'>Online</option>
                 </select>
                 <p className='error'>{errors.meetingType}</p>
                 <p>
@@ -223,7 +187,7 @@ function CreateGroupForm() {
                 </p>
                 <select
                     onChange={(e) => setGroupStatus(e.target.value)}
-                // value={groupStatus}
+                    value={groupStatus}
                 >
                     <option>(select one)</option>
                     <option
@@ -238,6 +202,8 @@ function CreateGroupForm() {
                     >Public</option>
                 </select>
                 <p className='error'>{errors.groupStatus}</p>
+                <div className={newForm}>
+
                 <p>
                     Please add an image url for your group below:
                 </p>
@@ -246,20 +212,27 @@ function CreateGroupForm() {
                     placeholder='Image Url'
                     value={groupImage}
                     onChange={(e) => setGroupImage(e.target.value)}
-                ></input>
+                    ></input>
                 <p className='error'>{errors.image}</p>
                 {/* possibly need to adjust the input type for image */}
+                </div>
             </div>
             <div>
                 <button
                     type='submit'
-                // disabled={Object.keys(errors).length > 0}
+                    className={newForm}
                 >
                     Create group
+                </button>
+                <button
+                    type='submit'
+                    className={editForm}
+                >
+                    Update group
                 </button>
             </div>
         </form>
     )
 }
 
-export default CreateGroupForm;
+export default GroupForm;
