@@ -107,18 +107,25 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     newGroupObj.type = groupObj.type;
     newGroupObj.city = groupObj.city;
     newGroupObj.state = groupObj.state;
+    newGroupObj.private = groupObj.private;
+    if (groupObj.private === 'true') {
+        newGroupObj.private = true;
+    } else {
+        newGroupObj.private = false;
+    }
 
-    if (groupObj.private === 'true') newGroupObj.private = true;
-    if (groupObj.private === 'false') newGroupObj.private = false;
-
+    console.log('newGroup: ', newGroupObj);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newGroupObj)
-        // body: newGroupObj
     })
+    if (response.ok) {
+        const editedGroup = await response.json();
+        return editedGroup;
+    }
 }
 
 //thunk - adds an image to a group
