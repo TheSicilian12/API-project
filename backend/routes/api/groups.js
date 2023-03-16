@@ -591,7 +591,7 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     //     let private = "Private must be a boolean"
     //     errors.private = private
     // }
-    console.log('backend: ', private)
+    // console.log('backend: ', private)
     if (typeof private !== 'boolean') {
         let private = "Private must be a boolean"
         errors.private = private
@@ -620,16 +620,16 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
-
+    console.log('private: ', private)
     if (name) group.name = name
     if (about) group.about = about
     if (type) group.type = type
-    if (private) group.private = private
+    if (private || typeof private === 'boolean') group.private = private
     if (city) group.city = city
     if (state) group.state = state
 
     await group.save()
-
+    console.log('group return: ', group)
     return res.json(group)
 })
 

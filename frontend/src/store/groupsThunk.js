@@ -109,7 +109,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     newGroupObj.state = groupObj.state;
     newGroupObj.private = groupObj.private;
 
-    if (typeof newGroupObj.private !== Boolean) {
+    if (typeof newGroupObj.private !== 'boolean') {
         // console.log('not a boolean')
         if (newGroupObj.private === 'true') newGroupObj.private = true;
         else newGroupObj.private = false;
