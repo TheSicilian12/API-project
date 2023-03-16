@@ -19,6 +19,10 @@ const submit_details = (group) => ({
     group
 })
 
+
+
+
+
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
