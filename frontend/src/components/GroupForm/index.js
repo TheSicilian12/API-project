@@ -18,6 +18,8 @@ function GroupForm({currentGroup, formType}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // console.log('initial meetingStatus: ', typeof groupStatus)
+
     let editForm = 'off';
     let newForm = 'off';
     formType === 'new' ? newForm = 'on' : editForm = 'on'
@@ -65,7 +67,7 @@ function GroupForm({currentGroup, formType}) {
         if (Object.keys(errors).length === 0) {
 
             let splitLocation = location.split(', ');
-            console.log('location? ', location)
+            // console.log('location? ', location)
             let city = currentGroup.id ? currentGroup.city : splitLocation[0];
             let state = currentGroup.id ? currentGroup.state : splitLocation[1];
 
