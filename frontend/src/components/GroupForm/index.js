@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 
-function CreateGroupForm() {
+
+function CreateGroupForm({currentGroup}) {
     const [location, setLocation] = useState('');
     const [groupName, setGroupName] = useState('');
     const [groupAbout, setGroupAbout] = useState('');
@@ -25,7 +26,7 @@ function CreateGroupForm() {
         // console.log('useEffect test')
         dispatch(getGroup(id));
     }, [])
-    const currentGroup = useSelector((state) => state.groups)
+    const currentGroup = useSelector((state) => state.groups.singleGroup)
     console.log('currentGroup: ', currentGroup)
 
     // if (id && !currentGroup.singleGroup) {
@@ -38,13 +39,16 @@ function CreateGroupForm() {
         }
 
         if (formSpecifics === 'edit') {
-            setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
-            setGroupName(`${currentGroup.singleGroup.name}`)
-            setGroupAbout(`${currentGroup.singleGroup.about}`)
-            // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
-            // setGroupStatus(`${currentGroup.singleGroup.private}`)
+
+
+                setLocation(`${currentGroup.singleGroup.city}, ${currentGroup.singleGroup.state}`);
+                setGroupName(`${currentGroup.singleGroup.name}`)
+                setGroupAbout(`${currentGroup.singleGroup.about}`)
+                // setGroupMeetingType(`${currentGroup.singleGroup.type}`)
+                // setGroupStatus(`${currentGroup.singleGroup.private}`)
+
         }
-    }, []);
+    });
 
     if (id && !currentGroup.singleGroup) {
         return <div>loading</div>
