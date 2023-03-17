@@ -26,7 +26,6 @@ function DeleteGroupModal ({groupId}) {
         }
     }
     
-
     return (
         <div>
             <h1>Confirm Delete</h1>
