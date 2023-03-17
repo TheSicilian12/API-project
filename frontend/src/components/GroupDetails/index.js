@@ -180,10 +180,21 @@ function GroupDetails({ group, user, events, groupId }) {
             <div className={showFutureEvents}>
                 <h2>
                     Upcoming Events ({`${futureEvents.length}`})
-                    <div>
-
-                    </div>
                 </h2>
+                    {futureEvents.map(e =>
+                        <div>
+                            <div>
+                                <div>image</div>
+                                <div>
+                                    <h4>{e.endDate}</h4>
+                                </div>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    )}
+                    
             </div>
             <div className={showPastEvents}>
                 <h2>
