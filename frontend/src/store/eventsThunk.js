@@ -10,11 +10,11 @@ const allGroupEvents = (list) => ({
 //thunk - get all events for a group
 export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     const response = await fetch(`/api/groups/${groupId}/events`)
-    console.log('test')
-    console.log('response event: ', response)
+    // console.log('test')
+    // console.log('response event: ', response)
     if (response.ok) {
         const eventsList = await response.json();
-        console.log('eventsList: ', eventsList)
+        // console.log('eventsList: ', eventsList)
         dispatch(allGroupEvents(eventsList))
     }
 }
@@ -62,8 +62,11 @@ const eventReducer = (state = initialState, action) => {
         case ALL_GROUPEVENTS:
             const returnState = {}
             // returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
-            console.log('action!')
+            console.log('action! ', action.list.Events)
 
+            const allGroupEvents = {};
+            action.list.Events.map((e) => allGroupEvents[e.id] = e)
+            console.log('allGroupEvents: ', allGroupEvents)
             return {
                 ...returnState,
             }
