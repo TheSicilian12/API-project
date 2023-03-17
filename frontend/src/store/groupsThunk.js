@@ -25,9 +25,6 @@ const delete_group = (group) => ({
     group
 })
 
-
-
-
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
@@ -159,6 +156,13 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
 
         return newImage;
     }
+}
+
+//thunk - deletes a group
+export const deleteGroup = (groupId) => async (dispatch) => {
+    
+
+    return console.log('deleteGroup thunk')
 }
 
 //normalizer (array to obj. uses id as the key for the obj)
