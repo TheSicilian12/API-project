@@ -908,10 +908,12 @@ router.get('/:groupId/events', async (req, res, next) => {
             numAttending: numAttending,
             previewImage: previewImage,
             Group: group,
-            Venue: venue
+            Venue: venue,
+            //added while working on frontend
+            description: event.description
         })
     }
-
+    console.log(eventObj)
 
     return res.json(eventObj)
 })

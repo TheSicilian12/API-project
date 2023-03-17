@@ -14,7 +14,7 @@ export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     // console.log('response event: ', response)
     if (response.ok) {
         const eventsList = await response.json();
-        // console.log('eventsList: ', eventsList)
+        console.log('eventsList: ', eventsList)
         dispatch(allGroupEvents(eventsList))
     }
 }

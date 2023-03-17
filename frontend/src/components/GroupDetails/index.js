@@ -187,14 +187,13 @@ function GroupDetails({ group, user, events, groupId }) {
                                 <div>image</div>
                                 <div>
                                     <h4>{e.endDate}</h4>
+                                    <h4>{e.name}</h4>
+                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                                 </div>
-                            </div>
-                            <div>
-
                             </div>
                         </div>
                     )}
-                    
+
             </div>
             <div className={showPastEvents}>
                 <h2>

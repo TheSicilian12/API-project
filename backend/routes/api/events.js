@@ -306,7 +306,7 @@ router.get('/:eventId', async (req, res, next) => {
 
     eventJSON.numAttending = numberAttending;
     delete eventJSON.Attendances
-
+    
     return res.json(eventJSON)
 })
 
