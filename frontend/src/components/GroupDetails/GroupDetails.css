@@ -1,3 +1,7 @@
 .off {
-    display: none
+    display: none;
+}
+
+.test {
+    border: 2px solid black;
 }
