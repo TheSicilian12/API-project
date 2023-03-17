@@ -33,6 +33,28 @@ module.exports = {
         endDate: '2023-04-01'
       },
       {
+        venueId: 1,
+        groupId: 1,
+        name: "event1",
+        description: "event1 description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: '2020-04-01',
+        endDate: '2020-04-01'
+      },
+      {
+        venueId: 1,
+        groupId: 1,
+        name: "event1",
+        description: "event1 description",
+        type: "Online",
+        capacity: 10,
+        price: 100,
+        startDate: '1999-04-01',
+        endDate: '1999-04-01'
+      },
+      {
         venueId: 2,
         groupId: 2,
         name: "event2",
