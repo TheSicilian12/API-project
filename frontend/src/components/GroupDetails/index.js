@@ -22,7 +22,9 @@ function GroupDetails() {
 
     const group = useSelector((state) => state.groups)
     const user = useSelector((state) => state.session.user)
-    // const events = useSelector((state) => state.events)
+    const events = useSelector((state) => state.events)
+
+    console.log('event: ', events)
 
     // console.log('events: ', events)
 
