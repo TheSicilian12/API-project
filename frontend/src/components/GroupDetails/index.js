@@ -57,7 +57,7 @@ function GroupDetails({ group, user, events, groupId }) {
     let futureEvents = eventsArray[1];
     let pastEvents = eventsArray[0];
 
-    console.log('futureEvents: ', futureEvents)
+    // console.log('futureEvents: ', futureEvents)
 
     let showPastEvents = 'off';
     let showFutureEvents = 'off';
@@ -73,6 +73,8 @@ function GroupDetails({ group, user, events, groupId }) {
         groupStatus = 'Private'
     }
     // console.log('isEventFuture test: ', isEventFuture('2020-02-02'))
+
+    // console.log('group: ', group.singleGroup.about)
 
     function isEventFuture(eventEndDate) {
         //returns true if date is today or in the future.
@@ -174,9 +176,11 @@ function GroupDetails({ group, user, events, groupId }) {
                     What we're about
                 </h2>
                 <p>
-                    {group.about}
+                    {group.singleGroup.about}
                 </p>
             </div>
+
+
             <div className={showFutureEvents}>
                 <h2>
                     Upcoming Events ({`${futureEvents.length}`})
@@ -191,14 +195,33 @@ function GroupDetails({ group, user, events, groupId }) {
                                     <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                                 </div>
                             </div>
+                            <div>
+                                <p>{e.description}</p>
+                            </div>
                         </div>
                     )}
-
             </div>
+
             <div className={showPastEvents}>
                 <h2>
-                    Past Events still needed
-                    {/* add in past events */}
+                <h2>
+                    Past Events ({`${pastEvents.length}`})
+                </h2>
+                    {pastEvents.map(e =>
+                        <div>
+                            <div>
+                                <div>image</div>
+                                <div>
+                                    <h4>{e.endDate}</h4>
+                                    <h4>{e.name}</h4>
+                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <p>{e.description}</p>
+                            </div>
+                        </div>
+                    )}
                 </h2>
             </div>
         </div>
