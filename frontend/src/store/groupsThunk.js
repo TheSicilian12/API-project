@@ -25,9 +25,6 @@ const delete_group = (group) => ({
     group
 })
 
-
-
-
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
@@ -41,10 +38,13 @@ export const getAllGroups = () => async (dispatch) => {
 // thunk - fetches a group
 export const getGroup = (groupId) => async (dispatch) => {
     //call the thunk that gets all groups
+    // console.log('groupId: ', typeof groupId)
     const response = await fetch(`/api/groups/${groupId}`)
+    // console.log('response')
     // console.log(response)
     if (response.ok) {
         const group = await response.json();
+        // console.log(group)
         // console.log('group: ', group)
         // dispatch(load_details(group));
         // const group2 = normalizeSingleGroup(group)
@@ -161,6 +161,20 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     }
 }
 
+//thunk - deletes a group
+export const deleteGroup = (groupId) => async (dispatch) => {
+
+    console.log('delete thunk')
+    // // testing get a group
+    // const response = await fetch(`/api/groups/${groupId}`)
+    // if (response.ok) {
+    //     const group = await response.json();
+    //     dispatch(load_details(group))
+    //     //above code is for testing purposes
+    // }
+    // return console.log('deleteGroup thunk')
+}
+
 //normalizer (array to obj. uses id as the key for the obj)
 // const state = {};
 function normalizeIdArrToObj(array) {
@@ -233,7 +247,7 @@ const groupReducer = (state = initialState, action) => {
         case LOAD_DETAILS:
             const returnSingleGroup = {}
             returnSingleGroup.singleGroup = normalizeSingleGroup(action.group)
-            // console.log('singleGroup: ', singleGroup)
+            // console.log('singleGroup: ', returnSingleGroup)
             return {
                 ...returnSingleGroup
             }
