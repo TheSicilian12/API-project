@@ -10,6 +10,7 @@ import GroupDetails from "./components/GroupDetails";
 import GroupForm from "./components/GroupForm";
 import EditWrapper from "./components/GroupForm/editWrapper";
 import GroupDetailsWrapper from "./components/GroupDetails/groupDetailsWrapper";
+import AllEvents from './components/AllEvents'
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
           </Route>
           <Route path='/events' exact>
             <EventsGroupsNav />
+            <AllEvents />
           </Route>
           {/* add in key for formType */}
           {/* {['/groups/new', '/groups/:id/edit']} */}
