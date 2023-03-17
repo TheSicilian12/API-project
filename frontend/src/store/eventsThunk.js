@@ -19,6 +19,11 @@ export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     }
 }
 
+//thunk - get All events
+export const getAllEventsThunk = () => async (dispatch) => {
+    
+}
+
 // const initialState = {}
 const initialState = {
     session: {},
