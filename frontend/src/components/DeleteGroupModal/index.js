@@ -1,21 +1,31 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {useParams} from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import {deleteGroup} from "../../store/groupThunk"
+import {deleteGroup, getGroup} from "../../store/groupsThunk"
 import '../DeleteGroupModal'
 
 
 
-function DeleteGroupModal () {
+function DeleteGroupModal ({groupId}) {
+    const { closeModal } = useModal();
+    const dispatch = useDispatch();
+    // const {id} = useParams();
 
+    // console.log('groupId: ', groupId)
     const deleteGroup = async (e) => {
         e.preventDefault();
+        console.log(groupId)
 
-        // const deleteGroup = await dispatchEvent(deleteGroup())
+        // let deletion = await dispatch(deleteGroup(1))
+        // let group = dispatch(deleteGroup(1))
+
+        // console.log('groups: ', group)
+        console.log('test')
+        // console.log('deletion: ', deletion)
     }
 
-    const { closeModal } = useModal();
     return (
         <div>
             <h1>Confirm Delete</h1>

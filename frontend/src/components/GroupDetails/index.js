@@ -102,7 +102,7 @@ function GroupDetails() {
                     <div>
                         <OpenModalDeleteGroupButton
                             buttonText="Delete"
-                            modalComponent={<DeleteGroupModal />}
+                            modalComponent={<DeleteGroupModal groupId={groupId}/>}
                         />
                     </div>
                 </div>
