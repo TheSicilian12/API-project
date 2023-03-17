@@ -24,8 +24,6 @@ function DeleteGroupModal ({groupId}) {
             closeModal();
             history.push('/groups');
         }
-
-
     }
     
 
