@@ -40,7 +40,6 @@ export const getGroup = (groupId) => async (dispatch) => {
     //call the thunk that gets all groups
     // console.log('groupId: ', typeof groupId)
     const response = await fetch(`/api/groups/${groupId}`)
-    // console.log('response')
     // console.log(response)
     if (response.ok) {
         const group = await response.json();
