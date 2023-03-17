@@ -68,7 +68,7 @@ const eventReducer = (state = initialState, action) => {
             action.list.Events.map((e) => allGroupEvents[e.id] = e)
             console.log('allGroupEvents: ', allGroupEvents)
             return {
-                ...returnState,
+                ...allGroupEvents,
             }
     //     case LOAD_DETAILS:
     //         const returnSingleGroup = {}
