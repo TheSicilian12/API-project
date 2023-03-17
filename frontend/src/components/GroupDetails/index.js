@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
-import { getGroup } from '../../store/groupsThunk'
+import { getGroup } from '../../store/groupsThunk';
+import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 // import SignupFormModal from '../SignupFormModal';
@@ -16,11 +17,16 @@ function GroupDetails() {
 
     useEffect(() => {
         dispatch(getGroup(groupId));
+        dispatch(getGroupEventsThunk(groupId));
     }, [])
 
     const group = useSelector((state) => state.groups)
     const user = useSelector((state) => state.session.user)
+    // const events = useSelector((state) => state.events)
 
+    // console.log('events: ', events)
+
+    // console.log('singleGroup: ', group)
     // console.log('group: ', group)
     // console.log('user: ', user)
 
@@ -46,7 +52,6 @@ function GroupDetails() {
             options = 'on'
         }
     }
-
 
     return (
         <div className='GroupDetails'>
