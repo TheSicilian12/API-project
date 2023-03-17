@@ -25,6 +25,7 @@ function DeleteGroupModal ({groupId}) {
         console.log('test')
         // console.log('deletion: ', deletion)
     }
+    
 
     return (
         <div>
