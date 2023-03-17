@@ -162,17 +162,16 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
 }
 
 //thunk - deletes a group
-export const deleteGroup = (groupId) => async (dispatch) => {
+export const deleteGroupThunk = (groupId) => async (dispatch) => {
 
-    console.log('delete thunk')
-    // // testing get a group
-    // const response = await fetch(`/api/groups/${groupId}`)
-    // if (response.ok) {
-    //     const group = await response.json();
-    //     dispatch(load_details(group))
-    //     //above code is for testing purposes
-    // }
-    // return console.log('deleteGroup thunk')
+    const response = await csrfFetch(`/api/groups/${groupId}`, {
+        method: 'DELETE'
+    })
+    console.log('response: ', response)
+    if (response.ok) {
+        const deleteGroup = await response.json();
+        return deleteGroup;
+    }
 }
 
 //normalizer (array to obj. uses id as the key for the obj)
