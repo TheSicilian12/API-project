@@ -62,11 +62,11 @@ const eventReducer = (state = initialState, action) => {
         case ALL_GROUPEVENTS:
             const returnState = {}
             // returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
-            console.log('action! ', action.list.Events)
+            // console.log('action! ', action.list.Events)
 
             const allGroupEvents = {};
             action.list.Events.map((e) => allGroupEvents[e.id] = e)
-            console.log('allGroupEvents: ', allGroupEvents)
+            // console.log('allGroupEvents: ', allGroupEvents)
             return {
                 ...allGroupEvents,
             }

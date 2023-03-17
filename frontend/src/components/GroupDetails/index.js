@@ -9,37 +9,86 @@ import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 // import SignupFormModal from '../SignupFormModal';
 
-function GroupDetails() {
-    const { id } = useParams();
-    const groupId = id;
+function GroupDetails({ group, user, events, groupId }) {
+    //  console.log('events prop: ', events['1']?.endDate)
+    // console.log('Date: ', Date.parse(events['1']?.endDate))
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getGroup(groupId));
-        dispatch(getGroupEventsThunk(groupId));
-    }, [])
-
-    const group = useSelector((state) => state.groups)
-    const user = useSelector((state) => state.session.user)
-    const events = useSelector((state) => state.events)
-
-    console.log('event: ', events)
+    // console.log('events: ', Object.values(events).length)
 
     // console.log('events: ', events)
+    const totalNumberEvents = Object.values(events).length
 
-    // console.log('singleGroup: ', group)
-    // console.log('group: ', group)
-    // console.log('user: ', user)
+    function organizeEventsByDate(eventsObj) {
+        //eventArray[0] is for past events
+        //eventArray[1] is for current/future events
+        let eventsArray = [[], []]
 
-    if (!group.singleGroup) {
-        return <div>loading</div>
+        Object.values(eventsObj).map((e) => {
+            //     console.log(e?.endDate)
+            //    console.log(isEventFuture(e?.endDate))
+            if (isEventFuture(e?.endDate)) {
+                eventsArray[1].push(e)
+            } else {
+                eventsArray[0].push(e)
+            }
+        })
+
+        //organize the event dates from earliest date to newest date
+        for (let i = 0; eventsArray.length > i; i++) {
+            if (eventsArray[i].length) {
+                eventsArray[i].sort((a, b) => {
+                    const firstDate = Date.parse(a.endDate);
+                    const secondDate = Date.parse(b.endDate);
+
+                    if (firstDate < secondDate) return -1;
+                    if (firstDate > secondDate) return +1;
+
+                    return 0;
+                })
+            }
+
+        }
+
+        // console.log('return: ', eventsArray);
+        return eventsArray;
+    }
+
+    let eventsArray = organizeEventsByDate(events);
+    let futureEvents = eventsArray[1];
+    let pastEvents = eventsArray[0];
+
+    console.log('futureEvents: ', futureEvents)
+
+    let showPastEvents = 'off';
+    let showFutureEvents = 'off';
+    if (futureEvents.length > 0) {
+        showFutureEvents = 'on';
+    }
+    if (pastEvents.length > 0) {
+        showPastEvents = 'on';
     }
 
     let groupStatus = 'Public'
     if (group.singleGroup.private) {
         groupStatus = 'Private'
     }
+    // console.log('isEventFuture test: ', isEventFuture('2020-02-02'))
+
+    function isEventFuture(eventEndDate) {
+        //returns true if date is today or in the future.
+        //false if not
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth();
+        const year = today.getFullYear();
+        const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+        const eventEndDateParse = Date.parse(eventEndDate)
+
+        return eventEndDateParse >= todayDateParse;
+    }
+    // console.log('isDate: ', isDateValid('2023-02-17'))
+
 
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
@@ -73,7 +122,7 @@ function GroupDetails() {
                 </h4>
                 <div>
                     <h4>
-                        Number of events still needed
+                        {`${totalNumberEvents} events`}
                         {/* number of events */}
                     </h4>
                     <h4>
@@ -109,7 +158,7 @@ function GroupDetails() {
                     <div>
                         <OpenModalDeleteGroupButton
                             buttonText="Delete"
-                            modalComponent={<DeleteGroupModal groupId={groupId}/>}
+                            modalComponent={<DeleteGroupModal groupId={groupId} />}
                         />
                     </div>
                 </div>
@@ -128,13 +177,15 @@ function GroupDetails() {
                     {group.about}
                 </p>
             </div>
-            <div>
+            <div className={showFutureEvents}>
                 <h2>
-                    Upcoming Events still needed
-                    {/* add in upcoming events */}
+                    Upcoming Events ({`${futureEvents.length}`})
+                    <div>
+
+                    </div>
                 </h2>
             </div>
-            <div>
+            <div className={showPastEvents}>
                 <h2>
                     Past Events still needed
                     {/* add in past events */}

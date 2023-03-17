@@ -5,10 +5,11 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import EventsGroupsNav from "./components/EventsGroupsNav";
-import AllGroups from "./components/AllGroups"
-import GroupDetails from "./components/GroupDetails"
-import GroupForm from "./components/GroupForm"
-import EditWrapper from "./components/GroupForm/editWrapper"
+import AllGroups from "./components/AllGroups";
+import GroupDetails from "./components/GroupDetails";
+import GroupForm from "./components/GroupForm";
+import EditWrapper from "./components/GroupForm/editWrapper";
+import GroupDetailsWrapper from "./components/GroupDetails/groupDetailsWrapper";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function App() {
             <GroupForm currentGroup={{}} formType={'new'}/>
           </Route>
           <Route path='/groups/:id' exact>
-            <GroupDetails />
+            <GroupDetailsWrapper />
           </Route>
         </Switch>
       )}
