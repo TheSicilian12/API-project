@@ -24,6 +24,10 @@ function EventDetails({event, eventId}) {
         //     dispatch(getGroup(groupId))
         // }, [])
 
+    let options = 'off'
+    
+
+
     return (
         <div>
             <div>

@@ -273,7 +273,8 @@ router.get('/:eventId', async (req, res, next) => {
             { model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] },
             { model: EventImage, attributes: ['id', 'url', 'preview'] },
             { model: Attendance, attributes: ['status'] },
-            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state']}
+            //added organizerId while working on delete an event for the frontend
+            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state', 'organizerId']}
                 // include: [
                 //     {
                 //         model: Membership,
