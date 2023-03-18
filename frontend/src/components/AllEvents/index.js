@@ -15,11 +15,11 @@ export default function AllEvents() {
 
     const events = useSelector((state) => state.events)
 
-    console.log('events: ', Object.values(events.allEvents)[0])
+    // console.log('events: ', Object.values(events.allEvents))
 
-    // if (!groups.allGroups) {
-    //     return <div>loading</div>
-    // }
+    if (!events.allEvents) {
+        return <div>loading</div>
+    }
 
     return (
         <div className='AllGroups'>
