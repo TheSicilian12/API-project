@@ -175,7 +175,7 @@ router.get('/', async (req, res, next) => {
     let events = await Event.findAll({
         ...pagination,
         ...query,
-        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
+        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate", "description"],
         include: [
             { model: Venue, attributes: ["id", "city", "state"] },
             { model: Group, attributes: ["id", "name", "city", "state"] },
@@ -306,7 +306,7 @@ router.get('/:eventId', async (req, res, next) => {
 
     eventJSON.numAttending = numberAttending;
     delete eventJSON.Attendances
-    
+
     return res.json(eventJSON)
 })
 
