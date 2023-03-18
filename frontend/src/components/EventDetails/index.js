@@ -12,7 +12,7 @@ import { getEventThunk } from '../../store/eventsThunk';
 
 function EventDetails() {
     const dispatch = useDispatch();
-    const {id} = useParams();
+    const { id } = useParams();
     const eventId = id;
 
     // console.log('eventId: ', eventId)
@@ -34,8 +34,8 @@ function EventDetails() {
             <div>
                 <div>
                     <div>
-                    <p>{'<'}</p>
-                    <NavLink to='/events'>Events</NavLink>
+                        <p>{'<'}</p>
+                        <NavLink to='/events'>Events</NavLink>
                     </div>
                     <div>
                         <h1>{event.name}</h1>
@@ -52,11 +52,29 @@ function EventDetails() {
                                 GroupImage
                             </div>
                             <div>
-                                <h4>{event.Group.name}</h4>
-                    
+                                <h4>{event.Group?.name}</h4>
+                                <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                             </div>
                         </div>
+                    </div>
+                    <div>
 
+                    <div>
+                        <div>
+                            <h4>START</h4>
+                            <h4>{event?.startDate}</h4>
+                        </div>
+                        <div>
+                            <h4>END</h4>
+                            <h4>{event?.endDate}</h4>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
+                    </div>
+                    <div>
+                        <h4>{event?.type}</h4>
+                    </div>
                     </div>
                 </div>
             </div>
