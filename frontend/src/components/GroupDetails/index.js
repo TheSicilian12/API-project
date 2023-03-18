@@ -39,9 +39,14 @@ function GroupDetails({ group, user, events, groupId }) {
                 eventsArray[i].sort((a, b) => {
                     const firstDate = Date.parse(a.endDate);
                     const secondDate = Date.parse(b.endDate);
-
-                    if (firstDate < secondDate) return -1;
-                    if (firstDate > secondDate) return +1;
+                    if (i === 0) {
+                        if (firstDate < secondDate) return +1;
+                        if (firstDate > secondDate) return -1;
+                    }
+                    if (i === 1) {
+                        if (firstDate < secondDate) return -1;
+                        if (firstDate > secondDate) return +1;
+                    }
 
                     return 0;
                 })
