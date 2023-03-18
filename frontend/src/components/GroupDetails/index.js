@@ -3,35 +3,99 @@ import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
-import { getGroup } from '../../store/groupsThunk'
+import { getGroup } from '../../store/groupsThunk';
+import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 // import SignupFormModal from '../SignupFormModal';
 
-function GroupDetails() {
-    const { id } = useParams();
-    const groupId = id;
+function GroupDetails({ group, user, events, groupId }) {
+    //  console.log('events prop: ', events['1']?.endDate)
+    // console.log('Date: ', Date.parse(events['1']?.endDate))
 
-    const dispatch = useDispatch();
+    // console.log('events: ', Object.values(events).length)
 
-    useEffect(() => {
-        dispatch(getGroup(groupId));
-    }, [])
+    // console.log('events: ', events)
+    const totalNumberEvents = Object.values(events).length
 
-    const group = useSelector((state) => state.groups)
-    const user = useSelector((state) => state.session.user)
+    function organizeEventsByDate(eventsObj) {
+        //eventArray[0] is for past events
+        //eventArray[1] is for current/future events
+        let eventsArray = [[], []]
 
-    // console.log('group: ', group)
-    // console.log('user: ', user)
+        Object.values(eventsObj).map((e) => {
+            //     console.log(e?.endDate)
+            //    console.log(isEventFuture(e?.endDate))
+            if (isEventFuture(e?.endDate)) {
+                eventsArray[1].push(e)
+            } else {
+                eventsArray[0].push(e)
+            }
+        })
 
-    if (!group.singleGroup) {
-        return <div>loading</div>
+        //organize the event dates from earliest date to newest date
+        for (let i = 0; eventsArray.length > i; i++) {
+            if (eventsArray[i].length) {
+                eventsArray[i].sort((a, b) => {
+                    const firstDate = Date.parse(a.endDate);
+                    const secondDate = Date.parse(b.endDate);
+                    if (i === 0) {
+                        if (firstDate < secondDate) return +1;
+                        if (firstDate > secondDate) return -1;
+                    }
+                    if (i === 1) {
+                        if (firstDate < secondDate) return -1;
+                        if (firstDate > secondDate) return +1;
+                    }
+
+                    return 0;
+                })
+            }
+
+        }
+
+        // console.log('return: ', eventsArray);
+        return eventsArray;
+    }
+
+    let eventsArray = organizeEventsByDate(events);
+    let futureEvents = eventsArray[1];
+    let pastEvents = eventsArray[0];
+
+    // console.log('futureEvents: ', futureEvents)
+
+    let showPastEvents = 'off';
+    let showFutureEvents = 'off';
+    if (futureEvents.length > 0) {
+        showFutureEvents = 'on';
+    }
+    if (pastEvents.length > 0) {
+        showPastEvents = 'on';
     }
 
     let groupStatus = 'Public'
     if (group.singleGroup.private) {
         groupStatus = 'Private'
     }
+    // console.log('isEventFuture test: ', isEventFuture('2020-02-02'))
+
+    // console.log('group: ', group.singleGroup.about)
+
+    function isEventFuture(eventEndDate) {
+        //returns true if date is today or in the future.
+        //false if not
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth();
+        const year = today.getFullYear();
+        const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+        const eventEndDateParse = Date.parse(eventEndDate)
+
+        return eventEndDateParse >= todayDateParse;
+    }
+    // console.log('isDate: ', isDateValid('2023-02-17'))
+
 
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
@@ -46,7 +110,6 @@ function GroupDetails() {
             options = 'on'
         }
     }
-
 
     return (
         <div className='GroupDetails'>
@@ -66,7 +129,7 @@ function GroupDetails() {
                 </h4>
                 <div>
                     <h4>
-                        Number of events still needed
+                        {`${totalNumberEvents} events`}
                         {/* number of events */}
                     </h4>
                     <h4>
@@ -102,7 +165,7 @@ function GroupDetails() {
                     <div>
                         <OpenModalDeleteGroupButton
                             buttonText="Delete"
-                            modalComponent={<DeleteGroupModal groupId={groupId}/>}
+                            modalComponent={<DeleteGroupModal groupId={groupId} />}
                         />
                     </div>
                 </div>
@@ -118,19 +181,52 @@ function GroupDetails() {
                     What we're about
                 </h2>
                 <p>
-                    {group.about}
+                    {group.singleGroup.about}
                 </p>
             </div>
-            <div>
+
+
+            <div className={showFutureEvents}>
                 <h2>
-                    Upcoming Events still needed
-                    {/* add in upcoming events */}
+                    Upcoming Events ({`${futureEvents.length}`})
                 </h2>
+                    {futureEvents.map(e =>
+                        <div>
+                            <div>
+                                <div>image</div>
+                                <div>
+                                    <h4>{e.endDate}</h4>
+                                    <h4>{e.name}</h4>
+                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <p>{e.description}</p>
+                            </div>
+                        </div>
+                    )}
             </div>
-            <div>
+
+            <div className={showPastEvents}>
                 <h2>
-                    Past Events still needed
-                    {/* add in past events */}
+                <h2>
+                    Past Events ({`${pastEvents.length}`})
+                </h2>
+                    {pastEvents.map(e =>
+                        <div>
+                            <div>
+                                <div>image</div>
+                                <div>
+                                    <h4>{e.endDate}</h4>
+                                    <h4>{e.name}</h4>
+                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <p>{e.description}</p>
+                            </div>
+                        </div>
+                    )}
                 </h2>
             </div>
         </div>
