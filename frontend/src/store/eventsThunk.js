@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const ALL_GROUPEVENTS = '/api/groups/:groupId/events';
 const ALL_EVENTS = '/api/events'
+const ONE_EVENT = '/api/events/:eventId'
 
 const allGroupEvents = (list) => ({
     type: ALL_GROUPEVENTS,
@@ -11,6 +12,11 @@ const allGroupEvents = (list) => ({
 const allEvents = (list) => ({
     type: ALL_EVENTS,
     list
+})
+
+const oneEvent = (event) => ({
+    type: ONE_EVENT,
+    event
 })
 
 //thunk - get all events for a group
@@ -31,6 +37,15 @@ export const getAllEventsThunk = () => async (dispatch) => {
     if (response.ok) {
         const events = await response.json();
         dispatch(allEvents(events))
+    }
+}
+
+//thunk - get a specific event
+export const getEventThunk = (eventId) => async (dispatch) => {
+    const response = await fetch(`/api/events/${eventId}`);
+    if (response.ok) {
+        const event = await response.json();
+        dispatch(oneEvent(event));
     }
 }
 
@@ -92,6 +107,12 @@ const eventReducer = (state = initialState, action) => {
             action.list.Events.map((e) => returnAllEvents.allEvents[e.id] = e)
             return {
                 ...returnAllEvents
+            }
+        case ONE_EVENT:
+            const returnOneEvent = {}
+            console.log('action: ', action)
+            return {
+                ...returnOneEvent
             }
         default:
             // console.log('default')

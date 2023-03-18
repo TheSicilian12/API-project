@@ -11,6 +11,7 @@ import GroupForm from "./components/GroupForm";
 import EditWrapper from "./components/GroupForm/editWrapper";
 import GroupDetailsWrapper from "./components/GroupDetails/groupDetailsWrapper";
 import AllEvents from './components/AllEvents'
+import EventDetails from './components/EventDetails'
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route path='/groups/:id' exact>
             <GroupDetailsWrapper />
+          </Route>
+          <Route path='/events/:id'>
+              <EventDetails />
           </Route>
         </Switch>
       )}
