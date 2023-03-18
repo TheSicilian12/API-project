@@ -4,24 +4,32 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllEvents.css';
-/* imprt { getAllGroups } from '../../store/groupsThunk' */
+import { getAllEventsThunk } from '../../store/eventsThunk'
 
 export default function AllEvents() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getAllGroups());
+        dispatch(getAllEventsThunk());
     }, [])
 
-    // const groups = useSelector((state) => state.groups)
-    // const groups = useSelector((state) => state.groups)
+    const events = useSelector((state) => state.events)
+
+    console.log('events: ', Object.values(events.allEvents)[0])
 
     // if (!groups.allGroups) {
     //     return <div>loading</div>
     // }
 
     return (
-        <div>tempory</div>
+        <div className='AllGroups'>
+            Events
+            {Object.values(events.allEvents).map(e =>
+                // <NavLink tp={}>
+                <div>test</div>
+            )}
+        </div>
+
         // <div className='AllGroups'>
         //     Groups
         //     {Object.keys(groups.allGroups).map(e =>

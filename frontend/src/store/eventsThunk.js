@@ -1,11 +1,17 @@
 import { csrfFetch } from './csrf';
 
 const ALL_GROUPEVENTS = '/api/groups/:groupId/events';
+const ALL_EVENTS = '/api/events'
 
 const allGroupEvents = (list) => ({
     type: ALL_GROUPEVENTS,
     list
 });
+
+const allEvents = (list) => ({
+    type: ALL_EVENTS,
+    list
+})
 
 //thunk - get all events for a group
 export const getGroupEventsThunk = (groupId) => async (dispatch) => {
@@ -14,14 +20,18 @@ export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     // console.log('response event: ', response)
     if (response.ok) {
         const eventsList = await response.json();
-        console.log('eventsList: ', eventsList)
+        // console.log('eventsList: ', eventsList)
         dispatch(allGroupEvents(eventsList))
     }
 }
 
 //thunk - get All events
 export const getAllEventsThunk = () => async (dispatch) => {
-    
+    const response = await fetch('/api/events')
+    if (response.ok) {
+        const events = await response.json();
+        dispatch(allEvents(events))
+    }
 }
 
 // const initialState = {}
@@ -75,13 +85,14 @@ const eventReducer = (state = initialState, action) => {
             return {
                 ...allGroupEvents,
             }
-    //     case LOAD_DETAILS:
-    //         const returnSingleGroup = {}
-    //         returnSingleGroup.singleGroup = normalizeSingleGroup(action.group)
-    //         // console.log('singleGroup: ', returnSingleGroup)
-    //         return {
-    //             ...returnSingleGroup
-    //         }
+        case ALL_EVENTS:
+            const returnAllEvents = {}
+            returnAllEvents.allEvents = {};
+            // console.log('action: ', action.list.Events)
+            action.list.Events.map((e) => returnAllEvents.allEvents[e.id] = e)
+            return {
+                ...returnAllEvents
+            }
         default:
             // console.log('default')
             return state
