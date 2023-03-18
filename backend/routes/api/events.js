@@ -175,7 +175,7 @@ router.get('/', async (req, res, next) => {
     let events = await Event.findAll({
         ...pagination,
         ...query,
-        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate", "description"],
+        attributes: ["id", "groupId", "venueId", "name", "type", "startDate", "endDate"],
         include: [
             { model: Venue, attributes: ["id", "city", "state"] },
             { model: Group, attributes: ["id", "name", "city", "state"] },
@@ -203,7 +203,6 @@ router.get('/', async (req, res, next) => {
 
     // }
 
-
     // update
     //num attending add
     for (let e of eventObj.Events) {
@@ -220,18 +219,12 @@ router.get('/', async (req, res, next) => {
         delete e.Attendances
     }
 
-
-
-
     for (let event of events) {
         let previewImage = null;
         let numAttending = 0;
 
         let eventJSON = event.toJSON()
 
-
-
-        // console.log(eventJSON.EventImages)
         //identify images
         if (eventJSON.EventImages.length > 0) {
 
@@ -245,7 +238,6 @@ router.get('/', async (req, res, next) => {
         }
 
         //count attendances
-
         if (eventJSON.Attendances.length > 0) {
             // console.log("---------------------------")
             for (let person of eventJSON.Attendances) {
@@ -255,7 +247,6 @@ router.get('/', async (req, res, next) => {
                 }
             }
         }
-
 
         eventJSON.previewImage = previewImage
         eventJSON.numAttending = numAttending
@@ -282,7 +273,16 @@ router.get('/:eventId', async (req, res, next) => {
             { model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] },
             { model: EventImage, attributes: ['id', 'url', 'preview'] },
             { model: Attendance, attributes: ['status'] },
-            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state'] } //add attributes
+            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state']}
+                // include: [
+                //     {
+                //         model: Membership,
+                //         where: {
+                //             userId: user.id
+                //         }
+                //     }
+
+             //add attributes
         ]
     })
 
