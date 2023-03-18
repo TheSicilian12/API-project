@@ -80,7 +80,7 @@ export default function AllEvents() {
 
     return (
         <div className='AllEvents'>
-            <div>
+            <div key='upcomingEvents'>
                 Events
                 {eventsArray[1].map(e =>
                     // <NavLink tp={}>
@@ -98,14 +98,14 @@ export default function AllEvents() {
                                     <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
                                 </div>
                             </div>
-                            <div>
-                                <p key={`allEvents${e.id}_description`}>{e.description}</p>
+                            <div key={`allEvents${e.id}_description`}>
+                                <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
                             </div>
                         </div>
                     </NavLink>
                 )}
             </div>
-            <div>
+            <div key='pastEvents'>
                 Past Events
                 {eventsArray[0].map(e =>
                     // <NavLink tp={}>
@@ -123,8 +123,8 @@ export default function AllEvents() {
                                     <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
                                 </div>
                             </div>
-                            <div>
-                                <p key={`allEvents${e.id}_description`}>{e.description}</p>
+                            <div key={`allEvents${e.id}_description`}>
+                                <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
                             </div>
                         </div>
                     </NavLink>
