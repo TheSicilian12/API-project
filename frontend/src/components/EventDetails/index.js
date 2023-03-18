@@ -4,31 +4,25 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
 import { getEventThunk } from '../../store/eventsThunk';
+import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
 // import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 // import DeleteGroupModal from '../DeleteGroupModal'
 
 
 
-function EventDetails() {
+function EventDetails({event, eventId}) {
     const dispatch = useDispatch();
-    const { id } = useParams();
-    const eventId = id;
 
-    // console.log('eventId: ', eventId)
-
-    useEffect(() => {
-        dispatch(getEventThunk(eventId));
-    }, [])
-
-
-    let event = useSelector((state) => state.events)
-
-    console.log('index event: ', event)
-
-    if (!event) {
+    if (!event.Group) {
         return <div>loading</div>
     }
+
+    const groupId = event.Group.id
+
+        // useEffect(() => {
+        //     dispatch(getGroup(groupId))
+        // }, [])
 
     return (
         <div>
