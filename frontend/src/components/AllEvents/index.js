@@ -84,46 +84,50 @@ export default function AllEvents() {
                 Events
                 {eventsArray[1].map(e =>
                     // <NavLink tp={}>
-                    <div key={`allEvents${e.id}`}>
-                        <div key={`allEvents${e.id}_main`}>
-                            <div key={`allEvents${e.id}_image`}>
-                                image
+                    <NavLink to={`/events/${e.id}`}>
+                        <div key={`allEvents${e.id}`}>
+                            <div key={`allEvents${e.id}_main`}>
+                                <div key={`allEvents${e.id}_image`}>
+                                    image
+                                </div>
+                                <div key={`allEvents${e.id}_info`}>
+                                    <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                    <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                    <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                </div>
                             </div>
-                            <div key={`allEvents${e.id}_info`}>
-                                <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
-                                {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                            <div>
+                                <p key={`allEvents${e.id}_description`}>{e.description}</p>
                             </div>
                         </div>
-                        <div>
-                            <p key={`allEvents${e.id}_description`}>{e.description}</p>
-                        </div>
-                    </div>
+                    </NavLink>
                 )}
             </div>
             <div>
                 Past Events
                 {eventsArray[0].map(e =>
                     // <NavLink tp={}>
-                    <div key={`allEvents${e.id}`}>
-                        <div key={`allEvents${e.id}_main`}>
-                            <div key={`allEvents${e.id}_image`}>
-                                image
+                    <NavLink to={`/events/${e.id}`}>
+                        <div key={`allEvents${e.id}`}>
+                            <div key={`allEvents${e.id}_main`}>
+                                <div key={`allEvents${e.id}_image`}>
+                                    image
+                                </div>
+                                <div key={`allEvents${e.id}_info`}>
+                                    <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                    <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                    <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                </div>
                             </div>
-                            <div key={`allEvents${e.id}_info`}>
-                                <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
-                                {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                            <div>
+                                <p key={`allEvents${e.id}_description`}>{e.description}</p>
                             </div>
                         </div>
-                        <div>
-                            <p key={`allEvents${e.id}_description`}>{e.description}</p>
-                        </div>
-                    </div>
+                    </NavLink>
                 )}
             </div>
         </div>
