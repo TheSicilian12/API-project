@@ -74,7 +74,7 @@ export default function AllEvents() {
         return eventsArray;
     }
 
-    // console.log('events: ', organizeEventsByDate(events.allEvents))
+    console.log('events: ', organizeEventsByDate(events.allEvents))
 
     const eventsArray = organizeEventsByDate(events.allEvents)
 
@@ -90,6 +90,10 @@ export default function AllEvents() {
                         </div>
                         <div>
                             <h4>{e.startDate}</h4>
+                            <h3>{e.name}</h3>
+                            {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                            {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                            <h4>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
                         </div>
 
                     </div>
