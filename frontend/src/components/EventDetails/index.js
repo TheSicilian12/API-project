@@ -21,6 +21,7 @@ function EventDetails() {
         dispatch(getEventThunk(eventId));
     }, [])
 
+
     let event = useSelector((state) => state.events)
 
     console.log('index event: ', event)
@@ -42,6 +43,8 @@ function EventDetails() {
                         <h4>host information needed!</h4>
                     </div>
                 </div>
+        <div>
+
                 <div>
                     <div>
                         Image
@@ -58,27 +61,30 @@ function EventDetails() {
                         </div>
                     </div>
                     <div>
-
-                    <div>
                         <div>
-                            <h4>START</h4>
-                            <h4>{event?.startDate}</h4>
+                            <div>
+                                <h4>START</h4>
+                                <h4>{event?.startDate}</h4>
+                            </div>
+                            <div>
+                                <h4>END</h4>
+                                <h4>{event?.endDate}</h4>
+                            </div>
                         </div>
                         <div>
-                            <h4>END</h4>
-                            <h4>{event?.endDate}</h4>
+                            <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
                         </div>
-                    </div>
-                    <div>
-                        <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
-                    </div>
-                    <div>
-                        <h4>{event?.type}</h4>
-                    </div>
+                        <div>
+                            <h4>{event?.type}</h4>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <div>
+                <h2>Details</h2>
+                <p>{event?.description}</p>
+            </div>
+        </div>
         </div>
     )
 }
