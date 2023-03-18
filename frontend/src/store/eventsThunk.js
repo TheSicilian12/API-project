@@ -110,7 +110,7 @@ const eventReducer = (state = initialState, action) => {
             }
         case ONE_EVENT:
             let returnOneEvent = {}
-            console.log('action: ', action)
+            // console.log('action: ', action)
             returnOneEvent = {...action.events}
             return {
                 ...returnOneEvent

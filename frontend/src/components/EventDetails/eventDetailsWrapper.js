@@ -18,7 +18,7 @@ export default function EventDetailsWrapper() {
 
     let event = useSelector((state) => state.events)
 
-    console.log('event: ', event)
+    // console.log('event: ', event)
 
     if (!event) {
         return <div>loading</div>
