@@ -14,9 +14,9 @@ const allEvents = (list) => ({
     list
 })
 
-const oneEvent = (event) => ({
+const oneEvent = (events) => ({
     type: ONE_EVENT,
-    event
+    events
 })
 
 //thunk - get all events for a group
@@ -109,8 +109,9 @@ const eventReducer = (state = initialState, action) => {
                 ...returnAllEvents
             }
         case ONE_EVENT:
-            const returnOneEvent = {}
+            let returnOneEvent = {}
             console.log('action: ', action)
+            returnOneEvent = {...action.events}
             return {
                 ...returnOneEvent
             }
