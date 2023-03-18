@@ -30,7 +30,7 @@ export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
     if (response.ok) {
         const list = await response.json();
-        console.log('list: ', list)
+        // console.log('list: ', list)
         dispatch(load(list));
     }
 }
