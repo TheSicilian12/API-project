@@ -10,8 +10,9 @@ import GroupDetails from "./components/GroupDetails";
 import GroupForm from "./components/GroupForm";
 import EditWrapper from "./components/GroupForm/editWrapper";
 import GroupDetailsWrapper from "./components/GroupDetails/groupDetailsWrapper";
-import AllEvents from './components/AllEvents'
-import EventDetails from './components/EventDetails'
+import AllEvents from './components/AllEvents';
+import EventDetails from './components/EventDetails';
+import EventDetailsWrapper from "./components/EventDetails/eventDetailsWrapper";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function App() {
             <GroupDetailsWrapper />
           </Route>
           <Route path='/events/:id'>
-              <EventDetails />
+              <EventDetailsWrapper />
           </Route>
         </Switch>
       )}

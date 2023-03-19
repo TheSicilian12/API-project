@@ -4,29 +4,27 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
 import { getEventThunk } from '../../store/eventsThunk';
+import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
-// import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
-// import DeleteGroupModal from '../DeleteGroupModal'
+import OpenModalDeleteEventButton from '../DeleteEventModalButton';
+import DeleteEventModal from '../DeleteEventModal'
 
 
 
-function EventDetails() {
+function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
-    const { id } = useParams();
-    const eventId = id;
 
-    // console.log('eventId: ', eventId)
-
-    useEffect(() => {
-        dispatch(getEventThunk(eventId));
-    }, [])
-
-    let event = useSelector((state) => state.events)
-
-    console.log('index event: ', event)
-
-    if (!event) {
+    if (!event.Group) {
         return <div>loading</div>
+    }
+
+    const groupId = event.Group.id
+
+    console.log('event: ', event)
+
+    let options = 'off'
+    if (user) {
+        if (event.Group.organizerId === user.id) options = 'on'
     }
 
     return (
@@ -43,42 +41,56 @@ function EventDetails() {
                     </div>
                 </div>
                 <div>
-                    <div>
-                        Image
-                    </div>
-                    <div>
-                        <div>
-                            <div>
-                                GroupImage
-                            </div>
-                            <div>
-                                <h4>{event.Group?.name}</h4>
-                                <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
 
                     <div>
                         <div>
-                            <h4>START</h4>
-                            <h4>{event?.startDate}</h4>
+                            Image
                         </div>
                         <div>
-                            <h4>END</h4>
-                            <h4>{event?.endDate}</h4>
+                            <div>
+                                <div>
+                                    GroupImage
+                                </div>
+                                <div>
+                                    <h4>{event.Group?.name}</h4>
+                                    <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
-                    </div>
-                    <div>
-                        <h4>{event?.type}</h4>
-                    </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <h4>START</h4>
+                                    <h4>{event?.startDate}</h4>
+                                </div>
+                                <div>
+                                    <h4>END</h4>
+                                    <h4>{event?.endDate}</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
+                            </div>
+                            <div>
+                                <h4>{event?.type}</h4>
+                                <div className={options}>
+                                    <NavLink to={`/events/${eventId}/edit`}>
+                                        <button>Update</button>
+                                    </NavLink>
+                                    <OpenModalDeleteEventButton
+                                        buttonText='Delete'
+                                        modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <h2>Details</h2>
+                    <p>{event?.description}</p>
+                </div>
             </div>
-
         </div>
     )
 }

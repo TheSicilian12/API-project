@@ -166,7 +166,7 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`, {
         method: 'DELETE'
     })
-    console.log('response: ', response)
+    // console.log('response: ', response)
     if (response.ok) {
         const deleteGroup = await response.json();
         return deleteGroup;
