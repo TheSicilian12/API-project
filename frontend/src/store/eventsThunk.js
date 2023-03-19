@@ -1,8 +1,9 @@
 import { csrfFetch } from './csrf';
 
 const ALL_GROUPEVENTS = '/api/groups/:groupId/events';
-const ALL_EVENTS = '/api/events'
-const ONE_EVENT = '/api/events/:eventId'
+const ALL_EVENTS = '/api/events';
+const ONE_EVENT = '/api/events/:eventId';
+const DELETE_EVENT = '/api/events/:eventId';
 
 const allGroupEvents = (list) => ({
     type: ALL_GROUPEVENTS,
@@ -19,6 +20,11 @@ const oneEvent = (events) => ({
     events
 })
 
+const deleteEvent = (event) => ({
+    type: DELETE_EVENT,
+    event
+})
+
 //thunk - get all events for a group
 export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     const response = await fetch(`/api/groups/${groupId}/events`)
@@ -27,7 +33,7 @@ export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     if (response.ok) {
         const eventsList = await response.json();
         // console.log('eventsList: ', eventsList)
-        dispatch(allGroupEvents(eventsList))
+        dispatch(allGroupEvents(eventsList));
     }
 }
 
@@ -36,7 +42,7 @@ export const getAllEventsThunk = () => async (dispatch) => {
     const response = await fetch('/api/events')
     if (response.ok) {
         const events = await response.json();
-        dispatch(allEvents(events))
+        dispatch(allEvents(events));
     }
 }
 
@@ -46,6 +52,17 @@ export const getEventThunk = (eventId) => async (dispatch) => {
     if (response.ok) {
         const event = await response.json();
         dispatch(oneEvent(event));
+    }
+}
+
+//thunk - delete an event
+export const deleteEventThunk = (eventId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/events/${eventId}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        const deleteEvent = await response.json();
+        return deleteEvent;
     }
 }
 
