@@ -6,7 +6,7 @@ import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import GroupForm from './index'
 
 
-export default function EditWrapper() {
+export default function EditEventWrapper() {
     const { id } = useParams();
     const dispatch = useDispatch();
     // console.log('EditWrapperRunning')

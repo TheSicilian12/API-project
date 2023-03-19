@@ -4,7 +4,7 @@ import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventForm.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
-// import {EditWrapper} from './editWrapper';
+import EditEventWrapper from './editEventWrapper';
 
 
 function EventForm({currentGroup, formType}) {
@@ -17,99 +17,18 @@ function EventForm({currentGroup, formType}) {
     const [eventStartDate, setEventStartDate] = useState(Date());
     const [eventEndDate, setEventEndDate] = useState(Date());
     const [eventImage, setEventImage] = useState('');
-    // const [errors, setErrors] = useState({});
-    // const dispatch = useDispatch();
-    // const history = useHistory();
 
-    // let editForm = 'off';
-    // let newForm = 'off';
-    // formType === 'new' ? newForm = 'on' : editForm = 'on'
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     const errors = {};
-    //     if (!location) {
-    //         errors.location = 'Location is required'
-    //     }
-    //     if (location.split(',').length !== 2) {
-    //         errors.location = 'Location is required'
-    //     }
-    //     if (!groupName) {
-    //         errors.name = 'Name is required'
-    //     }
-    //     if (groupAbout.length < 30) {
-    //         errors.about = 'Description must be at least 30 characters long'
-    //     }
-    //     // console.log('groupImage: ', groupImage)
-    //     if (formType === 'new' || groupImage) {
-    //         let imageCheckArr = groupImage.split('.')
-    //         let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
-    //         if (imageCheckVal !== 'png' &&
-    //             imageCheckVal !== 'jpg' &&
-    //             imageCheckVal !== 'jpeg') {
-    //             errors.image = 'Image URL must end in .png, .jpg, or .jpeg'
-    //         }
-    //     }
-    //     if (groupMeetingType !== 'In person' &&
-    //         groupMeetingType !== 'Online') {
-    //         errors.meetingType = 'Group Type is required';
-    //     }
-    //     if (groupStatus === '(select one)') {
-    //         errors.groupStatus = 'Visibility Type is required'
-    //     }
-
-    //     // console.log('errors: ', errors)
-
-    //     // console.log('location: ', location);
-
-    //     if (Object.keys(errors).length > 0) setErrors(errors);
-
-    //     if (Object.keys(errors).length === 0) {
-
-    //         let splitLocation = location.split(', ');
-    //         // console.log('location? ', location)
-    //         let city = currentGroup.id ? currentGroup.city : splitLocation[0];
-    //         let state = currentGroup.id ? currentGroup.state : splitLocation[1];
-
-    //         // console.log('city: ', city)
-    //         // console.log('state: ', state)
-
-    //         const payload = {
-    //             city,
-    //             state: splitLocation[1],
-    //             name: groupName,
-    //             about: groupAbout,
-    //             type: groupMeetingType,
-    //             private: groupStatus,
-    //             url: groupImage
-    //         }
-
-    //         let createGroup;
-    //         if (formType === 'new') {
-    //             createGroup = await dispatch(submitGroup(payload));
-    //         }
-
-    //         let updateGroup
-    //         if (formType === 'edit') {
-    //             payload.groupId = currentGroup.id
-    //             updateGroup = await dispatch(editGroupThunk(payload));
-    //         }
-    //         if (createGroup) {
-    //             // console.log('createGroup: ', createGroup)
-    //             history.push(`/groups/${createGroup.id}`)
-    //         }
-    //         if (updateGroup) {
-    //             history.push(`/groups/${currentGroup.id}`)
-    //         }
-
-    //     }
-    // }
+    console.log('currentGroup: ', currentGroup)
 
     return (
-        <div>test create event</div>
+        // <div>test create event</div>
+        <form>
+            <div>
+                <h1>Create an event for {currentGroup.name}</h1>
+            </div>
+        </form>
         // <form onSubmit={handleSubmit}>
-        //      <div>
+        //     <div>
         //         <h3 className={newForm}>BECOME AN ORGANIZER</h3>
         //         <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
         //         <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
