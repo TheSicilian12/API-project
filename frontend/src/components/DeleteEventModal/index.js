@@ -3,12 +3,12 @@ import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import {useParams, useHistory} from "react-router-dom";
 import { useModal } from "../../context/Modal";
-// import {deleteGroupThunk, getGroup} from "../../store/groupsThunk"
+import {deleteEventThunk} from "../../store/eventsThunk"
 // import '../DeleteGroupModal'
 
 
 
-function DeleteEventModal ({groupId}) {
+function DeleteEventModal ({eventId, groupId}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -18,12 +18,12 @@ function DeleteEventModal ({groupId}) {
         e.preventDefault();
         // console.log(groupId)
 
-        // let deletion = await dispatch(deleteGroupThunk(groupId))
+        let deletion = await dispatch(deleteEventThunk(eventId))
         // // console.log('deletion: ', deletion)
-        // if (deletion) {
-        //     closeModal();
-        //     history.push('/groups');
-        // }
+        if (deletion) {
+            closeModal();
+            history.push(`/groups/${groupId}`);
+        }
     }
 
     return (
