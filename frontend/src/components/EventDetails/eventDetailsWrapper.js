@@ -14,19 +14,18 @@ export default function EventDetailsWrapper() {
 
     useEffect(() => {
         dispatch(getEventThunk(eventId));
-    }, [])
+    }, [id])
 
     let event = useSelector((state) => state.events)
-
-    // console.log('event: ', event)
-
+    const user = useSelector((state) => state.session.user)
+// console.log('eventThunk: ', user)
     if (!event) {
         return <div>loading</div>
     }
 
 
     return (
-        <EventDetails event={event} eventId={eventId}/>
+        <EventDetails event={event} eventId={eventId} user={user}/>
     )
 
 }
