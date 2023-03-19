@@ -20,7 +20,7 @@ function EventDetails({ event, eventId, user }) {
 
     const groupId = event.Group.id
 
-    // console.log('event: ', event.Group.organizerId)
+    console.log('event: ', event)
 
     let options = 'off'
     if (user) {
@@ -73,13 +73,13 @@ function EventDetails({ event, eventId, user }) {
                             </div>
                             <div>
                                 <h4>{event?.type}</h4>
-                                <div>
+                                <div className={options}>
                                     <NavLink to={`/events/${eventId}/edit`}>
                                         <button>Update</button>
                                     </NavLink>
                                     <OpenModalDeleteEventButton
                                         buttonText='Delete'
-                                        modalComponent={<DeleteEventModal eventId={eventId} />}
+                                        modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
                                     />
                                 </div>
                             </div>
