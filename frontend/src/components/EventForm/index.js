@@ -14,8 +14,8 @@ function EventForm({ currentGroup, formType }) {
     const [eventMeetingType, setEventMeetingType] = useState("(select one)");
     const [eventStatus, setEventStatus] = useState("");
     const [eventPrice, setEventPrice] = useState("0");
-    const [eventStartDate, setEventStartDate] = useState(Date());
-    const [eventEndDate, setEventEndDate] = useState(Date());
+    const [eventStartDate, setEventStartDate] = useState('');
+    const [eventEndDate, setEventEndDate] = useState('');
     const [eventImage, setEventImage] = useState('');
     const [errors, setErrors] = useState({});
 
@@ -51,9 +51,14 @@ function EventForm({ currentGroup, formType }) {
         if (eventAbout.length < 30) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
+        if (eventPrice <= 0) {
+            err.eventPrice = 'Price is required';
+        }
 
         if (Object.keys(err).length > 0) setErrors(err)
-        console.log('errors: ', errors)
+        // console.log('errors: ', errors)
+        console.log('test')
+        console.log(eventStartDate)
     }
     return (
         // <div>test create event</div>
@@ -123,6 +128,8 @@ function EventForm({ currentGroup, formType }) {
                 <p>When does your event start?</p>
                 <input
                     type='date'
+                    value={eventStartDate}
+                    // onChange={(e) => console.log('console.log: ', eventStartDate)}
                 ></input>
                 <p className='error'>{errors.eventStartDate}</p>
                 <p>When does your event end?</p>
