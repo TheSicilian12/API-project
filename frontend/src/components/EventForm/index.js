@@ -20,9 +20,15 @@ function EventForm({ currentGroup, formType }) {
 
     console.log('currentGroup: ', currentGroup)
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    }
+    
+
     return (
         // <div>test create event</div>
-        <form>
+        <form
+            onSubmit={handleSubmit}>
             <div>
                 <h1>Create an event for {currentGroup.name}</h1>
             </div>
@@ -98,6 +104,21 @@ function EventForm({ currentGroup, formType }) {
                     value={eventImage}
                     onChange={(e) => setEventImage(e.target.value)}
                 ></input>
+            </div>
+            <div>
+                <p>Please describe your event</p>
+                <textarea
+                    placeholder='Please include at least 30 characters'
+                    value={eventAbout}
+                    onChange={(e) => setEventAbout(e.target.value)}
+                    ></textarea>
+            </div>
+            <div>
+                <button
+                    type='submit'
+                    >
+                        Create Event
+                    </button>
             </div>
         </form>
     )
