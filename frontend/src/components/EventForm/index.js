@@ -11,7 +11,7 @@ function EventForm({currentGroup, formType}) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [eventName, setEventName] = useState("");
     const [eventAbout, setEventAbout] = useState("");
-    const [eventMeetingType, setEventMeetingType] = useState("");
+    const [eventMeetingType, setEventMeetingType] = useState("(select one)");
     const [eventStatus, setEventStatus] = useState("");
     const [eventPrice, setEventPrice] = useState(0);
     const [eventStartDate, setEventStartDate] = useState(Date());
@@ -25,6 +25,30 @@ function EventForm({currentGroup, formType}) {
         <form>
             <div>
                 <h1>Create an event for {currentGroup.name}</h1>
+            </div>
+            <div>
+                <p>What is the name of your event?</p>
+                <input
+                type='text'
+                placeholder='Event Name'
+                value={eventName}
+                onChange={(e) => setEventName(e.target.value)}
+                ></input>
+            </div>
+            <div>
+                <p>Is this an in person or online event?</p>
+                <select
+                onChange={(e) => setEventMeetingType(e.target.value)}
+                value={eventMeetingType}
+                >
+                <option>(select one)</option>
+                <option
+                    value={'In person'}
+                >In Person</option>
+                <option
+                    value={'Online'}
+                >Online</option>
+                </select>
             </div>
         </form>
         // <form onSubmit={handleSubmit}>
