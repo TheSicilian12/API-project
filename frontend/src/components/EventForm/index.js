@@ -103,4 +103,5 @@ function EventForm({ currentGroup, formType }) {
     )
 }
 
+
 export default EventForm;
