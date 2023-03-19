@@ -14,6 +14,7 @@ import AllEvents from './components/AllEvents';
 import EventDetails from './components/EventDetails';
 import EventDetailsWrapper from "./components/EventDetails/eventDetailsWrapper";
 import EventForm from "./components/EventForm"
+import EditEventWrapper from './components/EventForm/editEventWrapper'
 
 function App() {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ function App() {
               <EventDetailsWrapper />
           </Route>
           <Route path='/groups/:id/events/new' exact>
-              <EventForm />
+              <EditEventWrapper />
           </Route>
         </Switch>
       )}
