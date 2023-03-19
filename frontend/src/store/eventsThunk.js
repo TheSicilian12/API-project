@@ -66,6 +66,8 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
     }
 }
 
+
+
 // const initialState = {}
 const initialState = {
     session: {},
