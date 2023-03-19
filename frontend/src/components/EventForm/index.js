@@ -74,7 +74,6 @@ function EventForm({ currentGroup, formType }) {
             </div>
             <div>
                 <div>
-
                     <p>Is this an in person or online event?</p>
                     <select
                         onChange={(e) => setEventMeetingType(e.target.value)}
