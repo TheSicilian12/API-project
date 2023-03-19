@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './EventForm.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import EditEventWrapper from './editEventWrapper';
-
+import {addEventByGroupIdThunk} from '../../store/eventsThunk'
 
 function EventForm({ currentGroup, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
@@ -13,18 +13,48 @@ function EventForm({ currentGroup, formType }) {
     const [eventAbout, setEventAbout] = useState("");
     const [eventMeetingType, setEventMeetingType] = useState("(select one)");
     const [eventStatus, setEventStatus] = useState("");
-    const [eventPrice, setEventPrice] = useState(0);
+    const [eventPrice, setEventPrice] = useState("0");
     const [eventStartDate, setEventStartDate] = useState(Date());
     const [eventEndDate, setEventEndDate] = useState(Date());
     const [eventImage, setEventImage] = useState('');
+    const [errors, setErrors] = useState({});
 
-    console.log('currentGroup: ', currentGroup)
+    // console.log('currentGroup: ', currentGroup)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    }
-    
 
+        const err = {}
+        if (!eventName) {
+            err.eventName = 'Name is required';
+        }
+        if (eventMeetingType === '(select one)') {
+            err.eventMeetingType = 'Event Type is required';
+        }
+        if (eventStatus === '(select one)') {
+            err.eventStatus = 'Visibility is required';
+        }
+        if (!eventPrice) {
+            err.eventPrice = 'Price is required';
+        }
+        if (!eventStartDate) {
+            err.eventStartDate = 'Event start is required';
+        }
+        if (!eventEndDate) {
+            err.eventEndDate = 'Event end is required';
+        }
+        if (eventImage !== 'png' &&
+            eventImage !== 'jpg' &&
+            eventImage !== 'jpeg') {
+                err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
+            }
+        if (eventAbout.length < 30) {
+            err.eventAbout = 'Description must be at least 30 characters long';
+        }
+
+        if (Object.keys(err).length > 0) setErrors(err)
+        console.log('errors: ', errors)
+    }
     return (
         // <div>test create event</div>
         <form
@@ -40,6 +70,7 @@ function EventForm({ currentGroup, formType }) {
                     value={eventName}
                     onChange={(e) => setEventName(e.target.value)}
                 ></input>
+                <p className='error'>{errors.eventName}</p>
             </div>
             <div>
                 <div>
@@ -57,6 +88,7 @@ function EventForm({ currentGroup, formType }) {
                             value={'Online'}
                         >Online</option>
                     </select>
+                    <p className='error'>{errors.eventMeetingType}</p>
                 </div>
                 <div>
                     <p>Is this event private or public?</p>
@@ -76,6 +108,7 @@ function EventForm({ currentGroup, formType }) {
                             onChange={() => setEventStatus(false)}
                         >Public</option>
                     </select>
+                        <p className='error'>{errors.eventStatus}</p>
                 </div>
                 <div>
                     <p>What is the price for your event?</p>
@@ -84,6 +117,7 @@ function EventForm({ currentGroup, formType }) {
                         min="0"
                         placeholder="0"
                         pattern="/d*" />
+                        <p className='error'>{errors.eventPrice}</p>
                 </div>
             </div>
             <div>
@@ -91,10 +125,12 @@ function EventForm({ currentGroup, formType }) {
                 <input
                     type='date'
                 ></input>
+                <p className='error'>{errors.eventStartDate}</p>
                 <p>When does your event end?</p>
                 <input
                     type='date'
                 ></input>
+                <p className='error'>{errors.eventEndDate}</p>
             </div>
             <div>
                 <p>Please add in image url for your event below:</p>
@@ -104,6 +140,7 @@ function EventForm({ currentGroup, formType }) {
                     value={eventImage}
                     onChange={(e) => setEventImage(e.target.value)}
                 ></input>
+                <p className='error'>{errors.eventImage}</p>
             </div>
             <div>
                 <p>Please describe your event</p>
@@ -112,6 +149,7 @@ function EventForm({ currentGroup, formType }) {
                     value={eventAbout}
                     onChange={(e) => setEventAbout(e.target.value)}
                     ></textarea>
+                    <p className='error'>{errors.eventAbout}</p>
             </div>
             <div>
                 <button
