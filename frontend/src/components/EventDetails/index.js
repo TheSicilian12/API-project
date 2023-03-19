@@ -6,8 +6,8 @@ import './EventDetails.css';
 import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
-// import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
-// import DeleteGroupModal from '../DeleteGroupModal'
+import OpenModalDeleteEventButton from '../DeleteEventModalButton';
+import DeleteEventModal from '../DeleteEventModal'
 
 
 
@@ -77,7 +77,10 @@ function EventDetails({ event, eventId, user }) {
                                     <NavLink to={`/events/${eventId}/edit`}>
                                         <button>Update</button>
                                     </NavLink>
-                                    <button>Delete</button>
+                                    <OpenModalDeleteEventButton
+                                        buttonText='Delete'
+                                        modalComponent={<DeleteEventModal eventId={eventId} />}
+                                    />
                                 </div>
                             </div>
                         </div>
