@@ -23,6 +23,7 @@ function EventForm({ currentGroup, formType }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
     }
+    
 
     return (
         // <div>test create event</div>
