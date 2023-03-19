@@ -80,6 +80,7 @@ function EventForm({ currentGroup, formType }) {
                         pattern="/d*" />
                 </div>
             </div>
+            
         </form>
         // <form onSubmit={handleSubmit}>
         //     <div>
