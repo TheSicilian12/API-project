@@ -7,7 +7,7 @@ import './EventForm.css';
 import EditEventWrapper from './editEventWrapper';
 
 
-function EventForm({currentGroup, formType}) {
+function EventForm({ currentGroup, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [eventName, setEventName] = useState("");
     const [eventAbout, setEventAbout] = useState("");
@@ -29,27 +29,58 @@ function EventForm({currentGroup, formType}) {
             <div>
                 <p>What is the name of your event?</p>
                 <input
-                type='text'
-                placeholder='Event Name'
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
+                    type='text'
+                    placeholder='Event Name'
+                    value={eventName}
+                    onChange={(e) => setEventName(e.target.value)}
                 ></input>
             </div>
             <div>
-                <p>Is this an in person or online event?</p>
-                <select
-                onChange={(e) => setEventMeetingType(e.target.value)}
-                value={eventMeetingType}
-                >
-                <option>(select one)</option>
-                <option
-                    value={'In person'}
-                >In Person</option>
-                <option
-                    value={'Online'}
-                >Online</option>
-                </select>
+                <div>
+
+                    <p>Is this an in person or online event?</p>
+                    <select
+                        onChange={(e) => setEventMeetingType(e.target.value)}
+                        value={eventMeetingType}
+                    >
+                        <option>(select one)</option>
+                        <option
+                            value={'In person'}
+                        >In Person</option>
+                        <option
+                            value={'Online'}
+                        >Online</option>
+                    </select>
+                </div>
+                <div>
+                <p>Is this event private or public?</p>
+                    <select
+                        onChange={(e) => setEventStatus(e.target.value)}
+                        value={eventStatus}
+                    >
+                        <option>(select one)</option>
+                        <option
+                            value={true}
+                            checked={eventStatus === true}
+                            onChange={() => setEventStatus(true)}
+                        >Private</option>
+                        <option
+                            value={false}
+                            checked={eventStatus === false}
+                            onChange={() => setEventStatus(false)}
+                        >Public</option>
+                    </select>
+                </div>
+                <div>
+                    <p>What is the price for your event?</p>
+                    <input
+                        type='number'
+                        min="0"
+                        placeholder="0"
+                        pattern="/d*" />
+                </div>
             </div>
+            
         </form>
         // <form onSubmit={handleSubmit}>
         //     <div>
