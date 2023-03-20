@@ -1,7 +1,35 @@
-li {
+/* li {
     border: 2px solid blue;
-}
+} */
 
 .hidden {
     display: none
+}
+
+.borderBlack {
+    border: 2px solid black;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.justfiySpaceBetween {
+    justify-content: space-between;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.home {
+    border: 2px solid black
+}
+
+.profile {
+    border: 2px solid black
 }
