@@ -13,14 +13,24 @@ import DeleteEventModal from '../DeleteEventModal'
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
+    useEffect(() => {
+        console.log('useEffect test')
+        if (event.Group) {
+            dispatch(getGroup(event.Group.id))
+        }
+    }, [event.Group])
+    const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
+    console.log('orgranizer: ', organizer)
+
 
     if (!event.Group) {
         return <div>loading</div>
     }
-
     const groupId = event.Group.id
 
-    console.log('event: ', event)
+    // console.log('group: ', group)
+
+    // console.log('event: ', event)
 
     let options = 'off'
     if (user) {
@@ -37,7 +47,7 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                     <div>
                         <h1>{event.name}</h1>
-                        <h4>host information needed!</h4>
+                        <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
                     </div>
                 </div>
                 <div>
