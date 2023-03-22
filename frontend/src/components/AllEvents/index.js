@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllEvents.css';
-import { getAllEventsThunk } from '../../store/eventsThunk'
+import { getAllEventsThunk } from '../../store/eventsThunk';
+import { getGroup } from '../../store/groupsThunk';
+
 
 export default function AllEvents() {
     const dispatch = useDispatch();

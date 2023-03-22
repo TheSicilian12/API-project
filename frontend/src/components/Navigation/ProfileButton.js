@@ -39,10 +39,11 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} className='square'>
+        <i className="fas fa-user-circle fa-2xl" />
+        {/* <i class="fa-regular fa-swords"></i> */}
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className={`${ulClassName} positionAbsolute positionNavBar`} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>

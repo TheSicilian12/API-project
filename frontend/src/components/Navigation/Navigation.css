@@ -10,6 +10,14 @@
     border: 2px solid black;
 }
 
+.borderBlue {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
 .displayFlex {
     display: flex;
 }
@@ -32,4 +40,22 @@
 
 .profile {
     border: 2px solid black
+}
+
+.positionAbsolute {
+    position: absolute;
+}
+
+.positionNavBar {
+    top: 5rem;
+    right: 1rem;
+}
+
+.padding {
+    padding: 1rem;
+}
+
+.square {
+    width: 3rem;
+    height: 3rem;
 }
