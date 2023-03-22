@@ -14,9 +14,9 @@ function Navigation({ isLoaded }) {
       </div>
       <div className='profile'>
         {isLoaded && (
-          <ul className='displayFlex borderBlack alignCenter justifyCenter'>
+          <div className='displayFlex borderBlue alignCenter justifyCenter'>
             <ProfileButton user={sessionUser} />
-          </ul>
+          </div>
         )}
       </div>
     </div>
