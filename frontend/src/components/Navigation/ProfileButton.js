@@ -40,9 +40,11 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu} className='square'>
-        <i className="fas fa-user-circle fa-2xl" />
-        {/* <i class="fa-regular fa-swords"></i> */}
-      </button>
+        {/* <i className="fas fa-user-circle fa-2xl" /> */}
+        <i class="fa-solid fa-dragon fa-2xl"></i>
+        {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
+        {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
+        </button>
       <ul className={`${ulClassName} positionAbsolute positionNavBar`} ref={ulRef}>
         {user ? (
           <>

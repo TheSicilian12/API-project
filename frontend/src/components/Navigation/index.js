@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
   return (
     <div className='displayFlex justfiySpaceBetween borderBlack alignCenter '>
       <div className='home borderBlack'>
-        <NavLink exact to="/">Adventureup</NavLink>
+        <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink>
       </div>
       <div className='profile '>
         {isLoaded && (

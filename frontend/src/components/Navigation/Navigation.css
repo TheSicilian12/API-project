@@ -59,3 +59,8 @@
     width: 3rem;
     height: 3rem;
 }
+
+.adventureUpFont {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3rem;
+}
