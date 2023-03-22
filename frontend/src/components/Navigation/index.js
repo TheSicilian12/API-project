@@ -8,13 +8,13 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <div className='displayFlex justfiySpaceBetween borderBlack alignCenter'>
+    <div className='displayFlex justfiySpaceBetween borderBlack alignCenter '>
       <div className='home borderBlack'>
         <NavLink exact to="/">Adventureup</NavLink>
       </div>
-      <div className='profile'>
+      <div className='profile '>
         {isLoaded && (
-          <div className='displayFlex borderBlue alignCenter justifyCenter'>
+          <div className='displayFlex borderRed alignCenter justifyCenter padding '>
             <ProfileButton user={sessionUser} />
           </div>
         )}
