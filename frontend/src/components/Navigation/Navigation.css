@@ -1,7 +1,84 @@
-li {
+/* li {
     border: 2px solid blue;
-}
+} */
 
 .hidden {
     display: none
+}
+
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderBlue {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionRow {
+    flex-direction: column;
+}
+
+.justfiySpaceBetween {
+    justify-content: space-between;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.alignSelfCenter {
+    align-self: center
+}
+
+.home {
+    border: 2px solid black
+}
+
+.profile {
+    border: 2px solid black
+}
+
+.positionAbsolute {
+    position: absolute;
+}
+
+.positionNavBar {
+    top: 5rem;
+    right: 1rem;
+}
+
+.padding {
+    padding: 1rem;
+}
+
+.squareFavicon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.squareLogSign {
+    width: 5rem;
+    height: 5rem;
+}
+
+.adventureUpFont {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    color: black
+}
+
+.width {
+    width: 100%;
 }

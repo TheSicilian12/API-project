@@ -66,6 +66,24 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
     }
 }
 
+//thunk - add an event by group id
+export const addEventByGroupIdThunk = (groupId) => async (dispatch) => {
+
+
+
+
+    // const response = await csrfFetch(`/api/groups/${groupId}/events` , {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(eventObj)
+    //     }
+    // })
+
+}
+
+
 // const initialState = {}
 const initialState = {
     session: {},
