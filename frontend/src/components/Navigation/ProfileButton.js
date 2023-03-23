@@ -39,7 +39,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu} className='square'>
+      <button onClick={openMenu} className='squareFavicon'>
         {/* <i className="fas fa-user-circle fa-2xl" /> */}
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
@@ -48,28 +48,28 @@ function ProfileButton({ user }) {
       <ul className={`${ulClassName} positionAbsolute positionNavBar`} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
+            <ul>{user.username}</ul>
+            <ul>{user.firstName} {user.lastName}</ul>
+            <ul>{user.email}</ul>
+            <ul>
               <button onClick={logout}>Log Out</button>
-            </li>
+            </ul>
           </>
         ) : (
-          <>
-            <li>
+          <div className='displayFlex alignCente borderBlack squareLogSign flex-directionRow justifyCenter width'>
+            <ul className='borderRed displayFlex alignSelfCenter'>
               <OpenModalButton
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />
-            </li>
-            <li>
+            </ul>
+            <ul>
               <OpenModalButton
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
-            </li>
-          </>
+            </ul>
+          </div>
         )}
       </ul>
     </>
