@@ -35,10 +35,14 @@
 }
 
 .textWrap {
-    inline-size: 500px;
+    inline-size: 700px;
     overflow-wrap: break-word;
 }
 
-/* .paddingInfoImage {
+.paddingInfoImageLeft {
+    padding-left: 1.5rem;
+}
 
-} */
+.paddingMainTop {
+    padding-top: 8rem;
+}

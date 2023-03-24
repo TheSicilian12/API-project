@@ -11,24 +11,22 @@ import landingPageInfo from '../assets/Images/pngfind.com-hora-de-aventura-png-6
 function LandingPage() {
     return (
         <>
-            <div className='landingPage_intro borderRed displayFlex justifyCenter'>
-                <div className='borderBlack displayFlex flex-directionColumn'>
-                    <h1 className='textWrap borderRed'>
-                        The people platform - Where skills become monster slaying, problem solving adventuring parties:
+            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop'>
+                <div className='displayFlex flex-directionColumn'>
+                    <h1 className='textWrap'>
+                        The people platform - Where skills become adventuring parties:
                     </h1>
-                    <p className='textWrap borderRed'>
+                    <p className='textWrap'>
                         Whatever your skills, from heavy damage deeling and herbal remedies to political intrigue and assasinations,
                         there are thousands of people who could use your expertise on Adventureup.
                         Quests are happening every day—log in to join the adventure!
                     </p>
                 </div>
-                {/* <div className='displayFlex justifyCenter'> */}
-                    <img className='borderGreen displayFlex'
+                    <img className='displayFlex paddingInfoImageLeft'
                         src={landingPageInfo}
                         alt="test image"
-                        width='20%'
+                        width='25%'
                         />
-                {/* </div> */}
             </div>
             <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
                 How Meetup works: ...
