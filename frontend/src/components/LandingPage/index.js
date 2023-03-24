@@ -27,6 +27,7 @@ function LandingPage() {
                         alt="test image"
                         width='25%'
                         />
+                        
             </div>
             <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
                 How Meetup works: ...
