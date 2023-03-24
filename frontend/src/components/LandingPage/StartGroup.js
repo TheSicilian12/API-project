@@ -2,10 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './StartGroup.js';
+import './LandingPage.css';
+
 
 function StartGroup() {
     return (
-        <div className='landingPage_startGroup'>
+        <div className='landingPage_startGroup borderBlack'>
             <img classNameclassName='landingPage_startGroup_img'></img>
             <NavLink to='/groups/new'className='landingPage_startGroup_mainText'>
                 Start a new group
