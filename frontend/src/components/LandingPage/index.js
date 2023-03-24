@@ -27,13 +27,21 @@ function LandingPage() {
                         alt="test image"
                         width='25%'
                         />
-                        
+
+
             </div>
-            <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
-                How Meetup works: ...
+            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop'>
+                <div className='displayFlex flex-directionColumn'>
+                <h2 className='displayFlex justifyCenter'>
+                How Adventureup works
+                </h2>
+                <p className='displayFlex justifySpaceAround textWrapCentered'>
+                    Join an adventuring parties who are in need of your skills through online and in-person quests. It's free to create an account.
+                </p>
+                </div>
             </div>
             <div className='borderGreen displayFlex justifyCenter'>
-                <FindAnEvent />
+                <FindAnEvent />;
                 <SeeAllGroups />
                 <StartGroup />
             </div>

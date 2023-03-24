@@ -39,10 +39,24 @@
     overflow-wrap: break-word;
 }
 
+.textWrapCentered {
+    inline-size: 500px;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+
 .paddingInfoImageLeft {
     padding-left: 1.5rem;
 }
 
 .paddingMainTop {
     padding-top: 8rem;
+}
+
+.marginWorksTop {
+    padding-top: 2rem;
+}
+
+.width {
+    width: 100px;
 }
