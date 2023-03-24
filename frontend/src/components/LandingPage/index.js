@@ -21,6 +21,8 @@ function LandingPage() {
                     </p>
                 </div>
                 <div>
+                    <img class='fit-picture' src='../../../public/assets/epic-adventurous-extreme-sport-composite-260nw-1742451050.webp' alt='Finn and Jake running with loot' width='500' height='600'>
+                    </img>
                 </div>
             </div>
             <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
