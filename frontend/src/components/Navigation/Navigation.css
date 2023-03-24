@@ -61,27 +61,28 @@
 .positionRelative {
     position: relative;
 }
+.positionSticky {
+    position: sticky;
+}
 
 .positionNavBar {
     top: 5rem;
     right: 1rem;
 }
 
-.padding {
-    padding: 1rem;
+.paddingProfileIconTR {
+    padding-top: 1rem;
+    padding-right: 4rem;
+
 }
 
-.paddingRight {
-    padding-right: 2.6rem;
+.paddingProfileDropDown {
+    padding-right: 1.5rem;
 }
 
 .squareFavicon {
     width: 3rem;
     height: 3rem;
-}
-
-.profileIcon {
-    right: 1000px;
 }
 
 .squareLogSign {

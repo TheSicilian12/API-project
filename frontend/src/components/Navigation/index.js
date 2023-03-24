@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
       </div>
       <div>
         {isLoaded && (
-          <div className='displayFlex alignCenter justifyCenter padding paddingRight'>
+          <div className='displayFlex alignCenter justifyCenter padding paddingProfileIconTR'>
             <ProfileButton user={sessionUser} />
           </div>
         )}
