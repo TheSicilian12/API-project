@@ -47,17 +47,17 @@ function ProfileButton({ user }) {
         </button>
       <ul className={`${ulClassName} positionAbsolute positionNavBar`} ref={ulRef}>
         {user ? (
-          <>
+          <div className='displayFlex alignCenter squareLogSign flex-directionRow alignCenter width'>
             <ul>{user.username}</ul>
             <ul>{user.firstName} {user.lastName}</ul>
             <ul>{user.email}</ul>
             <ul>
               <button onClick={logout}>Log Out</button>
             </ul>
-          </>
+          </div>
         ) : (
-          <div className='displayFlex alignCente borderBlack squareLogSign flex-directionRow justifyCenter width'>
-            <ul className='borderRed displayFlex alignSelfCenter'>
+          <div className='displayFlex alignCenter squareLogSign flex-directionRow alignCenter width'>
+            <ul className='displayFlex marginBottom'>
               <OpenModalButton
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}

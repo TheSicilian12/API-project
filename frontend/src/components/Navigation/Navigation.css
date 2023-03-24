@@ -30,6 +30,10 @@
     justify-content: space-between;
 }
 
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
 .justifyCenter {
     justify-content: center;
 }
@@ -54,6 +58,10 @@
     position: absolute;
 }
 
+.positionRelative {
+    position: relative;
+}
+
 .positionNavBar {
     top: 5rem;
     right: 1rem;
@@ -63,9 +71,17 @@
     padding: 1rem;
 }
 
+.paddingRight {
+    padding-right: 2.6rem;
+}
+
 .squareFavicon {
     width: 3rem;
     height: 3rem;
+}
+
+.profileIcon {
+    right: 1000px;
 }
 
 .squareLogSign {
@@ -81,4 +97,8 @@
 
 .width {
     width: 100%;
+}
+
+.marginBottom {
+    margin-bottom: 0.5rem;
 }
