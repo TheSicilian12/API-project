@@ -21,7 +21,6 @@ function LandingPage() {
                     </p>
                 </div>
                 <div>
-                    
                 </div>
             </div>
             <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
