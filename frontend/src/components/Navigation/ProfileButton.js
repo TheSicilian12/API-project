@@ -47,7 +47,7 @@ function ProfileButton({ user }) {
         </button>
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
         {user ? (
-          <div className='displayFlex alignCenter squareLogSign flex-directionRow alignCenter width'>
+          <div className='displayFlex alignCenter squareLogSign flex-directionColumn alignCenter width'>
             <ul>{user.username}</ul>
             <ul>{`Hello ${user.firstName}`}</ul>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}

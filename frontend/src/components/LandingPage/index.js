@@ -5,31 +5,43 @@ import FindAnEvent from './FindAnEvent';
 import SeeAllGroups from './SeeAllGroups';
 import StartGroup from './StartGroup';
 import './LandingPage.css';
+import flowerImage from '../assets/Images/Example.jpg';
+import landingPageInfo from '../assets/Images/pngfind.com-hora-de-aventura-png-6738376.png';
 
 function LandingPage() {
     return (
         <>
-            <div className='landingPage_intro borderRed displayFlex justifyCenter'>
-                <div>
-                    <h1>
-                        The people platform - Where skills become monster slaying, problem solving adventuring parties:
+            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop'>
+                <div className='displayFlex flex-directionColumn'>
+                    <h1 className='textWrap'>
+                        The people platform - Where skills become adventuring parties:
                     </h1>
-                    <p>
-                    Whatever your skills, from heavy damage deeling and herbal remedies to political intrigue and assasinations,
-                    there are thousands of people who could use your expertise on Adventureup.
-                    Quests are happening every day—log in to join the adventure!
+                    <p className='textWrap'>
+                        Whatever your skills, from heavy damage deeling and herbal remedies to political intrigue and assasinations,
+                        there are thousands of people who could use your expertise on Adventureup.
+                        Quests are happening every day—log in to join the adventure!
                     </p>
                 </div>
-                <div>
-                    <img class='fit-picture' src='../../../public/assets/epic-adventurous-extreme-sport-composite-260nw-1742451050.webp' alt='Finn and Jake running with loot' width='500' height='600'>
-                    </img>
+                    <img className='displayFlex paddingInfoImageLeft'
+                        src={landingPageInfo}
+                        alt="test image"
+                        width='25%'
+                        />
+
+
+            </div>
+            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop'>
+                <div className='displayFlex flex-directionColumn'>
+                <h2 className='displayFlex justifyCenter'>
+                How Adventureup works
+                </h2>
+                <p className='displayFlex justifySpaceAround textWrapCentered'>
+                    Join an adventuring parties who are in need of your skills through online and in-person quests. It's free to create an account.
+                </p>
                 </div>
             </div>
-            <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
-                How Meetup works: ...
-            </div>
             <div className='borderGreen displayFlex justifyCenter'>
-                <FindAnEvent />
+                <FindAnEvent />;
                 <SeeAllGroups />
                 <StartGroup />
             </div>
