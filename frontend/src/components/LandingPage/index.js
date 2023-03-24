@@ -5,6 +5,7 @@ import FindAnEvent from './FindAnEvent';
 import SeeAllGroups from './SeeAllGroups';
 import StartGroup from './StartGroup';
 import './LandingPage.css';
+import flowerImage from '../assets/Images/Example.jpg';
 
 function LandingPage() {
     return (
@@ -15,14 +16,18 @@ function LandingPage() {
                         The people platform - Where skills become monster slaying, problem solving adventuring parties:
                     </h1>
                     <p>
-                    Whatever your skills, from heavy damage deeling and herbal remedies to political intrigue and assasinations,
-                    there are thousands of people who could use your expertise on Adventureup.
-                    Quests are happening every day—log in to join the adventure!
+                        Whatever your skills, from heavy damage deeling and herbal remedies to political intrigue and assasinations,
+                        there are thousands of people who could use your expertise on Adventureup.
+                        Quests are happening every day—log in to join the adventure!
                     </p>
                 </div>
                 <div>
-                    <img class='fit-picture' src='../../../public/assets/epic-adventurous-extreme-sport-composite-260nw-1742451050.webp' alt='Finn and Jake running with loot' width='500' height='600'>
-                    </img>
+                    <img
+                        src={flowerImage}
+                        alt="test image"
+                        // width="400"
+                        // height="341"
+                        />
                 </div>
             </div>
             <div className='landingPage_explaination borderBlack displayFlex justifyCenter'>
