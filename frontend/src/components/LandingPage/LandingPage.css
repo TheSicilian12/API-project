@@ -14,10 +14,31 @@
     display: flex;
 }
 
+.flexGrow {
+    flex-grow: 5;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
 .justifyCenter {
     justify-content: center;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
 }
 
 .alignCenter {
     align-content: center;
 }
+
+.textWrap {
+    inline-size: 500px;
+    overflow-wrap: break-word;
+}
+
+/* .paddingInfoImage {
+
+} */
