@@ -22,7 +22,7 @@
     display: flex;
 }
 
-.flex-directionRow {
+.flex-directionColumn {
     flex-direction: column;
 }
 

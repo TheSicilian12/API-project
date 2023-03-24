@@ -14,10 +14,35 @@
     display: flex;
 }
 
+.flexGrow {
+    flex-grow: 5;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
 .justifyCenter {
     justify-content: center;
 }
 
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
 .alignCenter {
     align-content: center;
+}
+
+.textWrap {
+    inline-size: 700px;
+    overflow-wrap: break-word;
+}
+
+.paddingInfoImageLeft {
+    padding-left: 1.5rem;
+}
+
+.paddingMainTop {
+    padding-top: 8rem;
 }
