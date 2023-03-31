@@ -4,7 +4,7 @@ import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventForm.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
-import EditEventWrapper from './editEventWrapper';
+import {EditEventWrapper} from './editEventWrapper';
 import {addEventByGroupIdThunk} from '../../store/eventsThunk'
 
 function EventForm({ currentGroup, formType }) {
