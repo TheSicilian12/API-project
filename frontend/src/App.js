@@ -53,17 +53,16 @@ function App() {
           <Route path='/groups/:id' exact>
             <GroupDetailsWrapper />
           </Route>
-          <Route path='/events/:id'>
-              <EventDetailsWrapper />
-          </Route>
           <Route path='/groups/:id/events/new' exact>
               <EditEventWrapper />
           </Route>
 
           {/* This does not render because it is dependent on an id input! */}
-          <Route path='/blob
-          ' exact>
+          <Route path='/events/:id/edit' exact>
               <EditEventWrapper />
+          </Route>
+          <Route path='/events/:id'>
+              <EventDetailsWrapper />
           </Route>
         </Switch>
       )}
