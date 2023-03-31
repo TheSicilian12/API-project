@@ -59,6 +59,10 @@ function App() {
           <Route path='/groups/:id/events/new' exact>
               <EditEventWrapper />
           </Route>
+          {/* <Route path='/blob'>
+              <div>test</div>
+              <EditEventWrapper />
+          </Route> */}
         </Switch>
       )}
     </>
