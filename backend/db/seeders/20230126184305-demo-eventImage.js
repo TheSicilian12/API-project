@@ -23,67 +23,67 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: "www.eventImage-1(preview true).com",
+        url: "https://2.bp.blogspot.com/-6B723AeqtpI/Tyc1gdZz8sI/AAAAAAAABAk/EcewDrOWAO0/s1600/adventure_time_wrap_cover_585.jpg",
         preview: true
       },
       {
         eventId: 1,
-        url: "www.eventImage-1(preview false).com",
+        url: "https://i.ytimg.com/vi/-7WhexVt46Q/maxresdefault.jpg",
         preview: false
       },
       {
         eventId: 2,
-        url: "www.eventImage-2.com",
+        url: "https://c4.wallpaperflare.com/wallpaper/157/590/451/adventure-time-cartoon-network-finn-the-human-ice-king-fighting-wallpaper-preview.jpg",
         preview: false
       },
       {
         eventId: 3,
-        url: "www.eventImage-3.com",
+        url: "https://images6.fanpop.com/image/photos/38400000/Taste-my-Blade-adventure-time-with-finn-and-jake-38493348-900-579.jpg",
         preview: true
       },
       {
         eventId: 4,
-        url: "www.eventImage-4.com",
+        url: "https://1.bp.blogspot.com/-bQE-h8iiEdU/WmlPqdtSoYI/AAAAAAAANtk/bRv3KrH-iAgn-BMOXRdKsNrYBvs95iuTgCEwYBhgL/s1600/IMG_0235.jpg",
         preview: true
       },
       {
         eventId: 10,
-        url: "www.eventImage-10.com",
+        url: "https://pm1.narvii.com/8007/171857a900f728744a5b9b3dd0fcefbff80284ecr1-1280-720v2_hq.jpg",
         preview: true
       },
       {
         eventId: 10,
-        url: "www.eventImage-10.com",
+        url: "https://upload.wikimedia.org/wikipedia/en/0/06/Ricardiotheheartguy.png",
         preview: false
       },
       {
         eventId: 10,
-        url: "www.eventImage-10.com",
+        url: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51I0kBz2ExL._RI_.jpg",
         preview: false
       },
       {
         eventId: 10,
-        url: "www.eventImage-10.com",
+        url: "https://mediaproxy.tvtropes.org/width/350/https://static.tvtropes.org/pmwiki/pub/images/s7e12_titlecard.png",
         preview: false
       },
       {
         eventId: 11,
-        url: "www.eventImage-11.com",
+        url: "https://pbs.twimg.com/media/FWuMzIsWYAEt_Pm.jpg:large",
         preview: true
       },
       {
         eventId: 11,
-        url: "www.eventImage-11.com",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYkkPPTWp-8qani8wGoJtHUj3g6xVFY1aWGw&usqp=CAU",
         preview: false
       },
       {
         eventId: 11,
-        url: "www.eventImage-11.com",
+        url: "https://static.wikia.nocookie.net/adventuretimewithfinnandjake/images/b/b2/S4_E19_Princess_Bubblegum_holding_electro-gun.png/revision/latest?cb=20120820203924",
         preview: false
       },
       {
         eventId: 11,
-        url: "www.eventImage-11.com",
+        url: "https://i0.wp.com/thegeekiary.com/wp-content/uploads/2017/09/Adventure_Time_Episode_275_Still-1.jpg?resize=640%2C360&ssl=1",
         preview: false
       }
 
