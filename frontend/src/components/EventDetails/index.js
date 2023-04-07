@@ -15,21 +15,22 @@ function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
     useEffect(() => {
         // console.log('useEffect test')
-        if (event.Group) {
-            dispatch(getGroup(event.Group.id))
-        }
-    }, [event.Group])
+        // if (event.Group) {
+            dispatch(getGroup(event.groupId))
+        // }
+    }, [])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
+    const groupImages = useSelector((state) => state.groups)
     // console.log('orgranizer: ', organizer)
+    // console.log('groupImages: ', groupImages)
 
     const eventImages = useSelector((state) => state.events.EventImages)
-    // console.log('eventImges: ', eventImages)
 
     let eventPreviewImage;
     if (eventImages) {
         eventPreviewImage = eventImages.find(image => image.preview === true)
     }
-    console.log('previewImage: ', eventPreviewImage)
+    // console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
@@ -70,7 +71,9 @@ function EventDetails({ event, eventId, user }) {
                         <div>
                             <div>
                                 <div>
-                                    GroupImage
+                                    {/* <img
+                                        src={groupPreviewImage.url}
+                                    /> */}
                                 </div>
                                 <div>
                                     <h4>{event.Group?.name}</h4>

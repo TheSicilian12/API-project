@@ -38,6 +38,7 @@ export const getAllGroups = () => async (dispatch) => {
 // thunk - fetches a group
 export const getGroup = (groupId) => async (dispatch) => {
     //call the thunk that gets all groups
+    console.log('getGroupThunk')
     // console.log('groupId: ', typeof groupId)
     const response = await fetch(`/api/groups/${groupId}`)
     // console.log(response)
@@ -243,9 +244,10 @@ const groupReducer = (state = initialState, action) => {
                 ...returnState,
             }
         case LOAD_DETAILS:
+            console.log('group details reducer')
             const returnSingleGroup = {}
             returnSingleGroup.singleGroup = normalizeSingleGroup(action.group)
-            // console.log('singleGroup: ', returnSingleGroup)
+            console.log('singleGroup: ', returnSingleGroup)
             return {
                 ...returnSingleGroup
             }
