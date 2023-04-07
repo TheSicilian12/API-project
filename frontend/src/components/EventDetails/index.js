@@ -14,14 +14,22 @@ import DeleteEventModal from '../DeleteEventModal'
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('useEffect test')
+        // console.log('useEffect test')
         if (event.Group) {
             dispatch(getGroup(event.Group.id))
         }
     }, [event.Group])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
-    console.log('orgranizer: ', organizer)
+    // console.log('orgranizer: ', organizer)
 
+    const eventImages = useSelector((state) => state.events.EventImages)
+    // console.log('eventImges: ', eventImages)
+
+    let eventPreviewImage;
+    if (eventImages) {
+        eventPreviewImage = eventImages.find(image => image.preview === true)
+    }
+    console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
