@@ -40,22 +40,22 @@ export default function AllGroups() {
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
 
     return (
-        <div className='AllGroups'>
-            Groups
+        <div className='AllGroups displayFlex flex-directionColumn' >
+            <p className='displayFlex borderRed'>Groups in AdventureUp</p>
             {Object.keys(groups.allGroups).map(e =>
 
             <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                     {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
-                    <div className='AllGroups_group'
+                    <div className='AllGroups_group borderBlack displayFlex justifyCenter'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
                         >
                         <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                             <img
+                             <img className='groupImage borderRed'
                              //super cool!
                                 src={groups.allGroups[e].preivewImage || imageData}
                             />
                         </div>
-                        <div className='details' key={`details_${groups.allGroups[e].name}`}>
+                        <div className='details borderRed' key={`details_${groups.allGroups[e].name}`}>
                             <h2> {`${groups.allGroups[e].name}`}</h2>
                             <h4> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
                             <p>{`${groups.allGroups[e].about}`}</p>
