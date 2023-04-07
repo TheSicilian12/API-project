@@ -42,7 +42,7 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
     if (responseGroup.ok) {
         //all groups
         const groups = await responseGroup.json()
-        console.log('groups: ', groups.Groups)
+        // console.log('groups: ', groups.Groups)
 
         // console.log('values: ', Object.keys(groups.Groups))
         let groupEventObj = {};
@@ -58,13 +58,16 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
 
                 let currentGroup = groups.Groups.find(e => e.id === group.id);
                 currentGroup.events = groupEvent.Events;
+                // console.log(currentGroup.events)
+
             }
         })
         // console.log('groupEventObj: ', groupEventObj)
         //events: groupEventObj key is the groupId
         // const groupEventReturn = {groups: groups, events: groupEventObj}
         // console.log('groupEventReturn: ', groupEventReturn);
-        console.log(groups)
+        console.log('thunk groups: ', groups)
+        dispatch(load(groups))
     }
 }
 
@@ -273,7 +276,7 @@ const groupReducer = (state = initialState, action) => {
             const returnState = {}
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-
+            // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }

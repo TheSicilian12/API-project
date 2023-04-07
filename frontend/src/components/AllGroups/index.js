@@ -9,9 +9,9 @@ import { getAllGroups, getAllGroupsWithEventsThunk } from '../../store/groupsThu
 export default function AllGroups() {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAllGroups());
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getAllGroups());
+    // }, [])
 
     useEffect(() => {
         dispatch(getAllGroupsWithEventsThunk())
@@ -19,18 +19,25 @@ export default function AllGroups() {
 
     // const groups = useSelector((state) => state.groups)
     const groups = useSelector((state) => state.groups)
+    const groupEvents = useSelector((state) => state.groups.allGroups)
 
     if (!groups.allGroups) {
         return <div>loading</div>
     }
 
+    // if (!Object.values(groupEvents)[0].events) {
+    //     return <div>loading</div>
+    // }
+
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    let groupEvents = {};
+    // let groupEvents = {};
+    // if (groups.allGroups['1'].events) {
+    //     console.log('groups: ', Object.values(groups.allGroups['1']?.events).length)
+    // } else console.log('something went wrong')
+
     // console.log('groups: ', groups.allGroups)
-
-
-
+    // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
 
     return (
         <div className='AllGroups'>
