@@ -55,7 +55,6 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
                 // console.log('groupEvent: ', groupEvent.Events)
                 groupEventObj[group.id] = groupEvent.Events
 
-
                 let currentGroup = groups.Groups.find(e => e.id === group.id);
                 currentGroup.events = groupEvent.Events;
                 // console.log(currentGroup.events)
