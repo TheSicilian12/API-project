@@ -62,7 +62,10 @@ function EventDetails({ event, eventId, user }) {
 
                     <div>
                         <div>
-                            Image
+                            <img
+                                //event image
+                                src={eventPreviewImage.url}
+                            />
                         </div>
                         <div>
                             <div>
