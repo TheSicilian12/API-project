@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = '/groups';
+const LOAD_INCLUDE_EVENTS = '/groups/LOAD_INCLUDE_EVENTS';
 const LOAD_DETAILS = '/groups:id';
 const SUBMIT_DETAILS = '/groups/new';
 const DELETE_GROUP = '/groups/:groupId';
@@ -32,6 +33,40 @@ export const getAllGroups = () => async (dispatch) => {
         const list = await response.json();
         // console.log('list: ', list)
         dispatch(load(list));
+    }
+}
+
+//thunk - get all groups with events
+export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
+    const responseGroup = await fetch('/api/groups');
+    if (responseGroup.ok) {
+        //all groups
+        const groups = await responseGroup.json()
+        // console.log('groups: ', groups.Groups)
+
+        // console.log('values: ', Object.keys(groups.Groups))
+        let groupEventObj = {};
+        Object.values(groups.Groups).map(async group => {
+            // console.log(group.id)
+            //get all events of a group specified by its id
+            let responseGroupEvent = await fetch(`/api/groups/${group.id}/events`)
+            if (responseGroupEvent.ok) {
+                let groupEvent = await responseGroupEvent.json();
+                // console.log('groupEvent: ', groupEvent.Events)
+                groupEventObj[group.id] = groupEvent.Events
+
+                let currentGroup = groups.Groups.find(e => e.id === group.id);
+                currentGroup.events = groupEvent.Events;
+                // console.log(currentGroup.events)
+
+            }
+        })
+        // console.log('groupEventObj: ', groupEventObj)
+        //events: groupEventObj key is the groupId
+        // const groupEventReturn = {groups: groups, events: groupEventObj}
+        // console.log('groupEventReturn: ', groupEventReturn);
+        console.log('thunk groups: ', groups)
+        dispatch(load(groups))
     }
 }
 
@@ -240,7 +275,7 @@ const groupReducer = (state = initialState, action) => {
             const returnState = {}
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-
+            // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }
