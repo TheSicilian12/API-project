@@ -4,13 +4,17 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllGroups.css';
-import { getAllGroups } from '../../store/groupsThunk'
+import { getAllGroups, getAllGroupsWithEventsThunk } from '../../store/groupsThunk';
 
 export default function AllGroups() {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllGroups());
+    }, [])
+
+    useEffect(() => {
+        dispatch(getAllGroupsWithEventsThunk())
     }, [])
 
     // const groups = useSelector((state) => state.groups)
@@ -22,7 +26,11 @@ export default function AllGroups() {
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    console.log('groups: ', groups)
+    let groupEvents = {};
+    // console.log('groups: ', groups.allGroups)
+
+
+
 
     return (
         <div className='AllGroups'>
