@@ -20,21 +20,33 @@ export default function AllGroups() {
         return <div>loading</div>
     }
 
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
+    console.log('groups: ', groups)
+
     return (
         <div className='AllGroups'>
             Groups
             {Object.keys(groups.allGroups).map(e =>
-                <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+
+            <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+                    {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                     <div className='AllGroups_group'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
                         >
                         <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                            {`${groups.allGroups[e].preivewImage}`}
+                             <img
+                             //super cool!
+                                src={groups.allGroups[e].preivewImage || imageData}
+                            />
                         </div>
                         <div className='details' key={`details_${groups.allGroups[e].name}`}>
                             <h2> {`${groups.allGroups[e].name}`}</h2>
                             <h4> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
                             <p>{`${groups.allGroups[e].about}`}</p>
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                 </NavLink>

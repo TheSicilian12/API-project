@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
@@ -55,6 +56,7 @@ function ProfileButton({ user }) {
             <ul>
               <button onClick={logout}>Log Out</button>
             </ul>
+            <Link to='/'>View Groups</Link>
           </div>
         ) : (
           <div className='displayFlex positionStickyalignCenter squareLogSign flex-directionRow alignCenter width'>
