@@ -29,7 +29,6 @@ export default function AllGroups() {
             Groups
             {Object.keys(groups.allGroups).map(e =>
 
-
             <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                     {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                     <div className='AllGroups_group'
