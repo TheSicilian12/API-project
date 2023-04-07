@@ -41,7 +41,7 @@ export default function AllGroups() {
 
     return (
         <div className='AllGroups displayFlex flex-directionColumn' >
-            <p className='displayFlex borderRed'>Groups in AdventureUp</p>
+            <p className='displayFlex adjustHorizontal'>Groups in AdventureUp</p>
             {Object.keys(groups.allGroups).map(e =>
 
             <NavLink to={`/groups/${groups.allGroups[e].id}`}>
@@ -55,10 +55,10 @@ export default function AllGroups() {
                                 src={groups.allGroups[e].preivewImage || imageData}
                             />
                         </div>
-                        <div className='details borderRed' key={`details_${groups.allGroups[e].name}`}>
-                            <h2> {`${groups.allGroups[e].name}`}</h2>
-                            <h4> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
-                            <p>{`${groups.allGroups[e].about}`}</p>
+                        <div className='details borderRed groupInfo' key={`details_${groups.allGroups[e].name}`}>
+                            <h2 className='textWrap borderGreen'> {`${groups.allGroups[e].name}`}</h2>
+                            <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
+                            <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
                         </div>
                         <div>
 
