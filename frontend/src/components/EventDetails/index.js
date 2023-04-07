@@ -13,24 +13,34 @@ import DeleteEventModal from '../DeleteEventModal'
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
+    // console.log('event groupId: ', event.groupId)
+
     useEffect(() => {
         // console.log('useEffect test')
         // if (event.Group) {
+            // console.log('event.groupId: ', event.groupId)
             dispatch(getGroup(event.groupId))
         // }
-    }, [])
+    }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
-    const groupImages = useSelector((state) => state.groups)
+    const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
     // console.log('orgranizer: ', organizer)
     // console.log('groupImages: ', groupImages)
 
+    let groupPreviewImage;
+    if (groupImages) {
+        groupPreviewImage = groupImages.find(image => image.preview === true)
+    }
+    // console.log('groupPreviewImage: ', groupPreviewImage)
+
     const eventImages = useSelector((state) => state.events.EventImages)
+    console.log('eventImages: ', eventImages)
 
     let eventPreviewImage;
     if (eventImages) {
         eventPreviewImage = eventImages.find(image => image.preview === true)
     }
-    // console.log('previewImage: ', eventPreviewImage)
+    console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
@@ -40,6 +50,10 @@ function EventDetails({ event, eventId, user }) {
     // console.log('group: ', group)
 
     // console.log('event: ', event)
+
+    let noEventImage = 'off'
+    // if (eventPreviewImage.url === 'undefined') noEventImage = 'on'
+    console.log('eventPreviewImage: ', eventPreviewImage.url)
 
     let options = 'off'
     if (user) {
@@ -65,14 +79,16 @@ function EventDetails({ event, eventId, user }) {
                         <div>
                             <img
                                 //event image
-                                src={eventPreviewImage.url}
+                                src={eventPreviewImage?.url}
                             />
+                            <p className={noEventImage}>No Event Image</p>
                         </div>
                         <div>
                             <div>
                                 <div>
                                     {/* <img
-                                        src={groupPreviewImage.url}
+                                    //group image
+                                        src={groupPreviewImage?.url}
                                     /> */}
                                 </div>
                                 <div>
