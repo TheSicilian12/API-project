@@ -61,7 +61,6 @@ export default function AllGroups() {
                             <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
                         </div>
                         <div>
-
                         </div>
                     </div>
                 </NavLink>
