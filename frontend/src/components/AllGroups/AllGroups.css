@@ -35,3 +35,16 @@
     width: 25rem;
     height: 20rem;
 }
+
+.adjustHorizontal {
+    position: relative;
+    left: 16rem
+}
+
+.textWrap {
+    inline-size: 20rem;
+}
+
+.groupInfo {
+    width: 20rem;
+}
