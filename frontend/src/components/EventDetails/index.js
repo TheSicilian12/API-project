@@ -31,16 +31,16 @@ function EventDetails({ event, eventId, user }) {
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
     }
-    // console.log('groupPreviewImage: ', groupPreviewImage)
+    console.log('groupPreviewImage: ', groupPreviewImage)
 
     const eventImages = useSelector((state) => state.events.EventImages)
-    console.log('eventImages: ', eventImages)
+    // console.log('eventImages: ', eventImages)
 
     let eventPreviewImage;
     if (eventImages) {
         eventPreviewImage = eventImages.find(image => image.preview === true)
     }
-    console.log('previewImage: ', eventPreviewImage)
+    // console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
@@ -51,9 +51,13 @@ function EventDetails({ event, eventId, user }) {
 
     // console.log('event: ', event)
 
-    let noEventImage = 'off'
-    // if (eventPreviewImage.url === 'undefined') noEventImage = 'on'
-    console.log('eventPreviewImage: ', eventPreviewImage.url)
+    let noEventImage = 'off';
+    let noGroupImage = 'off';
+    // let test = eventPreviewImage.url;
+    // eventPreviewImage.url ? noEventImage = 'on' : noEventImage = 'off'
+    if (!eventPreviewImage) noEventImage = 'on';
+    // console.log('eventPreviewImage: ', eventPreviewImage)
+    if (!groupPreviewImage) noGroupImage = 'on';
 
     let options = 'off'
     if (user) {
@@ -78,7 +82,6 @@ function EventDetails({ event, eventId, user }) {
                     <div>
                         <div>
                             <img
-                                //event image
                                 src={eventPreviewImage?.url}
                             />
                             <p className={noEventImage}>No Event Image</p>
@@ -86,10 +89,11 @@ function EventDetails({ event, eventId, user }) {
                         <div>
                             <div>
                                 <div>
-                                    {/* <img
+                                    <img
                                     //group image
                                         src={groupPreviewImage?.url}
-                                    /> */}
+                                    />
+                                    <p className={noGroupImage}>No Group Image</p>
                                 </div>
                                 <div>
                                     <h4>{event.Group?.name}</h4>
