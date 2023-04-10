@@ -25,7 +25,6 @@ function EventForm({ currentGroup, formType }) {
     console.log('eventStartDate: ', eventStartDate)
     console.log('eventEndDate: ', eventEndDate)
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
