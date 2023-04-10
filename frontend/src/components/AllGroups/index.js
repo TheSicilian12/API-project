@@ -14,12 +14,12 @@ export default function AllGroups() {
     // }, [])
 
     useEffect(() => {
-        dispatch(getAllGroupsWithEventsThunk())
+        dispatch(getAllGroups())
     }, [])
 
     // const groups = useSelector((state) => state.groups)
     const groups = useSelector((state) => state.groups)
-    const groupEvents = useSelector((state) => state.groups.allGroups)
+    // const groupEvents = useSelector((state) => state.groups.allGroups)
 
     if (!groups.allGroups) {
         return <div>loading</div>
@@ -36,7 +36,7 @@ export default function AllGroups() {
     //     console.log('groups: ', Object.values(groups.allGroups['1']?.events).length)
     // } else console.log('something went wrong')
 
-    console.log('groups: ', groups.allGroups['1']?.events)
+    // console.log('groups: ', groups.allGroups['1']?.events)
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
 
     return (
