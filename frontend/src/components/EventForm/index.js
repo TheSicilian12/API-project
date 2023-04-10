@@ -21,6 +21,11 @@ function EventForm({ currentGroup, formType }) {
 
     // console.log('currentGroup: ', currentGroup)
 
+    // console.log('eventName: ', eventName)
+    console.log('eventStartDate: ', eventStartDate)
+    console.log('eventEndDate: ', eventEndDate)
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -129,12 +134,14 @@ function EventForm({ currentGroup, formType }) {
                 <input
                     type='date'
                     value={eventStartDate}
-                    // onChange={(e) => console.log('console.log: ', eventStartDate)}
+                    onChange={(e) => setEventStartDate(e.target.value)}
                 ></input>
                 <p className='error'>{errors.eventStartDate}</p>
                 <p>When does your event end?</p>
                 <input
                     type='date'
+                    value={eventEndDate}
+                    onChange={(e) => setEventEndDate(e.target.value)}
                 ></input>
                 <p className='error'>{errors.eventEndDate}</p>
             </div>
