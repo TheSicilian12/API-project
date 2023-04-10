@@ -40,7 +40,12 @@ function EventForm({ currentGroup, formType }) {
         if (eventStatus === '(select one)') {
             err.eventStatus = 'Visibility is required';
         }
-        if (!eventPrice) {
+        console.log('before if: ', eventPrice)
+        // if (!eventPrice) {
+        //     console.log(eventPrice)
+        //     err.eventPrice = 'Price is required';
+        // }
+        if (eventPrice <= 0) {
             err.eventPrice = 'Price is required';
         }
         if (!eventStartDate) {
@@ -49,23 +54,32 @@ function EventForm({ currentGroup, formType }) {
         if (!eventEndDate) {
             err.eventEndDate = 'Event end is required';
         }
-        if (eventImage !== 'png' &&
-            eventImage !== 'jpg' &&
-            eventImage !== 'jpeg') {
+
+        let imageRouteSplit = eventImage.split('.')
+        let imageRouteCheck = imageRouteSplit[imageRouteSplit.length - 1]
+        if (imageRouteCheck !== 'png' &&
+            imageRouteCheck !== 'jpg' &&
+            imageRouteCheck !== 'jpeg') {
+                // console.log(imageRouteSplit)
+                // console.log(imageRouteCheck)
                 err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
             }
         if (eventAbout.length < 30) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
-        if (eventPrice <= 0) {
-            err.eventPrice = 'Price is required';
-        }
 
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-            // dispatch(addEventByGroupIdThunk({
-            //     venueId:
-            // }))
+            dispatch(addEventByGroupIdThunk(
+                {
+                    name: eventName,
+                    type: eventMeetingType,
+                    price: eventPrice,
+                    description: eventAbout,
+                    startDate: eventStartDate,
+                    endDate: eventEndDate
+                }
+            ))
         }
         // console.log('errors: ', errors)
     }
@@ -129,7 +143,9 @@ function EventForm({ currentGroup, formType }) {
                         type='number'
                         min="0"
                         placeholder="0"
-                        pattern="/d*" />
+                        // pattern="/d*"
+                        onChange={(e) => setEventPrice(e.target.value)}
+                        />
                         <p className='error'>{errors.eventPrice}</p>
                 </div>
             </div>
