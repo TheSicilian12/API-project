@@ -57,7 +57,7 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
 
                 let currentGroup = groups.Groups.find(e => e.id === group.id);
                 currentGroup.events = groupEvent.Events;
-                // console.log(currentGroup.events)
+                // console.log('thunk - currentGroup: ', currentGroup.events)
 
             }
         })
@@ -275,7 +275,7 @@ const groupReducer = (state = initialState, action) => {
             const returnState = {}
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-            // console.log('returnState: ', returnState.allGroups)
+            console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }
