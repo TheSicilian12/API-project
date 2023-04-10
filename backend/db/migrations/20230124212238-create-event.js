@@ -39,7 +39,8 @@ module.exports = {
         defaultValue: "In Person"
       },
       capacity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       price: {
         type: Sequelize.DECIMAL

@@ -69,34 +69,19 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 //thunk - add an event by group id
 export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
     const {groupId} = eventInfo;
-
+    const eventInfoObj = eventInfo.eventObj;
+    console.log('eventInfoObj: ', eventInfoObj)
+    // console.log('groupId: ', groupId)
     // console.log(groupId)
-    const eventInfoObj = {
-        name: eventInfo.name,
-        type: eventInfo.type,
-        price: eventInfo.price,
-        description: eventInfo.description,
-        startDate: eventInfo.startDate,
-        endDate: eventInfo.endDate
-    }
 
-    // console.log(eventInfoObj);
+    // console.log('event obj: ', eventInfoObj);
     console.log('before fetch')
     const response = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            "venueId": 1,
-            "name": "Tennis Group First Meet and Greet",
-            "type": "Online",
-            "capacity": 10,
-            "price": 18.50,
-            "description": "The first meet and greet for our group! Come say hello!",
-            "startDate": "2021-11-19",
-            "endDate": "2021-11-19",
-          })
+        body: JSON.stringify(eventInfoObj)
     })
     console.log('after fetch')
     console.log('response: ', response);
