@@ -68,7 +68,6 @@ function EventForm({ currentGroup, formType }) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
 
-
         if (Object.keys(err).length > 0) setErrors(err)
         else {
             dispatch(addEventByGroupIdThunk(
