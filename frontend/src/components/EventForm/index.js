@@ -19,6 +19,8 @@ function EventForm({ currentGroup, formType }) {
     const [eventImage, setEventImage] = useState('');
     const [errors, setErrors] = useState({});
 
+    const groupId = useParams().id;
+    // console.log('groupid: ', groupId)
     const dispatch = useDispatch();
 
     // console.log('currentGroup: ', currentGroup)
@@ -40,7 +42,7 @@ function EventForm({ currentGroup, formType }) {
         if (eventStatus === '(select one)') {
             err.eventStatus = 'Visibility is required';
         }
-        console.log('before if: ', eventPrice)
+        // console.log('before if: ', eventPrice)
         // if (!eventPrice) {
         //     console.log(eventPrice)
         //     err.eventPrice = 'Price is required';
@@ -72,6 +74,7 @@ function EventForm({ currentGroup, formType }) {
         else {
             dispatch(addEventByGroupIdThunk(
                 {
+                    groupId: groupId,
                     name: eventName,
                     type: eventMeetingType,
                     price: eventPrice,
