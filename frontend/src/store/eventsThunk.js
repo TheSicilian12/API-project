@@ -70,7 +70,7 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 export const addEventByGroupIdThunk = (groupId) => async (dispatch) => {
 
 
-
+    
 
     // const response = await csrfFetch(`/api/groups/${groupId}/events` , {
     //     method: 'POST',
