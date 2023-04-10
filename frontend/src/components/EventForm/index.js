@@ -83,7 +83,6 @@ function EventForm({ currentGroup, formType }) {
                 startDate: eventStartDate,
                 endDate: eventEndDate,
             }
-
             dispatch(addEventByGroupIdThunk(
                 {
                   groupId,
