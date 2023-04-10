@@ -6,8 +6,6 @@ import { useModal } from "../../context/Modal";
 import {deleteEventThunk} from "../../store/eventsThunk"
 // import '../DeleteGroupModal'
 
-
-
 function DeleteEventModal ({eventId, groupId}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
