@@ -70,15 +70,17 @@ function EventForm({ currentGroup, formType }) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
 
+        console.log('eventMeetType: ', eventMeetingType)
+
+        console.log('price: ', typeof Number(eventPrice))
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-
             const eventObj={
                 venueId: null,
                 name: eventName,
                 type: eventMeetingType,
-                capacity: "1",
-                price: eventPrice,
+                capacity: 1,
+                price: Number(eventPrice),
                 description: eventAbout,
                 startDate: eventStartDate,
                 endDate: eventEndDate,
@@ -118,7 +120,7 @@ function EventForm({ currentGroup, formType }) {
                     >
                         <option>(select one)</option>
                         <option
-                            value={'In person'}
+                            value={'In Person'}
                         >In Person</option>
                         <option
                             value={'Online'}
@@ -149,7 +151,7 @@ function EventForm({ currentGroup, formType }) {
                 <div>
                     <p>What is the price for your event?</p>
                     <input
-                        type='number'
+                        type='decimal'
                         min="0"
                         placeholder="0"
                         // pattern="/d*"
