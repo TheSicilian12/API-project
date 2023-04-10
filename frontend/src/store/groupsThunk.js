@@ -29,8 +29,10 @@ const delete_group = (group) => ({
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
+    // console.log('group thunk response: ', response)
     if (response.ok) {
         const list = await response.json();
+        console.log('group thunk: ', list)
         // console.log('list: ', list)
         dispatch(load(list));
     }
@@ -275,9 +277,12 @@ const groupReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const returnState = {}
+            console.log('reducer action: ', action.list)
+
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-            console.log('returnState: ', returnState.allGroups)
+            console.log('reducer, returnState: ', returnState)
+            // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }

@@ -62,27 +62,31 @@ const validateLogin = [
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
-
+    console.log('get all groups backend------------------------------------------------')
 
     //main search
     let groups = await Group.findAll({
         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
         include: [
             { model: Membership },
-            { model: GroupImage }
+            { model: GroupImage },
+            { model: Event}
         ]
     })
 
-    let groupsJSON = JSON.parse(JSON.stringify(groups))
+    // console.log('groups: ', groups)
 
+    let groupsJSON = JSON.parse(JSON.stringify(groups))
+    // console.log('backend: ', groupsJSON)
     let groupObj = {};
     groupObj.Groups = [];
 
     for (let group of groupsJSON) {
 
-
         let numMembers = 0;
         let previewImage = null;
+
+        // console.log('group: ', group)
 
         //number of members in a group
         if (group.Memberships.length > 0) {
@@ -103,8 +107,6 @@ router.get('/', async (req, res) => {
 
         }
 
-
-
         groupObj.Groups.push({
             id: group.id,
             organizerId: group.organizerId,
@@ -117,7 +119,8 @@ router.get('/', async (req, res) => {
             createdAt: group.createdAt,
             updatedAt: group.updatedAt,
             numMembers: numMembers,
-            preivewImage: previewImage
+            preivewImage: previewImage,
+            events: group.Events
         })
     }
 
