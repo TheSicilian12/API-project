@@ -4,6 +4,7 @@ const ALL_GROUPEVENTS = '/api/groups/:groupId/events';
 const ALL_EVENTS = '/api/events';
 const ONE_EVENT = '/api/events/:eventId';
 const DELETE_EVENT = '/api/events/:eventId';
+const ADD_EVENT = '/api/ADD_EVENT'
 
 const allGroupEvents = (list) => ({
     type: ALL_GROUPEVENTS,
@@ -22,6 +23,11 @@ const oneEvent = (events) => ({
 
 const deleteEvent = (event) => ({
     type: DELETE_EVENT,
+    event
+})
+
+const addEvent = (event) => ({
+    type: ADD_EVENT,
     event
 })
 
@@ -87,7 +93,8 @@ export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
     console.log('response: ', response);
     if (response.ok) {
         const newEvent = await response.json();
-        console.log('newEvent: ', newEvent)
+        // console.log('newEvent: ', newEvent)
+        return newEvent;
     }
 
 }

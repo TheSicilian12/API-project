@@ -21,11 +21,11 @@ function DeleteEventModal ({eventId, groupId}) {
         let deletion = await dispatch(deleteEventThunk(eventId))
         // // console.log('deletion: ', deletion)
         if (deletion) {
+            console.log('deletion if')
             closeModal();
             history.push(`/groups/${groupId}`);
         }
     }
-
     return (
         <div>
             <h1>Confirm Delete</h1>
