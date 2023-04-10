@@ -24,7 +24,7 @@ export default function AllGroups() {
     if (!groups.allGroups) {
         return <div>loading</div>
     }
-
+    console.log('groups: ', groups)
     // if (!Object.values(groupEvents)[0].events) {
     //     return <div>loading</div>
     // }
