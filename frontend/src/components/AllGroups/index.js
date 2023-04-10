@@ -63,6 +63,10 @@ export default function AllGroups() {
                             <h2 className='textWrap borderGreen'> {`${groups.allGroups[e].name}`}</h2>
                             <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
                             <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
+                            <div>
+                            <p className='borderGreen'>{groups.allGroups[e].events.length} events</p>
+                            <p className='borderGreen'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
+                            </div>
                         </div>
                         <div>
                         </div>

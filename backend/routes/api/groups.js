@@ -62,7 +62,7 @@ const validateLogin = [
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
-    console.log('get all groups backend------------------------------------------------')
+    // console.log('get all groups backend------------------------------------------------')
 
     //main search
     let groups = await Group.findAll({
