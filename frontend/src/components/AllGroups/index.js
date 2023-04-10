@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllGroups.css';
-import { getAllGroups, getAllGroupsWithEventsThunk } from '../../store/groupsThunk';
+import { getAllGroups } from '../../store/groupsThunk';
 
 export default function AllGroups() {
     const dispatch = useDispatch();
