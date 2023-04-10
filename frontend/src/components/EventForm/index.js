@@ -72,15 +72,21 @@ function EventForm({ currentGroup, formType }) {
 
         if (Object.keys(err).length > 0) setErrors(err)
         else {
+
+            const eventObj={
+                venueId: null,
+                name: eventName,
+                type: eventMeetingType,
+                capacity: "1",
+                price: eventPrice,
+                description: eventAbout,
+                startDate: eventStartDate,
+                endDate: eventEndDate,
+            }
             dispatch(addEventByGroupIdThunk(
                 {
-                    groupId: groupId,
-                    name: eventName,
-                    type: eventMeetingType,
-                    price: eventPrice,
-                    description: eventAbout,
-                    startDate: eventStartDate,
-                    endDate: eventEndDate
+                  groupId,
+                  eventObj
                 }
             ))
         }

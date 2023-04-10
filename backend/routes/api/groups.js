@@ -923,7 +923,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //current user must be organizer or co-host
     //mg - or host?
     //assuming organizer, host, or co-host
-
+    console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     const { user } = req
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
