@@ -65,6 +65,7 @@ export default function AllGroups() {
                             <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
                             <div>
                             <p className='borderGreen'>{groups.allGroups[e].events.length} events</p>
+                            <i class="fa-solid fa-circle style=color: #000000;"></i>
                             <p className='borderGreen'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                             </div>
                         </div>
