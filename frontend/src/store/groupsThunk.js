@@ -232,6 +232,7 @@ function normalizeSingleGroup(object) {
 
 // console.log('state: ', state)
 
+
 // const initialState = {}
 const initialState = {
     session: {},
