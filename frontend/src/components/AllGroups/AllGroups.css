@@ -36,9 +36,13 @@
     height: 20rem;
 }
 
+.mainText {
+    width: 45rem;
+}
+
 .adjustHorizontal {
-    position: relative;
-    left: 16rem
+    /* position: relative */
+    display: flex;
 }
 
 .textWrap {

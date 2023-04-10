@@ -41,17 +41,21 @@ export default function AllGroups() {
 
     return (
         <div className='AllGroups displayFlex flex-directionColumn' >
-            <p className='displayFlex adjustHorizontal'>Groups in AdventureUp</p>
+            <div className='displayFlex justifyCenter borderBlack'>
+                <p className='borderGreen mainText'>
+                    Groups in AdventureUp
+                </p>
+            </div>
             {Object.keys(groups.allGroups).map(e =>
 
-            <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+                <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                     {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                     <div className='AllGroups_group borderBlack displayFlex justifyCenter'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
-                        >
+                    >
                         <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                             <img className='groupImage borderRed'
-                             //super cool!
+                            <img className='groupImage borderRed'
+                                //super cool!
                                 src={groups.allGroups[e].preivewImage || imageData}
                             />
                         </div>
