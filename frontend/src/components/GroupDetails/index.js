@@ -16,6 +16,10 @@ function GroupDetails({ group, user, events, groupId }) {
     // console.log('events: ', Object.values(events).length)
 
     // console.log('events: ', events)
+    if (!group.singleGroup) {
+        return <div>loading</div>
+    }
+
     const totalNumberEvents = Object.values(events).length
 
     function organizeEventsByDate(eventsObj) {
@@ -37,8 +41,8 @@ function GroupDetails({ group, user, events, groupId }) {
         for (let i = 0; eventsArray.length > i; i++) {
             if (eventsArray[i].length) {
                 eventsArray[i].sort((a, b) => {
-                    const firstDate = Date.parse(a.endDate);
-                    const secondDate = Date.parse(b.endDate);
+                    const firstDate = Date.parse(a?.endDate);
+                    const secondDate = Date.parse(b?.endDate);
                     if (i === 0) {
                         if (firstDate < secondDate) return +1;
                         if (firstDate > secondDate) return -1;
@@ -195,13 +199,13 @@ function GroupDetails({ group, user, events, groupId }) {
                             <div>
                                 <div>image</div>
                                 <div>
-                                    <h4>{e.endDate}</h4>
-                                    <h4>{e.name}</h4>
-                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
+                                    <h4>{e?.endDate}</h4>
+                                    <h4>{e?.name}</h4>
+                                    <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                                 </div>
                             </div>
                             <div>
-                                <p>{e.description}</p>
+                                <p>{e?.description}</p>
                             </div>
                         </div>
                     )}
@@ -217,13 +221,13 @@ function GroupDetails({ group, user, events, groupId }) {
                             <div>
                                 <div>image</div>
                                 <div>
-                                    <h4>{e.endDate}</h4>
-                                    <h4>{e.name}</h4>
-                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
+                                    <h4>{e?.endDate}</h4>
+                                    <h4>{e?.name}</h4>
+                                    <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
                                 </div>
                             </div>
                             <div>
-                                <p>{e.description}</p>
+                                <p>{e?.description}</p>
                             </div>
                         </div>
                     )}

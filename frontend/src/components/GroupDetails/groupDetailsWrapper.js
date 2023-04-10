@@ -29,6 +29,7 @@ export default function GroupDetailsWrapper() {
 
     // const events = eventSlice ? eventSlice : false;
     // let events = 'test'
+
     if (!group.singleGroup) {
         return <div>loading</div>
     }
