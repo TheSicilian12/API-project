@@ -19,11 +19,13 @@ function EventForm({ currentGroup, formType }) {
     const [eventImage, setEventImage] = useState('');
     const [errors, setErrors] = useState({});
 
+    const dispatch = useDispatch();
+
     // console.log('currentGroup: ', currentGroup)
 
     // console.log('eventName: ', eventName)
-    console.log('eventStartDate: ', eventStartDate)
-    console.log('eventEndDate: ', eventEndDate)
+    // console.log('eventStartDate: ', eventStartDate)
+    // console.log('eventEndDate: ', eventEndDate)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,9 +62,12 @@ function EventForm({ currentGroup, formType }) {
         }
 
         if (Object.keys(err).length > 0) setErrors(err)
+        else {
+            // dispatch(addEventByGroupIdThunk({
+            //     venueId:
+            // }))
+        }
         // console.log('errors: ', errors)
-        console.log('test')
-        console.log(eventStartDate)
     }
     return (
         // <div>test create event</div>
