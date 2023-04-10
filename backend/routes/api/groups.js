@@ -925,6 +925,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //assuming organizer, host, or co-host
     console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     const { user } = req
+    console.log('req.body: ', req.body)
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
@@ -995,8 +996,12 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let name = "Name must be at least 5 characters"
         errors.name = name
     }
-    if (!type || type !== 'Online' && type !== 'In person') {
-        let type = "Type must be Online or In person"
+    if (!type) {
+        let type = "Type must be Online or In Person"
+        errors.type = type
+    }
+    if (type !== 'Online' && type !== 'In Person') {
+        let type = "Type must be Online or In Person"
         errors.type = type
     }
     if (!capacity || !Number.isInteger(capacity) || capacity < 1) {
