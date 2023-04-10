@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    url: DataTypes.STRING,
+    url: DataTypes.TEXT,
     preview: DataTypes.BOOLEAN
   }, {
     sequelize,

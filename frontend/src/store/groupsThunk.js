@@ -57,7 +57,7 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
 
                 let currentGroup = groups.Groups.find(e => e.id === group.id);
                 currentGroup.events = groupEvent.Events;
-                // console.log(currentGroup.events)
+                // console.log('thunk - currentGroup: ', currentGroup.events)
 
             }
         })
@@ -268,6 +268,7 @@ const initialState = {
         // In this slice we have much more info about the event than in the allEvents slice. singleEvent: { eventData, Group: { groupData, }, // Note that venue here will have more information than venue did in the all events slice. (Refer to your API Docs for more info) Venue: { venueData, }, EventImages: [imagesData], // These would be extra features, not required for your first 2 CRUD features Members: [membersData], Attendees: [attendeeData], }, }, };
     }
 }
+
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -275,7 +276,7 @@ const groupReducer = (state = initialState, action) => {
             const returnState = {}
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-            // console.log('returnState: ', returnState.allGroups)
+            console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }

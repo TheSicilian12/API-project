@@ -36,7 +36,7 @@ export default function AllGroups() {
     //     console.log('groups: ', Object.values(groups.allGroups['1']?.events).length)
     // } else console.log('something went wrong')
 
-    // console.log('groups: ', groups.allGroups)
+    console.log('groups: ', groups.allGroups['1']?.events)
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
 
     return (
