@@ -22,6 +22,7 @@ function EventForm({ currentGroup, formType }) {
     const groupId = useParams().id;
     // console.log('groupid: ', groupId)
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // console.log('currentGroup: ', currentGroup)
 
@@ -70,9 +71,10 @@ function EventForm({ currentGroup, formType }) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
 
-        console.log('eventMeetType: ', eventMeetingType)
+        // console.log('eventMeetType: ', eventMeetingType)
 
-        console.log('price: ', typeof Number(eventPrice))
+        // console.log('price: ', typeof Number(eventPrice))
+        let newEvent;
         if (Object.keys(err).length > 0) setErrors(err)
         else {
             const eventObj={
@@ -85,12 +87,17 @@ function EventForm({ currentGroup, formType }) {
                 startDate: eventStartDate,
                 endDate: eventEndDate,
             }
-            dispatch(addEventByGroupIdThunk(
+
+            newEvent = await dispatch(addEventByGroupIdThunk(
                 {
                   groupId,
                   eventObj
                 }
             ))
+        }
+        if (newEvent?.id) {
+            // console.log('newEvent: ', newEvent)
+            history.push(`/events/${newEvent.id}`)
         }
         // console.log('errors: ', errors)
     }
