@@ -44,6 +44,11 @@
     height: 20rem;
 }
 
+.testing {
+    width: 20px;
+    height: 50px;
+}
+
 .mainText {
     width: 45rem;
 }
@@ -65,10 +70,15 @@
     font-size: 150%;
 }
 
-.eventsText {
-    font-size: 120%;
+.pointerCursor {
+    cursor: pointer;
 }
 
-.cursorRollover {
-    cursor: pointer;
+.dotSpacing {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.dotWeight {
+    font-weight: bold;
 }
