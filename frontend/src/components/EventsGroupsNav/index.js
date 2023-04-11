@@ -24,15 +24,12 @@ export default function EventsGroupsNav({isLoaded}) {
         <NavLink
           className = {`GroupPage_eventGroupLinks_Event eventSpaceRight ${eventsSelect}`}
           to='/events'
-          // style={{textDecoration: 'none'}}
-          // onClick={}
           >
           Events
         </NavLink>
         <NavLink
           className = {`GroupPage_eventGroupLinks_Group ${groupsSelect}`}
           to='/groups'
-          // style={{textDecoration}}
           >
           Groups
         </NavLink>
