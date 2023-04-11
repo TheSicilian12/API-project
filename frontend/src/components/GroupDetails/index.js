@@ -20,7 +20,7 @@ function GroupDetails({ group, user, events, groupId }) {
         return <div>loading</div>
     }
 
-    console.log('user: ', user)
+    // console.log('user: ', user)
 
     const totalNumberEvents = Object.values(events).length
 
