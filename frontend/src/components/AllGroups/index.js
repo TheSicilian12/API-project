@@ -42,7 +42,6 @@ export default function AllGroups() {
 
     // console.log('groups: ', groups.allGroups['1']?.events)
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
-
     return (
         <div className='AllGroups displayFlex flex-directionColumn' >
             <div className='displayFlex justifyCenter borderBlack'>
