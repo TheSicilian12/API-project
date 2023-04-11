@@ -92,8 +92,6 @@ export default function AllEvents() {
                         Events in AdventureUp
                     </p>
                 </div>
-
-
                 {eventsArray[1].map(e =>
                 <div className='displayFlex flex-directionColumn borderRed'>
                     <div className='displayFlex justifyCenter flex-directionColumn'>
