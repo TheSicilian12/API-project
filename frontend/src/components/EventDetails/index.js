@@ -18,8 +18,8 @@ function EventDetails({ event, eventId, user }) {
     useEffect(() => {
         // console.log('useEffect test')
         // if (event.Group) {
-            // console.log('event.groupId: ', event.groupId)
-            dispatch(getGroup(event.groupId))
+        // console.log('event.groupId: ', event.groupId)
+        dispatch(getGroup(event.groupId))
         // }
     }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
@@ -48,7 +48,6 @@ function EventDetails({ event, eventId, user }) {
     const groupId = event.Group.id
 
     // console.log('group: ', group)
-
     // console.log('event: ', event)
 
     let noEventImage = 'off';
@@ -79,53 +78,61 @@ function EventDetails({ event, eventId, user }) {
                 </div>
                 <div>
 
-                    <div>
-                        <div>
-                            <img
-                                src={eventPreviewImage?.url}
-                            />
-                            <p className={noEventImage}>No Event Image</p>
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    <img
+                    <div className='borderRed displayFlex'>
+
+                        <img
+                            className=''
+                            src={eventPreviewImage?.url}
+                            width='50%'
+                            height='50%'
+                        />
+                        <p className={noEventImage}>No Event Image</p>
+
+                        <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
+                            <div className='borderGreen displayFlex'>
+
+                                <img
                                     //group image
-                                        src={groupPreviewImage?.url}
-                                    />
-                                    <p className={noGroupImage}>No Group Image</p>
-                                </div>
-                                <div>
-                                    <h4>{event.Group?.name}</h4>
+                                    src={groupPreviewImage?.url}
+                                    width='100%'
+                                />
+                                <p className={noGroupImage}>No Group Image</p>
+
+                                <div className='infoGroupSpacing'>
+                                    <h4 className='textWrap borderRed'>{event.Group?.name}</h4>
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <div>
+
+                            <div className='borderRed'>
                                 <div>
-                                    <h4>START</h4>
-                                    <h4>{event?.startDate}</h4>
+                                    <div className='displayFlex alignCenter borderGreen'>
+                                        <i class="fa-regular fa-clock style=color: #000000;"></i>
+                                        <h4>{event?.startDate}</h4>
+                                    </div>
+                                    <div  className='displayFlex alignCenter borderGreen'>
+                                        <i class="fa-regular fa-clock style=color: #000000;"></i>
+                                        <h4>{event?.endDate}</h4>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4>END</h4>
-                                    <h4>{event?.endDate}</h4>
+                                <div className='displayFlex alignCenter borderGreen'>
+                                    <i class="fa-solid fa-dollar-sign style=color: #000000;"></i>
+                                    <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
                                 </div>
-                            </div>
-                            <div>
-                                <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
-                            </div>
-                            <div>
-                                <h4>{event?.type}</h4>
-                                <div className={options}>
-                                    <NavLink to={`/events/${eventId}/edit`}>
-                                        <button>Update</button>
-                                    </NavLink>
-                                    <OpenModalDeleteEventButton
-                                        buttonText='Delete'
-                                        modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
-                                    />
+                                <div className='displayFlex alignCenter borderGreen'>
+                                <i class="fa-solid fa-map-pin style=color: #000000;"></i>
+                                    <h4>{event?.type}</h4>
+
                                 </div>
+                                  <div className={options}>
+                                        <NavLink to={`/events/${eventId}/edit`}>
+                                            <button>Update</button>
+                                        </NavLink>
+                                        <OpenModalDeleteEventButton
+                                            buttonText='Delete'
+                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                        />
+                                    </div>
                             </div>
                         </div>
                     </div>
