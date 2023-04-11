@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import './AllEvents.css';
 import { getAllEventsThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
-
+import eventDividerImage from '../assets/Images/favpng_gif-clip-art-oekaki-fan-art.png'
 
 export default function AllEvents() {
     const dispatch = useDispatch();
@@ -87,27 +87,38 @@ export default function AllEvents() {
     return (
         <div className='AllEvents'>
             <div key='upcomingEvents'>
-                <p className='mainText textSizeGroup'>
-                    Groups in AdventureUp
-                </p>
+                <div className='displayFlex justifyCenter borderRed'>
+                    <p className='borderGreen mainText textSizeGroup'>
+                        Events in AdventureUp
+                    </p>
+                </div>
                 {eventsArray[1].map(e =>
+                <div className='displayFlex flex-directionColumn borderRed'>
+                    <div className='displayFlex justifyCenter flex-directionColumn'>
+                        <div className='displayFlex justifyCenter'>
+                            <img
+                                className='dividerPadding'
+                                height='25%'
+                                width='25%'
 
-                    <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                                src={eventDividerImage}
+                            />
+                        </div>
                         <NavLink to={`/events/${e.id}`}>
-                            <div className='borderBlack' key={`allEvents${e.id}`}>
-                                <div key={`allEvents${e.id}_main`}>
+                            <div className='borderBlack displayFlex justifyCenter pointerCursor' key={`allEvents${e.id}`}>
+                                <div className='borderGreen displayFlex' key={`allEvents${e.id}_main`}>
                                     <div className='borderGreen' key={`allEvents${e.id}_image`}>
-                                        <img className='evemtImage'
+                                        <img className='eventImage'
                                             //super cool!
                                             src={e.previewImage || imageData}
                                         />
                                     </div>
-                                    <div key={`allEvents${e.id}_info`}>
-                                        <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                        <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                    <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
+                                        <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                        <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
                                         {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
                                         {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                        <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                        <h4 className='textWrap' key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
                                     </div>
                                 </div>
                                 <div key={`allEvents${e.id}_description`}>
@@ -116,6 +127,7 @@ export default function AllEvents() {
                             </div>
                         </NavLink>
                     </div>
+                </div>
                 )}
             </div>
             <div key='pastEvents'>
