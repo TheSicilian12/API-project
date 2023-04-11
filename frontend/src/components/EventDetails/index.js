@@ -89,7 +89,6 @@ function EventDetails({ event, eventId, user }) {
                             height='50%'
                         />
 
-
                         <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
                             <div className='borderGreen displayFlex'>
 
@@ -104,7 +103,6 @@ function EventDetails({ event, eventId, user }) {
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-
                             <div className='borderRed'>
                                 <div>
                                     <div className='displayFlex alignCenter borderGreen'>
