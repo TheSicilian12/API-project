@@ -131,7 +131,7 @@ function GroupDetails({ group, user, events, groupId }) {
                 <p>{'<'}</p>
                 <NavLink to='/groups'>Groups</NavLink>
             </div>
-            <div className='GroupDetails_Details displayFlex'>
+            <div className='GroupDetails_Details displayFlex borderRed justifyCenter'>
                 <img
                     className=''
                     height='500rem'
@@ -188,77 +188,92 @@ function GroupDetails({ group, user, events, groupId }) {
                     </div>
                 </div>
             </div>
-            <div>
-                <h2>
-                    Organizer
-                </h2>
-                <h4>
-                    {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
-                </h4>
-                <h2>
-                    What we're about
-                </h2>
-                <p className='textWrap'>
-                    {group.singleGroup.about}
-                </p>
+            <div className='borderRed displayFlex justifyCenter'>
+                <div className='borderGreen adjustInfoDiv'>
+
+                    <h2>
+                        Organizer
+                    </h2>
+                    <h4>
+                        {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                    </h4>
+                    <h2>
+                        What we're about
+                    </h2>
+                    <p className='textWrap'>
+                        {group.singleGroup.about}
+                    </p>
+                </div>
             </div>
 
             <div className={showFutureEvents}>
-                <h2>
-                    Upcoming Events ({`${futureEvents.length}`})
-                </h2>
-                {futureEvents.map(e =>
-                    <div>
-                        <div>
-                            <div>
-                                <img
-                                    //group image
-                                    src={e.previewImage || imageData}
-                                    width='100%'
-                                />
+                <div className='borderGreen displayFlex justifyCenter'>
+                    <div className='borderRed adjustInfoDiv'>
+
+                        <h2>
+                            Upcoming Events ({`${futureEvents.length}`})
+                        </h2>
+                        {futureEvents.map(e =>
+                            <div className='borderRed'>
+                                <div className='borderGreen displayFlex'>
+
+                                    <img
+                                        //event image
+                                        src={e.previewImage || imageData}
+                                        height='200rem'
+                                        width='300rem'
+                                    />
+
+                                    <div className='infoEventSpacing'>
+                                        <h4>{e?.endDate}</h4>
+                                        <h4 className='textWrap'>{e?.name}</h4>
+                                        <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
+                                    </div>
+                                </div>
+                                <div className='borderBlack'>
+                                    <p>{e?.description}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4>{e?.endDate}</h4>
-                                <h4>{e?.name}</h4>
-                                <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
-                            </div>
-                        </div>
-                        <div>
-                            <p>{e?.description}</p>
-                        </div>
+                        )}
+
                     </div>
-                )}
+                </div>
             </div>
 
             <div className={showPastEvents}>
-                <h2>
-                    <h2>
-                        Past Events ({`${pastEvents.length}`})
-                    </h2>
-                    {pastEvents.map(e =>
-                        <div>
-                            <div>
-                                <div>
-                                <img
-                                    //group image
-                                    src={e.previewImage || imageData}
-                                    width='100%'
-                                />
+                <div className='borderGreen displayFlex justifyCenter'>
+                    <div className='borderRed adjustInfoDiv'>
+                        <h2>
+                            <h2>
+                                Past Events ({`${pastEvents.length}`})
+                            </h2>
+                            {pastEvents.map(e =>
+                                <div className='borderRed'>
+                                    <div className='borderGreen displayFlex'>
+
+                                            <img
+                                                //group image
+                                                src={e.previewImage || imageData}
+                                                height='200rem'
+                                                width='300rem'
+                                            />
+
+                                        <div className='infoEventSpacing'>
+                                            <h4>{e?.endDate}</h4>
+                                            <h4 className='textWrap'>{e?.name}</h4>
+                                            <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
+                                        </div>
+                                    </div>
+                                    <div className='borderBlack'>
+                                        <p>{e?.description}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4>{e?.endDate}</h4>
-                                    <h4>{e?.name}</h4>
-                                    <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
-                                </div>
-                            </div>
-                            <div>
-                                <p>{e?.description}</p>
-                            </div>
-                        </div>
-                    )}
-                </h2>
+                            )}
+                        </h2>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div >
 
     )
 }

@@ -71,7 +71,11 @@
 }
 
 .mainText {
-    width: 48rem;
+    width: 66rem;
+}
+
+.adjustInfoDiv {
+    width: 66rem;
 }
 
 .buttonHeight {
@@ -114,4 +118,8 @@
 
 .infoGroupSpacing {
     padding-left: 2rem;
+}
+
+.infoEventSpacing {
+    padding-left: 1rem;
 }
