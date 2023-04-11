@@ -47,6 +47,8 @@ function EventDetails({ event, eventId, user }) {
     }
     const groupId = event.Group.id
 
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
     // console.log('group: ', group)
     // console.log('event: ', event)
 
@@ -82,37 +84,34 @@ function EventDetails({ event, eventId, user }) {
 
                         <img
                             className=''
-                            src={eventPreviewImage?.url}
+                            src={eventPreviewImage?.url || imageData}
                             width='50%'
                             height='50%'
                         />
-                        <p className={noEventImage}>No Event Image</p>
 
                         <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
                             <div className='borderGreen displayFlex'>
 
                                 <img
                                     //group image
-                                    src={groupPreviewImage?.url}
+                                    src={groupPreviewImage?.url || imageData}
                                     width='100%'
                                 />
-                                <p className={noGroupImage}>No Group Image</p>
 
                                 <div className='infoGroupSpacing'>
                                     <h4 className='textWrap borderRed'>{event.Group?.name}</h4>
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-
                             <div className='borderRed'>
                                 <div>
                                     <div className='displayFlex alignCenter borderGreen'>
                                         <i class="fa-regular fa-clock style=color: #000000;"></i>
-                                        <h4>{event?.startDate}</h4>
+                                        <h4>START {event?.startDate}</h4>
                                     </div>
                                     <div  className='displayFlex alignCenter borderGreen'>
                                         <i class="fa-regular fa-clock style=color: #000000;"></i>
-                                        <h4>{event?.endDate}</h4>
+                                        <h4>END {event?.endDate}</h4>
                                     </div>
                                 </div>
                                 <div className='displayFlex alignCenter borderGreen'>

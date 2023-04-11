@@ -48,7 +48,7 @@ function EventForm({ currentGroup, formType }) {
         //     console.log(eventPrice)
         //     err.eventPrice = 'Price is required';
         // }
-        if (eventPrice <= 0) {
+        if (eventPrice < 0) {
             err.eventPrice = 'Price is required';
         }
         if (!eventStartDate) {
