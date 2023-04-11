@@ -30,11 +30,25 @@ export default function AllEvents() {
         //false if not
         const today = new Date();
         const day = today.getDate();
-        const month = today.getMonth();
+        const month = today.getMonth() + 1;
         const year = today.getFullYear();
         const todayDateParse = Date.parse(`${year}-${month}-${day}`)
 
+        // console.log('todayDateParse: ', todayDateParse)
+        console.log('today: ', today)
+        console.log('day: ', day)
+        console.log('month: ', month)
+        console.log('year: ', year)
+
+        // console.log(`today: ${year}-${month}-${day}`)
+        // console.log('eventEndDate: ', eventEndDate)
+        // console.log('today parse: ', todayDateParse)
+
+
         const eventEndDateParse = Date.parse(eventEndDate)
+        // console.log('event parse: ', eventEndDateParse)
+
+        // console.log('today > event: ', todayDateParse > eventEndDateParse)
 
         return eventEndDateParse >= todayDateParse;
     }
@@ -83,6 +97,8 @@ export default function AllEvents() {
     // console.log('events Organized: ', organizeEventsByDate(events.allEvents))
 
     const eventsArray = organizeEventsByDate(events.allEvents)
+
+    console.log('eventsArray: ', eventsArray)
 
     return (
         <div className='AllEvents'>
