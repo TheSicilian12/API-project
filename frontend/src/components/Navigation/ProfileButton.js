@@ -56,7 +56,8 @@ function ProfileButton({ user }) {
             <ul>
               <button onClick={logout}>Log Out</button>
             </ul>
-            <Link to='/'>View Groups</Link>
+            <Link to='/groups'>View Groups</Link>
+            <Link to='/events'>View Events</Link>
           </div>
         ) : (
           <div className='displayFlex positionStickyalignCenter squareLogSign flex-directionRow alignCenter width'>
