@@ -21,7 +21,7 @@ export default function AllEvents() {
         return <div>loading</div>
     }
 
-    console.log('events: ', events)
+    // console.log('events: ', events)
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
@@ -80,101 +80,124 @@ export default function AllEvents() {
         return eventsArray;
     }
 
-    console.log('events Organized: ', organizeEventsByDate(events.allEvents))
+    // console.log('events Organized: ', organizeEventsByDate(events.allEvents))
 
     const eventsArray = organizeEventsByDate(events.allEvents)
 
     return (
         <div className='AllEvents'>
             <div key='upcomingEvents'>
-                <div className='displayFlex justifyCenter borderRed'>
-                    <p className='borderGreen mainText textSizeGroup'>
+                <div className='displayFlex justifyCenter'>
+                    <p className='mainText textSizeGroup'>
                         Events in AdventureUp
                     </p>
                 </div>
                 {eventsArray[1].map(e =>
-                <div className='displayFlex flex-directionColumn borderRed'>
-                    <div className='displayFlex justifyCenter flex-directionColumn'>
-                        <div className='displayFlex justifyCenter'>
-                            <img
-                                className='dividerPadding'
-                                height='25%'
-                                width='25%'
+                    <div className='displayFlex flex-directionColumn'>
+                        <div className='displayFlex justifyCenter flex-directionColumn'>
+                            <div className='displayFlex justifyCenter'>
+                                <img
+                                    className='dividerPadding'
+                                    height='25%'
+                                    width='25%'
 
-                                src={eventDividerImage}
-                            />
-                        </div>
-                        <NavLink to={`/events/${e.id}`}>
-                            <div className='borderBlack displayFlex justifyCenter pointerCursor' key={`allEvents${e.id}`}>
-                                <div className='borderGreen displayFlex' key={`allEvents${e.id}_main`}>
-                                    <div className='borderGreen' key={`allEvents${e.id}_image`}>
-                                        <img className='eventImage'
-                                            //super cool!
-                                            src={e.previewImage || imageData}
-                                        />
-                                    </div>
-                                    <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
-                                        <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                        <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
-                                        {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                        {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                        <h4 className='textWrap' key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
-                                    </div>
-                                </div>
-                                <div key={`allEvents${e.id}_description`}>
-                                    <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
-                                </div>
+                                    src={eventDividerImage}
+                                />
                             </div>
-                        </NavLink>
+                            <div className='displayFlex justifyCenter pointerCursor' key={`allEvents${e.id}`}>
+                                <NavLink to={`/events/${e.id}`}>
+                                    <div className='displayFlex' key={`allEvents${e.id}_main`}>
+                                        <div className='' key={`allEvents${e.id}_image`}>
+                                            <img className='eventImage'
+                                                //super cool!
+                                                src={e.previewImage || imageData}
+                                            />
+                                        </div>
+                                        <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
+                                            <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                            <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                            {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                            {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                            <h4 className='textWrap' key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                        </div>
+                                    </div>
+                                    <div key={`allEvents${e.id}_description`}>
+                                        <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
+                                    </div>
+                                </NavLink>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 )}
             </div>
             <div key='pastEvents'>
-                Past Events
+                <div className='displayFlex justifyCenter'>
+                    <p className='mainText textSizeGroup'>
+                    Past Events
+                    </p>
+                </div>
                 {eventsArray[0].map(e =>
-                    // <NavLink tp={}>
-                    <NavLink to={`/events/${e.id}`}>
-                        <div key={`allEvents${e.id}`}>
-                            <div key={`allEvents${e.id}_main`}>
-                                <div key={`allEvents${e.id}_image`}>
-                                    image
-                                </div>
-                                <div key={`allEvents${e.id}_info`}>
-                                    <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                    <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
-                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                    <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
-                                </div>
+                    <div className='displayFlex flex-directionColumn'>
+                        <div className='displayFlex justifyCenter flex-directionColumn'>
+                            <div className='displayFlex justifyCenter'>
+                                <img
+                                    className='dividerPadding'
+                                    height='25%'
+                                    width='25%'
+
+                                    src={eventDividerImage}
+                                />
                             </div>
-                            <div key={`allEvents${e.id}_description`}>
-                                <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
+                            <div className='displayFlex justifyCenter pointerCursor' key={`allEvents${e.id}`}>
+                                <NavLink to={`/events/${e.id}`}>
+                                    <div className='displayFlex' key={`allEvents${e.id}_main`}>
+                                        <div className='' key={`allEvents${e.id}_image`}>
+                                            <img className='eventImage'
+                                                //super cool!
+                                                src={e.previewImage || imageData}
+                                            />
+                                        </div>
+                                        <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
+                                            <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                            <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                            {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                            {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                            <h4 className='textWrap' key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                        </div>
+                                    </div>
+                                    <div key={`allEvents${e.id}_description`}>
+                                        <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
+                                    </div>
+                                </NavLink>
                             </div>
                         </div>
-                    </NavLink>
+                    </div>
                 )}
+
+                {/* {eventsArray[0].map(e => */}
+                    {/* <NavLink to={`/events/${e.id}`}> */}
+                        {/* <div key={`allEvents${e.id}`}> */}
+                            {/* <div key={`allEvents${e.id}_main`}> */}
+                                {/* <div key={`allEvents${e.id}_image`}> */}
+                                    {/* image */}
+                                {/* </div> */}
+                                {/* <div key={`allEvents${e.id}_info`}> */}
+                                    {/* <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4> */}
+                                    {/* <h3 key={`allEvents${e.id}_name`}>{e.name}</h3> */}
+                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                    {/* <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4> */}
+                                {/* </div> */}
+                            {/* </div> */}
+                            {/* <div key={`allEvents${e.id}_description`}> */}
+                                {/* <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p> */}
+                            {/* </div> */}
+                        {/* </div> */}
+                    {/* </NavLink> */}
+                {/* )} */}
+
+
             </div>
         </div>
-
-        // <div className='AllGroups'>
-        //     Groups
-        //     {Object.keys(groups.allGroups).map(e =>
-        //         <NavLink to={`/groups/${groups.allGroups[e].id}`}>
-        //             <div className='AllGroups_group'
-        //                 key={`AllGroups_group${groups.allGroups[e].id}`}
-        //                 >
-        //                 <div className='image' key={`groups${groups.allGroups[e].id}`}>
-        //                     {`${groups.allGroups[e].preivewImage}`}
-        //                 </div>
-        //                 <div className='details' key={`details_${groups.allGroups[e].name}`}>
-        //                     <h2> {`${groups.allGroups[e].name}`}</h2>
-        //                     <h4> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
-        //                     <p>{`${groups.allGroups[e].about}`}</p>
-        //                 </div>
-        //             </div>
-        //         </NavLink>
-        //     )}
-        // </div>
     )
 }

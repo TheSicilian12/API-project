@@ -85,7 +85,13 @@
 }
 
 .dividerPadding {
-    padding-bottom: 2rem;
+    padding-bottom: 0rem;
+    padding-top: 0rem;
+    margin-bottom: 0px;
+    border-bottom: 0px;
+    margin-top: 0px;
+    border-top: 0px;
+    /* border: green solid 5px; */
 }
 
 .noDecoration {
