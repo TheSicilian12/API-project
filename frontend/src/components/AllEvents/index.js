@@ -40,16 +40,15 @@ export default function AllEvents() {
         console.log('month: ', month)
         console.log('year: ', year)
 
-
-        console.log(`today: ${year}-${month}-${day}`)
-        console.log('eventEndDate: ', eventEndDate)
-        console.log('today parse: ', todayDateParse)
+        // console.log(`today: ${year}-${month}-${day}`)
+        // console.log('eventEndDate: ', eventEndDate)
+        // console.log('today parse: ', todayDateParse)
 
 
         const eventEndDateParse = Date.parse(eventEndDate)
-        console.log('event parse: ', eventEndDateParse)
+        // console.log('event parse: ', eventEndDateParse)
 
-        console.log('today > event: ', todayDateParse > eventEndDateParse)
+        // console.log('today > event: ', todayDateParse > eventEndDateParse)
 
         return eventEndDateParse >= todayDateParse;
     }
