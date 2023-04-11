@@ -1,1 +1,99 @@
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderGreen {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.borderBlue {
+    border: 5px solid blue;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+/* .centerHorizontal {
+    position: relative;
+    left: 50%;
+} */
+
+.groupImage {
+    width: 25rem;
+    height: 20rem;
+    padding-right: 2rem;
+}
+
+.testing {
+    width: 20px;
+    height: 50px;
+}
+
+.mainText {
+    width: 45rem;
+}
+
+.adjustHorizontal {
+    /* position: relative */
+    display: flex;
+}
+
+.textWrap {
+    inline-size: 20rem;
+}
+
+.groupInfo {
+    width: 20rem;
+}
+
+.textSizeGroup {
+    font-size: 150%;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.dotSpacing {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.dotWeight {
+    font-weight: bold;
+}
+
+.dividerPadding {
+    padding-bottom: 2rem;
+}
+
+.noDecoration {
+    text-decoration: none;
+}
+
+.notCurrentSelection {
+    text-decoration: none;
+    color: gray
+}
 
