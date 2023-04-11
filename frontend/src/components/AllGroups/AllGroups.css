@@ -42,6 +42,7 @@
 .groupImage {
     width: 25rem;
     height: 20rem;
+    padding-right: 2rem;
 }
 
 .testing {
@@ -81,4 +82,17 @@
 
 .dotWeight {
     font-weight: bold;
+}
+
+.dividerPadding {
+    padding-bottom: 2rem;
+}
+
+.noDecoration {
+    text-decoration: none;
+}
+
+.notCurrentSelection {
+    text-decoration: none;
+    color: gray
 }
