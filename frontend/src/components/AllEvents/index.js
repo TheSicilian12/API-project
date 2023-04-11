@@ -21,6 +21,10 @@ export default function AllEvents() {
         return <div>loading</div>
     }
 
+    console.log('events: ', events)
+
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
     function isEventFuture(eventEndDate) {
         //returns true if date is today or in the future.
         //false if not
@@ -76,35 +80,42 @@ export default function AllEvents() {
         return eventsArray;
     }
 
-    console.log('events: ', organizeEventsByDate(events.allEvents))
+    console.log('events Organized: ', organizeEventsByDate(events.allEvents))
 
     const eventsArray = organizeEventsByDate(events.allEvents)
 
     return (
         <div className='AllEvents'>
             <div key='upcomingEvents'>
-                Events
+                <p className='mainText textSizeGroup'>
+                    Groups in AdventureUp
+                </p>
                 {eventsArray[1].map(e =>
-                    // <NavLink tp={}>
-                    <NavLink to={`/events/${e.id}`}>
-                        <div key={`allEvents${e.id}`}>
-                            <div key={`allEvents${e.id}_main`}>
-                                <div key={`allEvents${e.id}_image`}>
-                                    image
+
+                    <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                        <NavLink to={`/events/${e.id}`}>
+                            <div className='borderBlack' key={`allEvents${e.id}`}>
+                                <div key={`allEvents${e.id}_main`}>
+                                    <div className='borderGreen' key={`allEvents${e.id}_image`}>
+                                        <img className='evemtImage'
+                                            //super cool!
+                                            src={e.previewImage || imageData}
+                                        />
+                                    </div>
+                                    <div key={`allEvents${e.id}_info`}>
+                                        <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                        <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
+                                        {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                                        {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                                        <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                    </div>
                                 </div>
-                                <div key={`allEvents${e.id}_info`}>
-                                    <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
-                                    <h3 key={`allEvents${e.id}_name`}>{e.name}</h3>
-                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                    <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4>
+                                <div key={`allEvents${e.id}_description`}>
+                                    <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
                                 </div>
                             </div>
-                            <div key={`allEvents${e.id}_description`}>
-                                <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p>
-                            </div>
-                        </div>
-                    </NavLink>
+                        </NavLink>
+                    </div>
                 )}
             </div>
             <div key='pastEvents'>
