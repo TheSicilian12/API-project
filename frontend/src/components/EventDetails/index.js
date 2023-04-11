@@ -48,7 +48,6 @@ function EventDetails({ event, eventId, user }) {
     const groupId = event.Group.id
 
     // console.log('group: ', group)
-
     // console.log('event: ', event)
 
     let noEventImage = 'off';
