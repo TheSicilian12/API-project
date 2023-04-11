@@ -1,13 +1,16 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllGroups.css';
 import { getAllGroups } from '../../store/groupsThunk';
+import EventsGroupsNav from "../EventsGroupsNav";
 
 export default function AllGroups() {
     const dispatch = useDispatch();
+    // console.log('useParams: ', useParams())
+
 
     // useEffect(() => {
     //     dispatch(getAllGroups());
@@ -24,7 +27,7 @@ export default function AllGroups() {
     if (!groups.allGroups) {
         return <div>loading</div>
     }
-    console.log('groups: ', groups)
+    // console.log('groups: ', groups)
     // if (!Object.values(groupEvents)[0].events) {
     //     return <div>loading</div>
     // }
@@ -52,7 +55,7 @@ export default function AllGroups() {
                     {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                     <div className='AllGroups_group borderBlack displayFlex justifyCenter'
                         key={`AllGroups_group${groups.allGroups[e].id}`}
-                    >
+                        >
                         <div className='image' key={`groups${groups.allGroups[e].id}`}>
                             <img className='groupImage borderRed'
                                 //super cool!

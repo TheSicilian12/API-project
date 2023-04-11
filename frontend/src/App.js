@@ -35,11 +35,11 @@ function App() {
             <LandingPage />
           </Route>
           <Route path='/groups' exact>
-            <EventsGroupsNav />
+            <EventsGroupsNav isLoaded={'groups'}/>
             <AllGroups />
           </Route>
           <Route path='/events' exact>
-            <EventsGroupsNav />
+            <EventsGroupsNav isLoaded={'events'}/>
             <AllEvents />
           </Route>
           {/* add in key for formType */}
