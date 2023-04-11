@@ -203,7 +203,6 @@ function GroupDetails({ group, user, events, groupId }) {
                 </p>
             </div>
 
-
             <div className={showFutureEvents}>
                 <h2>
                     Upcoming Events ({`${futureEvents.length}`})
