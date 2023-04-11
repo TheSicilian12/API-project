@@ -60,10 +60,10 @@ export default function AllGroups() {
                             src={groupDividerImage}
                         />
                     </div>
-                    <div className='borderBlue displayFlex justifyCenter'>
+                    <div className='displayFlex justifyCenter'>
                         <NavLink to={`/groups/${groups.allGroups[e].id}`}>
                             {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
-                            <div className='AllGroups_group displayFlex justifyCenter mainText borderBlack'
+                            <div className='AllGroups_group displayFlex justifyCenter mainText pointerCursor'
                                 key={`AllGroups_group${groups.allGroups[e].id}`}
                             >
                                 <div className='image' key={`groups${groups.allGroups[e].id}`}>
@@ -77,12 +77,12 @@ export default function AllGroups() {
                                     <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
                                     <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
 
-                                    <div className='displayFlex eventsText'>
-                                        <p className='borderGreen'>{groups.allGroups[e].events.length} events </p>
+                                    <div className='displayFlex'>
+                                        <p className='alignCenter'>{groups.allGroups[e].events.length} events  </p>
 
-                                        <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i>
-                                        {/* <p className='borderGreen displayFlex alignCenter'>.</p> */}
-                                        <p className='borderGreen'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
+                                        {/* <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i> */}
+                                        <p className='borderGreen displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
+                                        <p className='borderGreen alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                                     </div>
                                 </div>
                                 <div>
