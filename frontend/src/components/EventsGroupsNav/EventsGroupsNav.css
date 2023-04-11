@@ -47,6 +47,10 @@
     margin-top: 5rem;
 }
 
+.eventSpaceRight {
+    margin-right: 1rem;
+}
+
 .adjustHorizontal {
     /* position: relative */
     display: flex;
@@ -58,4 +62,18 @@
 
 .groupInfo {
     width: 20rem;
+}
+
+.fontSize {
+    font-size: 250%;
+}
+
+.currentSelection {
+    text-decoration-line: underline;
+    /* text-decoration-color: goldenrod; */
+    color: #ffba1e;
+}
+
+.notCurrentSelection {
+    text-decoration: none;
 }
