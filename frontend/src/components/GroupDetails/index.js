@@ -223,7 +223,6 @@ function GroupDetails({ group, user, events, groupId }) {
                                         height='200rem'
                                         width='300rem'
                                     />
-
                                     <div className='infoEventSpacing'>
                                         <h4>{e?.endDate}</h4>
                                         <h4 className='textWrap'>{e?.name}</h4>
