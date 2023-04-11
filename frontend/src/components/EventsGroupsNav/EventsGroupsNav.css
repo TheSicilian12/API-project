@@ -44,7 +44,7 @@
 }
 
 .marginTop {
-    margin-top: 5rem;
+    margin-top: 4rem;
 }
 
 .eventSpaceRight {
@@ -64,7 +64,7 @@
     width: 20rem;
 }
 
-.fontSize {
+.fontSizeNav {
     font-size: 250%;
 }
 
@@ -76,4 +76,5 @@
 
 .notCurrentSelection {
     text-decoration: none;
+    color: gray
 }
