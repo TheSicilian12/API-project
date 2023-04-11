@@ -44,19 +44,20 @@ export default function AllGroups() {
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
     return (
         <div className='AllGroups displayFlex flex-directionColumn' >
-            <div className='displayFlex justifyCenter borderBlack'>
-                <p className='borderGreen mainText textSizeGroup'>
+            <div className='displayFlex justifyCenter'>
+                <p className='mainText textSizeGroup'>
                     Groups in AdventureUp
                 </p>
             </div>
             {Object.keys(groups.allGroups).map(e =>
 
-                <div className='borderBlue displayFlex justifyCenter flex-directionColumn maintext'>
-                    <div className='borderBlack displayFlex justifyCenter'>
+                <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                    <div className='displayFlex justifyCenter'>
                         <img
-                            className='borderGreen'
+                            className='dividerPadding'
                             height='25%'
                             width='25%'
+
                             src={groupDividerImage}
                         />
                     </div>
@@ -67,22 +68,22 @@ export default function AllGroups() {
                                 key={`AllGroups_group${groups.allGroups[e].id}`}
                             >
                                 <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                                    <img className='groupImage borderRed'
+                                    <img className='groupImage'
                                         //super cool!
                                         src={groups.allGroups[e].preivewImage || imageData}
                                     />
                                 </div>
-                                <div className='details borderRed groupInfo' key={`details_${groups.allGroups[e].name}`}>
-                                    <h2 className='textWrap borderGreen'> {`${groups.allGroups[e].name}`}</h2>
-                                    <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
-                                    <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
+                                <div className='details groupInfo noDecoration' key={`details_${groups.allGroups[e].name}`}>
+                                    <h2 className='textWrap noDecoration'> {`${groups.allGroups[e].name}`}</h2>
+                                    <h4 className='textWrap'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
+                                    <p className='textWrap'>{`${groups.allGroups[e].about}`}</p>
 
                                     <div className='displayFlex'>
                                         <p className='alignCenter'>{groups.allGroups[e].events.length} events  </p>
 
                                         {/* <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i> */}
-                                        <p className='borderGreen displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
-                                        <p className='borderGreen alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
+                                        <p className='displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
+                                        <p className='alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                                     </div>
                                 </div>
                                 <div>
