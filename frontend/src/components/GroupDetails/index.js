@@ -68,6 +68,8 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('futureEvents: ', futureEvents)
 
+    console.log('eventsArray: ', eventsArray)
+
     let showPastEvents = 'off';
     let showFutureEvents = 'off';
     if (futureEvents.length > 0) {
@@ -115,62 +117,74 @@ function GroupDetails({ group, user, events, groupId }) {
         }
     }
 
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
+    // console.log('groups: ', group.singleGroup.GroupImages)
+
+    let groupPreviewImage = group.singleGroup.GroupImages.find(e => e.preview === true)
+
+    // console.log('groupPreviewImage: ', groupPreviewImage)
+
     return (
         <div className='GroupDetails'>
             <div className='GroupDetails_GroupsButton'>
                 <p>{'<'}</p>
                 <NavLink to='/groups'>Groups</NavLink>
             </div>
-            <div className='GroupDetails_Details'>
-                <div className='GroupDetails_Details_image'>
+            <div className='GroupDetails_Details displayFlex'>
+                <img
+                    className=''
+                    height='500rem'
+                    width='700rem'
+                    src={groupPreviewImage?.url || imageData}
+                />
 
-                </div>
-                <h1 className='GroupDetails_Details_GroupName'>
-                    {`${group.singleGroup.name}`}
-                </h1>
-                <h4 className='GroupDetails_Details_Location'>
-                    {`${group.singleGroup.city}, ${group.singleGroup.state}`}
-                </h4>
-                <div>
-                    <h4>
-                        {`${totalNumberEvents} events`}
-                        {/* number of events */}
+                <div className='infoGeneralSpacing borderGreen'>
+                    <h1 className='GroupDetails_Details_GroupName textWrap'>
+                        {`${group.singleGroup.name}`}
+                    </h1>
+                    <h4 className='GroupDetails_Details_Location'>
+                        {`${group.singleGroup.city}, ${group.singleGroup.state}`}
                     </h4>
-                    <h4>
-                        {groupStatus}
-                    </h4>
-                </div>
-                <h4>
-                    {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
-                </h4>
-                <div className={joinGroup}>
-                    <button>
-                        Join this group
-                        {/* alert for no implementation */}
-                    </button>
-                </div>
-                <div className={options}>
-                    <NavLink to={`/groups/${groupId}/events/new`}>
-                        <button>
-                            Create event
-                        </button>
-                    </NavLink>
-                    <NavLink to={`/groups/${groupId}/edit`}>
-                        <button>
-                            Update
-                        </button>
-                    </NavLink>
-                    {/* <NavLink to='/test'>
-                    <button>
-                        Delete
-                        {/* it really needs a pop up and then redirect *}
-                    </button>
-                    </NavLink> */}
                     <div>
-                        <OpenModalDeleteGroupButton
-                            buttonText="Delete"
-                            modalComponent={<DeleteGroupModal groupId={groupId} />}
-                        />
+                        <h4>
+                            {`${totalNumberEvents} events`}
+                            {/* number of events */}
+                        </h4>
+                        <h4>
+                            {groupStatus}
+                        </h4>
+                        <h4>
+                            {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                        </h4>
+                    </div>
+                    <div className='displayFlex alignBottom justifyCenter  buttonHeight'>
+                        <div className={`${joinGroup} borderRed`}>
+                            <button>
+                                Join this group
+                                {/* alert for no implementation */}
+                            </button>
+                        </div>
+                        <div className={options}>
+                            <div className='borderRed displayFlex justifySpaceAround eventInfo'>
+                                <NavLink to={`/groups/${groupId}/events/new`}>
+                                    <button>
+                                        Create event
+                                    </button>
+                                </NavLink>
+                                <NavLink to={`/groups/${groupId}/edit`}>
+                                    <button>
+                                        Update
+                                    </button>
+                                </NavLink>
+                                <div>
+                                    <OpenModalDeleteGroupButton
+                                        buttonText="Delete"
+                                        modalComponent={<DeleteGroupModal groupId={groupId} />}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,7 +198,7 @@ function GroupDetails({ group, user, events, groupId }) {
                 <h2>
                     What we're about
                 </h2>
-                <p>
+                <p className='textWrap'>
                     {group.singleGroup.about}
                 </p>
             </div>
@@ -194,32 +208,44 @@ function GroupDetails({ group, user, events, groupId }) {
                 <h2>
                     Upcoming Events ({`${futureEvents.length}`})
                 </h2>
-                    {futureEvents.map(e =>
+                {futureEvents.map(e =>
+                    <div>
                         <div>
                             <div>
-                                <div>image</div>
-                                <div>
-                                    <h4>{e?.endDate}</h4>
-                                    <h4>{e?.name}</h4>
-                                    <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
-                                </div>
+                                <img
+                                    //group image
+                                    src={e.previewImage || imageData}
+                                    width='100%'
+                                />
                             </div>
                             <div>
-                                <p>{e?.description}</p>
+                                <h4>{e?.endDate}</h4>
+                                <h4>{e?.name}</h4>
+                                <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                             </div>
                         </div>
-                    )}
+                        <div>
+                            <p>{e?.description}</p>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <div className={showPastEvents}>
                 <h2>
-                <h2>
-                    Past Events ({`${pastEvents.length}`})
-                </h2>
+                    <h2>
+                        Past Events ({`${pastEvents.length}`})
+                    </h2>
                     {pastEvents.map(e =>
                         <div>
                             <div>
-                                <div>image</div>
+                                <div>
+                                <img
+                                    //group image
+                                    src={e.previewImage || imageData}
+                                    width='100%'
+                                />
+                                </div>
                                 <div>
                                     <h4>{e?.endDate}</h4>
                                     <h4>{e?.name}</h4>
