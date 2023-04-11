@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import './AllGroups.css';
 import { getAllGroups } from '../../store/groupsThunk';
 import EventsGroupsNav from "../EventsGroupsNav";
-import groupDividerImage from'../assets/Images/Daco_4730261.png';
+import groupDividerImage from '../assets/Images/Daco_4730261.png';
 
 export default function AllGroups() {
     const dispatch = useDispatch();
@@ -51,42 +51,46 @@ export default function AllGroups() {
             </div>
             {Object.keys(groups.allGroups).map(e =>
 
-                <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+                <div className='borderBlue displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='borderBlack displayFlex justifyCenter'>
-                    <img
-                        height='25%'
-                        width='25%'
-                        className='borderGreen'
-                        src={groupDividerImage}
+                        <img
+                            className='borderGreen'
+                            height='25%'
+                            width='25%'
+                            src={groupDividerImage}
                         />
                     </div>
-                    {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
-                    <div className='AllGroups_group borderBlack displayFlex justifyCenter'
-                        key={`AllGroups_group${groups.allGroups[e].id}`}
-                    >
-                        <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                            <img className='groupImage borderRed'
-                                //super cool!
-                                src={groups.allGroups[e].preivewImage || imageData}
-                            />
-                        </div>
-                        <div className='details borderRed groupInfo' key={`details_${groups.allGroups[e].name}`}>
-                            <h2 className='textWrap borderGreen'> {`${groups.allGroups[e].name}`}</h2>
-                            <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
-                            <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
+                    <div className='borderBlue displayFlex justifyCenter'>
+                        <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+                            {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
+                            <div className='AllGroups_group displayFlex justifyCenter mainText borderBlack'
+                                key={`AllGroups_group${groups.allGroups[e].id}`}
+                            >
+                                <div className='image' key={`groups${groups.allGroups[e].id}`}>
+                                    <img className='groupImage borderRed'
+                                        //super cool!
+                                        src={groups.allGroups[e].preivewImage || imageData}
+                                    />
+                                </div>
+                                <div className='details borderRed groupInfo' key={`details_${groups.allGroups[e].name}`}>
+                                    <h2 className='textWrap borderGreen'> {`${groups.allGroups[e].name}`}</h2>
+                                    <h4 className='textWrap borderGreen'> {`${groups.allGroups[e].city}, ${groups.allGroups[e].state}`}</h4>
+                                    <p className='textWrap borderGreen'>{`${groups.allGroups[e].about}`}</p>
 
-                            <div className='displayFlex eventsText'>
-                                <p className='borderGreen'>{groups.allGroups[e].events.length} events </p>
+                                    <div className='displayFlex eventsText'>
+                                        <p className='borderGreen'>{groups.allGroups[e].events.length} events </p>
 
-                                <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i>
-                                {/* <p className='borderGreen displayFlex alignCenter'>.</p> */}
-                                <p className='borderGreen'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
+                                        <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i>
+                                        {/* <p className='borderGreen displayFlex alignCenter'>.</p> */}
+                                        <p className='borderGreen'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                        </div>
+                        </NavLink>
                     </div>
-                </NavLink>
+                </div>
             )}
         </div>
     )

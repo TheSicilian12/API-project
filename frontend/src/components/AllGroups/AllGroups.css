@@ -10,6 +10,10 @@
     border: 5px solid red
 }
 
+.borderBlue {
+    border: 5px solid blue;
+}
+
 .displayFlex {
     display: flex;
 }
@@ -63,4 +67,8 @@
 
 .eventsText {
     font-size: 120%;
+}
+
+.cursorRollover {
+    cursor: pointer;
 }
