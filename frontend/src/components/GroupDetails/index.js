@@ -20,6 +20,8 @@ function GroupDetails({ group, user, events, groupId }) {
         return <div>loading</div>
     }
 
+    console.log('user: ', user)
+
     const totalNumberEvents = Object.values(events).length
 
     function organizeEventsByDate(eventsObj) {
@@ -115,6 +117,10 @@ function GroupDetails({ group, user, events, groupId }) {
             joinGroup = 'off'
             options = 'on'
         }
+    }
+
+    if (!user) {
+        joinGroup = 'off';
     }
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
@@ -230,7 +236,7 @@ function GroupDetails({ group, user, events, groupId }) {
                                     </div>
                                 </div>
                                 <div className='borderBlack'>
-                                    <p>{e?.description}</p>
+                                    <p className='textWrap'>{e?.description}</p>
                                 </div>
                             </div>
                         )}
