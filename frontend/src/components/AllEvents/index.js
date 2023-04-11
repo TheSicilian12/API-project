@@ -174,11 +174,6 @@ export default function AllEvents() {
                     </div>
                 )}
 
-
-
-
-
-
                 {/* {eventsArray[0].map(e => */}
                     {/* <NavLink to={`/events/${e.id}`}> */}
                         {/* <div key={`allEvents${e.id}`}> */}
