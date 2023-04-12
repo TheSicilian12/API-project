@@ -107,11 +107,23 @@ function EventDetails({ event, eventId, user }) {
                                 <div>
                                     <div className='displayFlex alignCenter borderGreen'>
                                         <i class="fa-regular fa-clock style=color: #000000;"></i>
-                                        <h4>START {event?.startDate}</h4>
+                                        <h4>START</h4>
+
+                                            {/* date */}
+                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.startDate).toUTCString().split(' ')[2]} {new Date(event?.startDate).toUTCString().split(' ')[1]}, {new Date(event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                            <h4 className='dotSpacing'>•</h4>
+                                            {/* military time */}
+                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[4]}</h4>}
+
                                     </div>
                                     <div  className='displayFlex alignCenter borderGreen'>
                                         <i class="fa-regular fa-clock style=color: #000000;"></i>
-                                        <h4>END {event?.endDate}</h4>
+                                        <h4>END</h4>
+                                         {/* date */}
+                                         {<h4>{new Date(event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.endDate).toUTCString().split(' ')[2]} {new Date(event?.endDate).toUTCString().split(' ')[1]}, {new Date(event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                            <h4 className='dotSpacing'>•</h4>
+                                            {/* military time */}
+                                            {<h4>{new Date(event?.endDate).toUTCString().split(' ')[4]}</h4>}
                                     </div>
                                 </div>
                                 <div className='displayFlex alignCenter borderGreen'>
