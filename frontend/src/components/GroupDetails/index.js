@@ -70,7 +70,7 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('futureEvents: ', futureEvents)
 
-    console.log('eventsArray: ', eventsArray)
+    // console.log('eventsArray: ', eventsArray)
 
     let showPastEvents = 'off';
     let showFutureEvents = 'off';
@@ -92,17 +92,37 @@ function GroupDetails({ group, user, events, groupId }) {
     function isEventFuture(eventEndDate) {
         //returns true if date is today or in the future.
         //false if not
-        const today = new Date();
-        const day = today.getDate();
-        const month = today.getMonth();
-        const year = today.getFullYear();
-        const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+        console.log('eventEndDate: ', eventEndDate)
+        console.log('parse end date: ', Date.parse(eventEndDate))
+
+        const todayParse = Date.parse(new Date());
+
+        // const today = new Date();
+        // const day = today.getDate();
+        // const month = today.getMonth();
+        // const year = today.getFullYear();
+        // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+
+        // console.log('today: ', today)
+        // console.log('today parse: ', Date.parse(today))
+
 
         const eventEndDateParse = Date.parse(eventEndDate)
 
-        return eventEndDateParse >= todayDateParse;
+        return eventEndDateParse >= todayParse;
     }
     // console.log('isDate: ', isDateValid('2023-02-17'))
+
+
+
+    //difference confirmed
+    // console.log('test----------------')
+    // console.log('date 1: 2020-04-04')
+    // console.log('date 1 parse: ', Date.parse('2020-04-04'))
+    // console.log('date 2: 2020-04-04T04:36:00.000Z')
+    // console.log('date 2 parse: ', Date.parse('2020-04-04T04:36:00.000Z'))
 
 
     //determine the userStatus / display
@@ -126,7 +146,7 @@ function GroupDetails({ group, user, events, groupId }) {
         joinGroup = true;
     }
 
-    console.log('joinGroup: ', joinGroup)
+    // console.log('joinGroup: ', joinGroup)
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
