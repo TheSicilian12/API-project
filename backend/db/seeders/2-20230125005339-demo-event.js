@@ -29,8 +29,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: '2023-04-01 04:30:00',
-        endDate: '2023-04-01 04:30:00'
+        startDate: '2023-04-01 01:00:00',
+        endDate: '2023-04-01 02:30:00'
       },
       {
         venueId: 1,
@@ -40,8 +40,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: '2020-04-01 04:30:00',
-        endDate: '2020-04-01 04:30:00'
+        startDate: '2023-04-01 01:00:00',
+        endDate: '2023-04-01 02:00:00'
       },
       {
         venueId: 1,
@@ -51,8 +51,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: '1999-04-01 04:30:00',
-        endDate: '1999-04-01 04:30:00'
+        startDate: '1999-04-01 01:30:00',
+        endDate: '1999-04-01 012:30:00'
       },
       {
         venueId: 2,
@@ -62,8 +62,8 @@ module.exports = {
         type: "In Person",
         capacity: 2,
         price: 1000,
-        startDate: "2023-04-01 04:30:00",
-        endDate: "2023-04-01 04:30:00"
+        startDate: "2023-04-01 01:30:00",
+        endDate: "2023-04-01 23:30:00"
       },
       {
         venueId: 3,
@@ -73,8 +73,8 @@ module.exports = {
         type: "Online",
         capacity: 100,
         price: 50,
-        startDate: "2023-04-02 04:30:00",
-        endDate: "2023-04-02 04:30:00"
+        startDate: "2023-04-02 05:30:00",
+        endDate: "2023-04-02 06:30:00"
       },
       {
         venueId: 4,
@@ -84,8 +84,8 @@ module.exports = {
         type: "In Person",
         capacity: 5,
         price: 10,
-        startDate: "2023-04-03 04:30:00",
-        endDate: "2023-04-03 04:30:00"
+        startDate: "2023-04-03 18:30:00",
+        endDate: "2023-04-03 19:30:00"
       },
       {
         venueId: 4,
@@ -95,8 +95,8 @@ module.exports = {
         type: "Online",
         capacity: 5,
         price: 10,
-        startDate: "2023-04-04 04:30:00",
-        endDate: "2023-04-04 04:30:00"
+        startDate: "2023-04-04 10:00:00",
+        endDate: "2023-04-04 11:25:00"
       },
       {
         venueId: 1,
@@ -107,7 +107,7 @@ module.exports = {
         capacity: 10,
         price: 100,
         startDate: "2023-04-03 04:30:00",
-        endDate: "2023-04-03 04:30:00"
+        endDate: "2023-04-03 04:36:00"
       },
       {
         venueId: 2,
@@ -117,8 +117,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-05 04:30:00",
-        endDate: "2023-04-05 04:30:00"
+        startDate: "2023-04-05 03:30:00",
+        endDate: "2023-04-05 19:02:00"
       },
       {
         groupId: 1,
@@ -127,8 +127,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 08:30:00",
+        endDate: "2023-04-30 18:40:00"
       },
       {
         groupId: 8,
@@ -137,8 +137,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 04:40:00",
+        endDate: "2023-04-30 05:44:00"
       },
       {
         groupId: 10,
@@ -147,8 +147,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 10:30:00",
+        endDate: "2023-04-30 20:30:00"
       },
       {
         groupId: 9,
@@ -157,8 +157,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 20:30:00",
+        endDate: "2023-04-30 23:59:00"
       },
       {
         venueId: 6,
@@ -168,8 +168,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 13:30:00",
+        endDate: "2023-04-30 14:45:00"
       },
       {
         venueId: 6,
@@ -179,8 +179,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 15:30:00",
+        endDate: "2023-04-30 16:00:00"
       },
       {
         venueId: 6,
@@ -190,8 +190,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 00:30:00",
+        endDate: "2023-04-30 01:30:00"
       },
       {
         groupId: 10,
@@ -201,7 +201,7 @@ module.exports = {
         capacity: 10,
         price: 100,
         startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        endDate: "2023-04-30 14:29:00"
       },
       {
         groupId: 10,
@@ -210,8 +210,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 06:30:00",
+        endDate: "2023-04-30 08:32:00"
       },
       {
         groupId: 10,
@@ -221,7 +221,7 @@ module.exports = {
         capacity: 10,
         price: 100,
         startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        endDate: "2023-04-30 07:40:00"
       },
       {
         groupId: 9,
@@ -231,7 +231,7 @@ module.exports = {
         capacity: 10,
         price: 100,
         startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        endDate: "2023-04-30 08:30:00"
       },
       {
         groupId: 9,
@@ -240,8 +240,8 @@ module.exports = {
         type: "Online",
         capacity: 10,
         price: 100,
-        startDate: "2023-04-30 04:30:00",
-        endDate: "2023-04-30 04:30:00"
+        startDate: "2023-04-30 09:30:00",
+        endDate: "2023-04-30 12:30:00"
       }
     ], {})
   },
