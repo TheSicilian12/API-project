@@ -46,10 +46,10 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       startDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       endDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
