@@ -10,11 +10,17 @@ import formDividerImage from '../assets/Images/Daco_4730261.png';
 
 function GroupForm({ currentGroup, formType }) {
     const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
+    const [displayLocErr, setDisplayLocErr] = useSelector(false);
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
+    const [displayGroupNameErr, setDisplayGroupNameErr] = useSelector(false);
     const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
+    const [displayGroupAboutErr, setDisplayGroupAboutErr] = useSelector(false);
     const [groupMeetingType, setGroupMeetingType] = useState(currentGroup.id ? currentGroup.type : '(select one)');
+    const [displayGroupMeetingTypeErr, setDisplayGroupMeetingTypeErr] = useSelector(false);
     const [groupStatus, setGroupStatus] = useState(currentGroup.id ? currentGroup.private : '(select one)');
+    const [displayGroupStatusErr, setDisplayGroupStatusErr] = useSelector(false);
     const [groupImage, setGroupImage] = useState('');
+    const [displayGroupImageErr, setDisplayGroupImageErr] = useSelector(false);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
