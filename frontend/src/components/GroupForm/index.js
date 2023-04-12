@@ -148,7 +148,7 @@ function GroupForm({ currentGroup, formType }) {
             <div>
                 {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
                 <h3 className={newForm}>Start a New Group</h3>
-                <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
+                <h3 className={editForm}>Update your Group</h3>
                 <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                 <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
             </div>
