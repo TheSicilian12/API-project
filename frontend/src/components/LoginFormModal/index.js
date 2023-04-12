@@ -31,7 +31,7 @@ function LoginFormModal() {
   };
 
   // console.log('submitted: ', submitted)
-  console.log('displayCredError: ', displayCredErr)
+  // console.log('displayCredError: ', displayCredErr)
 
   let err = {}
   // if (submitted) {
