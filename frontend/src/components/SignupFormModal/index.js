@@ -39,12 +39,16 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form
+        className='displayFlex flex-directionColumn'
+        onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <label>
-          Email
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Email
+          </label>
           <input
             placeholder='Email'
             type="text"
@@ -52,9 +56,11 @@ function SignupFormModal() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Username
+        </div>
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Username
+          </label>
           <input
             placeholder='Username'
             type="text"
@@ -62,9 +68,11 @@ function SignupFormModal() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
-          First Name
+        </div>
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            First Name
+          </label>
           <input
             placeholder='First Name'
             type="text"
@@ -72,9 +80,11 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Last Name
+        </div>
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Last Name
+          </label>
           <input
             placeholder='Last Name'
             type="text"
@@ -82,9 +92,11 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Password
+          </label>
           <input
             placeholder='Password'
             type="password"
@@ -92,9 +104,11 @@ function SignupFormModal() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Confirm Password
+        </div>
+        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Confirm Password
+          </label>
           <input
             placeholder='Confirm Password'
             type="password"
@@ -102,7 +116,7 @@ function SignupFormModal() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
+        </div>
         <button type="submit">Sign Up</button>
       </form>
     </>
