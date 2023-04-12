@@ -62,7 +62,6 @@ function SignupFormModal() {
     err.email = 'Please enter an email.'
   }
 
-
   // console.log('errors: ', errors)
   return (
     <>
