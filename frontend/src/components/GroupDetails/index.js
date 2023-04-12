@@ -172,6 +172,7 @@ function GroupDetails({ group, user, events, groupId }) {
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
                         <div className={`${displayJoinGroup} borderRed`}>
                             <button
+                            onClick={() => alert('Feature coming soon')}
                             disabled={`${joinGroup}` === 'true' ? true : false}
                             >
                                 Join this group
