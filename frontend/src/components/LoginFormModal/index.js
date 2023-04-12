@@ -41,11 +41,6 @@ function LoginFormModal() {
     if (password.length < 6) {
       err.password = 'Make sure your password is 6+ characters'
     }
-  // }
-
-  // if (Object.values(err).length > 0) {
-  //   setErrors(err)
-  // }
 
   return (
     <>
