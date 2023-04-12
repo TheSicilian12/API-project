@@ -47,7 +47,6 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu} className='squareFavicon positionAbsolute'>
-        {/* <i className="fas fa-user-circle fa-2xl" /> */}
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
         {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
