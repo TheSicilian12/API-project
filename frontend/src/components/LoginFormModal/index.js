@@ -34,25 +34,42 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        <div className='space'>
+          <div className='displayFlex justifySpaceBetween'>
+
+            <label className=''>
+              Username or Email
+            </label>
+            <input
+              className=''
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </div>
+          <div className='space paddingTop'>
+            <div className='displayFlex justifySpaceBetween'>
+              <label>
+                Password
+              </label>
+              <input
+                className=''
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div className='paddingTop displayFlex justifyCenter'>
+          <button
+            className='width'
+            type="submit">
+            Log In
+          </button>
+        </div>
       </form>
     </>
   );
