@@ -8,19 +8,19 @@ import groupImage from '../assets/Images/favpng_marceline-the-vampire-queen-jake
 
 function SeeAllGroups() {
     return (
+        <NavLink className='landingPage_groups_mainText' to='/groups'>
             <div className='landingPage_groups displayFlex flex-directionColumn alignCenter borderBlack'>
                 <img className='borderRed'
-                        src={groupImage}
-                        alt="test image"
-                        width='50%'
-                        />
-                <NavLink className='landingPage_groups_mainText' to='/groups'>
+                    src={groupImage}
+                    alt="test image"
+                    width='50%'
+                />
                 See all groups
-                </NavLink>
                 <p className='landingPage_groups_additionalText'>
-                additional text
+                    additional text
                 </p>
             </div>
+        </NavLink>
     )
 }
 

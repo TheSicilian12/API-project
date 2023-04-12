@@ -11,11 +11,15 @@
 }
 
 .borderBlue {
-    border: 5px solid greenyellow
+    border: 5px solid blue
 }
 
 .borderRed {
     border: 5px solid red
+}
+
+.borderPurple {
+    border: 5px solid purple;
 }
 
 .displayFlex {
@@ -78,6 +82,14 @@
 
 .paddingProfileDropDown {
     padding-right: 1.5rem;
+}
+
+.paddingRight {
+    padding-right: 4rem;
+}
+
+.paddingRightStartNewGroup {
+    padding-right: 3rem;
 }
 
 .squareFavicon {

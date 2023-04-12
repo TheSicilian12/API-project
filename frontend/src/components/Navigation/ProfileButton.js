@@ -45,15 +45,18 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu} className='squareFavicon positionAbsolute'>
+    <div className='borderBlue'>
+      <button onClick={openMenu} className='borderRed displayFlex alignCenter justifyCenter squareFavicon'>
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
         {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
         </button>
+
+
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
+
         {user ? (
-          <div className='displayFlex alignCenter squareLogSign flex-directionColumn alignCenter width'>
+          <div className='displayFlex flex-directionColumn alignCenter'>
             <ul>{user.username}</ul>
             <ul>{`Hello, ${user.firstName}`}</ul>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}
@@ -66,7 +69,9 @@ function ProfileButton({ user }) {
           </div>
         ) : (
           <div className='displayFlex flex-directionColumn alignCenter '>
-            <ul className='displayFlex marginBottom'>
+
+            <ul className='displayFlex'>
+
               <OpenModalButton
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
@@ -81,7 +86,7 @@ function ProfileButton({ user }) {
           </div>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
