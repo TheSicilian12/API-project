@@ -5,3 +5,71 @@ form {
   label {
     border: 2px solid pink;
   }
+
+  .borderBlack {
+    border: 2px solid black;
+}
+
+.borderGreen {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.borderBlue {
+    border: 5px solid blue;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.justifyEnd {
+    justify-content: end;
+}
+
+.justifySpaceBetween {
+  justify-content: space-between;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.alignBottom {
+    align-items: flex-end;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+.paddingTop {
+  padding-top: 1rem;
+}
+
+.paddingRight {
+  padding-right: 1rem;
+}
+
+.space {
+  width: 20rem;
+}
+
+.flexGrow {
+  flex-grow: 1
+}
+
+.width {
+  width: 50%;
+}
