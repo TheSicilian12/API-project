@@ -258,7 +258,12 @@ function GroupDetails({ group, user, events, groupId }) {
                                         width='300rem'
                                     />
                                     <div className='infoEventSpacing'>
-                                        <h4>{e?.endDate}</h4>
+                                        <h4>{e?.startDate}</h4>
+                                        {/* month / day / year */}
+                                        {/* {<h4>{e?.startDate.split('T')[0].split('-')[1]} / {e?.startDate.split('T')[0].split('-')[2]} / {e?.startDate.split('T')[0].split('-')[0]}</h4>} */}
+                                        {/* {<h4>{e?.startDate.split('T')[1]}</h4>} */}
+                                        {/* mdn docs Date.prototype.toJSON() */}
+                                        {<h4>{new Date(e?.startDate).toUTCString()}</h4>}
                                         <h4 className='textWrap'>{e?.name}</h4>
                                         <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                                     </div>
