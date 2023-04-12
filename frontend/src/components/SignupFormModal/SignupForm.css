@@ -10,8 +10,12 @@ form {
     border: 2px solid black;
 }
 
+.borderGreen {
+    border: 2px solid green;
+}
+
 .borderBlue {
-    border: 5px solid greenyellow
+    border: 5px solid blue
 }
 
 .borderRed {
@@ -100,8 +104,12 @@ form {
     color: black
 }
 
-.width {
+.formWidth {
     width: 20rem;
+}
+
+.buttonWidth {
+    width: 15rem;
 }
 
 .marginBottom {

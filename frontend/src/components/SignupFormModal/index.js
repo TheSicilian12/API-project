@@ -40,12 +40,12 @@ function SignupFormModal() {
     <>
       <h1>Sign Up</h1>
       <form
-        className='displayFlex flex-directionColumn'
+        className='formWidth'
         onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Email
           </label>
@@ -57,7 +57,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Username
           </label>
@@ -69,7 +69,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             First Name
           </label>
@@ -81,7 +81,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Last Name
           </label>
@@ -93,7 +93,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Password
           </label>
@@ -105,7 +105,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        <div className='borderGreen displayFlex width justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Confirm Password
           </label>
@@ -117,7 +117,14 @@ function SignupFormModal() {
             required
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <div className='displayFlex justifyCenter'>
+          <button
+            className='buttonWidth'
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </>
   );
