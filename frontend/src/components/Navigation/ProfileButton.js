@@ -65,7 +65,7 @@ function ProfileButton({ user }) {
             <Link to='/events'>View Events</Link>
           </div>
         ) : (
-          <div className='displayFlex positionStickyalignCenter squareLogSign flex-directionRow alignCenter width'>
+          <div className='displayFlex flex-directionColumn alignCenter '>
             <ul className='displayFlex marginBottom'>
               <OpenModalButton
                 buttonText="Log In"
