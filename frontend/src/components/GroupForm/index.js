@@ -102,7 +102,6 @@ function GroupForm({ currentGroup, formType }) {
             if (updateGroup) {
                 history.push(`/groups/${currentGroup.id}`)
             }
-
         }
     }
 
