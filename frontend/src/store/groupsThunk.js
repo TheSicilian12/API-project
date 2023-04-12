@@ -166,7 +166,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     //     newGroupObj.private = false;
     // }
 
-    // console.log('object: ', newGroupObj)
+    console.log('object: ', newGroupObj)
     // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
