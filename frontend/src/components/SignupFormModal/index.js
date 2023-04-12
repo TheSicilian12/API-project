@@ -52,6 +52,15 @@ function SignupFormModal() {
   if (confirmPassword !== password) {
     err.confirmPassword = 'Your confirmation does not match your password.'
   }
+  if (!firstName) {
+    err.firstName = 'Please enter your first name.'
+  }
+  if (!lastName) {
+    err.lastName = 'Please enter your last name.'
+  }
+  if (!email) {
+    err.email = 'Please enter an email.'
+  }
 
 
   // console.log('errors: ', errors)
@@ -79,6 +88,7 @@ function SignupFormModal() {
             required
           />
         </div>
+        {displayEmailErr && <p>{err.email}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Username
@@ -110,6 +120,7 @@ function SignupFormModal() {
             required
           />
         </div>
+        {displayFirstNameErr&& <p>{err.firstName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Last Name
@@ -125,6 +136,7 @@ function SignupFormModal() {
             required
           />
         </div>
+        {displayLastNameErr && <p>{err.lastName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Password
