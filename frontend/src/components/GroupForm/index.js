@@ -106,6 +106,7 @@ function GroupForm({ currentGroup, formType }) {
 
             let updateGroup
             if (formType === 'edit') {
+                console.log('form type edit')
                 payload.groupId = currentGroup.id
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
