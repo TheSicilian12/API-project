@@ -24,8 +24,16 @@ function GroupForm({ currentGroup, formType }) {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector((state) => state.session.user)
 
     // console.log('initial meetingStatus: ', typeof groupStatus)
+
+    console.log('user: ', user)
+    // console.log('currentGroup: ', currentGroup)
+
+    if (!user || user.id !== currentGroup.organizerId) {
+        history.push('/')
+    }
 
     let editForm = 'off';
     let newForm = 'off';
