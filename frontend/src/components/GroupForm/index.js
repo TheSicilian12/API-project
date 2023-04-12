@@ -111,6 +111,38 @@ function GroupForm({ currentGroup, formType }) {
         }
     }
 
+    let err = {};
+    if (!location) {
+        err.location = 'Location is required (Enter as "City, State")'
+    }
+    if (location.split(',').length !== 2) {
+        err.location = 'Location is required  (Enter as "City, State")'
+    }
+    if (!groupName) {
+        err.name = 'Name is required'
+    }
+    if (groupAbout.length < 30) {
+        err.about = 'Description must be at least 30 characters long'
+    }
+    // console.log('groupImage: ', groupImage)
+    if (formType === 'new' || groupImage) {
+        let imageCheckArr = groupImage.split('.')
+        let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
+        if (imageCheckVal !== 'png' &&
+            imageCheckVal !== 'jpg' &&
+            imageCheckVal !== 'jpeg') {
+            err.image = 'Image URL must end in .png, .jpg, or .jpeg'
+        }
+    }
+    if (groupMeetingType !== 'In person' &&
+        groupMeetingType !== 'Online') {
+        err.meetingType = 'Group Type is required';
+    }
+    if (groupStatus === '(select one)') {
+        err.groupStatus = 'Visibility Type is required'
+    }
+
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -137,7 +169,7 @@ function GroupForm({ currentGroup, formType }) {
                         setDisplayLocErr(true)
                     }}
                 ></input>
-                <p className='error'>{errors.location}</p>
+                {displayLocErr && <p className='error'>{err.location}</p>}
             </div>
             <img
                 width='25%'
@@ -163,7 +195,7 @@ function GroupForm({ currentGroup, formType }) {
                         setDisplayGroupNameErr(true)
                     }}
                 ></input>
-                <p className='error'>{errors.name}</p>
+                {displayGroupNameErr && <p className='error'>{err.name}</p>}
             </div>
             <img
                 width='25%'
@@ -190,7 +222,7 @@ function GroupForm({ currentGroup, formType }) {
                         setDisplayGroupAboutErr(true)
                     }}
                 ></textarea>
-                <p className='error'>{errors.about}</p>
+                {displayGroupAboutErr && <p className='error'>{err.about}</p>}
             </div>
             <img
                 width='25%'
@@ -201,72 +233,82 @@ function GroupForm({ currentGroup, formType }) {
                 <h2>
                     Final steps...
                 </h2>
-                <label>
-                    Is this an in person or online group?
-                </label>
-                <select
-                    onChange={(e) => {
-                        setGroupMeetingType(e.target.value)
-                        setDisplayGroupMeetingTypeErr(true)
-                    }}
-                    value={groupMeetingType}
-                >
-                    <option>(select one)</option>
-                    <option value='In person'>In Person</option>
-                    <option value='Online'>Online</option>
-                </select>
-                <p className='error'>{errors.meetingType}</p>
-                <label>
-                    Is this group private or public?
-                </label>
-                <select
-                    onChange={(e) => {
-                        setGroupStatus(e.target.value)
-                        setDisplayGroupStatusErr(true)
-                    }}
-                    value={groupStatus}
-                >
-                    <option>(select one)</option>
-                    <option
-                        value={true}
-                        checked={groupStatus === true}
-                        onChange={() => setGroupStatus(true)}
-                    >Private</option>
-                    <option
-                        value={false}
-                        checked={groupStatus === false}
-                        onChange={() => setGroupStatus(false)}
-                    >Public</option>
-                </select>
-                <p className='error'>{errors.groupStatus}</p>
-                <div className={newForm}>
-
-                    <label>
-                        Please add an image url for your group below:
-                    </label>
-                    <input
-                        type='text'
-                        placeholder='Image Url'
-                        value={groupImage}
-                        onChange={(e) => {
-                            setGroupImage(e.target.value)
-                            setDisplayGroupImageErr(true)
-                        }}
-                    ></input>
-                    <p className='error'>{errors.image}</p>
-                    {/* possibly need to adjust the input type for image */}
+                <div className='displayFlex flex-directionColumn'>
+                    <div className='displayFlex'>
+                        <label for='meetingType'>
+                            Is this an in person or online group?
+                        </label>
+                        <select
+                            name='meetingType'
+                            onChange={(e) => {
+                                setGroupMeetingType(e.target.value)
+                                setDisplayGroupMeetingTypeErr(true)
+                            }}
+                            value={groupMeetingType}
+                        >
+                            <option>(select one)</option>
+                            <option value='In person'>In Person</option>
+                            <option value='Online'>Online</option>
+                        </select>
+                    </div>
+                    {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
+                    <div className='displayFlex flex-directionColumn'>
+                        <div className='displayFlex'>
+                            <label>
+                                Is this group private or public?
+                            </label>
+                            <select
+                                onChange={(e) => {
+                                    setGroupStatus(e.target.value)
+                                    setDisplayGroupStatusErr(true)
+                                }}
+                                value={groupStatus}
+                            >
+                                <option>(select one)</option>
+                                <option
+                                    value={true}
+                                    checked={groupStatus === true}
+                                    onChange={() => setGroupStatus(true)}
+                                >Private</option>
+                                <option
+                                    value={false}
+                                    checked={groupStatus === false}
+                                    onChange={() => setGroupStatus(false)}
+                                >Public</option>
+                            </select>
+                        </div>
+                    </div>
+                    {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
+                    <div className={newForm}>
+                        <label>
+                            Please add an image url for your group below:
+                        </label>
+                        <input
+                            type='text'
+                            placeholder='Image Url'
+                            value={groupImage}
+                            onChange={(e) => {
+                                setGroupImage(e.target.value)
+                                setDisplayGroupImageErr(true)
+                            }}
+                        ></input>
+                        {displayGroupImageErr && <p className='error'>{err.image}</p>}
+                        {/* possibly need to adjust the input type for image */}
+                    </div>
                 </div>
             </div>
             <div>
                 <button
                     type='submit'
                     className={newForm}
+                    disabled={Object.values(err).length > 0}
                 >
                     Create Group
                 </button>
                 <button
                     type='submit'
                     className={editForm}
+                    disabled={Object.values(err).length > 0}
                 >
                     Update Group
                 </button>
