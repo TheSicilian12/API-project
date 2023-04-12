@@ -36,10 +36,10 @@ function GroupForm({ currentGroup, formType }) {
 
         const errors = {};
         if (!location) {
-            errors.location = 'Location is required'
+            errors.location = 'Location is required (Enter as "City, State")'
         }
         if (location.split(',').length !== 2) {
-            errors.location = 'Location is required'
+            errors.location = 'Location is required  (Enter as "City, State")'
         }
         if (!groupName) {
             errors.name = 'Name is required'
@@ -132,7 +132,10 @@ function GroupForm({ currentGroup, formType }) {
                     type='text'
                     placeholder='City, STATE'
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => {
+                        setLocation(e.target.value)
+                        setDisplayLocErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.location}</p>
             </div>
@@ -155,7 +158,10 @@ function GroupForm({ currentGroup, formType }) {
                     type='text'
                     placeholder='What is your group name?'
                     value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
+                    onChange={(e) => {
+                        setGroupName(e.target.value)
+                        setDisplayGroupNameErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.name}</p>
             </div>
@@ -179,7 +185,10 @@ function GroupForm({ currentGroup, formType }) {
                 <textarea
                     placeholder='Please write at least 30 characters'
                     value={groupAbout}
-                    onChange={(e) => setGroupAbout(e.target.value)}
+                    onChange={(e) => {
+                        setGroupAbout(e.target.value)
+                        setDisplayGroupAboutErr(true)
+                    }}
                 ></textarea>
                 <p className='error'>{errors.about}</p>
             </div>
@@ -196,7 +205,10 @@ function GroupForm({ currentGroup, formType }) {
                     Is this an in person or online group?
                 </label>
                 <select
-                    onChange={(e) => setGroupMeetingType(e.target.value)}
+                    onChange={(e) => {
+                        setGroupMeetingType(e.target.value)
+                        setDisplayGroupMeetingTypeErr(true)
+                    }}
                     value={groupMeetingType}
                 >
                     <option>(select one)</option>
@@ -208,7 +220,10 @@ function GroupForm({ currentGroup, formType }) {
                     Is this group private or public?
                 </label>
                 <select
-                    onChange={(e) => setGroupStatus(e.target.value)}
+                    onChange={(e) => {
+                        setGroupStatus(e.target.value)
+                        setDisplayGroupStatusErr(true)
+                    }}
                     value={groupStatus}
                 >
                     <option>(select one)</option>
@@ -233,7 +248,10 @@ function GroupForm({ currentGroup, formType }) {
                         type='text'
                         placeholder='Image Url'
                         value={groupImage}
-                        onChange={(e) => setGroupImage(e.target.value)}
+                        onChange={(e) => {
+                            setGroupImage(e.target.value)
+                            setDisplayGroupImageErr(true)
+                        }}
                     ></input>
                     <p className='error'>{errors.image}</p>
                     {/* possibly need to adjust the input type for image */}
