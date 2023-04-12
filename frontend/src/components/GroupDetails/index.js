@@ -248,7 +248,7 @@ function GroupDetails({ group, user, events, groupId }) {
                             Upcoming Events ({`${futureEvents.length}`})
                         </h2>
                         {futureEvents.map(e =>
-                            <div className='borderRed'>
+                            <div className='borderRed pointerCursor'>
                                 <div className='borderGreen displayFlex'>
 
                                     <img
@@ -292,7 +292,7 @@ function GroupDetails({ group, user, events, groupId }) {
                                 Past Events ({`${pastEvents.length}`})
                             </h2>
                             {pastEvents.map(e =>
-                                <div className='borderRed'>
+                                <div className='borderRed pointerCursor'>
                                     <div className='borderGreen displayFlex'>
 
                                         <img
