@@ -4,11 +4,11 @@ import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
-import {EditWrapper} from './editWrapper';
+import { EditWrapper } from './editWrapper';
 import formDividerImage from '../assets/Images/Daco_4730261.png';
 
 
-function GroupForm({currentGroup, formType}) {
+function GroupForm({ currentGroup, formType }) {
     const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
     const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
@@ -108,7 +108,7 @@ function GroupForm({currentGroup, formType}) {
 
     return (
         <form onSubmit={handleSubmit}>
-             <div>
+            <div>
                 {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
                 <h3 className={newForm}>Start a New Group</h3>
                 <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
@@ -120,8 +120,8 @@ function GroupForm({currentGroup, formType}) {
                     Set your group's location
                 </h2>
                 <p>
-                AdventureUp groups meet locally, in person, and online.
-                We'll connect you with people in your area.
+                    AdventureUp groups meet locally, in person, and online.
+                    We'll connect you with people in your area.
                 </p>
                 <input
                     type='text'
@@ -154,9 +154,14 @@ function GroupForm({currentGroup, formType}) {
                 ></input>
                 <p className='error'>{errors.name}</p>
             </div>
-           <div>
+            <img
+                width='25%'
+                // height='10%'
+                src={formDividerImage}
+            />
+            <div>
                 <h2>
-                    Now describe what your group will be about
+                    Describe the purpose of your group
                 </h2>
                 <p>
                     People will see this when we promote your group, but you'll be able to add to it later, too.
@@ -173,13 +178,18 @@ function GroupForm({currentGroup, formType}) {
                 ></textarea>
                 <p className='error'>{errors.about}</p>
             </div>
+            <img
+                width='25%'
+                // height='10%'
+                src={formDividerImage}
+            />
             <div>
                 <h2>
                     Final steps...
                 </h2>
-                <p>
+                <label>
                     Is this an in person or online group?
-                </p>
+                </label>
                 <select
                     onChange={(e) => setGroupMeetingType(e.target.value)}
                     value={groupMeetingType}
@@ -189,9 +199,9 @@ function GroupForm({currentGroup, formType}) {
                     <option value='Online'>Online</option>
                 </select>
                 <p className='error'>{errors.meetingType}</p>
-                <p>
+                <label>
                     Is this group private or public?
-                </p>
+                </label>
                 <select
                     onChange={(e) => setGroupStatus(e.target.value)}
                     value={groupStatus}
@@ -211,17 +221,17 @@ function GroupForm({currentGroup, formType}) {
                 <p className='error'>{errors.groupStatus}</p>
                 <div className={newForm}>
 
-                <p>
-                    Please add an image url for your group below:
-                </p>
-                <input
-                    type='text'
-                    placeholder='Image Url'
-                    value={groupImage}
-                    onChange={(e) => setGroupImage(e.target.value)}
+                    <label>
+                        Please add an image url for your group below:
+                    </label>
+                    <input
+                        type='text'
+                        placeholder='Image Url'
+                        value={groupImage}
+                        onChange={(e) => setGroupImage(e.target.value)}
                     ></input>
-                <p className='error'>{errors.image}</p>
-                {/* possibly need to adjust the input type for image */}
+                    <p className='error'>{errors.image}</p>
+                    {/* possibly need to adjust the input type for image */}
                 </div>
             </div>
             <div>
@@ -229,13 +239,13 @@ function GroupForm({currentGroup, formType}) {
                     type='submit'
                     className={newForm}
                 >
-                    Create group
+                    Create Group
                 </button>
                 <button
                     type='submit'
                     className={editForm}
                 >
-                    Update group
+                    Update Group
                 </button>
             </div>
         </form>
