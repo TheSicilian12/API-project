@@ -98,8 +98,9 @@ function LoginFormModal() {
             Log In
           </button>
         </div>
-        <div>
+        <div className='paddingTop displayFlex justifyCenter'>
           <button
+          className='width'
           onClick={() => {
             setCredential('demo-user@user.io')
             setPassword('password')
