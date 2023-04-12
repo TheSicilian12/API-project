@@ -233,72 +233,82 @@ function GroupForm({ currentGroup, formType }) {
                 <h2>
                     Final steps...
                 </h2>
-                <label>
-                    Is this an in person or online group?
-                </label>
-                <select
-                    onChange={(e) => {
-                        setGroupMeetingType(e.target.value)
-                        setDisplayGroupMeetingTypeErr(true)
-                    }}
-                    value={groupMeetingType}
-                >
-                    <option>(select one)</option>
-                    <option value='In person'>In Person</option>
-                    <option value='Online'>Online</option>
-                </select>
-                {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
-                <label>
-                    Is this group private or public?
-                </label>
-                <select
-                    onChange={(e) => {
-                        setGroupStatus(e.target.value)
-                        setDisplayGroupStatusErr(true)
-                    }}
-                    value={groupStatus}
-                >
-                    <option>(select one)</option>
-                    <option
-                        value={true}
-                        checked={groupStatus === true}
-                        onChange={() => setGroupStatus(true)}
-                    >Private</option>
-                    <option
-                        value={false}
-                        checked={groupStatus === false}
-                        onChange={() => setGroupStatus(false)}
-                    >Public</option>
-                </select>
-                {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
-                <div className={newForm}>
-
-                    <label>
-                        Please add an image url for your group below:
-                    </label>
-                    <input
-                        type='text'
-                        placeholder='Image Url'
-                        value={groupImage}
-                        onChange={(e) => {
-                            setGroupImage(e.target.value)
-                            setDisplayGroupImageErr(true)
-                        }}
-                    ></input>
-                    {displayGroupImageErr && <p className='error'>{err.image}</p>}
-                    {/* possibly need to adjust the input type for image */}
+                <div className='displayFlex flex-directionColumn'>
+                    <div className='displayFlex'>
+                        <label for='meetingType'>
+                            Is this an in person or online group?
+                        </label>
+                        <select
+                            name='meetingType'
+                            onChange={(e) => {
+                                setGroupMeetingType(e.target.value)
+                                setDisplayGroupMeetingTypeErr(true)
+                            }}
+                            value={groupMeetingType}
+                        >
+                            <option>(select one)</option>
+                            <option value='In person'>In Person</option>
+                            <option value='Online'>Online</option>
+                        </select>
+                    </div>
+                    {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
+                    <div className='displayFlex flex-directionColumn'>
+                        <div className='displayFlex'>
+                            <label>
+                                Is this group private or public?
+                            </label>
+                            <select
+                                onChange={(e) => {
+                                    setGroupStatus(e.target.value)
+                                    setDisplayGroupStatusErr(true)
+                                }}
+                                value={groupStatus}
+                            >
+                                <option>(select one)</option>
+                                <option
+                                    value={true}
+                                    checked={groupStatus === true}
+                                    onChange={() => setGroupStatus(true)}
+                                >Private</option>
+                                <option
+                                    value={false}
+                                    checked={groupStatus === false}
+                                    onChange={() => setGroupStatus(false)}
+                                >Public</option>
+                            </select>
+                        </div>
+                    </div>
+                    {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
+                    <div className={newForm}>
+                        <label>
+                            Please add an image url for your group below:
+                        </label>
+                        <input
+                            type='text'
+                            placeholder='Image Url'
+                            value={groupImage}
+                            onChange={(e) => {
+                                setGroupImage(e.target.value)
+                                setDisplayGroupImageErr(true)
+                            }}
+                        ></input>
+                        {displayGroupImageErr && <p className='error'>{err.image}</p>}
+                        {/* possibly need to adjust the input type for image */}
+                    </div>
                 </div>
             </div>
             <div>
                 <button
                     type='submit'
                     className={newForm}
+                    disabled={Object.values(err).length > 0}
                 >
                     Create Group
                 </button>
                 <button
                     type='submit'
                     className={editForm}
+                    disabled={Object.values(err).length > 0}
                 >
                     Update Group
                 </button>
