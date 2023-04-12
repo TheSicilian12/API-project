@@ -8,19 +8,21 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <div className='displayFlex justfiySpaceBetween alignCenter'>
-      <div className='home'>
-        <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink>
-      </div>
-      <div>
-        {isLoaded && (
-          <div className='displayFlex alignCenter justifyCenter padding paddingProfileIconTR'>
-            <ProfileButton user={sessionUser} />
+      <div className='displayFlex justfiySpaceBetween alignCenter'>
+        <div className='home'>
+          <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink>
+        </div>
+        <div className='borderBlack displayFlex'>
+          <div>
+            <h2 className='borderGreen'>Start a new group</h2>
           </div>
-        )}
+          {isLoaded && (
+            <div className='borderGreen displayFlex alignCenter justifyCenter paddingProfileIconTR'>
+              <ProfileButton user={sessionUser} />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-
   );
 }
 
