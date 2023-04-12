@@ -28,17 +28,19 @@ export default function AllEvents() {
     function isEventFuture(eventEndDate) {
         //returns true if date is today or in the future.
         //false if not
-        const today = new Date();
-        const day = today.getDate();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+        // const today = new Date();
+        // const day = today.getDate();
+        // const month = today.getMonth() + 1;
+        // const year = today.getFullYear();
+        // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+        const todayParse = Date.parse(new Date());
 
         // console.log('todayDateParse: ', todayDateParse)
-        console.log('today: ', today)
-        console.log('day: ', day)
-        console.log('month: ', month)
-        console.log('year: ', year)
+        // console.log('today: ', today)
+        // console.log('day: ', day)
+        // console.log('month: ', month)
+        // console.log('year: ', year)
 
         // console.log(`today: ${year}-${month}-${day}`)
         // console.log('eventEndDate: ', eventEndDate)
@@ -50,7 +52,7 @@ export default function AllEvents() {
 
         // console.log('today > event: ', todayDateParse > eventEndDateParse)
 
-        return eventEndDateParse >= todayDateParse;
+        return eventEndDateParse >= todayParse;
     }
 
     //order events
@@ -130,7 +132,15 @@ export default function AllEvents() {
                                             />
                                         </div>
                                         <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
-                                            <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+
+                                            {/* start date */}
+                                            <div className='borderGreen displayFlex'>
+                                                {/* date */}
+                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                                <h4 className='dotSpacing'>•</h4>
+                                                {/* military time */}
+                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                            </div>
                                             <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
                                             {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
                                             {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
@@ -149,7 +159,7 @@ export default function AllEvents() {
             <div key='pastEvents'>
                 <div className='displayFlex justifyCenter'>
                     <p className='mainText textSizeGroup'>
-                    Past Events
+                        Past Events
                     </p>
                 </div>
                 {eventsArray[0].map(e =>
@@ -174,7 +184,14 @@ export default function AllEvents() {
                                             />
                                         </div>
                                         <div className='details eventInfo noDecoration' key={`allEvents${e.id}_info`}>
-                                            <h4 className='textWrap' key={`allEvents${e.id}_startDate`}>{e.startDate}</h4>
+                                            <div className='borderGreen displayFlex'>
+                                                {/* date */}
+                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                                <h4 className='dotSpacing'>•</h4>
+                                                {/* military time */}
+                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                            </div>
+
                                             <h3 className='textWrap' key={`allEvents${e.id}_name`}>{e.name}</h3>
                                             {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
                                             {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
@@ -191,25 +208,25 @@ export default function AllEvents() {
                 )}
 
                 {/* {eventsArray[0].map(e => */}
-                    {/* <NavLink to={`/events/${e.id}`}> */}
-                        {/* <div key={`allEvents${e.id}`}> */}
-                            {/* <div key={`allEvents${e.id}_main`}> */}
-                                {/* <div key={`allEvents${e.id}_image`}> */}
-                                    {/* image */}
-                                {/* </div> */}
-                                {/* <div key={`allEvents${e.id}_info`}> */}
-                                    {/* <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4> */}
-                                    {/* <h3 key={`allEvents${e.id}_name`}>{e.name}</h3> */}
-                                    {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
-                                    {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
-                                    {/* <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4> */}
-                                {/* </div> */}
-                            {/* </div> */}
-                            {/* <div key={`allEvents${e.id}_description`}> */}
-                                {/* <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p> */}
-                            {/* </div> */}
-                        {/* </div> */}
-                    {/* </NavLink> */}
+                {/* <NavLink to={`/events/${e.id}`}> */}
+                {/* <div key={`allEvents${e.id}`}> */}
+                {/* <div key={`allEvents${e.id}_main`}> */}
+                {/* <div key={`allEvents${e.id}_image`}> */}
+                {/* image */}
+                {/* </div> */}
+                {/* <div key={`allEvents${e.id}_info`}> */}
+                {/* <h4 key={`allEvents${e.id}_startDate`}>{e.startDate}</h4> */}
+                {/* <h3 key={`allEvents${e.id}_name`}>{e.name}</h3> */}
+                {/* <h4>{e.Venue ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Location TBD'}</h4> */}
+                {/* issue with this is that a venue may not have a location. moving on for now, possible bug */}
+                {/* <h4 key={`allEvents${e.id}_location`}>{e.type === 'Online' ? 'Event is online!' : `${e.Venue?.city}, ${e.Venue?.state}`}</h4> */}
+                {/* </div> */}
+                {/* </div> */}
+                {/* <div key={`allEvents${e.id}_description`}> */}
+                {/* <p key={`allEvents${e.id}_descriptionText`}>{e.description}</p> */}
+                {/* </div> */}
+                {/* </div> */}
+                {/* </NavLink> */}
                 {/* )} */}
 
 

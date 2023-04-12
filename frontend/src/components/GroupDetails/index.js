@@ -93,8 +93,8 @@ function GroupDetails({ group, user, events, groupId }) {
         //returns true if date is today or in the future.
         //false if not
 
-        console.log('eventEndDate: ', eventEndDate)
-        console.log('parse end date: ', Date.parse(eventEndDate))
+        // console.log('eventEndDate: ', eventEndDate)
+        // console.log('parse end date: ', Date.parse(eventEndDate))
 
         const todayParse = Date.parse(new Date());
 
