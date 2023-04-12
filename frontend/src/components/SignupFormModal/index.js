@@ -7,11 +7,17 @@ import './SignupForm.css';
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [displayEmailErr, setDsiplayEmailErr] = useState(false);
   const [username, setUsername] = useState("");
+  const [displayUsernameErr, setDisplayUsernameErr] = useState(false);
   const [firstName, setFirstName] = useState("");
+  const [displayFirstNameErr, setDisplayFirstNameErr] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [displayLastNameErr, setDisplayLastNameErr] = useState(false);
   const [password, setPassword] = useState("");
+  const [displayPasswordErr, setDisplayPasswordErr] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayConfirmPasswordErr, setDisplayConfirmPasswordErr] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -35,7 +41,20 @@ function SignupFormModal() {
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
-  console.log('errors: ', errors)
+
+  let err = {}
+  if (username.length < 4) {
+    err.username = '4+ characters for a username.'
+  }
+  if (password.length < 6) {
+    err.password = '6+ characters for a password.'
+  }
+  if (confirmPassword !== password) {
+    err.confirmPassword = 'Your confirmation does not match your password.'
+  }
+
+
+  // console.log('errors: ', errors)
   return (
     <>
       <h1>Sign Up</h1>
@@ -121,6 +140,7 @@ function SignupFormModal() {
           <button
             className='buttonWidth'
             type="submit"
+            disabled={Object.values(errors).length > 0 || Object.values(err).length > 0}
           >
             Sign Up
           </button>
