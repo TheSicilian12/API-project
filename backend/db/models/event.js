@@ -54,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
         min: 0
       }
     },
-    startDate: DataTypes.DATEONLY,
-    endDate: DataTypes.DATEONLY
+    startDate: DataTypes.DATE,
+    endDate: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Event',
