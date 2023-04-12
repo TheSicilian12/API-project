@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './GroupForm.css';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import {EditWrapper} from './editWrapper';
+import formDividerImage from '../assets/Images/Daco_4730261.png';
 
 
 function GroupForm({currentGroup, formType}) {
@@ -108,18 +109,19 @@ function GroupForm({currentGroup, formType}) {
     return (
         <form onSubmit={handleSubmit}>
              <div>
-                <h3 className={newForm}>BECOME AN ORGANIZER</h3>
+                {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
+                <h3 className={newForm}>Start a New Group</h3>
                 <h3 className={editForm}>UPDATE YOUR GROUP'S INFORMATION</h3>
                 <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                 <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
             </div>
             <div>
                 <h2>
-                    First, set your group's location.
+                    Set your group's location
                 </h2>
                 <p>
-                    Meetup groups meet locally, in person and online. We'll connect you with people
-                    in your area, and more can join you online.
+                AdventureUp groups meet locally, in person, and online.
+                We'll connect you with people in your area.
                 </p>
                 <input
                     type='text'
@@ -129,6 +131,11 @@ function GroupForm({currentGroup, formType}) {
                 ></input>
                 <p className='error'>{errors.location}</p>
             </div>
+            <img
+                width='25%'
+                // height='10%'
+                src={formDividerImage}
+            />
             <div>
                 <h2>
                     What will your group's name be?
