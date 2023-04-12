@@ -107,21 +107,26 @@ function GroupDetails({ group, user, events, groupId }) {
 
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
-    let joinGroup = 'on'
+    //joinGroup for disable /enable button
+    let joinGroup = false
+    let displayJoinGroup = 'on'
     let options = 'off'
     // console.log('group - further: ', group.singleGroup)
     // console.log('user: ', user.id)
 
     if (user) {
         if (group.singleGroup.Organizer.id === user.id) {
-            joinGroup = 'off'
+            joinGroup = true
+            displayJoinGroup = 'off'
             options = 'on'
         }
     }
 
     if (!user) {
-        joinGroup = 'off';
+        joinGroup = true;
     }
+
+    console.log('joinGroup: ', joinGroup)
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
@@ -152,21 +157,23 @@ function GroupDetails({ group, user, events, groupId }) {
                     <h4 className='GroupDetails_Details_Location'>
                         {`${group.singleGroup.city}, ${group.singleGroup.state}`}
                     </h4>
-                    <div>
-                        <h4>
+                    <div className='borderGreen displayFlex alignCenter'>
+                        <h4 >
                             {`${totalNumberEvents} events`}
-                            {/* number of events */}
                         </h4>
-                        <h4>
+                        <h4 className='dotSpacing'>•</h4>
+                        <h4 >
                             {groupStatus}
                         </h4>
+                    </div>
                         <h4>
                             {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                         </h4>
-                    </div>
-                    <div className='displayFlex alignBottom justifyCenter  buttonHeight'>
-                        <div className={`${joinGroup} borderRed`}>
-                            <button>
+                    <div className='displayFlex alignBottom justifyCenter buttonHeight'>
+                        <div className={`${displayJoinGroup} borderRed`}>
+                            <button
+                            disabled={`${joinGroup}` === 'true' ? true : false}
+                            >
                                 Join this group
                                 {/* alert for no implementation */}
                             </button>
