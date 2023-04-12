@@ -72,7 +72,10 @@ function SignupFormModal() {
             placeholder='Email'
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setDsiplayEmailErr(true);
+            }}
             required
           />
         </div>
@@ -84,10 +87,14 @@ function SignupFormModal() {
             placeholder='Username'
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              setDisplayUsernameErr(true)
+            }}
             required
           />
         </div>
+          {displayUsernameErr && <p>{err.username}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             First Name
@@ -96,7 +103,10 @@ function SignupFormModal() {
             placeholder='First Name'
             type="text"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => {
+              setFirstName(e.target.value)
+              setDisplayFirstNameErr(true)
+            }}
             required
           />
         </div>
@@ -108,7 +118,10 @@ function SignupFormModal() {
             placeholder='Last Name'
             type="text"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => {
+              setLastName(e.target.value)
+              setDisplayLastNameErr(true)
+            }}
             required
           />
         </div>
@@ -120,10 +133,14 @@ function SignupFormModal() {
             placeholder='Password'
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setDisplayPasswordErr(true)
+            }}
             required
           />
         </div>
+        {displayPasswordErr && <p>{err.password}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Confirm Password
@@ -132,10 +149,14 @@ function SignupFormModal() {
             placeholder='Confirm Password'
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value)
+              setDisplayConfirmPasswordErr(true)
+            }}
             required
           />
         </div>
+        {displayConfirmPasswordErr && <p>{err.confirmPassword}</p>}
         <div className='displayFlex justifyCenter'>
           <button
             className='buttonWidth'
