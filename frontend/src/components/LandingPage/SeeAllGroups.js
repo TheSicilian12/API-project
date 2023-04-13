@@ -16,9 +16,9 @@ function SeeAllGroups() {
                     width='50%'
                 />
                 See all groups
-                <p className='landingPage_groups_additionalText'>
+                {/* <p className='landingPage_groups_additionalText'>
                     additional text
-                </p>
+                </p> */}
             </div>
         </NavLink>
     )

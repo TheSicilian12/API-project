@@ -14,9 +14,9 @@ function FindAnEvent() {
                     width='50%'
                 />
                 Find an event
-                <p className='landingPage_findEvent_additionalText'>
+                {/* <p className='landingPage_findEvent_additionalText'>
                     additional text
-                </p>
+                </p> */}
             </div>
         </NavLink>
     )

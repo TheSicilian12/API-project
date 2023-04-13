@@ -16,9 +16,9 @@ function StartGroup() {
                     width='50%'
                 />
                 Start a new group
-                <p className='landingPage_startGroup_additionalText'>
+                {/* <p className='landingPage_startGroup_additionalText'>
                     additional text
-                </p>
+                </p> */}
             </div>
         </NavLink>
     )
