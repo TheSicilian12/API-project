@@ -96,10 +96,16 @@ function EventForm({ currentGroup, formType }) {
                 endDate: eventEndDate,
             }
 
+            const eventImageObj = {
+                url: eventImage,
+                preview: true
+            }
+
             newEvent = await dispatch(addEventByGroupIdThunk(
                 {
                   groupId,
-                  eventObj
+                  eventObj,
+                  eventImageObj
                 }
             ))
         }
@@ -238,9 +244,9 @@ function EventForm({ currentGroup, formType }) {
             <div>
                 <p>When does your event start?</p>
                 <input
-                    // placeholder='MM/DD/YYYY/HH/mm AM'
-                    // type='datetime-local'
-                    type='date'
+                    placeholder='MM/DD/YYYY/HH/mm AM'
+                    type='datetime-local'
+                    // type='date'
                     value={eventStartDate}
                     onChange={(e) => {
                         setEventStartDate(e.target.value)
@@ -250,7 +256,8 @@ function EventForm({ currentGroup, formType }) {
                 <p className='error'>{errors.eventStartDate}</p>
                 <p>When does your event end?</p>
                 <input
-                    type='date'
+                    type='datetime-local'
+                    // type='date'
                     value={eventEndDate}
                     onChange={(e) => {
                         setEventEndDate(e.target.value)

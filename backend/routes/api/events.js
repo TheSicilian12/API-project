@@ -479,6 +479,9 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     const { user } = req
     const { url, preview } = req.body
 
+    console.log('backend -------------------add image')
+
+
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
