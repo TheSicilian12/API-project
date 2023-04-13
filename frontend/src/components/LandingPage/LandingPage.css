@@ -64,3 +64,20 @@
 .pointerCursor {
     cursor: pointer;
 }
+
+.noDecoration {
+    /* text-decoration: none; */
+    color: black
+}
+
+.noDecoration:hover {
+    color: #ffba1e;
+}
+
+.test {
+    color: blue
+}
+
+.test:hover {
+    color: green;
+}
