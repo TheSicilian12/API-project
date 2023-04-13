@@ -543,8 +543,6 @@ router.post('/', requireAuth, async (req, res, next) => {
     return res.status(201).json(newGroup)
 })
 
-
-
 //EDIT A GROUP
 router.put('/:groupId', requireAuth, async (req, res, next) => {
     //group must belong to the current user.
