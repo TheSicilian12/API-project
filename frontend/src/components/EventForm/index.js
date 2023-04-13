@@ -14,11 +14,17 @@ function EventForm({ currentGroup, formType }) {
     const [eventAbout, setEventAbout] = useState("");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState("(select one)");
+    const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
     const [eventStatus, setEventStatus] = useState("");
+    const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
     const [eventPrice, setEventPrice] = useState("0");
+    const [displayEventPrice, setDisplayEventPrice] = useState(false);
     const [eventStartDate, setEventStartDate] = useState('');
+    const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
     const [eventEndDate, setEventEndDate] = useState('');
+    const [displayEventEndDateErr, setDisplayEventEndDateErr] = useState(false);
     const [eventImage, setEventImage] = useState('');
+    const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
     const groupId = useParams().id;
