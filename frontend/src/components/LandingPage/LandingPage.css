@@ -70,14 +70,20 @@
     color: black
 }
 
+
+.enable {
+    text-decoration: none;
+    color: black
+}
+
 .color:hover {
     color: #ffba1e;
     text-decoration: underline;
 }
 
-.enable {
-    /* text-decoration: none; */
-    color: black
+.enable:hover {
+    color: #ffba1e;
+    text-decoration: underline;
 }
 
 .disable {

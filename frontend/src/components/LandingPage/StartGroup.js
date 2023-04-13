@@ -21,7 +21,7 @@ function StartGroup({ user }) {
                     alt="test image"
                     width='50%'
                 />
-                <h2 className={linkSwitch}>
+                <h2 >
                     Start a new group
                 </h2>
                 {/* <p className='landingPage_startGroup_additionalText'>
