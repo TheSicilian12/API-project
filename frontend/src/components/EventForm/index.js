@@ -107,7 +107,7 @@ function EventForm({ currentGroup, formType }) {
         <form
             onSubmit={handleSubmit}>
             <div>
-                <h1>Create an event for {currentGroup.name}</h1>
+                <h1>Create a new event for {currentGroup.name}</h1>
             </div>
             <div>
                 <p>What is the name of your event?</p>
@@ -121,7 +121,7 @@ function EventForm({ currentGroup, formType }) {
             </div>
             <div>
                 <div>
-                    <p>Is this an in person or online event?</p>
+                    <p>Is this an in-person or online group?</p>
                     <select
                         onChange={(e) => setEventMeetingType(e.target.value)}
                         value={eventMeetingType}
