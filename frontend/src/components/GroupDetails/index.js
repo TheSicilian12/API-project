@@ -15,6 +15,8 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('events: ', Object.values(events).length)
 
+    console.log('delete event')
+
     // console.log('events: ', events)
     if (!group.singleGroup) {
         return <div>loading</div>
@@ -297,7 +299,7 @@ function GroupDetails({ group, user, events, groupId }) {
 
                                         <img
                                             //group image
-                                            src={e.previewImage || imageData}
+                                            src={e?.previewImage || imageData}
                                             height='200rem'
                                             width='300rem'
                                         />
