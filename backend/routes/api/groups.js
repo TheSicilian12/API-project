@@ -498,8 +498,8 @@ router.post('/', requireAuth, async (req, res, next) => {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (!about || about.length < 50) {
-        let about = "About must be 50 characters or more"
+    if (!about || about.length < 30) {
+        let about = "About must be 30 characters or more"
         errors.about = about
     }
     if (!type || type !== 'Online' && type !== 'In person') {

@@ -28,10 +28,10 @@ function GroupForm({ currentGroup, formType }) {
 
     // console.log('initial meetingStatus: ', typeof groupStatus)
 
-    console.log('user: ', user)
+    // console.log('user: ', user)
     // console.log('currentGroup: ', currentGroup)
 
-    if (!user || user.id !== currentGroup.organizerId) {
+    if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
         history.push('/')
     }
 
@@ -101,7 +101,9 @@ function GroupForm({ currentGroup, formType }) {
 
             let createGroup;
             if (formType === 'new') {
+                console.log('await and payload: ', payload)
                 createGroup = await dispatch(submitGroup(payload));
+                console.log('initial dispatch createGroup: ', createGroup)
             }
 
             let updateGroup
@@ -110,8 +112,10 @@ function GroupForm({ currentGroup, formType }) {
                 payload.groupId = currentGroup.id
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
+
+
             if (createGroup) {
-                // console.log('createGroup: ', createGroup)
+                console.log('if createGroup exists createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
             }
             if (updateGroup) {

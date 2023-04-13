@@ -27,11 +27,13 @@ function EventDetails({ event, eventId, user }) {
     // console.log('orgranizer: ', organizer)
     // console.log('groupImages: ', groupImages)
 
+    console.log('event: ', event)
+
     let groupPreviewImage;
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
     }
-    console.log('groupPreviewImage: ', groupPreviewImage)
+    // console.log('groupPreviewImage: ', groupPreviewImage)
 
     const eventImages = useSelector((state) => state.events.EventImages)
     // console.log('eventImages: ', eventImages)
@@ -65,6 +67,8 @@ function EventDetails({ event, eventId, user }) {
         if (event.Group.organizerId === user.id) options = 'on'
     }
 
+    console.log('eventPreviewImage: ', eventPreviewImage)
+
     return (
         <div>
             <div>
@@ -81,10 +85,10 @@ function EventDetails({ event, eventId, user }) {
                 <div>
 
                     <div className='borderRed displayFlex'>
-
+                    {/* {eventPreviewImage?.url} */}
                         <img
                             className=''
-                            src={eventPreviewImage?.url || imageData}
+                            src={eventPreviewImage?.url  || imageData}
                             width='50%'
                             height='50%'
                         />
