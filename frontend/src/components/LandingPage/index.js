@@ -9,6 +9,11 @@ import flowerImage from '../assets/Images/Example.jpg';
 import landingPageInfo from '../assets/Images/pngfind.com-hora-de-aventura-png-6738376.png';
 
 function LandingPage() {
+
+    const user = useSelector((state) => state.session.user)
+    // console.log('test')
+    // console.log('user: ', user)
+
     return (
         <>
             <div className='landingPage_intro displayFlex justifyCenter paddingMainTop'>
@@ -43,7 +48,7 @@ function LandingPage() {
             <div className='borderGreen displayFlex justifyCenter'>
                 <SeeAllGroups />
                 <FindAnEvent />
-                <StartGroup />
+                <StartGroup user={user}/>
             </div>
             <div className='displayFlex justifyCenter'>
                 <button className='landingPage_options_joinButton'>

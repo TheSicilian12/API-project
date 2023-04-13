@@ -60,3 +60,35 @@
 .width {
     width: 100px;
 }
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+
+.color {
+    color: black
+}
+
+
+.enable {
+    text-decoration: none;
+    color: black
+}
+
+.color:hover {
+    color: #ffba1e;
+    text-decoration: underline;
+}
+
+.enable:hover {
+    color: #ffba1e;
+    text-decoration: underline;
+}
+
+.disable {
+    color: lightgray;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}

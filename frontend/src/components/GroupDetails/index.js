@@ -15,7 +15,7 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('events: ', Object.values(events).length)
 
-    console.log('delete event')
+    // console.log('delete event')
 
     // console.log('events: ', events)
     if (!group.singleGroup) {

@@ -172,7 +172,7 @@ function SignupFormModal() {
           <button
             className='buttonWidth'
             type="submit"
-            disabled={Object.values(errors).length > 0 || Object.values(err).length > 0}
+            disabled={Object.values(err).length > 0}
           >
             Sign Up
           </button>

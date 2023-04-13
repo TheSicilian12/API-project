@@ -45,8 +45,8 @@ function LoginFormModal() {
   }
 
   return (
-    // <div className='displayFlex flex-directionColumn alignCenter'>
-      <div>
+    <div className='displayFlex flex-directionColumn alignCenter'>
+      {/* <div> */}
       <h1>Log In</h1>
       <form
         className='dimensionsForm displayFlex flex-directionColumn justifyCenter alignCenter'
