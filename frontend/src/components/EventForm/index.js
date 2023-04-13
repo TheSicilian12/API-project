@@ -18,7 +18,7 @@ function EventForm({ currentGroup, formType }) {
     const [eventStatus, setEventStatus] = useState("");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
     const [eventPrice, setEventPrice] = useState("0");
-    const [displayEventPrice, setDisplayEventPrice] = useState(false);
+    const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);
     const [eventStartDate, setEventStartDate] = useState('');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
     const [eventEndDate, setEventEndDate] = useState('');
@@ -179,7 +179,10 @@ function EventForm({ currentGroup, formType }) {
                 <div>
                     <p>Is this an in-person or online group?</p>
                     <select
-                        onChange={(e) => setEventMeetingType(e.target.value)}
+                        onChange={(e) => {
+                            setEventMeetingType(e.target.value)
+                            setDisplayEventMeetingTypeErr(true)
+                        }}
                         value={eventMeetingType}
                     >
                         <option>(select one)</option>
@@ -192,10 +195,14 @@ function EventForm({ currentGroup, formType }) {
                     </select>
                     <p className='error'>{errors.eventMeetingType}</p>
                 </div>
+                {displayEventMeetingTypeErr && <p>{err.eventMeetingType}</p>}
                 <div>
                     <p>Is this event private or public?</p>
                     <select
-                        onChange={(e) => setEventStatus(e.target.value)}
+                        onChange={(e) => {
+                            setEventStatus(e.target.value)
+                            setDisplayEventStatusErr(true)
+                        }}
                         value={eventStatus}
                     >
                         <option>(select one)</option>
@@ -212,6 +219,7 @@ function EventForm({ currentGroup, formType }) {
                     </select>
                         <p className='error'>{errors.eventStatus}</p>
                 </div>
+                {displayEventStatusErr && <p>{err.eventStatus}</p>}
                 <div>
                     <p>What is the price for your event?</p>
                     <input
@@ -219,10 +227,14 @@ function EventForm({ currentGroup, formType }) {
                         min="0"
                         placeholder="0"
                         // pattern="/d*"
-                        onChange={(e) => setEventPrice(e.target.value)}
+                        onChange={(e) => {
+                            setEventPrice(e.target.value)
+                            setDisplayEventPriceErr(true)
+                        }}
                         />
                         <p className='error'>{errors.eventPrice}</p>
                 </div>
+                {displayEventPriceErr && <p>{err.eventPrice}</p>}
             </div>
             <div>
                 <p>When does your event start?</p>
@@ -230,35 +242,51 @@ function EventForm({ currentGroup, formType }) {
                     placeholder='MM/DD/YYYY/HH/mm AM'
                     type='datetime-local'
                     value={eventStartDate}
-                    onChange={(e) => setEventStartDate(e.target.value)}
+                    onChange={(e) => {
+                        setEventStartDate(e.target.value)
+                        setDisplayEventStartDateErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.eventStartDate}</p>
                 <p>When does your event end?</p>
                 <input
                     type='date'
                     value={eventEndDate}
-                    onChange={(e) => setEventEndDate(e.target.value)}
+                    onChange={(e) => {
+                        setEventEndDate(e.target.value)
+                        setDisplayEventEndDateErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.eventEndDate}</p>
+                {displayEventEndDateErr && <p>{err.eventEndDate}</p>}
             </div>
+            {displayEventStartDateErr && <p>{err.startDate}</p>}
             <div>
                 <p>Please add in image url for your event below:</p>
                 <input
                     type='text'
                     placeholder='Image URL'
                     value={eventImage}
-                    onChange={(e) => setEventImage(e.target.value)}
+                    onChange={(e) => {
+                        setEventImage(e.target.value)
+                        setDisplayEventImageErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.eventImage}</p>
+                {displayEventImageErr && <p>{err.eventImage}</p>}
             </div>
             <div>
                 <p>Please describe your event</p>
                 <textarea
                     placeholder='Please include at least 30 characters'
                     value={eventAbout}
-                    onChange={(e) => setEventAbout(e.target.value)}
+                    onChange={(e) => {
+                        setEventAbout(e.target.value)
+                        setDisplayEventAboutErr(true)
+                    }}
                     ></textarea>
                     <p className='error'>{errors.eventAbout}</p>
+                    {displayEventAboutErr && <p>{err.eventAbout}</p>}
             </div>
             <div>
                 <button
