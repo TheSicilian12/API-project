@@ -68,7 +68,7 @@ function LoginFormModal() {
               required
             />
           </div>
-          {displayCredErr && <p>{err.credential}</p>}
+          {displayCredErr && <p className='errors'>{err.credential}</p>}
           <div className='space paddingTop'>
             <div className='displayFlex justifySpaceBetween'>
               <label>

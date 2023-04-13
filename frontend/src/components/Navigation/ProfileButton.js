@@ -45,44 +45,60 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <div className='borderBlue'>
-      <button onClick={openMenu} className='borderRed displayFlex alignCenter justifyCenter squareFavicon'>
+    <div className=''>
+      <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon'>
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
         {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
-        </button>
+      </button>
 
 
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
 
         {user ? (
-          <div className='displayFlex flex-directionColumn alignCenter'>
-            <ul>{user.username}</ul>
-            <ul>{`Hello, ${user.firstName}`}</ul>
+          <div className='displayFlex flex-directionColumn justifyCenter alignCenter'>
+            <div className='userMarginBottom'>{user.username}</div>
+            <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}
-            <ul>{user.email}</ul>
-            <ul>
-              <button onClick={logout}>Log Out</button>
-            </ul>
-            <Link to='/groups'>View Groups</Link>
-            <Link to='/events'>View Events</Link>
+            <div className='userMarginBottom'>{user.email}</div>
+
+            <button
+              className='userMarginBottom'
+              onClick={logout}>
+                Log Out
+            </button>
+            <Link
+              className='userMarginBottom'
+              to='/groups'>
+                View Groups
+            </Link>
+            <Link
+              className='userMarginBottom'
+              to='/events'>
+                View Events
+            </Link>
           </div>
         ) : (
-          <div className='displayFlex flex-directionColumn alignCenter '>
-
-            <ul className='displayFlex'>
-
+          <div className='displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp'>
+            {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
+            <div className='logInMarginBottom'>
               <OpenModalButton
+
                 buttonText="Log In"
+
                 modalComponent={<LoginFormModal />}
               />
-            </ul>
-            <ul>
+            </div>
+            {/* </ul> */}
+            {/* <ul className='borderBlue justifyCenter'> */}
+            <div>
+
               <OpenModalButton
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
-            </ul>
+            </div>
+            {/* </ul> */}
           </div>
         )}
       </ul>

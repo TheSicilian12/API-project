@@ -2,12 +2,16 @@ form {
     border: 2px solid black;
   }
 
-  label {
+  /* label {
     border: 2px solid pink;
-  }
+  } */
 
   .borderBlack {
     border: 2px solid black;
+}
+
+.errors {
+  color: red
 }
 
 .borderGreen {
