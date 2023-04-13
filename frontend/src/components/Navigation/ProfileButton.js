@@ -57,10 +57,10 @@ function ProfileButton({ user }) {
 
         {user ? (
           <div className='displayFlex flex-directionColumn justifyCenter alignCenter'>
-            <div className='userMarginBottom'>{user.username}</div>
             <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
-            {/* <ul>{user.firstName} {user.lastName}</ul> */}
             <div className='userMarginBottom'>{user.email}</div>
+            <div className='userMarginBottom'>{user.username}</div>
+            {/* <ul>{user.firstName} {user.lastName}</ul> */}
 
             <button
               className='userMarginBottom'
