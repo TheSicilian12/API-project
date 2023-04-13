@@ -10,7 +10,9 @@ import {addEventByGroupIdThunk} from '../../store/eventsThunk'
 function EventForm({ currentGroup, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [eventName, setEventName] = useState("");
+    const [displayEventNameErr, setDsiplayEventNameErr] = useState(false);
     const [eventAbout, setEventAbout] = useState("");
+    const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState("(select one)");
     const [eventStatus, setEventStatus] = useState("");
     const [eventPrice, setEventPrice] = useState("0");
