@@ -171,7 +171,8 @@ function EventForm({ currentGroup, formType }) {
             <div>
                 <p>When does your event start?</p>
                 <input
-                    type='date'
+                    placeholder='MM/DD/YYYY/HH/mm AM'
+                    type='datetime-local'
                     value={eventStartDate}
                     onChange={(e) => setEventStartDate(e.target.value)}
                 ></input>
