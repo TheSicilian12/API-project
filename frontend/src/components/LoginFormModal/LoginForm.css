@@ -2,12 +2,21 @@ form {
     border: 2px solid black;
   }
 
-  label {
+  /* label {
     border: 2px solid pink;
-  }
+  } */
 
   .borderBlack {
     border: 2px solid black;
+}
+
+.displayOff {
+  display: none
+}
+
+.errors {
+  color: red;
+  font-weight: bold;
 }
 
 .borderGreen {
@@ -72,4 +81,9 @@ form {
 
 .width {
   width: 50%;
+}
+
+.dimensionsForm {
+  width: 40rem;
+  height: 25rem;
 }

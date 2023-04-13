@@ -7,7 +7,7 @@
 }
 
 .borderBlack {
-    border: 2px solid black;
+    border: 10px solid black;
 }
 
 .borderBlue {
@@ -16,6 +16,10 @@
 
 .borderRed {
     border: 5px solid red
+}
+
+.borderGreen {
+    border: 5px solid green;
 }
 
 .borderPurple {
@@ -90,6 +94,22 @@
 
 .paddingRightStartNewGroup {
     padding-right: 3rem;
+}
+
+.positionMarginLogInSignUp {
+    margin-right: 2rem
+}
+
+.logInMarginBottom {
+    margin-bottom: 0.5rem
+}
+
+.userMarginBottom {
+    margin-bottom: 0.5rem
+}
+
+.test {
+    color: blue
 }
 
 .squareFavicon {
