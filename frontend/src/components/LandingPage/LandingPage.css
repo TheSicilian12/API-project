@@ -53,12 +53,21 @@
     padding-top: 8rem;
 }
 
+.paddingButton {
+    padding-top: 2rem;
+}
+
 .marginWorksTop {
     padding-top: 2rem;
 }
 
 .width {
     width: 100px;
+}
+
+.joinButtonDimensions{
+    width: 20rem;
+    height: 3rem;
 }
 
 .pointerCursor {
