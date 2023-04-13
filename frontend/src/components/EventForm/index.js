@@ -153,7 +153,6 @@ function EventForm({ currentGroup, formType }) {
 
 // --------------------------------- ^ err real time ^ -----------------------------------------------
 
-
     return (
         // <div>test create event</div>
         <form
