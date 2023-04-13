@@ -45,7 +45,7 @@ function LandingPage() {
                 </p>
                 </div>
             </div>
-            <div className='borderGreen displayFlex justifyCenter'>
+            <div className='displayFlex justifyCenter'>
                 <SeeAllGroups />
                 <FindAnEvent />
                 <StartGroup user={user}/>

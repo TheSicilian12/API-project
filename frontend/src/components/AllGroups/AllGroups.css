@@ -90,6 +90,7 @@
 
 .noDecoration {
     text-decoration: none;
+    color: green;
 }
 
 .notCurrentSelection {

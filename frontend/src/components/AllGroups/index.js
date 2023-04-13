@@ -51,7 +51,7 @@ export default function AllGroups() {
             </div>
             {Object.keys(groups.allGroups).map(e =>
 
-                <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                <div className='displayFlex justifyCenter flex-directionColumn maintext noDecoration'>
                     <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerPadding'
