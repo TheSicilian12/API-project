@@ -15,7 +15,8 @@ form {
 }
 
 .errors {
-  color: red
+  color: red;
+  font-weight: bold;
 }
 
 .borderGreen {
@@ -80,4 +81,9 @@ form {
 
 .width {
   width: 50%;
+}
+
+.dimensionsForm {
+  width: 40rem;
+  height: 25rem;
 }

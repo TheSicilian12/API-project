@@ -45,10 +45,13 @@ function LoginFormModal() {
   }
 
   return (
-    <>
+    // <div className='displayFlex flex-directionColumn alignCenter'>
+      <div>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <div className='displayFlex alignCenter'>'
+      <form
+        className='dimensionsForm displayFlex flex-directionColumn justifyCenter alignCenter'
+        onSubmit={handleSubmit}>
+        <div className='displayFlex alignCenter'>
           <div className=''>
             <ul>
               {errors.map((error, idx) => (
@@ -92,7 +95,7 @@ function LoginFormModal() {
                 </div>
               </div>
             </div>
-            {displayPasErr && <p>{err.password}</p>}
+            {displayPasErr && <p className='errors'>{err.password}</p>}
           </div>
           {(displayPasErr || displayCredErr) && <div>
             <img
@@ -123,7 +126,7 @@ function LoginFormModal() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
