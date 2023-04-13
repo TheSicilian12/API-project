@@ -65,10 +65,6 @@
     cursor: pointer;
 }
 
-.noDecoration {
-    /* text-decoration: none; */
-    color: black
-}
 
 .color {
     color: black
@@ -77,4 +73,16 @@
 .color:hover {
     color: #ffba1e;
     text-decoration: underline;
+}
+
+.enable {
+    /* text-decoration: none; */
+    color: black
+}
+
+.disable {
+    color: lightgray;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: none;
 }
