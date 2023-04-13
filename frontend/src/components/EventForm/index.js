@@ -10,7 +10,7 @@ import {addEventByGroupIdThunk} from '../../store/eventsThunk'
 function EventForm({ currentGroup, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [eventName, setEventName] = useState("");
-    const [displayEventNameErr, setDsiplayEventNameErr] = useState(false);
+    const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
     const [eventAbout, setEventAbout] = useState("");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState("(select one)");
@@ -104,12 +104,56 @@ function EventForm({ currentGroup, formType }) {
             ))
         }
 
-        console.log('newEvent: ', newEvent)
+        // console.log('newEvent: ', newEvent)
         if (newEvent?.id) {
             history.push(`/events/${newEvent.id}`)
         }
         // console.log('errors: ', errors)
     }
+
+// ----------------------------------err real time--------------------------------------------------
+
+    const err = {}
+    if (!eventName) {
+        err.eventName = 'Name is required';
+    }
+    if (eventMeetingType === '(select one)') {
+        err.eventMeetingType = 'Event Type is required';
+    }
+    if (eventStatus === '(select one)') {
+        err.eventStatus = 'Visibility is required';
+    }
+    // console.log('before if: ', eventPrice)
+    // if (!eventPrice) {
+    //     console.log(eventPrice)
+    //     err.eventPrice = 'Price is required';
+    // }
+    if (eventPrice < 0) {
+        err.eventPrice = 'Price is required';
+    }
+    if (!eventStartDate) {
+        err.eventStartDate = 'Event start is required';
+    }
+    if (!eventEndDate) {
+        err.eventEndDate = 'Event end is required';
+    }
+
+    let imageRouteSplit = eventImage.split('.')
+    let imageRouteCheck = imageRouteSplit[imageRouteSplit.length - 1]
+    if (imageRouteCheck !== 'png' &&
+        imageRouteCheck !== 'jpg' &&
+        imageRouteCheck !== 'jpeg') {
+            // console.log(imageRouteSplit)
+            // console.log(imageRouteCheck)
+            err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
+    if (eventAbout.length < 30) {
+        err.eventAbout = 'Description must be at least 30 characters long';
+    }
+
+// --------------------------------- ^ err real time ^ -----------------------------------------------
+
+
     return (
         // <div>test create event</div>
         <form
@@ -123,10 +167,14 @@ function EventForm({ currentGroup, formType }) {
                     type='text'
                     placeholder='Event Name'
                     value={eventName}
-                    onChange={(e) => setEventName(e.target.value)}
+                    onChange={(e) => {
+                        setEventName(e.target.value)
+                        setDisplayEventNameErr(true)
+                    }}
                 ></input>
                 <p className='error'>{errors.eventName}</p>
             </div>
+            {displayEventNameErr && <p>{err.eventName}</p>}
             <div>
                 <div>
                     <p>Is this an in-person or online group?</p>
