@@ -143,7 +143,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('editGroup thunk: ', groupObj)
-
+    console.log('edit group thunk')
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
     newGroupObj.about = groupObj.about;
@@ -166,6 +166,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     //     newGroupObj.private = false;
     // }
 
+    console.log('object: ', newGroupObj)
     // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
@@ -174,6 +175,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
         },
         body: JSON.stringify(newGroupObj)
     })
+    console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
         return editedGroup;
