@@ -54,14 +54,14 @@ export default function AllGroups() {
 
                 <div className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
-                        <SwordLine />
-                        {/* <img
+                        {/* <SwordLine /> */}
+                        <img
                             className='dividerPadding'
                             height='25%'
                             width='25%'
 
                             src={groupDividerImage}
-                        /> */}
+                        />
                     </div>
                     <div className='displayFlex justifyCenter'>
                         <NavLink

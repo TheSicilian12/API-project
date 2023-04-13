@@ -9,8 +9,24 @@ import groupDividerImage from '../../assets/Images/Daco_4730261.png';
 export default function SwordLine() {
 
     return (
-        <div>
+        <div className='displayFlex'>
             <img
+                className='dividerPaddingRight'
+                width='20%'
+                src={groupDividerImage}
+            />
+              <img
+                className='dividerPaddingRight'
+                width='20%'
+                src={groupDividerImage}
+            />
+              <img
+                className='dividerPaddingRight'
+                width='20%'
+                src={groupDividerImage}
+            />
+             <img
+                width='20%'
                 src={groupDividerImage}
             />
         </div>
