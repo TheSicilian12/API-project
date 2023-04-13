@@ -67,6 +67,8 @@ function EventDetails({ event, eventId, user }) {
         if (event.Group.organizerId === user.id) options = 'on'
     }
 
+    console.log('eventPreviewImage: ', eventPreviewImage)
+
     return (
         <div>
             <div>
