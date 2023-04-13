@@ -8,14 +8,14 @@ import startGroupImage from '../assets/Images/Daco_6030033.png';
 
 function StartGroup() {
     return (
-        <NavLink to='/groups/new' className='landingPage_startGroup_mainText pointerCursor'>
-            <div className='landingPage_startGroup displayFlex flex-directionColumn pointerCursor alignCenter borderBlack'>
-                <img className='borderRed'
+        <NavLink to='/groups/new' className='landingPage_startGroup_mainText pointerCursor noDecoration'>
+            <div className='landingPage_startGroup displayFlex flex-directionColumn pointerCursor alignCenter'>
+                <img className=''
                     src={startGroupImage}
                     alt="test image"
                     width='50%'
                 />
-                <h2>
+                <h2 className='color'>
                     Start a new group
                 </h2>
                 {/* <p className='landingPage_startGroup_additionalText'>

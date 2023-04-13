@@ -6,20 +6,17 @@ import eventImage from '../assets/Images/Daco_1979729.png';
 
 function FindAnEvent() {
 
-    let decoration = 'noDecoration'
-
-
     return (
         <NavLink
-        className={`landingPage_findEvent_mainText borderRed pointerCursor ${decoration}`} to='/events'>
+        className='landingPage_findEvent_mainText pointerCursor noDecoration' to='/events'>
             <div
-            className='landingPage_findEvent displayFlex flex-directionColumn alignCenter borderBlack pointerCursor'>
-                <img className='borderRed'
+            className='landingPage_findEvent displayFlex flex-directionColumn alignCenter pointerCursor'>
+                <img className=''
                     src={eventImage}
                     alt="test image"
                     width='50%'
                 />
-                <h2 className={`test`}>
+                <h2 className='color'>
                 Find an event
                 </h2>
                 {/* <p className='landingPage_findEvent_additionalText'>

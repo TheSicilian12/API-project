@@ -70,14 +70,11 @@
     color: black
 }
 
-.noDecoration:hover {
+.color {
+    color: black
+}
+
+.color:hover {
     color: #ffba1e;
-}
-
-.test {
-    color: blue
-}
-
-.test:hover {
-    color: green;
+    text-decoration: underline;
 }
