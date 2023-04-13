@@ -6,7 +6,7 @@ import eventImage from '../assets/Images/Daco_1979729.png';
 
 function FindAnEvent() {
     return (
-        <NavLink className='landingPage_findEvent_mainText borderRed' to='/events'>
+        <NavLink className='landingPage_findEvent_mainText borderRed pointerCursor' to='/events'>
             <div className='landingPage_findEvent displayFlex flex-directionColumn alignCenter borderBlack'>
                 <img className='borderRed'
                     src={eventImage}

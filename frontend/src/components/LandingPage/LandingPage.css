@@ -60,3 +60,7 @@
 .width {
     width: 100px;
 }
+
+.pointerCursor {
+    cursor: pointer;
+}
