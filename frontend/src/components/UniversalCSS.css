@@ -2,24 +2,29 @@
     display: none;
 }
 
-.UborderBlack {
-    border: 2px solid black;
+.UborderBlackTest {
+    border: 2px solid blac;
 }
 
-.UborderGreen {
+.UborderGreenTest {
     border: 5px solid greenyellow
 }
 
-.UborderRed {
+.UborderRedTest {
     border: 5px solid red
 }
 
-.UborderBlue {
+.UborderBlueTest {
     border: 5px solid blue;
 }
 
+.UblackBorder {
+    border: 2px solid #070c20;
+    border-radius: 15px;
+}
+
 .UpurpleBorder {
-    border: 5px solid #cd93f9;
+    border: 2px solid #cd93f9;
     border-radius: 15px;
 }
 
@@ -28,7 +33,16 @@
 }
 
 .UpinkButton:hover {
-    box-shadow: 0rem 0rem 0.5rem 0.5rem #ffba1e;
+    box-shadow: 0rem 0rem 0.2rem 0.2rem #ffba1e;
+}
+
+.UgrayButton {
+    background-color:#c6e1ea;
+    color: #5b1d2c;
+}
+
+.UgrayButton:hover {
+    box-shadow: 0rem 0rem 0.2rem 0.2rem #5b1d2c;
 }
 
 .UbuttonDimensions {
