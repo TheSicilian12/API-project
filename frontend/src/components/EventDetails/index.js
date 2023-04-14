@@ -95,10 +95,10 @@ function EventDetails({ event, eventId, user }) {
                         />
 
                         <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
-                            <div className='borderGreen displayFlex'>
-
+                            <div className='UblackBorderWeighted displayFlex border-Radius15'>
                                 <img
                                     //group image
+                                    className='border-Radius15'
                                     src={groupPreviewImage?.url || imageData}
                                     width='100%'
                                 />
