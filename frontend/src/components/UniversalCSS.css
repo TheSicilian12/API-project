@@ -23,9 +23,18 @@
     border-radius: 15px;
 }
 
+.UblackBorderWeighted {
+    border: 5px solid #070c20;
+    border-radius: 15px;
+}
+
 .UpinkBorder {
     border: 5px solid #fe66ca;
     border-radius: 15px;
+}
+
+.UBackGround {
+    background-color: #59a69463;
 }
 
 .UpurpleButton {
@@ -72,6 +81,26 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
 }
 
+
+.UdisplayFlex {
+    display: flex;
+}
+
+.UjustifyCenter {
+    justify-content: center;
+}
+
+.UalignCenter {
+    align-items: center;
+}
+
+.Uwidth100 {
+    width: 100%;
+}
+
+.border-Radius15 {
+    border-radius: 15px;
+}
 
 /* this does not have a U in front because so many already exist */
 .pointerCursor {

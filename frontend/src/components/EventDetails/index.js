@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
+import '../UniversalCSS.css';
 import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
@@ -94,10 +95,10 @@ function EventDetails({ event, eventId, user }) {
                         />
 
                         <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
-                            <div className='borderGreen displayFlex'>
-
+                            <div className='UblackBorderWeighted displayFlex border-Radius15'>
                                 <img
                                     //group image
+                                    className='border-Radius15'
                                     src={groupPreviewImage?.url || imageData}
                                     width='100%'
                                 />
@@ -141,7 +142,11 @@ function EventDetails({ event, eventId, user }) {
                                 </div>
                                   <div className={options}>
                                         <NavLink to={`/events/${eventId}/edit`}>
-                                            <button>Update</button>
+                                            <button
+                                                className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                            >
+                                                Update
+                                            </button>
                                         </NavLink>
                                         <OpenModalDeleteEventButton
                                             buttonText='Delete'
@@ -153,7 +158,7 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                 </div>
                 <div>
-                    <h2>Details</h2>
+                    <h2>Description</h2>
                     <p>{event?.description}</p>
                 </div>
             </div>

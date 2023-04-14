@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './AllGroups.css';
+import '../UniversalCSS.css';
 import { getAllGroups } from '../../store/groupsThunk';
 import EventsGroupsNav from "../EventsGroupsNav";
 import groupDividerImage from '../assets/Images/Daco_4730261.png';
@@ -72,7 +73,7 @@ export default function AllGroups() {
                                 key={`AllGroups_group${groups.allGroups[e].id}`}
                             >
                                 <div className='image' key={`groups${groups.allGroups[e].id}`}>
-                                    <img className='groupImage'
+                                    <img className='groupImage border-Radius15'
                                         //super cool!
                                         src={groups.allGroups[e].preivewImage || imageData}
                                     />
