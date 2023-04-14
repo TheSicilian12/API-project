@@ -158,11 +158,11 @@ function GroupForm({ currentGroup, formType }) {
 
     return (
         <form
-            className='displayFlex flex-directionColumn'
+            className='displayFlex flex-directionColumn formWidth'
             onSubmit={handleSubmit}>
             <div>
                 {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
-                <h1 className={`${newForm} displayFlex justifyCenter`}>Start a New Group</h1>
+                <h1 className={`${newForm} borderGreen`}>Start a New Group</h1>
                 <h3 className={editForm}>Update your Group</h3>
                 <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                 <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>

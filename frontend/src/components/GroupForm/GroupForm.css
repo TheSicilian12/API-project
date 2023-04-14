@@ -112,6 +112,10 @@
     width: 100%;
 }
 
+.formWidth {
+    width: 75%;
+}
+
 .marginBottom {
     margin-bottom: 0.5rem;
 }
