@@ -8,6 +8,7 @@ import { getGroup } from '../../store/groupsThunk';
 import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
+import {organizeEventsByDate} from '../EventOrganizer'
 // import SignupFormModal from '../SignupFormModal';
 // import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
 

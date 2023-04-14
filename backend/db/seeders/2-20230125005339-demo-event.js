@@ -242,6 +242,16 @@ module.exports = {
         price: 100,
         startDate: "2023-05-30 09:30:00",
         endDate: "2023-05-30 12:30:00"
+      },
+      {
+        groupId: 1,
+        name: "event22 (associated with group 1)",
+        description: "testing if an past start date will appear with a future end date in the future date section.",
+        type: "Online",
+        capacity: 10,
+        price: 0,
+        startDate: "1999-05-30 09:30:00",
+        endDate: "2025-05-30 12:30:00"
       }
     ], {})
   },
