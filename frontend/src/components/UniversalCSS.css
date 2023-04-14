@@ -2,6 +2,10 @@
     display: none;
 }
 
+.UnoDecoration {
+    text-decoration: none;
+}
+
 .UborderBlackTest {
     border: 2px solid blac;
 }
@@ -106,6 +110,14 @@
     font-size: 200%;
 }
 
+.navStartGroup {
+    font-size: 150%;
+    color: #070c20;
+}
+
+.navStartGroup:hover {
+    color:	#ffba1e;
+}
 
 /* seperator images */
 .raincornSeperator {
