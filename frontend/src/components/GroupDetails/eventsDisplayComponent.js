@@ -49,7 +49,10 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator }) {
                     {eventsArray.map(e =>
                         <>
                             <div>
-
+                                <img
+                                    className='borderGreen'
+                                    src={seperator}
+                                />
                             </div>
                             <div className='pointerCursor eventMargin UBackGround border-Radius15'>
                                 <NavLink
