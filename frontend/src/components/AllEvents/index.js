@@ -118,7 +118,7 @@ export default function AllEvents() {
 
             </div>
             <EventsDisplayComponent
-                    timeline={'current'} eventsArray={eventsArray[2]}
+                    timeline={'current'} eventsArray={eventsArray[2]} seperator={eventDividerImage}
                 />
             <EventsDisplayComponent
                 timeline={'future'} eventsArray={eventsArray[1]}
