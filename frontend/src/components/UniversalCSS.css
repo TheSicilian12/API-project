@@ -73,6 +73,23 @@
 }
 
 
+.UdisplayFlex {
+    display: flex;
+}
+
+.UjustifyCenter {
+    justify-content: center;
+}
+
+.UalignCenter {
+    align-items: center;
+}
+
+.Uwidth100 {
+    width: 100%;
+}
+
+
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
     cursor: pointer;

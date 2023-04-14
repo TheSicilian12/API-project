@@ -130,5 +130,8 @@
 
 .noDecoration {
     text-decoration: none;
-    
+}
+
+.sectionTitle {
+    font-size: 250%
 }

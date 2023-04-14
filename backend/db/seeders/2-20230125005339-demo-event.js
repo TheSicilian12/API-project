@@ -252,6 +252,16 @@ module.exports = {
         price: 0,
         startDate: "1999-05-30 09:30:00",
         endDate: "2025-05-30 12:30:00"
+      },
+      {
+        groupId: 1,
+        name: "event23 (associated with group 1)",
+        description: "testing current events, specifically what order they will appear",
+        type: "Online",
+        capacity: 10,
+        price: 0,
+        startDate: "1999-06-30 09:30:00",
+        endDate: "2025-05-30 12:30:00"
       }
     ], {})
   },
