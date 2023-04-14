@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import './DeleteGroupModalButton.css'
+import '../UniversalCSS.css'
 
 export default function OpenModalDeleteGroupButton({
     modalComponent, // component to render inside the modal
@@ -18,6 +19,8 @@ export default function OpenModalDeleteGroupButton({
     };
 
     return (
-        <button onClick={onClick}>{buttonText}</button>
+        <button
+        className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+        onClick={onClick}>{buttonText}</button>
     );
 }

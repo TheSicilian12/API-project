@@ -208,19 +208,24 @@ function GroupDetails({ group, user, events, groupId }) {
                             </button>
                         </div>
                         <div className={options}>
-                            <div className='borderRed displayFlex justifySpaceAround eventInfo'>
+                            <div className='displayFlex justifySpaceAround eventInfo'>
                                 <NavLink to={`/groups/${groupId}/events/new`}>
-                                    <button>
+                                    <button
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                    >
                                         Create event
                                     </button>
                                 </NavLink>
                                 <NavLink to={`/groups/${groupId}/edit`}>
-                                    <button>
+                                    <button
+                                     className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                    >
                                         Update
                                     </button>
                                 </NavLink>
                                 <div>
                                     <OpenModalDeleteGroupButton
+
                                         buttonText="Delete"
                                         modalComponent={<DeleteGroupModal groupId={groupId} />}
                                     />

@@ -23,16 +23,17 @@
     border-radius: 15px;
 }
 
-.UpurpleBorder {
-    border: 2px solid #cd93f9;
+.UpinkBorder {
+    border: 5px solid #fe66ca;
     border-radius: 15px;
 }
 
-.UpinkButton {
-    background-color:#fe66ca;
+.UpurpleButton {
+    background-color:#cd93f971;
+    color: black
 }
 
-.UpinkButton:hover {
+.UpurpleButton:hover {
     box-shadow: 0rem 0rem 0.2rem 0.2rem #ffba1e;
 }
 
@@ -51,6 +52,20 @@
     width: 10rem;
     height: 3rem;
 
+}
+
+.UbuttonSmallDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 5rem;
+    height: 4rem;
+}
+
+.UbuttonCreateDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 8rem;
+    height: 4rem;
 }
 
 .UfontTreb {
