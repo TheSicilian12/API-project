@@ -16,7 +16,7 @@ function LandingPage() {
 
     return (
         <>
-            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop'>
+            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop UfontTreb'>
                 <div className='displayFlex flex-directionColumn'>
                     <h1 className='textWrap'>
                         The people platform - Where skills become adventuring parties:
@@ -35,7 +35,7 @@ function LandingPage() {
 
 
             </div>
-            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop'>
+            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop UfontTreb'>
                 <div className='displayFlex flex-directionColumn'>
                 <h2 className='displayFlex justifyCenter'>
                 How Adventureup works
@@ -45,17 +45,20 @@ function LandingPage() {
                 </p>
                 </div>
             </div>
-            <div className='displayFlex justifyCenter'>
+            <div className='displayFlex justifyCenter UfontTreb'>
                 <SeeAllGroups />
                 <FindAnEvent />
                 <StartGroup user={user}/>
             </div>
             <div className='displayFlex justifyCenter paddingButton'>
-                <button className='landingPage_options_joinButton joinButtonDimensions '>
+                <button
+                    className='landingPage_options_joinButton UpurpleButton UbuttonJoinMeetUpDimensions border-Radius15 UfontTreb'
+                    onClick={() => alert('Feature coming soon')}
+                >
                     Join Meetup
                 </button>
             </div>
-            <div className='displayFlex justifyCenter marginTop'>
+            <div className='displayFlex justifyCenter marginTop UfontTreb'>
                 Logo and Icon are thanks to Placeit (logo) and PhotoRoom (editing)!
             </div>
         </>

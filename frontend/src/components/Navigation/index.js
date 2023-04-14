@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
         </div>
         <div className='displayFlex paddingRight'>
           <div className='displayFlex alignCenter paddingRightStartNewGroup'>
-            {user && <NavLink to='/groups/new' className=''>
+            {user && <NavLink to='/groups/new' className='UfontTreb UnoDecoration navStartGroup'>
               Start a new group
             </NavLink>}
           </div>
