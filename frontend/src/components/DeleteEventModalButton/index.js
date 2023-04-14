@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import './DeleteEventModalButton.css'
+import './DeleteEventModalButton.css';
+import '../UniversalCSS.css';
 
 export default function OpenModalDeleteEventButton({
     modalComponent, // component to render inside the modal
@@ -18,7 +19,11 @@ export default function OpenModalDeleteEventButton({
     };
 
     return (
-        <button onClick={onClick}>{buttonText}</button>
+        <button
+            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+            onClick={onClick}
+            >
+                {buttonText}
+            </button>
     );
 }
-

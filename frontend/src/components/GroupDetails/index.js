@@ -130,7 +130,7 @@ function GroupDetails({ group, user, events, groupId }) {
             </div>
             <div className='GroupDetails_Details displayFlex justifyCenter'>
                 <img
-                    className=''
+                    className='border-Radius15'
                     height='500rem'
                     width='700rem'
                     src={groupPreviewImage?.url || imageData}
