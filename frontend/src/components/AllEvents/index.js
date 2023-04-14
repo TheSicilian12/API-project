@@ -7,6 +7,8 @@ import './AllEvents.css';
 import { getAllEventsThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 import eventDividerImage from '../assets/Images/favpng_gif-clip-art-oekaki-fan-art.png'
+import { EventsDisplayComponent } from '../GroupDetails/eventsDisplayComponent'
+import { organizeEventsByDate } from '../EventOrganizer'
 
 export default function AllEvents() {
     const dispatch = useDispatch();
