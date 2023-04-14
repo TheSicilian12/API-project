@@ -175,14 +175,14 @@ function GroupDetails({ group, user, events, groupId }) {
                     src={groupPreviewImage?.url || imageData}
                 />
 
-                <div className='infoGeneralSpacing borderGreen'>
+                <div className='infoGeneralSpacing'>
                     <h1 className='GroupDetails_Details_GroupName textWrap'>
                         {`${group.singleGroup.name}`}
                     </h1>
                     <h4 className='GroupDetails_Details_Location'>
                         {`${group.singleGroup.city}, ${group.singleGroup.state}`}
                     </h4>
-                    <div className='borderGreen displayFlex alignCenter'>
+                    <div className='displayFlex alignCenter'>
                         <h4 >
                             {`${totalNumberEvents} events`}
                         </h4>
@@ -197,7 +197,7 @@ function GroupDetails({ group, user, events, groupId }) {
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
                         <div className={`${displayJoinGroup}`}>
                             <button
-                                className='UpinkButton UpurpleBorder UbuttonDimensions'
+                                className='UpinkButton UpurpleBorder UbuttonDimensions UfontTreb'
                                 onClick={() => alert('Feature coming soon')}
                                 disabled={`${joinGroup}` === 'true' ? true : false}
                             >
