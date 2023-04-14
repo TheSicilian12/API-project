@@ -55,6 +55,9 @@ function LandingPage() {
                     Join Meetup
                 </button>
             </div>
+            <div className='displayFlex justifyCenter marginTop'>
+                Logo and Icon are thanks to Placeit (logo) and PhotoRoom (editing)!
+            </div>
         </>
     )
 }

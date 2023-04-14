@@ -101,3 +101,7 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+
+.marginTop {
+    margin-top: 1rem;
+}
