@@ -37,7 +37,10 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                     </div>
                     {eventsArray.map(e =>
                         <div className='borderRed pointerCursor'>
-                            <NavLink to={`/events/${e.id} `}>
+                            <NavLink
+                                className='noDecoration eventText'
+                                to={`/events/${e.id}`}
+                            >
                                 <div className='borderGreen noDecoration displayFlex UjustifyCenter'>
                                     <img
                                         //event image
@@ -46,10 +49,6 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                                         width='300rem'
                                     />
                                     <div className='infoEventSpacing'>
-                                        {/* month / day / year */}
-                                        {/* {<h4>{e?.startDate.split('T')[0].split('-')[1]} / {e?.startDate.split('T')[0].split('-')[2]} / {e?.startDate.split('T')[0].split('-')[0]}</h4>} */}
-                                        {/* {<h4>{e?.startDate.split('T')[1]}</h4>} */}
-                                        {/* mdn docs Date.prototype.toJSON() */}
                                         <div className='borderGreen displayFlex'>
                                             {/* date */}
                                             {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
