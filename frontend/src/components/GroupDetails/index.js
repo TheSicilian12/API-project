@@ -8,21 +8,13 @@ import { getGroup } from '../../store/groupsThunk';
 import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
-import {organizeEventsByDate} from '../EventOrganizer'
-import {EventsDisplayComponent} from './eventsDisplayComponent'
+import { organizeEventsByDate } from '../EventOrganizer'
+import { EventsDisplayComponent } from './eventsDisplayComponent'
 // import SignupFormModal from '../SignupFormModal';
 // import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
 
 
 function GroupDetails({ group, user, events, groupId }) {
-    //  console.log('events prop: ', events['1']?.endDate)
-    // console.log('Date: ', Date.parse(events['1']?.endDate))
-
-    // console.log('events: ', Object.values(events).length)
-
-    // console.log('delete event')
-
-    // console.log('events: ', events)
     if (!group.singleGroup) {
         return <div>loading</div>
     }
@@ -34,18 +26,23 @@ function GroupDetails({ group, user, events, groupId }) {
     let eventsArray = organizeEventsByDate(events);
     let futureEvents = eventsArray[1];
     let pastEvents = eventsArray[0];
+    let currentEvents = eventsArray[2];
 
     // console.log('futureEvents: ', futureEvents)
 
     // console.log('eventsArray: ', eventsArray)
 
-    let showPastEvents = 'off';
-    let showFutureEvents = 'off';
-    if (futureEvents.length > 0) {
-        showFutureEvents = 'on';
+    let showPastEvents = 'Ushow';
+    let showFutureEvents = 'Ushow';
+    let showCurrentEvents = 'Ushow';
+    if (futureEvents.length === 0) {
+        showFutureEvents = 'Uhide';
     }
-    if (pastEvents.length > 0) {
-        showPastEvents = 'on';
+    if (pastEvents.length === 0) {
+        showPastEvents = 'hide';
+    }
+    if (currentEvents.length === 0) {
+        showCurrentEvents = 'Uhide'
     }
 
     let groupStatus = 'Public'
@@ -180,7 +177,7 @@ function GroupDetails({ group, user, events, groupId }) {
                                 </NavLink>
                                 <NavLink to={`/groups/${groupId}/edit`}>
                                     <button
-                                     className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
                                     >
                                         Update
                                     </button>
@@ -214,10 +211,21 @@ function GroupDetails({ group, user, events, groupId }) {
                     </p>
                 </div>
             </div>
-
-            <EventsDisplayComponent timeline={'current'} eventsArray={eventsArray[2]} />
-            <EventsDisplayComponent timeline={'future'} eventsArray={eventsArray[1]} />
-            <EventsDisplayComponent timeline={'past'} eventsArray={eventsArray[0]} />
+            <div className={`${showCurrentEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'current'} eventsArray={eventsArray[2]}
+                />
+            </div>
+            <div className={`${showFutureEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'future'} eventsArray={eventsArray[1]}
+                />
+            </div>
+            <div className={`${showPastEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'past'} eventsArray={eventsArray[0]}
+                />
+            </div>
 
         </div >
 
