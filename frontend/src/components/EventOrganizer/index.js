@@ -7,9 +7,9 @@ export function organizeEventsByDate(eventsObj) {
     Object.values(eventsObj).map((e) => {
         let timelineCheck = timeline(e?.startDate, e?.endDate)
         if (timelineCheck === 'past') {
-            eventsArray[1].push(e)
-        } else if (timelineCheck === 'future')  {
             eventsArray[0].push(e)
+        } else if (timelineCheck === 'future')  {
+            eventsArray[1].push(e)
         } else {
             eventsArray[2].push(e)
         }

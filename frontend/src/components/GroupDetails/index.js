@@ -30,46 +30,6 @@ function GroupDetails({ group, user, events, groupId }) {
 
     const totalNumberEvents = Object.values(events).length
 
-    function organizeEventsByDate(eventsObj) {
-        //eventArray[0] is for past events
-        //eventArray[1] is for current/future events
-        let eventsArray = [[], []]
-
-        Object.values(eventsObj).map((e) => {
-            //     console.log(e?.endDate)
-            //    console.log(isEventFuture(e?.endDate))
-            if (isEventFuture(e?.endDate)) {
-                eventsArray[1].push(e)
-            } else {
-                eventsArray[0].push(e)
-            }
-        })
-
-        //organize the event dates from earliest date to newest date
-        for (let i = 0; eventsArray.length > i; i++) {
-            if (eventsArray[i].length) {
-                eventsArray[i].sort((a, b) => {
-                    const firstDate = Date.parse(a?.endDate);
-                    const secondDate = Date.parse(b?.endDate);
-                    if (i === 0) {
-                        if (firstDate < secondDate) return +1;
-                        if (firstDate > secondDate) return -1;
-                    }
-                    if (i === 1) {
-                        if (firstDate < secondDate) return -1;
-                        if (firstDate > secondDate) return +1;
-                    }
-
-                    return 0;
-                })
-            }
-
-        }
-
-        // console.log('return: ', eventsArray);
-        return eventsArray;
-    }
-
     let eventsArray = organizeEventsByDate(events);
     let futureEvents = eventsArray[1];
     let pastEvents = eventsArray[0];
