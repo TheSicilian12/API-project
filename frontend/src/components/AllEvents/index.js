@@ -41,10 +41,10 @@ export default function AllEvents() {
                     timeline={'current'} eventsArray={eventsArray[2]} seperator={eventDividerImage} seperatorClass={'raincornSeperator'}
                 />
             <EventsDisplayComponent
-                timeline={'future'} eventsArray={eventsArray[1]}
+                timeline={'future'} eventsArray={eventsArray[1]} seperator={eventDividerImage} seperatorClass={'raincornSeperator'}
             />
             <EventsDisplayComponent
-                timeline={'past'} eventsArray={eventsArray[0]}
+                timeline={'past'} eventsArray={eventsArray[0]} seperator={eventDividerImage} seperatorClass={'raincornSeperator'}
             />
         </div>
     )
