@@ -95,3 +95,15 @@
 .infoGroupSpacing {
     padding-left: 2rem;
 }
+
+.timeEventSpacing {
+    padding-left: 1rem;
+}
+
+.startEndSpacing {
+    padding-Right: 0.5rem;
+}
+
+.clockDimensions {
+    width: 5rem;
+}
