@@ -23,6 +23,10 @@
     background-color:#fe66ca;
 }
 
+.UpinkButton:hover {
+    box-shadow: 0rem 0rem 0.5rem 0.5rem #ffba1e;
+}
+
 .UbuttonDimensions {
     font-size: large;
     /* border: #cd93f9; */
