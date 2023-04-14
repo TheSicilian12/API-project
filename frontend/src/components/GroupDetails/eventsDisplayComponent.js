@@ -7,9 +7,13 @@ import { organizeEventsByDate } from '../EventOrganizer'
 
 
 export function EventsDisplayComponent({ timeline, eventsArray }) {
-    console.log('test')
+    // console.log('test')
     //timeline - past, present, future string
     //eventsArray - specific past, current, future
+
+    if (eventsArray.length === 0) {
+        return null;
+    }
 
     let holderDescription;
     if (timeline === 'past') {
@@ -39,12 +43,12 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                         <div className='pointerCursor'>
                             <NavLink
                                 className='noDecoration'
-                                to={`/events/${e.id}`}
+                                to={`/events/${e?.id}`}
                             >
                                 <div className='noDecoration displayFlex UjustifyCenter'>
                                     <img
                                         //event image
-                                        src={e.previewImage || imageData}
+                                        src={e?.previewImage || imageData}
                                         height='200rem'
                                         width='300rem'
                                     />
