@@ -141,9 +141,11 @@ function EventDetails({ event, eventId, user }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='displayFlex alignCenter borderGreen'>
-                                    <i class="fa-solid fa-dollar-sign style=color: #000000;"></i>
-                                    <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
+                                <div className='displayFlex alignCenter'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                    <i class="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className='timeEventSpacing'>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
                                 </div>
                                 <div className='displayFlex alignCenter borderGreen'>
                                     <i class="fa-solid fa-map-pin style=color: #000000;"></i>
