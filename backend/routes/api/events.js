@@ -187,10 +187,6 @@ router.get('/', async (req, res, next) => {
     // let test = JSON.stringify(events)
     // console.log('test: ', test)
 
-
-
-
-
     // for (let e of eventObj.Events) {
     //     // console.log(e.EventImages)
     //     // if (e.EventImages[0]) {
