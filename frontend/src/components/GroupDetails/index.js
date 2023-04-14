@@ -128,7 +128,7 @@ function GroupDetails({ group, user, events, groupId }) {
                 <p>{'<'}</p>
                 <NavLink to='/groups'>Groups</NavLink>
             </div>
-            <div className='GroupDetails_Details displayFlex borderRed justifyCenter'>
+            <div className='GroupDetails_Details displayFlex justifyCenter'>
                 <img
                     className=''
                     height='500rem'
@@ -158,7 +158,7 @@ function GroupDetails({ group, user, events, groupId }) {
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
                         <div className={`${displayJoinGroup} ${hideJoinGroup}`}>
                             <button
-                                className='UgrayButton UblackBorder UbuttonDimensions UfontTreb'
+                                className='UgrayButton UbuttonDimensions UfontTreb'
                                 onClick={() => alert('Feature coming soon')}
                                 disabled={`${joinGroup}` === 'true' ? true : false}
                             >
@@ -194,8 +194,8 @@ function GroupDetails({ group, user, events, groupId }) {
                     </div>
                 </div>
             </div>
-            <div className='borderRed displayFlex justifyCenter'>
-                <div className='borderGreen adjustInfoDiv'>
+            <div className='displayFlex justifyCenter'>
+                <div className='adjustInfoDiv'>
 
                     <h2>
                         Organizer

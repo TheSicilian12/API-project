@@ -126,6 +126,7 @@
 
 .infoEventSpacing {
     padding-left: 1rem;
+    width: 30rem
 }
 
 .noDecoration {
@@ -136,6 +137,21 @@
     font-size: 250%
 }
 
-.eventText {
-    font-size: 120%
+.eventTitleText {
+    font-size: 150%
+}
+
+.dateText {
+    font-size: 100%
+}
+
+.marginPaddingDate {
+    margin: 0px;
+    padding-bottom: 0px;
+}
+
+.marginPaddingTitle {
+    margin: 0px;
+    padding: 0px;
+    width: 100%
 }
