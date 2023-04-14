@@ -6,7 +6,7 @@ import { organizeEventsByDate } from '../EventOrganizer'
 
 
 
-export function EventsDisplayComponent({ timeline, eventsArray, seperator }) {
+export function EventsDisplayComponent({ timeline, eventsArray, seperator, seperatorClass}) {
     // console.log('test')
     //timeline - past, present, future string
     //eventsArray - specific past, current, future
@@ -20,6 +20,9 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator }) {
     let seperatorImage = 'Uhide';
     if (seperator) {
         seperatorImage = 'Ushow';
+    }
+    if (!seperatorClass) {
+        seperatorClass='noSeperatorClass'
     }
 
     let holderDescription;
@@ -48,9 +51,9 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator }) {
                     </div>
                     {eventsArray.map(e =>
                         <>
-                            <div>
+                            <div className={`${seperatorImage} displayFlex justifyCenter`}>
                                 <img
-                                    className='borderGreen'
+                                    className={`${seperatorClass}`}
                                     src={seperator}
                                 />
                             </div>

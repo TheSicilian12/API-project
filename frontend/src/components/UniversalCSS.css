@@ -102,9 +102,14 @@
     border-radius: 15px;
 }
 
-.adventureUpLogo:hover {
-    
+
+/* seperator images */
+.raincornSeperator {
+    width: 62%;
+    height: 100px;
 }
+
+
 
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
