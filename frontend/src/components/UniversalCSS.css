@@ -71,3 +71,9 @@
 .UfontTreb {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
 }
+
+
+/* this does not have a U in front because so many already exist */
+.pointerCursor {
+    cursor: pointer;
+}

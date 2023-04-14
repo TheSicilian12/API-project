@@ -9,6 +9,7 @@ import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 import {organizeEventsByDate} from '../EventOrganizer'
+import {EventsDisplayComponent} from './eventsDisplayComponent'
 // import SignupFormModal from '../SignupFormModal';
 // import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
 
@@ -214,92 +215,10 @@ function GroupDetails({ group, user, events, groupId }) {
                 </div>
             </div>
 
-            <div className={showFutureEvents}>
-                <div className='borderGreen displayFlex justifyCenter'>
-                    <div className='borderRed adjustInfoDiv'>
+            <EventsDisplayComponent timeline={'current'} eventsArray={eventsArray[2]} />
+            <EventsDisplayComponent timeline={'future'} eventsArray={eventsArray[1]} />
+            <EventsDisplayComponent timeline={'past'} eventsArray={eventsArray[0]} />
 
-                        <h2>
-                            Upcoming Events ({`${futureEvents.length}`})
-                        </h2>
-                        {futureEvents.map(e =>
-                            <div className='borderRed pointerCursor'>
-                                <NavLink to={`/events/${e.id}`}>
-                                    <div className='borderGreen displayFlex'>
-                                        <img
-                                            //event image
-                                            src={e.previewImage || imageData}
-                                            height='200rem'
-                                            width='300rem'
-                                        />
-                                        <div className='infoEventSpacing'>
-                                            {/* month / day / year */}
-                                            {/* {<h4>{e?.startDate.split('T')[0].split('-')[1]} / {e?.startDate.split('T')[0].split('-')[2]} / {e?.startDate.split('T')[0].split('-')[0]}</h4>} */}
-                                            {/* {<h4>{e?.startDate.split('T')[1]}</h4>} */}
-                                            {/* mdn docs Date.prototype.toJSON() */}
-                                            <div className='borderGreen displayFlex'>
-                                                {/* date */}
-                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
-                                                <h4 className='dotSpacing'>•</h4>
-                                                {/* military time */}
-                                                {<h4>{new Date(e?.startDate).toUTCString().split(' ')[4]}</h4>}
-                                            </div>
-
-                                            <h4 className='textWrap'>{e?.name}</h4>
-                                            <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
-                                        </div>
-                                    </div>
-                                    <div className='borderBlack'>
-                                        <p className='textWrap'>{e?.description}</p>
-                                    </div>
-                                </NavLink>
-                            </div>
-                        )}
-
-                    </div>
-                </div>
-            </div>
-
-            <div className={showPastEvents}>
-                <div className='borderGreen displayFlex justifyCenter'>
-                    <div className='borderRed adjustInfoDiv'>
-                        <h2>
-                            <h2>
-                                Past Events ({`${pastEvents.length}`})
-                            </h2>
-                            {pastEvents.map(e =>
-                                <div className='borderRed pointerCursor'>
-                                    <NavLink to={`/events/${e.id}`}>
-                                        <div className='borderGreen displayFlex'>
-
-                                            <img
-                                                //group image
-                                                src={e?.previewImage || imageData}
-                                                height='200rem'
-                                                width='300rem'
-                                            />
-                                            <div className='infoEventSpacing'>
-                                                {/* <h4>{e?.endDate}</h4> */}
-                                                <div className='borderGreen displayFlex'>
-                                                    {/* date */}
-                                                    {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
-                                                    <h4 className='dotSpacing'>•</h4>
-                                                    {/* military time */}
-                                                    {<h4>{new Date(e?.startDate).toUTCString().split(' ')[4]}</h4>}
-                                                </div>
-                                                <h4 className='textWrap'>{e?.name}</h4>
-                                                <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
-                                            </div>
-                                        </div>
-                                        <div className='borderBlack'>
-                                            <p>{e?.description}</p>
-                                        </div>
-                                    </NavLink>
-                                </div>
-                            )}
-                        </h2>
-                    </div>
-                </div>
-            </div>
         </div >
 
     )
