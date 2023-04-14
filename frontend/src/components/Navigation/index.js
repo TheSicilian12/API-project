@@ -16,22 +16,23 @@ function Navigation({ isLoaded }) {
 
   return (
       <div className='displayFlex justfiySpaceBetween alignCenter'>
-        <div className='home pointerCursor'>
+        <div className='pointerCursor'>
           {/* <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink> */}
           <img
+            className=''
             width='50%'
             onClick={() => {history.push('/')}}
             src={adventureUpLogo}
           />
         </div>
-        <div className='borderBlack displayFlex paddingRight'>
+        <div className='displayFlex paddingRight'>
           <div className='displayFlex alignCenter paddingRightStartNewGroup'>
-            {user && <NavLink to='/groups/new' className='borderGreen'>
+            {user && <NavLink to='/groups/new' className=''>
               Start a new group
             </NavLink>}
           </div>
           {isLoaded && (
-            <div className='borderPurple displayFlex alignCenter justifyCenter'>
+            <div className='displayFlex alignCenter justifyCenter'>
               <ProfileButton user={sessionUser} />
             </div>
           )}
