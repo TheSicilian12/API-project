@@ -31,7 +31,7 @@ export default function AllEvents() {
         <div className='AllEvents'>
             <div key='upcomingEvents'>
                 <div className='displayFlex justifyCenter'>
-                    <p className='mainText textSizeGroup'>
+                    <p className='mainText UfontTreb eventGroupHeaderFontSize'>
                         Events in AdventureUp
                     </p>
                 </div>

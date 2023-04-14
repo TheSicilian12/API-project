@@ -77,11 +77,6 @@
     height: 4rem;
 }
 
-.UfontTreb {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
-}
-
-
 .UdisplayFlex {
     display: flex;
 }
@@ -100,6 +95,15 @@
 
 .border-Radius15 {
     border-radius: 15px;
+}
+
+.UfontTreb {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+}
+
+.eventGroupHeaderFontSize {
+    color: #505c76;
+    font-size: 200%;
 }
 
 

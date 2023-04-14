@@ -47,7 +47,7 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                     <div className='displayFlex justifyCenter'>
 
                         <h2
-                            className='displayFlex justifyCenter sectionTitle'
+                            className='displayFlex justifyCenter sectionTitle UfontTreb'
                         >
                             {holderDescription} ({`${eventsArray.length}`})
                         </h2>
@@ -60,7 +60,7 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                                     src={seperator}
                                 />
                             </div>
-                            <div className={`pointerCursor eventMargin ${background} border-Radius15`}>
+                            <div className={`pointerCursor eventMargin ${background} border-Radius15 UfontTreb`}>
                                 <NavLink
                                     className='noDecoration'
                                     to={`/events/${e?.id}`}
