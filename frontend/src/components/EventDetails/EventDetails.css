@@ -107,3 +107,15 @@
 .moneyDimensions {
     width: 15%;
 }
+
+.paddingTop {
+    padding-top: 1rem;
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.marginLeft {
+    margin-left: 1rem;
+}

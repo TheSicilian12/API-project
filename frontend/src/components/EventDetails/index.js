@@ -94,7 +94,7 @@ function EventDetails({ event, eventId, user }) {
                             height='50%'
                         />
 
-                        <div className='borderGreen displayFlex flex-directionColumn infoGeneralSpacing'>
+                        <div className='displayFlex flex-directionColumn infoGeneralSpacing'>
                             <div className='UblackBorderWeighted displayFlex border-Radius15'>
                                 <img
                                     //group image
@@ -104,21 +104,21 @@ function EventDetails({ event, eventId, user }) {
                                 />
 
                                 <div className='infoGroupSpacing'>
-                                    <h4 className='textWrap borderRed'>{event.Group?.name}</h4>
+                                    <h4 className='textWrap'>{event.Group?.name}</h4>
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-                            <div className='borderRed border-Radius15'>
-                                <div className='borderBlue displayFlex'>
+                            <div className='UblackBorderWeighted border-Radius15 marginTop'>
+                                <div className='displayFlex marginTop marginLeft'>
                                     {/* <i class="fa-regular fa-clock fa-2xl style=color: #000000; borderRed displayFlex alignCenter justifyCenter clockDimensions"></i> */}
                                     <img
-                                        className='borderGreen'
+                                        className=''
                                         width='15%'
                                         height='15%'
                                         src={clockImage}
                                     />
                                     <div className='timeEventSpacing'>
-                                        <div className='displayFlex alignCenter borderGreen'>
+                                        <div className='displayFlex alignCenter'>
                                             <h4 className='startEndSpacing'>
                                                 START:
                                             </h4>
@@ -129,7 +129,7 @@ function EventDetails({ event, eventId, user }) {
                                             {<h4>{new Date(event?.startDate).toUTCString().split(' ')[4]}</h4>}
 
                                         </div>
-                                        <div className='displayFlex alignCenter borderGreen'>
+                                        <div className='displayFlex alignCenter'>
                                             <h4 className='startEndSpacing'>
                                                 END:
                                             </h4>
