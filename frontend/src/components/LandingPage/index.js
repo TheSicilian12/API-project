@@ -45,13 +45,13 @@ function LandingPage() {
                 </p>
                 </div>
             </div>
-            <div className='borderGreen displayFlex justifyCenter'>
+            <div className='displayFlex justifyCenter'>
                 <SeeAllGroups />
                 <FindAnEvent />
                 <StartGroup user={user}/>
             </div>
-            <div className='displayFlex justifyCenter'>
-                <button className='landingPage_options_joinButton'>
+            <div className='displayFlex justifyCenter paddingButton'>
+                <button className='landingPage_options_joinButton joinButtonDimensions '>
                     Join Meetup
                 </button>
             </div>

@@ -7,6 +7,7 @@ import './AllGroups.css';
 import { getAllGroups } from '../../store/groupsThunk';
 import EventsGroupsNav from "../EventsGroupsNav";
 import groupDividerImage from '../assets/Images/Daco_4730261.png';
+import SwordLine from '../HorizontalLines/SwordLine'
 
 export default function AllGroups() {
     const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function AllGroups() {
 
                 <div className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
+                        {/* <SwordLine /> */}
                         <img
                             className='dividerPadding'
                             height='25%'
@@ -62,7 +64,9 @@ export default function AllGroups() {
                         />
                     </div>
                     <div className='displayFlex justifyCenter'>
-                        <NavLink to={`/groups/${groups.allGroups[e].id}`}>
+                        <NavLink
+                            className='noDecoration pointerCursor'
+                            to={`/groups/${groups.allGroups[e].id}`}>
                             {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                             <div className='AllGroups_group displayFlex justifyCenter mainText pointerCursor'
                                 key={`AllGroups_group${groups.allGroups[e].id}`}

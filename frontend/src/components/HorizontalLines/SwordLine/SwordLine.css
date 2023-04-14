@@ -1,15 +1,3 @@
-.off {
-    display: none;
-}
-
-.test {
-    border: 2px solid black;
-}
-
-.off {
-    display: none
-}
-
 .borderBlack {
     border: 2px solid black;
 }
@@ -34,24 +22,12 @@
     flex-direction: column;
 }
 
-.flex-directionRow {
-    flex-direction: row;
-}
-
 .justifyCenter {
     justify-content: center;
 }
 
-.justifyEnd {
-    justify-content: end;
-}
-
 .alignCenter {
     align-items: center;
-}
-
-.alignBottom {
-    align-items: flex-end;
 }
 
 .justifySpaceAround {
@@ -63,10 +39,10 @@
     left: 50%;
 } */
 
-.eventImage {
-    height: 500rem;
-    width: 7000rem;
-    /* padding-right: 2rem; */
+.groupImage {
+    width: 25rem;
+    height: 20rem;
+    padding-right: 2rem;
 }
 
 .testing {
@@ -75,15 +51,7 @@
 }
 
 .mainText {
-    width: 66rem;
-}
-
-.adjustInfoDiv {
-    width: 66rem;
-}
-
-.buttonHeight {
-    height: 15rem;
+    width: 45rem;
 }
 
 .adjustHorizontal {
@@ -95,8 +63,8 @@
     inline-size: 20rem;
 }
 
-.eventInfo {
-    width: 15rem;
+.groupInfo {
+    width: 20rem;
 }
 
 .textSizeGroup {
@@ -116,19 +84,16 @@
     font-weight: bold;
 }
 
-.infoGeneralSpacing {
-    padding-left: 2rem;
-}
-
-.infoGroupSpacing {
-    padding-left: 2rem;
-}
-
-.infoEventSpacing {
-    padding-left: 1rem;
+.dividerPaddingRight {
+    padding-Right: 2rem;
 }
 
 .noDecoration {
     text-decoration: none;
-    
+    color: black;
+}
+
+.notCurrentSelection {
+    text-decoration: none;
+    color: gray
 }

@@ -1,0 +1,79 @@
+.Uhide {
+    display: none;
+}
+
+.UborderBlackTest {
+    border: 2px solid blac;
+}
+
+.UborderGreenTest {
+    border: 5px solid greenyellow
+}
+
+.UborderRedTest {
+    border: 5px solid red
+}
+
+.UborderBlueTest {
+    border: 5px solid blue;
+}
+
+.UblackBorder {
+    border: 2px solid #070c20;
+    border-radius: 15px;
+}
+
+.UpinkBorder {
+    border: 5px solid #fe66ca;
+    border-radius: 15px;
+}
+
+.UpurpleButton {
+    background-color:#cd93f971;
+    color: black
+}
+
+.UpurpleButton:hover {
+    box-shadow: 0rem 0rem 0.2rem 0.2rem #ffba1e;
+}
+
+.UgrayButton {
+    background-color:#c6e1ea;
+    color: #5b1d2c;
+}
+
+.UgrayButton:hover {
+    box-shadow: 0rem 0rem 0.2rem 0.2rem #5b1d2c;
+}
+
+.UbuttonDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 10rem;
+    height: 3rem;
+
+}
+
+.UbuttonSmallDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 5rem;
+    height: 4rem;
+}
+
+.UbuttonCreateDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 8rem;
+    height: 4rem;
+}
+
+.UfontTreb {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+}
+
+
+/* this does not have a U in front because so many already exist */
+.pointerCursor {
+    cursor: pointer;
+}
