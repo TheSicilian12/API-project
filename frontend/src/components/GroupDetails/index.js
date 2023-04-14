@@ -122,6 +122,8 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('groupPreviewImage: ', groupPreviewImage)
 
+    // console.log('eventsArray: ', eventsArray)
+
     return (
         <div className='GroupDetails'>
             <div className='GroupDetails_GroupsButton'>

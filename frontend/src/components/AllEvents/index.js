@@ -23,7 +23,7 @@ export default function AllEvents() {
         return <div>loading</div>
     }
 
-    // console.log('events: ', events)
+    console.log('events: ', events)
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
@@ -105,7 +105,7 @@ export default function AllEvents() {
 
     // const eventsArray = organizeEventsByDate(events.allEvents)
 
-    console.log('eventsArray: ', eventsArray)
+    // console.log('eventsArray: ', eventsArray)
 
     return (
         <div className='AllEvents'>
