@@ -18,8 +18,10 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
     console.log('seperator: ', seperator)
 
     let seperatorImage = 'Uhide';
+    let background = 'UGroup-EventsBackGround'
     if (seperator) {
         seperatorImage = 'Ushow';
+        background='noBackground'
     }
     if (!seperatorClass) {
         seperatorClass='noSeperatorClass'
@@ -33,6 +35,7 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
     } else {
         holderDescription = 'Ongoing Events'
     }
+
 
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
@@ -57,7 +60,7 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                                     src={seperator}
                                 />
                             </div>
-                            <div className='pointerCursor eventMargin UBackGround border-Radius15'>
+                            <div className={`pointerCursor eventMargin ${background} border-Radius15`}>
                                 <NavLink
                                     className='noDecoration'
                                     to={`/events/${e?.id}`}
