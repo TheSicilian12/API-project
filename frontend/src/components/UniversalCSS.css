@@ -1,3 +1,7 @@
+.Uhide {
+    display: none;
+}
+
 .UborderBlack {
     border: 2px solid black;
 }

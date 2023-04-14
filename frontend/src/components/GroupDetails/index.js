@@ -133,22 +133,24 @@ function GroupDetails({ group, user, events, groupId }) {
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
     //joinGroup for disable /enable button
-    let joinGroup = false
-    let displayJoinGroup = 'on'
-    let options = 'off'
+    let joinGroup = false;
+    let hideJoinGroup = 'Ushow';
+    let displayJoinGroup = 'on';
+    let options = 'off';
     // console.log('group - further: ', group.singleGroup)
     // console.log('user: ', user.id)
 
     if (user) {
         if (group.singleGroup.Organizer.id === user.id) {
-            joinGroup = true
-            displayJoinGroup = 'off'
-            options = 'on'
+            joinGroup = true;
+            displayJoinGroup = 'off';
+            options = 'on';
         }
     }
 
     if (!user) {
         joinGroup = true;
+        hideJoinGroup = 'Uhide';
     }
 
     // console.log('joinGroup: ', joinGroup)
@@ -195,7 +197,7 @@ function GroupDetails({ group, user, events, groupId }) {
                         {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                     </h4>
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
-                        <div className={`${displayJoinGroup}`}>
+                        <div className={`${displayJoinGroup} ${hideJoinGroup}`}>
                             <button
                                 className='UpinkButton UpurpleBorder UbuttonDimensions UfontTreb'
                                 onClick={() => alert('Feature coming soon')}
