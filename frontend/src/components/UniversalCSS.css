@@ -102,6 +102,10 @@
     border-radius: 15px;
 }
 
+.adventureUpLogo:hover {
+    
+}
+
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
     cursor: pointer;

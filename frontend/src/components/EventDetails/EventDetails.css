@@ -95,3 +95,31 @@
 .infoGroupSpacing {
     padding-left: 2rem;
 }
+
+.timeEventSpacing {
+    padding-left: 1rem;
+}
+
+.startEndSpacing {
+    padding-Right: 0.5rem;
+}
+
+.moneyDimensions {
+    width: 15%;
+}
+
+.paddingTop {
+    padding-top: 1rem;
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.marginLeft {
+    margin-left: 1rem;
+}
+
+.marginRight {
+    margin-right: 1rem;
+}
