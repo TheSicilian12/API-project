@@ -1,0 +1,31 @@
+.UborderBlack {
+    border: 2px solid black;
+}
+
+.UborderGreen {
+    border: 5px solid greenyellow
+}
+
+.UborderRed {
+    border: 5px solid red
+}
+
+.UborderBlue {
+    border: 5px solid blue;
+}
+
+.UpurpleBorder {
+    border: 5px solid #cd93f9;
+    border-radius: 15px;
+}
+
+.UpinkButton {
+    background-color:#fe66ca;
+}
+
+.UbuttonDimensions {
+    font-size: large;
+    /* border: #cd93f9; */
+    width: 10rem;
+    height: 3rem
+}

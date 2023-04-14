@@ -3,11 +3,14 @@ import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
+import '../UniversalCSS.css'
 import { getGroup } from '../../store/groupsThunk';
 import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 // import SignupFormModal from '../SignupFormModal';
+// import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
+
 
 function GroupDetails({ group, user, events, groupId }) {
     //  console.log('events prop: ', events['1']?.endDate)
@@ -192,8 +195,9 @@ function GroupDetails({ group, user, events, groupId }) {
                         {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
                     </h4>
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
-                        <div className={`${displayJoinGroup} borderRed`}>
+                        <div className={`${displayJoinGroup}`}>
                             <button
+                                className='UpinkButton UpurpleBorder UbuttonDimensions'
                                 onClick={() => alert('Feature coming soon')}
                                 disabled={`${joinGroup}` === 'true' ? true : false}
                             >
