@@ -147,17 +147,17 @@ function EventDetails({ event, eventId, user }) {
                                     </div>
                                     <h4 className='timeEventSpacing'>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
                                 </div>
-                                <div className='displayFlex alignCenter borderGreen'>
+                                <div className='displayFlex alignCenter'>
                                     <div className='moneyDimensions displayFlex justifyCenter'>
                                         <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
                                     </div>
                                     <h4>{event?.type}</h4>
 
                                 </div>
-                                <div className={options}>
+                                <div className={`${options} displayFlex justifyCenter`}>
                                     <NavLink to={`/events/${eventId}/edit`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight'
                                         >
                                             Update
                                         </button>
