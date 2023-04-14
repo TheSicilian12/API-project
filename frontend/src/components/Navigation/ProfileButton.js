@@ -69,11 +69,13 @@ function ProfileButton({ user }) {
             </button>
             <Link
               className='userMarginBottom'
+              onClick={() => setShowMenu(false)}
               to='/groups'>
                 View Groups
             </Link>
             <Link
               className='userMarginBottom'
+              onClick={() => setShowMenu(false)}
               to='/events'>
                 View Events
             </Link>

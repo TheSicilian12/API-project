@@ -53,30 +53,30 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('group: ', group.singleGroup.about)
 
-    function isEventFuture(eventEndDate) {
-        //returns true if date is today or in the future.
-        //false if not
+    // function isEventFuture(eventEndDate) {
+    //     //returns true if date is today or in the future.
+    //     //false if not
 
-        // console.log('eventEndDate: ', eventEndDate)
-        // console.log('parse end date: ', Date.parse(eventEndDate))
+    //     // console.log('eventEndDate: ', eventEndDate)
+    //     // console.log('parse end date: ', Date.parse(eventEndDate))
 
-        const todayParse = Date.parse(new Date());
+    //     const todayParse = Date.parse(new Date());
 
-        // const today = new Date();
-        // const day = today.getDate();
-        // const month = today.getMonth();
-        // const year = today.getFullYear();
-        // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
-
-
-        // console.log('today: ', today)
-        // console.log('today parse: ', Date.parse(today))
+    //     // const today = new Date();
+    //     // const day = today.getDate();
+    //     // const month = today.getMonth();
+    //     // const year = today.getFullYear();
+    //     // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
 
 
-        const eventEndDateParse = Date.parse(eventEndDate)
+    //     // console.log('today: ', today)
+    //     // console.log('today parse: ', Date.parse(today))
 
-        return eventEndDateParse >= todayParse;
-    }
+
+    //     const eventEndDateParse = Date.parse(eventEndDate)
+
+    //     return eventEndDateParse >= todayParse;
+    // }
     // console.log('isDate: ', isDateValid('2023-02-17'))
 
 
@@ -121,6 +121,8 @@ function GroupDetails({ group, user, events, groupId }) {
     let groupPreviewImage = group.singleGroup.GroupImages.find(e => e.preview === true)
 
     // console.log('groupPreviewImage: ', groupPreviewImage)
+
+    // console.log('eventsArray: ', eventsArray)
 
     return (
         <div className='GroupDetails'>
