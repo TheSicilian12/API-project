@@ -142,7 +142,11 @@
 }
 
 .dateText {
-    font-size: 100%
+    font-size: 115%
+}
+
+.aboutText {
+    font-size: 130%
 }
 
 .marginPaddingDate {
@@ -154,4 +158,12 @@
     margin: 0px;
     padding: 0px;
     width: 100%
+}
+
+.eventMargin {
+    margin-bottom: 1rem;
+}
+
+.eventImgDescMargin {
+    margin-top: 1rem;
 }

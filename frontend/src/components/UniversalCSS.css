@@ -28,6 +28,10 @@
     border-radius: 15px;
 }
 
+.UBackGround {
+    background-color: #59a69463;
+}
+
 .UpurpleButton {
     background-color:#cd93f971;
     color: black
@@ -89,6 +93,9 @@
     width: 100%;
 }
 
+.border-Radius15 {
+    border-radius: 15px;
+}
 
 /* this does not have a U in front because so many already exist */
 .pointerCursor {

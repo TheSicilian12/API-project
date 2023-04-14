@@ -30,7 +30,7 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
     return (
         <div className={timeline}>
             <div className='displayFlex justifyCenter'>
-                <div className='adjustInfoDiv '>
+                <div className='adjustInfoDiv'>
                     <div className='displayFlex justifyCenter'>
 
                         <h2
@@ -40,7 +40,7 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                         </h2>
                     </div>
                     {eventsArray.map(e =>
-                        <div className='pointerCursor'>
+                        <div className='pointerCursor eventMargin UBackGround border-Radius15'>
                             <NavLink
                                 className='noDecoration'
                                 to={`/events/${e?.id}`}
@@ -48,12 +48,13 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                                 <div className='noDecoration displayFlex UjustifyCenter'>
                                     <img
                                         //event image
+                                        className='border-Radius15 eventImgDescMargin'
                                         src={e?.previewImage || imageData}
                                         height='200rem'
                                         width='300rem'
                                     />
-                                    <div className='infoEventSpacing borderRed'>
-                                        <div className='displayFlex marginpaddingDate'>
+                                    <div className='infoEventSpacing eventImgDescMargin'>
+                                        <div className='displayFlex marginpaddingDate dateText'>
                                             {/* date */}
                                             {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
                                             <h4 className='dotSpacing'>•</h4>
@@ -65,7 +66,7 @@ export function EventsDisplayComponent({ timeline, eventsArray }) {
                                     </div>
                                 </div>
                                 <div className='UdisplayFlex UjustifyCenter'>
-                                    <p className='textWrap eventInfo'>{e?.description}</p>
+                                    <p className='textWrap eventInfo aboutText'>{e?.description}</p>
                                 </div>
                             </NavLink>
                         </div>
