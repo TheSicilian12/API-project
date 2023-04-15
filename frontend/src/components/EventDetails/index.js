@@ -63,12 +63,13 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     if (!groupPreviewImage) noGroupImage = 'on';
 
-    let options = 'off'
+    let options = 'Uhide';
     if (user) {
-        if (event.Group.organizerId === user.id) options = 'on'
+        if (event.Group.organizerId === user.id) options = 'Ushow';
     }
 
-    console.log('eventPreviewImage: ', eventPreviewImage)
+    // console.log('eventPreviewImage: ', eventPreviewImage)
+    console.log('options: ', options)
 
     return (
         <div className='UfontTreb'>
@@ -157,15 +158,18 @@ function EventDetails({ event, eventId, user }) {
                                 <div className={`${options} displayFlex justifyCenter`}>
                                     <NavLink to={`/events/${eventId}/edit`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight'
+                                            className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
+                                            onClick={() => alert("Feature coming soon")}
                                         >
                                             Update
                                         </button>
                                     </NavLink>
-                                    <OpenModalDeleteEventButton
-                                        buttonText='Delete'
-                                        modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
-                                    />
+                                    <div className={`${options}`}>
+                                        <OpenModalDeleteEventButton
+                                            buttonText='Delete'
+                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
