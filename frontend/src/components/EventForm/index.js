@@ -187,7 +187,7 @@ function EventForm({ currentGroup, formType }) {
                 <div>
                     <h1>Create a new event for {currentGroup.name}</h1>
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <p className='groupFormText'>What is the name of your event?</p>
                     <input
                         className='groupFormInput'
@@ -210,7 +210,7 @@ function EventForm({ currentGroup, formType }) {
                         src={formDividerImage}
                     />
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <div>
                         <p className='groupFormText'>Is this an in-person or online group?</p>
                         <select
@@ -273,6 +273,7 @@ function EventForm({ currentGroup, formType }) {
                         {/* <p className='error'>{errors.eventPrice}</p> */}
                         {displayEventPriceErr && <p>{err.eventPrice}</p>}
                     </div>
+                </div>
                     <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
@@ -281,8 +282,7 @@ function EventForm({ currentGroup, formType }) {
                             src={formDividerImage}
                         />
                     </div>
-                </div>
-                <div>
+                <div className='marginBottomMed'>
                     <p className='groupFormText'>When does your event start?</p>
                     <input
                         className='groupFormInput'
@@ -319,7 +319,7 @@ function EventForm({ currentGroup, formType }) {
                         src={formDividerImage}
                     />
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <p className='groupFormText'>Please add in image url for your event below:</p>
                     <input
                         className='groupFormInput'
@@ -333,6 +333,7 @@ function EventForm({ currentGroup, formType }) {
                     ></input>
                     {/* <p className='error'>{errors.eventImage}</p> */}
                     {displayEventImageErr && <p>{err.eventImage}</p>}
+                </div>
                     <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
@@ -341,8 +342,7 @@ function EventForm({ currentGroup, formType }) {
                             src={formDividerImage}
                         />
                     </div>
-                </div>
-                <div>
+                <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
                     <textarea
                         className='groupFormInput'
