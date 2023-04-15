@@ -120,6 +120,15 @@
     margin-top: 3rem;
 }
 
+.marginBottomNone {
+    margin-bottom: 0px;
+}
+
+.marginTopNone {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
 .marginBottom {
     margin-bottom: 0.5rem;
 }
@@ -137,7 +146,6 @@
 }
 
 .groupFormInput {
-    border: 2px solid red;
     width: 50%;
     /* height: 3vh; */
     height: 40px;

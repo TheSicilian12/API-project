@@ -274,10 +274,11 @@ function GroupForm({ currentGroup, formType }) {
                     </h2>
                     <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
-                            <label className='marginRight' for='meetingType'>
+                            <label className='marginRight marginBottomMed' for='meetingType'>
                                 Is this an in person or online group?
                             </label>
                             <select
+                                className='groupFormInput'
                                 name='meetingType'
                                 onChange={(e) => {
                                     setGroupMeetingType(e.target.value)
@@ -293,10 +294,11 @@ function GroupForm({ currentGroup, formType }) {
                         {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
                         <div className='displayFlex flex-directionColumn'>
                             <div className='displayFlex'>
-                                <label className='marginRight'>
+                                <label className='marginRight marginBottomMed'>
                                     Is this group private or public?
                                 </label>
                                 <select
+                                    className='groupFormInput'
                                     onChange={(e) => {
                                         setGroupStatus(e.target.value)
                                         setDisplayGroupStatusErr(true)
@@ -318,12 +320,12 @@ function GroupForm({ currentGroup, formType }) {
                             </div>
                         </div>
                         {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
-                        <div className={`${newForm} marginBottomMed`}>
-                            <label>
+                        <div className={`${newForm} displayFlex flex-directionColumn marginBottomMed`}>
+                            <label className='marginBottomMed marginBottomNone'>
                                 Please add an image url for your group below:
                             </label>
                             <input
-                                className='groupFormInput'
+                                className='groupFormInput marginTopNone'
                                 type='text'
                                 placeholder='Image Url'
                                 value={groupImage}
@@ -337,17 +339,17 @@ function GroupForm({ currentGroup, formType }) {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className='displayFlex justifyCenter'>
                     <button
+                        className={`${newForm} UpurpleButton UbuttonDimensions border-Radius15`}
                         type='submit'
-                        className={newForm}
                         disabled={Object.values(err).length > 0}
                     >
                         Create Group
                     </button>
                     <button
+                        className={`${editForm} UpurpleButton UbuttonDimensions border-Radius15`}
                         type='submit'
-                        className={editForm}
                         disabled={Object.values(err).length > 0}
                     >
                         Update Group
