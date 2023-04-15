@@ -18,11 +18,11 @@ export default function RainbowLine() {
 
     return (
         <div className='UdisplayFlex UjustifyCenter marginTopBottom'>
-            <img
+            {/* <img
                 className='dividerPaddingRight iconImages'
                 width='20%'
                 src={penguinImage}
-            />
+            /> */}
             <img
                 className='dividerPaddingRight iconImages'
                 width='20%'
@@ -80,11 +80,11 @@ export default function RainbowLine() {
                 width='20%'
                 src={jakeImage}
             />
-            <img
+            {/* <img
                 className='dividerPaddingRight iconImages'
                 width='20%'
                 src={penguinImage}
-            />
+            /> */}
             {/* <img
                 className='dividerPaddingRight'
                 width='20%'
