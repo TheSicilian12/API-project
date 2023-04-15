@@ -6,6 +6,12 @@
     text-decoration: none;
 }
 
+
+
+.UnoBorder {
+    border: none;
+}
+
 .UborderBlackTest {
     border: 2px solid blac;
 }
@@ -128,13 +134,15 @@
 
 /* seperator images */
 .raincornSeperator {
-    width: 62%;
-    height: 100px;
+    width: 40%;
+    /* height: 40%; */
 }
-
-
 
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
     cursor: pointer;
+}
+
+.not-allowedCursor {
+    cursor: not-allowed;
 }

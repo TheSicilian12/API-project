@@ -113,9 +113,44 @@
 }
 
 .formWidth {
-    width: 75%;
+    width: 60%;
+}
+
+.marginFormTop {
+    margin-top: 3rem;
+}
+
+.marginBottomNone {
+    margin-bottom: 0px;
+}
+
+.marginTopNone {
+    margin-top: 0px;
+    padding-top: 0px;
 }
 
 .marginBottom {
     margin-bottom: 0.5rem;
+}
+
+.marginBottomMed {
+    margin-bottom: 2.5rem;
+}
+
+.dividerImageForm {
+    width: 30%;
+}
+
+.groupFormText {
+    font-size: 120%;
+}
+
+.groupFormInput {
+    width: 50%;
+    /* height: 3vh; */
+    height: 40px;
+}
+
+.marginRight {
+    padding-right: 0.5rem;
 }
