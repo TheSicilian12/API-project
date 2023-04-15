@@ -108,9 +108,9 @@ function GroupForm({ currentGroup, formType }) {
                 console.log('initial dispatch createGroup: ', createGroup)
             }
 
-            let updateGroup
+            let updateGroup;
             if (formType === 'edit') {
-                console.log('form type edit')
+                // console.log('form type edit')
                 payload.groupId = currentGroup.id
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
@@ -162,6 +162,11 @@ function GroupForm({ currentGroup, formType }) {
         disabled='not-allowedCursor';
     }
 
+    let hideImageUpdate = 'Ushow';
+    if(formType === 'edit') {
+        hideImageUpdate='Uhide';
+    }
+
     return (
         <div className='displayFlex justifyCenter marginFormTop'>
             <form
@@ -170,7 +175,7 @@ function GroupForm({ currentGroup, formType }) {
                 <div className=''>
                     {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
                     <h1 className={`${newForm}`}>Start a New Group</h1>
-                    <h3 className={editForm}>Update your Group</h3>
+                    <h1 className={editForm}>Update your Group</h1>
                     <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                     <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
                 </div>
@@ -324,7 +329,7 @@ function GroupForm({ currentGroup, formType }) {
                             </div>
                         </div>
                         {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
-                        <div className={`${newForm} displayFlex flex-directionColumn marginBottomMed`}>
+                        <div className={`${newForm} ${hideImageUpdate} displayFlex flex-directionColumn marginBottomMed`}>
                             <label className='marginBottomMed marginBottomNone'>
                                 Please add an image url for your group below:
                             </label>
