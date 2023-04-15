@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
+import '../UniversalCSS.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -64,7 +65,8 @@ function SignupFormModal() {
 
   // console.log('errors: ', errors)
   return (
-    <>
+
+    <div className='UfontTreb'>
       <h1>Sign Up</h1>
       <form
         className='formWidth'
@@ -101,7 +103,7 @@ function SignupFormModal() {
               setDisplayUsernameErr(true)
             }}
             required
-          />
+            />
         </div>
           {displayUsernameErr && <p>{err.username}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
@@ -117,7 +119,7 @@ function SignupFormModal() {
               setDisplayFirstNameErr(true)
             }}
             required
-          />
+            />
         </div>
         {displayFirstNameErr&& <p>{err.firstName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
@@ -133,7 +135,7 @@ function SignupFormModal() {
               setDisplayLastNameErr(true)
             }}
             required
-          />
+            />
         </div>
         {displayLastNameErr && <p>{err.lastName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
@@ -165,7 +167,7 @@ function SignupFormModal() {
               setDisplayConfirmPasswordErr(true)
             }}
             required
-          />
+            />
         </div>
         {displayConfirmPasswordErr && <p>{err.confirmPassword}</p>}
         <div className='displayFlex justifyCenter'>
@@ -173,12 +175,12 @@ function SignupFormModal() {
             className='buttonWidth'
             type="submit"
             disabled={Object.values(err).length > 0}
-          >
+            >
             Sign Up
           </button>
         </div>
       </form>
-    </>
+  </div>
   );
 }
 

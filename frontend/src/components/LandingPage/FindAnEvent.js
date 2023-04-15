@@ -9,7 +9,7 @@ function FindAnEvent() {
 
     return (
         <NavLink
-        className='landingPage_findEvent_mainText pointerCursor enable section3Container' to='/events'>
+        className='landingPage_findEvent_mainText pointerCursor enable section3Container UfontTreb' to='/events'>
             <div
             className='landingPage_findEvent displayFlex flex-directionColumn alignCenter pointerCursor'>
             <div

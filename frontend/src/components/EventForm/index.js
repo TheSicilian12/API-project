@@ -182,7 +182,7 @@ function EventForm({ currentGroup, formType }) {
 
     return (
         // <div>test create event</div>
-        <div className='displayFlex justifyCenter marginFormTop'>
+        <div className='displayFlex justifyCenter marginFormTop UfontTreb'>
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>

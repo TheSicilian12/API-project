@@ -14,7 +14,7 @@ function StartGroup({ user }) {
     }
 
     return (
-        <NavLink to='/groups/new' className={`landingPage_startGroup_mainText pointerCursor section3Container ${linkSwitch}`}>
+        <NavLink to='/groups/new' className={`landingPage_startGroup_mainText pointerCursor section3Container UfontTreb ${linkSwitch}`}>
             <div className='landingPage_startGroup displayFlex flex-directionColumn pointerCursor alignCenter'>
             <div className='imageContainer displayFlex alignCenter justifyCenter'>
 
