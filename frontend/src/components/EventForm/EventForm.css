@@ -5,3 +5,152 @@
 .off {
     display: none;
 }
+
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderBlue {
+    border: 5px solid blue
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.borderPurple {
+    border: 5px solid purple;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.justfiySpaceBetween {
+    justify-content: space-between;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.alignSelfCenter {
+    align-self: center
+}
+
+.home {
+    border: 2px solid black
+}
+
+.profile {
+    border: 2px solid black
+}
+
+.positionAbsolute {
+    position: absolute;
+}
+
+.positionRelative {
+    position: relative;
+}
+.positionSticky {
+    position: sticky;
+}
+
+.positionNavBar {
+    top: 5rem;
+    right: 1rem;
+}
+
+.paddingProfileIconTR {
+    padding-top: 1rem;
+    padding-right: 4rem;
+
+}
+
+.paddingProfileDropDown {
+    padding-right: 1.5rem;
+}
+
+.paddingRight {
+    padding-right: 4rem;
+}
+
+.paddingRightStartNewGroup {
+    padding-right: 3rem;
+}
+
+.squareFavicon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.squareLogSign {
+    width: 5rem;
+    height: 5rem;
+}
+
+.adventureUpFont {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    color: black
+}
+
+.width {
+    width: 100%;
+}
+
+.formWidth {
+    width: 60%;
+}
+
+.marginFormTop {
+    margin-top: 3rem;
+}
+
+.marginBottomNone {
+    margin-bottom: 0px;
+}
+
+.marginTopNone {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.marginBottom {
+    margin-bottom: 0.5rem;
+}
+
+.marginBottomMed {
+    margin-bottom: 2.5rem;
+}
+
+.dividerImageForm {
+    width: 30%;
+}
+
+.groupFormText {
+    font-size: 120%;
+}
+
+.groupFormInput {
+    width: 50%;
+    /* height: 3vh; */
+    height: 40px;
+}
+
+.marginRight {
+    padding-right: 0.5rem;
+}
