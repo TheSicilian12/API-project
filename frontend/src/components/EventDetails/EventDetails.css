@@ -141,10 +141,27 @@
 }
 
 .eventImageWidth {
-    width: 100rem;
-    height: 50rem;
+    /* width: 100rem; */
+    height: 70rem;
 }
 
 .backButtonTextSize {
     font-size: 150%;
 }
+
+.eventDetailsWidth {
+    border: 2px solid red;
+    width: 150rem;
+}
+
+.arrowCenterWidth {
+    width: 129rem;
+}
+
+/* .eventInfoSection {
+    height: 100rem;
+} */
+
+/* .groupInfoSection {
+    height: 30rem;
+} */

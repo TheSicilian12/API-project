@@ -74,23 +74,27 @@ function EventDetails({ event, eventId, user }) {
     console.log('options: ', options)
 
     return (
-        <div className='displayFlex flex-directionColumn UfontTreb'>
-            <div>
-                <div>
-                    <div className='displayFlex'>
-                        <img
-                            className='pointerCursor'
-                            onClick={() => history.push('/events')}
-                            src={pinkArrowLeft}
-                        />
-                        <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Events</NavLink>
+        <div className='displayFlex flex-directionColumn eventDetailsWidth UfontTreb'>
+            <div className=' displayFlex flex-directionColumn borderGreen'>
+                <div className='borderGreen eventDetailsWidth'>
+                    <div className='displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth'>
+                            <img
+                                className='pointerCursor displayFlex justifyCenter alignCenter'
+                                onClick={() => history.push('/events')}
+                                src={pinkArrowLeft}
+                            />
+                            <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
+                        </div>
                     </div>
-                    <div>
-                        <h1>{event.name}</h1>
-                        <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
+                    <div className=' displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth borderGreen'>
+                            <h1>{event.name}</h1>
+                            <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div className='displayFlex justifyCenter'>
                     <div className='displayFlex groupEventTextSize'>
                         {/* {eventPreviewImage?.url} */}
 
@@ -98,19 +102,20 @@ function EventDetails({ event, eventId, user }) {
                             <img
                                 className='border-Radius15'
                                 src={eventPreviewImage?.url || imageData}
-                                width='100%'
+                                // width='100%'
                                 height='100%'
                             />
                         </div>
 
-                        <div className='displayFlex flex-directionColumn infoGeneralSpacing'>
-                            <div className='UblackBorderWeighted displayFlex border-Radius15'>
+                        <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection borderRed justifyCenter'>
+                            <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
                                 <div className='groupImageWidth'>
                                     <img
                                         //group image
                                         className='border-Radius15'
                                         src={groupPreviewImage?.url || imageData}
                                         width='100%'
+                                    // heigth='100%'
                                     />
                                 </div>
 
@@ -119,7 +124,7 @@ function EventDetails({ event, eventId, user }) {
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-                            <div className='UblackBorderWeighted border-Radius15 marginTop'>
+                            <div className='UblackBorderWeighted border-Radius15 marginTop '>
                                 <div className='displayFlex marginTop marginLeft'>
                                     {/* <i class="fa-regular fa-clock fa-2xl style=color: #000000; borderRed displayFlex alignCenter justifyCenter clockDimensions"></i> */}
                                     <img
