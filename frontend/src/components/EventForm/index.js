@@ -356,8 +356,9 @@ function EventForm({ currentGroup, formType }) {
                     <p className='error'>{errors.eventAbout}</p>
                     {displayEventAboutErr && <p>{err.eventAbout}</p>}
                 </div>
-                <div>
+                <div className='displayFlex justifyCenter'>
                     <button
+                         className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
