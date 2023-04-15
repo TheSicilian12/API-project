@@ -6,7 +6,8 @@ import './GroupForm.css';
 import '../UniversalCSS.css'
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import { EditWrapper } from './editWrapper';
-import formDividerImage from '../assets/Images/Daco_4730261.png';
+import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+// frontend/src/components/assets/Images/rainbow-removebg-preview_1.png
 
 
 function GroupForm({ currentGroup, formType }) {
@@ -160,7 +161,7 @@ function GroupForm({ currentGroup, formType }) {
     return (
         <div className='displayFlex justifyCenter marginFormTop'>
             <form
-                className='displayFlex flex-directionColumn formWidth UnoBorder'
+                className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb'
                 onSubmit={handleSubmit}>
                 <div className=''>
                     {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}

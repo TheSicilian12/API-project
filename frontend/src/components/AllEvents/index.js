@@ -6,7 +6,9 @@ import { useSelector } from 'react-redux';
 import './AllEvents.css';
 import { getAllEventsThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
-import eventDividerImage from '../assets/Images/raincornDivider.jpg'
+import eventDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+// import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+
 import { EventsDisplayComponent } from '../GroupDetails/eventsDisplayComponent'
 import { organizeEventsByDate } from '../EventOrganizer'
 
