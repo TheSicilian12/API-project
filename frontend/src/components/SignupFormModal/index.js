@@ -71,8 +71,8 @@ function SignupFormModal() {
   // console.log('errors: ', errors)
   return (
 
-    <div className='UfontTreb'>
-      <h1>Sign Up</h1>
+    <div className='UfontTreb displayFlex flex-directionColumn alignCenter'>
+      <h1 className=''>Sign Up</h1>
       <form
         className='dimensionsForm textSize'
         onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        {displayEmailErr && <p>{err.email}</p>}
+        {displayEmailErr && <p className='error'>{err.email}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Username
@@ -110,7 +110,7 @@ function SignupFormModal() {
             required
             />
         </div>
-          {displayUsernameErr && <p>{err.username}</p>}
+          {displayUsernameErr && <p className='error'>{err.username}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             First Name
@@ -126,7 +126,7 @@ function SignupFormModal() {
             required
             />
         </div>
-        {displayFirstNameErr&& <p>{err.firstName}</p>}
+        {displayFirstNameErr&& <p className='error'>{err.firstName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Last Name
@@ -142,7 +142,7 @@ function SignupFormModal() {
             required
             />
         </div>
-        {displayLastNameErr && <p>{err.lastName}</p>}
+        {displayLastNameErr && <p className='error'>{err.lastName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label className=''>
             Password
@@ -158,7 +158,7 @@ function SignupFormModal() {
             required
           />
         </div>
-        {displayPasswordErr && <p>{err.password}</p>}
+        {displayPasswordErr && <p className='error'>{err.password}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
           <label className=''>
             Confirm Password
@@ -174,7 +174,7 @@ function SignupFormModal() {
             required
             />
         </div>
-        {displayConfirmPasswordErr && <p>{err.confirmPassword}</p>}
+        {displayConfirmPasswordErr && <p className='error'>{err.confirmPassword}</p>}
         <div className='displayFlex justifyCenter'>
           <button
             className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
