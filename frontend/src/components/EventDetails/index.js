@@ -156,18 +156,18 @@ function EventDetails({ event, eventId, user }) {
 
                                 </div>
                                 <div className={`${options} displayFlex justifyCenter`}>
-                                    <NavLink to={`/events/${eventId}/edit`}>
+                                    {/* <NavLink to={`/events/${eventId}/edit`}> */}
                                         <button
                                             className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
                                             onClick={() => alert("Feature coming soon")}
                                         >
                                             Update
                                         </button>
-                                    </NavLink>
+                                    {/* </NavLink> */}
                                     <div className={`${options}`}>
                                         <OpenModalDeleteEventButton
                                             buttonText='Delete'
-                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id}/>}
                                         />
                                     </div>
                                 </div>
