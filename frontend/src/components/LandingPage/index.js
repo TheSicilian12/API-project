@@ -46,7 +46,7 @@ function LandingPage() {
                 </p>
                 </div>
             </div>
-            <div className='displayFlex justifySpaceAround UfontTreb borderGreen'>
+            <div className='displayFlex justifySpaceAround UfontTreb'>
                 <SeeAllGroups />
                 <FindAnEvent />
                 <StartGroup user={user}/>
