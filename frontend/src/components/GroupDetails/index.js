@@ -160,7 +160,7 @@ function GroupDetails({ group, user, events, groupId }) {
                     <div className='displayFlex alignBottom justifyCenter buttonHeight'>
                         <div className={`${displayJoinGroup} ${hideJoinGroup}`}>
                             <button
-                                className='UgrayButton UbuttonDimensions UfontTreb'
+                                className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
                                 onClick={() => alert('Feature coming soon')}
                                 disabled={`${joinGroup}` === 'true' ? true : false}
                             >
