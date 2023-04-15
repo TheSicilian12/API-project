@@ -274,7 +274,7 @@ function GroupForm({ currentGroup, formType }) {
                     </h2>
                     <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
-                            <label for='meetingType'>
+                            <label className='marginRight' for='meetingType'>
                                 Is this an in person or online group?
                             </label>
                             <select
@@ -293,7 +293,7 @@ function GroupForm({ currentGroup, formType }) {
                         {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
                         <div className='displayFlex flex-directionColumn'>
                             <div className='displayFlex'>
-                                <label>
+                                <label className='marginRight'>
                                     Is this group private or public?
                                 </label>
                                 <select
@@ -318,11 +318,12 @@ function GroupForm({ currentGroup, formType }) {
                             </div>
                         </div>
                         {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
-                        <div className={newForm}>
+                        <div className={`${newForm} marginBottomMed`}>
                             <label>
                                 Please add an image url for your group below:
                             </label>
                             <input
+                                className='groupFormInput'
                                 type='text'
                                 placeholder='Image Url'
                                 value={groupImage}

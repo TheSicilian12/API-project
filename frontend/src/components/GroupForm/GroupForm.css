@@ -137,6 +137,12 @@
 }
 
 .groupFormInput {
+    border: 2px solid red;
     width: 50%;
-    height: 20%;
+    /* height: 3vh; */
+    height: 40px;
+}
+
+.marginRight {
+    padding-right: 0.5rem;
 }
