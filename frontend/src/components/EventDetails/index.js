@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
 import '../UniversalCSS.css';
@@ -10,10 +10,12 @@ import { getGroup } from '../../store/groupsThunk';
 import OpenModalDeleteEventButton from '../DeleteEventModalButton';
 import DeleteEventModal from '../DeleteEventModal'
 import clockImage from '../assets/Images/ATWP.webp'
+import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     // console.log('event groupId: ', event.groupId)
 
     useEffect(() => {
@@ -75,9 +77,13 @@ function EventDetails({ event, eventId, user }) {
         <div className='displayFlex flex-directionColumn UfontTreb'>
             <div>
                 <div>
-                    <div>
-                        <p>{'<'}</p>
-                        <NavLink to='/events'>Events</NavLink>
+                    <div className='displayFlex'>
+                        <img
+                            className='pointerCursor'
+                            onClick={() => history.push('/events')}
+                            src={pinkArrowLeft}
+                        />
+                        <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Events</NavLink>
                     </div>
                     <div>
                         <h1>{event.name}</h1>
@@ -88,12 +94,12 @@ function EventDetails({ event, eventId, user }) {
                     <div className='displayFlex groupEventTextSize'>
                         {/* {eventPreviewImage?.url} */}
 
-                    <div className='eventImageWidth'>
-                        <img
-                            className='border-Radius15'
-                            src={eventPreviewImage?.url || imageData}
-                            width='100%'
-                            height='100%'
+                        <div className='eventImageWidth'>
+                            <img
+                                className='border-Radius15'
+                                src={eventPreviewImage?.url || imageData}
+                                width='100%'
+                                height='100%'
                             />
                         </div>
 

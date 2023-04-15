@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
 import '../UniversalCSS.css'
@@ -10,11 +10,14 @@ import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
 import { organizeEventsByDate } from '../EventOrganizer'
 import { EventsDisplayComponent } from './eventsDisplayComponent'
+import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 // import SignupFormModal from '../SignupFormModal';
 // import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
 
 
 function GroupDetails({ group, user, events, groupId }) {
+    const history = useHistory();
+
     if (!group.singleGroup) {
         return <div>loading</div>
     }
@@ -127,8 +130,14 @@ function GroupDetails({ group, user, events, groupId }) {
     return (
         <div className='GroupDetails UfontTreb textSize'>
             <div className='GroupDetails_GroupsButton'>
-                <p>{'<'}</p>
-                <NavLink to='/groups'>Groups</NavLink>
+            <div className='displayFlex'>
+                        <img
+                            className='pointerCursor'
+                            onClick={() => history.push('/events')}
+                            src={pinkArrowLeft}
+                        />
+                        <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Events</NavLink>
+                    </div>
             </div>
             <div className='GroupDetails_Details displayFlex justifyCenter'>
                 <img
