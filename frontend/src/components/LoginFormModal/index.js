@@ -54,7 +54,7 @@ function LoginFormModal() {
       {/* <div> */}
       <h1>Log In</h1>
       <form
-        className='dimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
+        className='logIndimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
         onSubmit={handleSubmit}>
         <div className='displayFlex alignCenter'>
           <div className=''>
