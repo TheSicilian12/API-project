@@ -6,7 +6,9 @@ After you have signed in you will be able to create groups (and then events), an
 
 <!-- Technologies -->
 
-AdventureUp is written using JavaScript, HTML, and CSS.
+AdventureUp's frontend is written using JavaScript, HTML, and CSS.
+AdventureUp's backend is written using SQLite3/PostgresQL.
+FontAwesome icon was used.
 React and Redux are used heavily throughout.
 Sqlite is used in the backend.
 
