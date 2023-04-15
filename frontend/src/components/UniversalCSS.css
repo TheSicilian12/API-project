@@ -6,6 +6,8 @@
     text-decoration: none;
 }
 
+
+
 .UnoBorder {
     border: none;
 }
@@ -139,4 +141,8 @@
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
     cursor: pointer;
+}
+
+.not-allowedCursor {
+    cursor: not-allowed;
 }
