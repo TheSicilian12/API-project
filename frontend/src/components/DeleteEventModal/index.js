@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {useParams, useHistory} from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import {deleteEventThunk} from "../../store/eventsThunk"
-// import '../DeleteGroupModal'
+import './DeleteEventModal.css';
+import '../UniversalCSS.css';
 
 function DeleteEventModal ({eventId, groupId}) {
     const { closeModal } = useModal();
@@ -25,15 +26,22 @@ function DeleteEventModal ({eventId, groupId}) {
         }
     }
     return (
-        <div>
+        <div className='UdisplayFlex Uflexdirection-column UalignCenter UfontTreb deleteEventWidth'>
             <h1>Confirm Delete</h1>
-            <p>Are you sure you want to remove this event?</p>
+            <p className='deleteGroupText'>Are you sure you want to remove this event?</p>
 
-            <div>
-                <button onClick={deleteHandler}>Yes (Delete Event)</button>
+            <div className='UdisplayFlex UjustifySpaceAround deleteEventButtonsWidth deleteEventButtonsMarginBottom'>
                 <button
+                    className='UpurpleButton UbuttonDimensions border-Radius15'
+                    onClick={deleteHandler}>
+                        Yes (Delete Event)
+                </button>
+                <button
+                className='UgrayButton  UbuttonDimensions border-Radius15'
                 onClick={closeModal}
-                >No (Keep Event)</button>
+                >
+                    No (Keep Event)
+                </button>
             </div>
         </div>
     )

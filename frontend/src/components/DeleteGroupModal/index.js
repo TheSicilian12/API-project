@@ -5,8 +5,8 @@ import {useParams, useHistory} from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import {deleteGroupThunk, getGroup} from "../../store/groupsThunk"
 import '../DeleteGroupModal'
-
-
+import '../UniversalCSS.css';
+import './DeleteGroupModal.css';
 
 function DeleteGroupModal ({groupId}) {
     const { closeModal } = useModal();
@@ -25,17 +25,23 @@ function DeleteGroupModal ({groupId}) {
             history.push('/groups');
         }
     }
-    
-    return (
-        <div>
-            <h1>Confirm Delete</h1>
-            <p>Are you sure you want to remove this group?</p>
 
-            <div>
-                <button onClick={deleteHandler}>Yes (Delete Group)</button>
+    return (
+        <div className='UdisplayFlex Uflexdirection-column UalignCenter UfontTreb deleteGroupWidth'>
+            <h1>Confirm Delete</h1>
+            <p className='deleteGroupText'>Are you sure you want to remove this group?</p>
+            <div className='UdisplayFlex UjustifySpaceAround deleteGroupButtonsWidth deleteGroupButtonsMarginBottom'>
                 <button
+                    className='UpurpleButton UbuttonDimensions border-Radius15'
+                    onClick={deleteHandler}>
+                        Yes (Delete Group)
+                </button>
+                <button
+                className='UgrayButton  UbuttonDimensions border-Radius15'
                 onClick={closeModal}
-                >No (Keep Group)</button>
+                >
+                    No (Keep Group)
+                </button>
             </div>
         </div>
     )
