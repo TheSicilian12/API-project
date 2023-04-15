@@ -4,6 +4,7 @@ const ALL_GROUPEVENTS = '/api/groups/:groupId/events';
 const ALL_EVENTS = '/api/events';
 const ONE_EVENT = '/api/events/:eventId';
 const DELETE_EVENT = '/api/events/:eventId';
+const ADD_EVENT = '/api/ADD_EVENT'
 
 const allGroupEvents = (list) => ({
     type: ALL_GROUPEVENTS,
@@ -22,6 +23,11 @@ const oneEvent = (events) => ({
 
 const deleteEvent = (event) => ({
     type: DELETE_EVENT,
+    event
+})
+
+const addEvent = (event) => ({
+    type: ADD_EVENT,
     event
 })
 
@@ -67,20 +73,56 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 }
 
 //thunk - add an event by group id
-export const addEventByGroupIdThunk = (groupId) => async (dispatch) => {
+export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
+    const {groupId, eventImageObj} = eventInfo;
+    const eventInfoObj = eventInfo.eventObj;
+    console.log('eventInfoObj: ', eventInfoObj)
+    // console.log('groupId: ', groupId)
+    // console.log(groupId)
 
+    // console.log('event obj: ', eventInfoObj);
+    console.log('before fetch')
+    const response = await csrfFetch(`/api/groups/${groupId}/events`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventInfoObj)
+    })
+    console.log('after fetch')
+    console.log('response: ', response);
+    if (response.ok) {
+        const newEvent = await response.json();
+        console.log('newEvent: ', newEvent)
+        console.log('newEvent.id: ', newEvent.id)
 
+        const addImageObj = {...eventImageObj, eventId: newEvent.id}
 
+        dispatch(addImageToEvent(addImageObj))
+        return newEvent;
+    }
 
-    // const response = await csrfFetch(`/api/groups/${groupId}/events` , {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(eventObj)
-    //     }
-    // })
+}
 
+//thunk - add an image to an event
+export const addImageToEvent = (imageObj) => async (dispatch) => {
+    const {url, preview, eventId} = imageObj;
+    console.log('thunk - add image to event')
+    console.log('url: ', url)
+    console.log('preivew: ', preview)
+    console.log('eventId: ', eventId)
+
+    const response = await csrfFetch(`/api/events/${eventId}/images`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( {url, preview})
+    })
+    if (response.ok) {
+        const newImage = await response.json();
+        return newImage
+    }
 }
 
 

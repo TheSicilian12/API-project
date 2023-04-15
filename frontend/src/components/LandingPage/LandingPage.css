@@ -35,9 +35,16 @@
 }
 
 .textWrap {
-    inline-size: 700px;
+    /* inline-size: 700px; */
     overflow-wrap: break-word;
 }
+
+.textWrapCenter{
+    width: 70%;
+    overflow-wrap: break-word;
+    text-align: center
+}
+
 
 .textWrapCentered {
     inline-size: 500px;
@@ -53,10 +60,68 @@
     padding-top: 8rem;
 }
 
+.paddingButton {
+    padding-top: 2rem;
+}
+
 .marginWorksTop {
     padding-top: 2rem;
 }
 
 .width {
     width: 100px;
+}
+
+.joinButtonDimensions{
+    width: 20rem;
+    height: 3rem;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+
+.color {
+    color: black
+}
+
+
+.enable {
+    text-decoration: none;
+    color: black
+}
+
+.color:hover {
+    color: #ffba1e;
+    text-decoration: underline;
+}
+
+.enable:hover {
+    color: #ffba1e;
+    text-decoration: underline;
+}
+
+.disable {
+    color: lightgray;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.imageContainer {
+    width: 15rem;
+    height: 15rem;
+}
+
+.section3Container {
+    width: 20rem;
+}
+
+.landingPageFontSize {
+    font-size: 120%;
 }

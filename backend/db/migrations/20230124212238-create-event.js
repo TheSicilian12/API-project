@@ -39,16 +39,17 @@ module.exports = {
         defaultValue: "In Person"
       },
       capacity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       price: {
         type: Sequelize.DECIMAL
       },
       startDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       endDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

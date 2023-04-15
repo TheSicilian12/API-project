@@ -1,3 +1,170 @@
 .off {
     display: none
 }
+
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderGreen {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.borderBlue {
+    border: 5px solid blue;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+/* .centerHorizontal {
+    position: relative;
+    left: 50%;
+} */
+
+.eventImage {
+    width: 25rem;
+    height: 20rem;
+    padding-right: 2rem;
+}
+
+.testing {
+    width: 20px;
+    height: 50px;
+}
+
+.mainText {
+    width: 48rem;
+}
+
+.adjustHorizontal {
+    /* position: relative */
+    display: flex;
+}
+
+.textWrap {
+    inline-size: 20rem;
+}
+
+.eventInfo {
+    width: 20rem;
+}
+
+.textSizeGroup {
+    font-size: 150%;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.dotSpacing {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.dotWeight {
+    font-weight: bold;
+}
+
+.infoGeneralSpacing {
+    padding-left: 2rem;
+}
+
+.infoGroupSpacing {
+    padding-left: 2rem;
+}
+
+.timeEventSpacing {
+    padding-left: 1rem;
+}
+
+.startEndSpacing {
+    padding-Right: 0.5rem;
+}
+
+.moneyDimensions {
+    width: 15%;
+}
+
+.paddingTop {
+    padding-top: 1rem;
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.marginLeft {
+    margin-left: 1rem;
+}
+
+.marginRight {
+    margin-right: 1rem;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;;
+}
+
+.groupEventTextSize {
+    font-size: 110%;
+}
+
+.descriptionTextSize {
+    font-size: 150%;
+}
+
+.groupImageWidth {
+    width: 15rem;
+}
+
+.eventImageWidth {
+    /* width: 100rem; */
+    height: 70rem;
+}
+
+.backButtonTextSize {
+    font-size: 150%;
+}
+
+.eventDetailsWidth {
+    width: 150rem;
+}
+
+.arrowCenterWidth {
+    width: 140rem;
+}
+
+/* .eventInfoSection {
+    height: 100rem;
+} */
+
+/* .groupInfoSection {
+    height: 30rem;
+} */
+
+.eventDetailFontSize {
+    font-size: 180%;
+}

@@ -1,76 +1,51 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './GroupDetails.css';
+import '../UniversalCSS.css'
 import { getGroup } from '../../store/groupsThunk';
 import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal'
+import { organizeEventsByDate } from '../EventOrganizer'
+import { EventsDisplayComponent } from './eventsDisplayComponent'
+import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 // import SignupFormModal from '../SignupFormModal';
+// import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
+
 
 function GroupDetails({ group, user, events, groupId }) {
-    //  console.log('events prop: ', events['1']?.endDate)
-    // console.log('Date: ', Date.parse(events['1']?.endDate))
+    const history = useHistory();
 
-    // console.log('events: ', Object.values(events).length)
-
-    // console.log('events: ', events)
-    const totalNumberEvents = Object.values(events).length
-
-    function organizeEventsByDate(eventsObj) {
-        //eventArray[0] is for past events
-        //eventArray[1] is for current/future events
-        let eventsArray = [[], []]
-
-        Object.values(eventsObj).map((e) => {
-            //     console.log(e?.endDate)
-            //    console.log(isEventFuture(e?.endDate))
-            if (isEventFuture(e?.endDate)) {
-                eventsArray[1].push(e)
-            } else {
-                eventsArray[0].push(e)
-            }
-        })
-
-        //organize the event dates from earliest date to newest date
-        for (let i = 0; eventsArray.length > i; i++) {
-            if (eventsArray[i].length) {
-                eventsArray[i].sort((a, b) => {
-                    const firstDate = Date.parse(a.endDate);
-                    const secondDate = Date.parse(b.endDate);
-                    if (i === 0) {
-                        if (firstDate < secondDate) return +1;
-                        if (firstDate > secondDate) return -1;
-                    }
-                    if (i === 1) {
-                        if (firstDate < secondDate) return -1;
-                        if (firstDate > secondDate) return +1;
-                    }
-
-                    return 0;
-                })
-            }
-
-        }
-
-        // console.log('return: ', eventsArray);
-        return eventsArray;
+    if (!group.singleGroup) {
+        return <div>loading</div>
     }
+
+    // console.log('user: ', user)
+
+    const totalNumberEvents = Object.values(events).length
 
     let eventsArray = organizeEventsByDate(events);
     let futureEvents = eventsArray[1];
     let pastEvents = eventsArray[0];
+    let currentEvents = eventsArray[2];
 
     // console.log('futureEvents: ', futureEvents)
 
-    let showPastEvents = 'off';
-    let showFutureEvents = 'off';
-    if (futureEvents.length > 0) {
-        showFutureEvents = 'on';
+    // console.log('eventsArray: ', eventsArray)
+
+    let showPastEvents = 'Ushow';
+    let showFutureEvents = 'Ushow';
+    let showCurrentEvents = 'Ushow';
+    if (futureEvents.length === 0) {
+        showFutureEvents = 'Uhide';
     }
-    if (pastEvents.length > 0) {
-        showPastEvents = 'on';
+    if (pastEvents.length === 0) {
+        showPastEvents = 'hide';
+    }
+    if (currentEvents.length === 0) {
+        showCurrentEvents = 'Uhide'
     }
 
     let groupStatus = 'Public'
@@ -81,155 +56,189 @@ function GroupDetails({ group, user, events, groupId }) {
 
     // console.log('group: ', group.singleGroup.about)
 
-    function isEventFuture(eventEndDate) {
-        //returns true if date is today or in the future.
-        //false if not
-        const today = new Date();
-        const day = today.getDate();
-        const month = today.getMonth();
-        const year = today.getFullYear();
-        const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+    // function isEventFuture(eventEndDate) {
+    //     //returns true if date is today or in the future.
+    //     //false if not
 
-        const eventEndDateParse = Date.parse(eventEndDate)
+    //     // console.log('eventEndDate: ', eventEndDate)
+    //     // console.log('parse end date: ', Date.parse(eventEndDate))
 
-        return eventEndDateParse >= todayDateParse;
-    }
+    //     const todayParse = Date.parse(new Date());
+
+    //     // const today = new Date();
+    //     // const day = today.getDate();
+    //     // const month = today.getMonth();
+    //     // const year = today.getFullYear();
+    //     // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
+
+
+    //     // console.log('today: ', today)
+    //     // console.log('today parse: ', Date.parse(today))
+
+
+    //     const eventEndDateParse = Date.parse(eventEndDate)
+
+    //     return eventEndDateParse >= todayParse;
+    // }
     // console.log('isDate: ', isDateValid('2023-02-17'))
+
+
+
+    //difference confirmed
+    // console.log('test----------------')
+    // console.log('date 1: 2020-04-04')
+    // console.log('date 1 parse: ', Date.parse('2020-04-04'))
+    // console.log('date 2: 2020-04-04T04:36:00.000Z')
+    // console.log('date 2 parse: ', Date.parse('2020-04-04T04:36:00.000Z'))
 
 
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
-    let joinGroup = 'on'
-    let options = 'off'
+    //joinGroup for disable /enable button
+    let joinGroup = false;
+    let hideJoinGroup = 'Ushow';
+    let displayJoinGroup = 'on';
+    let options = 'off';
     // console.log('group - further: ', group.singleGroup)
     // console.log('user: ', user.id)
 
     if (user) {
         if (group.singleGroup.Organizer.id === user.id) {
-            joinGroup = 'off'
-            options = 'on'
+            joinGroup = true;
+            displayJoinGroup = 'off';
+            options = 'on';
         }
     }
 
-    return (
-        <div className='GroupDetails'>
-            <div className='GroupDetails_GroupsButton'>
-                <p>{'<'}</p>
-                <NavLink to='/groups'>Groups</NavLink>
-            </div>
-            <div className='GroupDetails_Details'>
-                <div className='GroupDetails_Details_image'>
+    if (!user) {
+        joinGroup = true;
+        hideJoinGroup = 'Uhide';
+    }
 
-                </div>
-                <h1 className='GroupDetails_Details_GroupName'>
-                    {`${group.singleGroup.name}`}
-                </h1>
-                <h4 className='GroupDetails_Details_Location'>
-                    {`${group.singleGroup.city}, ${group.singleGroup.state}`}
-                </h4>
-                <div>
-                    <h4>
-                        {`${totalNumberEvents} events`}
-                        {/* number of events */}
-                    </h4>
-                    <h4>
-                        {groupStatus}
-                    </h4>
-                </div>
-                <h4>
-                    {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
-                </h4>
-                <div className={joinGroup}>
-                    <button>
-                        Join this group
-                        {/* alert for no implementation */}
-                    </button>
-                </div>
-                <div className={options}>
-                    <NavLink to={`/groups/${groupId}/events/new`}>
-                        <button>
-                            Create event
-                        </button>
-                    </NavLink>
-                    <NavLink to={`/groups/${groupId}/edit`}>
-                        <button>
-                            Update
-                        </button>
-                    </NavLink>
-                    {/* <NavLink to='/test'>
-                    <button>
-                        Delete
-                        {/* it really needs a pop up and then redirect *}
-                    </button>
-                    </NavLink> */}
-                    <div>
-                        <OpenModalDeleteGroupButton
-                            buttonText="Delete"
-                            modalComponent={<DeleteGroupModal groupId={groupId} />}
+    // console.log('joinGroup: ', joinGroup)
+
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
+    // console.log('groups: ', group.singleGroup.GroupImages)
+
+    let groupPreviewImage = group.singleGroup.GroupImages.find(e => e.preview === true)
+
+    // console.log('groupPreviewImage: ', groupPreviewImage)
+
+    // console.log('eventsArray: ', eventsArray)
+
+    return (
+        <div className='GroupDetails UfontTreb textSize'>
+            <div className='GroupDetails_GroupsButton'>
+            <div className='displayFlex'>
+                        <img
+                            className='pointerCursor'
+                            onClick={() => history.push('/events')}
+                            src={pinkArrowLeft}
                         />
+                        <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Events</NavLink>
+                    </div>
+            </div>
+            <div className='GroupDetails_Details displayFlex justifyCenter'>
+                <img
+                    className='border-Radius15'
+                    height='500rem'
+                    width='700rem'
+                    src={groupPreviewImage?.url || imageData}
+                />
+
+                <div className='infoGeneralSpacing'>
+                    <h1 className='GroupDetails_Details_GroupName textWrap'>
+                        {`${group.singleGroup.name}`}
+                    </h1>
+                    <h4 className='GroupDetails_Details_Location'>
+                        {`${group.singleGroup.city}, ${group.singleGroup.state}`}
+                    </h4>
+                    <div className='displayFlex alignCenter'>
+                        <h4 >
+                            {`${totalNumberEvents} events`}
+                        </h4>
+                        <h4 className='dotSpacing'>•</h4>
+                        <h4 >
+                            {groupStatus}
+                        </h4>
+                    </div>
+                    <h4>
+                        {`Organized by ${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                    </h4>
+                    <div className='displayFlex alignBottom justifyCenter buttonHeight'>
+                        <div className={`${displayJoinGroup} ${hideJoinGroup}`}>
+                            <button
+                                className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
+                                onClick={() => alert('Feature coming soon')}
+                                disabled={`${joinGroup}` === 'true' ? true : false}
+                            >
+                                Join this group
+                                {/* alert for no implementation */}
+                            </button>
+                        </div>
+                        <div className={options}>
+                            <div className='displayFlex justifySpaceAround eventInfo'>
+                                <NavLink to={`/groups/${groupId}/events/new`}>
+                                    <button
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                    >
+                                        Create event
+                                    </button>
+                                </NavLink>
+                                <NavLink to={`/groups/${groupId}/edit`}>
+                                    <button
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                    >
+                                        Update
+                                    </button>
+                                </NavLink>
+                                <div>
+                                    <OpenModalDeleteGroupButton
+
+                                        buttonText="Delete"
+                                        modalComponent={<DeleteGroupModal groupId={groupId} />}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <h2>
-                    Organizer
-                </h2>
-                <h4>
-                    {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
-                </h4>
-                <h2>
-                    What we're about
-                </h2>
-                <p>
-                    {group.singleGroup.about}
-                </p>
+            <div className='displayFlex justifyCenter'>
+                <div className='adjustInfoDiv'>
+
+                    <h2>
+                        Organizer
+                    </h2>
+                    <h4>
+                        {`${group.singleGroup.Organizer.firstName} ${group.singleGroup.Organizer.lastName}`}
+                    </h4>
+                    <h2>
+                        What we're about
+                    </h2>
+                    <p className='textWrap'>
+                        {group.singleGroup.about}
+                    </p>
+                </div>
+            </div>
+            <div className={`${showCurrentEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'current'} eventsArray={eventsArray[2]}
+                />
+            </div>
+            <div className={`${showFutureEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'future'} eventsArray={eventsArray[1]}
+                />
+            </div>
+            <div className={`${showPastEvents}`}>
+                <EventsDisplayComponent
+                    timeline={'past'} eventsArray={eventsArray[0]}
+                />
             </div>
 
-
-            <div className={showFutureEvents}>
-                <h2>
-                    Upcoming Events ({`${futureEvents.length}`})
-                </h2>
-                    {futureEvents.map(e =>
-                        <div>
-                            <div>
-                                <div>image</div>
-                                <div>
-                                    <h4>{e.endDate}</h4>
-                                    <h4>{e.name}</h4>
-                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
-                                </div>
-                            </div>
-                            <div>
-                                <p>{e.description}</p>
-                            </div>
-                        </div>
-                    )}
-            </div>
-
-            <div className={showPastEvents}>
-                <h2>
-                <h2>
-                    Past Events ({`${pastEvents.length}`})
-                </h2>
-                    {pastEvents.map(e =>
-                        <div>
-                            <div>
-                                <div>image</div>
-                                <div>
-                                    <h4>{e.endDate}</h4>
-                                    <h4>{e.name}</h4>
-                                    <h4>{e.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'No venue location'}</h4>
-                                </div>
-                            </div>
-                            <div>
-                                <p>{e.description}</p>
-                            </div>
-                        </div>
-                    )}
-                </h2>
-            </div>
-        </div>
+        </div >
 
     )
 }

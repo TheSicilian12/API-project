@@ -3,15 +3,22 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
+import '../UniversalCSS.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [displayEmailErr, setDsiplayEmailErr] = useState(false);
   const [username, setUsername] = useState("");
+  const [displayUsernameErr, setDisplayUsernameErr] = useState(false);
   const [firstName, setFirstName] = useState("");
+  const [displayFirstNameErr, setDisplayFirstNameErr] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [displayLastNameErr, setDisplayLastNameErr] = useState(false);
   const [password, setPassword] = useState("");
+  const [displayPasswordErr, setDisplayPasswordErr] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayConfirmPasswordErr, setDisplayConfirmPasswordErr] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -35,71 +42,150 @@ function SignupFormModal() {
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
-  console.log('errors: ', errors)
+
+  let err = {}
+  if (username.length < 4) {
+    err.username = '4+ characters for a username.'
+  }
+  if (password.length < 6) {
+    err.password = '6+ characters for a password.'
+  }
+  if (confirmPassword !== password) {
+    err.confirmPassword = 'Your confirmation does not match your password.'
+  }
+  if (!firstName) {
+    err.firstName = 'Please enter your first name.'
+  }
+  if (!lastName) {
+    err.lastName = 'Please enter your last name.'
+  }
+  if (!email) {
+    err.email = 'Please enter an email.'
+  }
+
+  let disableButton;
+  if (Object.values(err).length > 0) {
+    disableButton = 'not-allowedCursor'
+  }
+
+  // console.log('errors: ', errors)
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+
+    <div className='UfontTreb displayFlex flex-directionColumn alignCenter'>
+      <h1 className=''>Sign Up</h1>
+      <form
+        className='dimensionsForm textSize'
+        onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <label>
-          Email
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Email
+          </label>
           <input
+            placeholder='Email'
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setDsiplayEmailErr(true);
+            }}
             required
           />
-        </label>
-        <label>
-          Username
+        </div>
+        {displayEmailErr && <p className='error'>{err.email}</p>}
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Username
+          </label>
           <input
+            placeholder='Username'
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              setDisplayUsernameErr(true)
+            }}
             required
-          />
-        </label>
-        <label>
-          First Name
+            />
+        </div>
+          {displayUsernameErr && <p className='error'>{err.username}</p>}
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
+          <label className=''>
+            First Name
+          </label>
           <input
+            placeholder='First Name'
             type="text"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => {
+              setFirstName(e.target.value)
+              setDisplayFirstNameErr(true)
+            }}
             required
-          />
-        </label>
-        <label>
-          Last Name
+            />
+        </div>
+        {displayFirstNameErr&& <p className='error'>{err.firstName}</p>}
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Last Name
+          </label>
           <input
+            placeholder='Last Name'
             type="text"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => {
+              setLastName(e.target.value)
+              setDisplayLastNameErr(true)
+            }}
             required
-          />
-        </label>
-        <label>
-          Password
+            />
+        </div>
+        {displayLastNameErr && <p className='error'>{err.lastName}</p>}
+        <div className='displayFlex justfiySpaceBetween paddingDown'>
+          <label className=''>
+            Password
+          </label>
           <input
+            placeholder='Password'
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setDisplayPasswordErr(true)
+            }}
             required
           />
-        </label>
-        <label>
-          Confirm Password
+        </div>
+        {displayPasswordErr && <p className='error'>{err.password}</p>}
+        <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
+          <label className=''>
+            Confirm Password
+          </label>
           <input
+            placeholder='Confirm Password'
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value)
+              setDisplayConfirmPasswordErr(true)
+            }}
             required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
+            />
+        </div>
+        {displayConfirmPasswordErr && <p className='error'>{err.confirmPassword}</p>}
+        <div className='displayFlex justifyCenter'>
+          <button
+            className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
+            type="submit"
+            disabled={Object.values(err).length > 0}
+            >
+            Sign Up
+          </button>
+        </div>
       </form>
-    </>
+  </div>
   );
 }
 

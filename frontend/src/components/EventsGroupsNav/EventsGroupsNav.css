@@ -1,0 +1,80 @@
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderGreen {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+/* .centerHorizontal {
+    position: relative;
+    left: 50%;
+} */
+
+.groupImage {
+    width: 25rem;
+    height: 20rem;
+}
+
+.mainText {
+    width: 45rem;
+}
+
+.marginTop {
+    margin-top: 4rem;
+}
+
+.eventSpaceRight {
+    margin-right: 1rem;
+}
+
+.adjustHorizontal {
+    /* position: relative */
+    display: flex;
+}
+
+.textWrap {
+    inline-size: 20rem;
+}
+
+.groupInfo {
+    width: 20rem;
+}
+
+.fontSizeNav {
+    font-size: 250%;
+}
+
+.currentSelection {
+    text-decoration-line: underline;
+    /* text-decoration-color: goldenrod; */
+    color: #ffba1e;
+}
+
+.notCurrentSelection {
+    text-decoration: none;
+    color: gray
+}

@@ -62,27 +62,31 @@ const validateLogin = [
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
-
+    // console.log('get all groups backend------------------------------------------------')
 
     //main search
     let groups = await Group.findAll({
         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
         include: [
             { model: Membership },
-            { model: GroupImage }
+            { model: GroupImage },
+            { model: Event}
         ]
     })
 
-    let groupsJSON = JSON.parse(JSON.stringify(groups))
+    // console.log('groups: ', groups)
 
+    let groupsJSON = JSON.parse(JSON.stringify(groups))
+    // console.log('backend: ', groupsJSON)
     let groupObj = {};
     groupObj.Groups = [];
 
     for (let group of groupsJSON) {
 
-
         let numMembers = 0;
         let previewImage = null;
+
+        // console.log('group: ', group)
 
         //number of members in a group
         if (group.Memberships.length > 0) {
@@ -103,8 +107,6 @@ router.get('/', async (req, res) => {
 
         }
 
-
-
         groupObj.Groups.push({
             id: group.id,
             organizerId: group.organizerId,
@@ -117,7 +119,8 @@ router.get('/', async (req, res) => {
             createdAt: group.createdAt,
             updatedAt: group.updatedAt,
             numMembers: numMembers,
-            preivewImage: previewImage
+            preivewImage: previewImage,
+            events: group.Events
         })
     }
 
@@ -495,8 +498,8 @@ router.post('/', requireAuth, async (req, res, next) => {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (!about || about.length < 50) {
-        let about = "About must be 50 characters or more"
+    if (!about || about.length < 30) {
+        let about = "About must be 30 characters or more"
         errors.about = about
     }
     if (!type || type !== 'Online' && type !== 'In person') {
@@ -540,8 +543,6 @@ router.post('/', requireAuth, async (req, res, next) => {
     return res.status(201).json(newGroup)
 })
 
-
-
 //EDIT A GROUP
 router.put('/:groupId', requireAuth, async (req, res, next) => {
     //group must belong to the current user.
@@ -579,8 +580,8 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         let name = "Name must be 60 characters or less"
         errors.name = name
     }
-    if (!about || about.length < 50) {
-        let about = "About must be 50 characters or more"
+    if (!about || about.length < 30) {
+        let about = "About must be 30 characters or more"
         errors.about = about
     }
     if (!type || type !== 'Online' && type !== 'In person') {
@@ -923,8 +924,9 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //current user must be organizer or co-host
     //mg - or host?
     //assuming organizer, host, or co-host
-
+    console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     const { user } = req
+    console.log('req.body: ', req.body)
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
@@ -995,8 +997,12 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let name = "Name must be at least 5 characters"
         errors.name = name
     }
-    if (!type || type !== 'Online' && type !== 'In person') {
-        let type = "Type must be Online or In person"
+    if (!type) {
+        let type = "Type must be Online or In Person"
+        errors.type = type
+    }
+    if (type !== 'Online' && type !== 'In Person') {
+        let type = "Type must be Online or In Person"
         errors.type = type
     }
     if (!capacity || !Number.isInteger(capacity) || capacity < 1) {

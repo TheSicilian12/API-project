@@ -1,25 +1,28 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
+import '../UniversalCSS.css';
 import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteEventButton from '../DeleteEventModalButton';
 import DeleteEventModal from '../DeleteEventModal'
-
+import clockImage from '../assets/Images/ATWP.webp'
+import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     // console.log('event groupId: ', event.groupId)
 
     useEffect(() => {
         // console.log('useEffect test')
         // if (event.Group) {
-            // console.log('event.groupId: ', event.groupId)
-            dispatch(getGroup(event.groupId))
+        // console.log('event.groupId: ', event.groupId)
+        dispatch(getGroup(event.groupId))
         // }
     }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
@@ -27,11 +30,13 @@ function EventDetails({ event, eventId, user }) {
     // console.log('orgranizer: ', organizer)
     // console.log('groupImages: ', groupImages)
 
+    console.log('event: ', event)
+
     let groupPreviewImage;
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
     }
-    console.log('groupPreviewImage: ', groupPreviewImage)
+    // console.log('groupPreviewImage: ', groupPreviewImage)
 
     const eventImages = useSelector((state) => state.events.EventImages)
     // console.log('eventImages: ', eventImages)
@@ -47,8 +52,9 @@ function EventDetails({ event, eventId, user }) {
     }
     const groupId = event.Group.id
 
-    // console.log('group: ', group)
+    let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
+    // console.log('group: ', group)
     // console.log('event: ', event)
 
     let noEventImage = 'off';
@@ -59,80 +65,138 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     if (!groupPreviewImage) noGroupImage = 'on';
 
-    let options = 'off'
+    let options = 'Uhide';
     if (user) {
-        if (event.Group.organizerId === user.id) options = 'on'
+        if (event.Group.organizerId === user.id) options = 'Ushow';
     }
 
+    // console.log('eventPreviewImage: ', eventPreviewImage)
+    console.log('options: ', options)
+
     return (
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <p>{'<'}</p>
-                        <NavLink to='/events'>Events</NavLink>
+        <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>
+            <div className=' displayFlex flex-directionColumn'>
+                <div className='eventDetailsWidth'>
+                    <div className='displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth'>
+                            <img
+                                className='pointerCursor displayFlex justifyCenter alignCenter'
+                                onClick={() => history.push('/events')}
+                                src={pinkArrowLeft}
+                            />
+                            <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
+                        </div>
                     </div>
-                    <div>
-                        <h1>{event.name}</h1>
-                        <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
+                    <div className=' displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth'>
+                            <h1>{event.name}</h1>
+                            <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div className='displayFlex justifyCenter'>
+                    <div className='displayFlex groupEventTextSize'>
+                        {/* {eventPreviewImage?.url} */}
 
-                    <div>
-                        <div>
+                        <div className='eventImageWidth'>
                             <img
-                                src={eventPreviewImage?.url}
+                                className='border-Radius15'
+                                src={eventPreviewImage?.url || imageData}
+                                // width='100%'
+                                height='100%'
                             />
-                            <p className={noEventImage}>No Event Image</p>
                         </div>
-                        <div>
-                            <div>
-                                <div>
+
+                        <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection justifyCenter'>
+                            <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
+                                <div className='groupImageWidth'>
                                     <img
-                                    //group image
-                                        src={groupPreviewImage?.url}
+                                        //group image
+                                        className='border-Radius15'
+                                        src={groupPreviewImage?.url || imageData}
+                                        width='100%'
+                                    // heigth='100%'
                                     />
-                                    <p className={noGroupImage}>No Group Image</p>
                                 </div>
-                                <div>
-                                    <h4>{event.Group?.name}</h4>
+
+                                <div className='infoGroupSpacing'>
+                                    <h4 className='textWrap'>{event.Group?.name}</h4>
                                     <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    <h4>START</h4>
-                                    <h4>{event?.startDate}</h4>
-                                </div>
-                                <div>
-                                    <h4>END</h4>
-                                    <h4>{event?.endDate}</h4>
-                                </div>
-                            </div>
-                            <div>
-                                <h4>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
-                            </div>
-                            <div>
-                                <h4>{event?.type}</h4>
-                                <div className={options}>
-                                    <NavLink to={`/events/${eventId}/edit`}>
-                                        <button>Update</button>
-                                    </NavLink>
-                                    <OpenModalDeleteEventButton
-                                        buttonText='Delete'
-                                        modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                            <div className='UblackBorderWeighted border-Radius15 marginTop '>
+                                <div className='displayFlex marginTop marginLeft'>
+                                    {/* <i class="fa-regular fa-clock fa-2xl style=color: #000000; borderRed displayFlex alignCenter justifyCenter clockDimensions"></i> */}
+                                    <img
+                                        className=''
+                                        width='15%'
+                                        height='15%'
+                                        src={clockImage}
                                     />
+                                    <div className='timeEventSpacing'>
+                                        <div className='displayFlex alignCenter'>
+                                            <h4 className='startEndSpacing'>
+                                                START:
+                                            </h4>
+                                            {/* date */}
+                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.startDate).toUTCString().split(' ')[2]} {new Date(event?.startDate).toUTCString().split(' ')[1]}, {new Date(event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                            <h4 className='dotSpacing'>•</h4>
+                                            {/* military time */}
+                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[4]}</h4>}
+
+                                        </div>
+                                        <div className='displayFlex alignCenter'>
+                                            <h4 className='startEndSpacing'>
+                                                END:
+                                            </h4>
+                                            {/* date */}
+                                            {<h4>{new Date(event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.endDate).toUTCString().split(' ')[2]} {new Date(event?.endDate).toUTCString().split(' ')[1]}, {new Date(event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                            <h4 className='dotSpacing'>•</h4>
+                                            {/* military time */}
+                                            {<h4>{new Date(event?.endDate).toUTCString().split(' ')[4]}</h4>}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='displayFlex alignCenter'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        <i class="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className='timeEventSpacing'>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
+                                </div>
+                                <div className='displayFlex alignCenter'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4>{event?.type}</h4>
+
+                                </div>
+                                <div className={`${options} displayFlex justifyCenter marginBottom`}>
+                                    {/* <NavLink to={`/events/${eventId}/edit`}> */}
+                                    <button
+                                        className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
+                                        onClick={() => alert("Feature coming soon")}
+                                    >
+                                        Update
+                                    </button>
+                                    {/* </NavLink> */}
+                                    <div className={`${options}`}>
+                                        <OpenModalDeleteEventButton
+                                            buttonText='Delete'
+                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h2>Details</h2>
-                    <p>{event?.description}</p>
+                <div className='descriptionTextSize'>
+                    <div className='displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth'>
+                            <h2>Description</h2>
+                            <p>{event?.description}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

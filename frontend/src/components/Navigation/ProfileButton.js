@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import './Navigation.css'
+import './Navigation.css';
+import '../UniversalCSS.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const history = useHistory();
+
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -33,47 +37,70 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    setShowMenu(false);
+    // console.log('showMenu: ', showMenu)
+
+    history.push('/');
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu} className='squareFavicon positionAbsolute'>
-        {/* <i className="fas fa-user-circle fa-2xl" /> */}
+    <div className='UfontTreb'>
+      <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon marginSquareRight'>
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
         {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
-        </button>
+      </button>
+
+
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
+
         {user ? (
-          <div className='displayFlex alignCenter squareLogSign flex-directionColumn alignCenter width'>
-            <ul>{user.username}</ul>
-            <ul>{`Hello ${user.firstName}`}</ul>
+          <div className='displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn'>
+            <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
+            <div className='userMarginBottom'>{user.email}</div>
+            <div className='userMarginBottom'>{user.username}</div>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}
-            <ul>{user.email}</ul>
-            <ul>
-              <button onClick={logout}>Log Out</button>
-            </ul>
+
+            <button
+              className='userMarginBottom UgrayButton UblackBorderWeighted border-Radius15 UbuttonProfileDimensions'
+              onClick={logout}>
+                Log Out
+            </button>
+            <Link
+              className='userMarginBottom UnoDecoration UnoDecoration UcolorBlack linkGold'
+              onClick={() => setShowMenu(false)}
+              to='/groups'>
+                View Groups
+            </Link>
+            <Link
+              className='userMarginBottom UnoDecoration UcolorBlack linkGold'
+              onClick={() => setShowMenu(false)}
+              to='/events'>
+                View Events
+            </Link>
           </div>
         ) : (
-          <div className='displayFlex positionStickyalignCenter squareLogSign flex-directionRow alignCenter width'>
-            <ul className='displayFlex marginBottom'>
+          <div className='displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp'>
+            {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
+            <div className='logInMarginBottom'>
               <OpenModalButton
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />
-            </ul>
-            <ul>
+            </div>
+            <div>
               <OpenModalButton
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
-            </ul>
+            </div>
+            {/* </ul> */}
           </div>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

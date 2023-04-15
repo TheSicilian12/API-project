@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = '/groups';
+const LOAD_INCLUDE_EVENTS = '/groups/LOAD_INCLUDE_EVENTS';
 const LOAD_DETAILS = '/groups:id';
 const SUBMIT_DETAILS = '/groups/new';
 const DELETE_GROUP = '/groups/:groupId';
@@ -28,10 +29,46 @@ const delete_group = (group) => ({
 // thunk - fetches all groups
 export const getAllGroups = () => async (dispatch) => {
     const response = await fetch('/api/groups');
+    // console.log('group thunk response: ', response)
     if (response.ok) {
         const list = await response.json();
+        console.log('group thunk: ', list)
         // console.log('list: ', list)
         dispatch(load(list));
+    }
+}
+
+//thunk - get all groups with events
+export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
+    const responseGroup = await fetch('/api/groups');
+    if (responseGroup.ok) {
+        //all groups
+        const groups = await responseGroup.json()
+        // console.log('groups: ', groups.Groups)
+
+        // console.log('values: ', Object.keys(groups.Groups))
+        let groupEventObj = {};
+        Object.values(groups.Groups).map(async group => {
+            // console.log(group.id)
+            //get all events of a group specified by its id
+            let responseGroupEvent = await fetch(`/api/groups/${group.id}/events`)
+            if (responseGroupEvent.ok) {
+                let groupEvent = await responseGroupEvent.json();
+                // console.log('groupEvent: ', groupEvent.Events)
+                groupEventObj[group.id] = groupEvent.Events
+
+                let currentGroup = groups.Groups.find(e => e.id === group.id);
+                currentGroup.events = groupEvent.Events;
+                // console.log('thunk - currentGroup: ', currentGroup.events)
+
+            }
+        })
+        // console.log('groupEventObj: ', groupEventObj)
+        //events: groupEventObj key is the groupId
+        // const groupEventReturn = {groups: groups, events: groupEventObj}
+        // console.log('groupEventReturn: ', groupEventReturn);
+        console.log('thunk groups: ', groups)
+        dispatch(load(groups))
     }
 }
 
@@ -106,7 +143,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('editGroup thunk: ', groupObj)
-
+    console.log('edit group thunk')
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
     newGroupObj.about = groupObj.about;
@@ -129,6 +166,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     //     newGroupObj.private = false;
     // }
 
+    console.log('object: ', newGroupObj)
     // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
@@ -137,6 +175,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
         },
         body: JSON.stringify(newGroupObj)
     })
+    console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
         return editedGroup;
@@ -197,6 +236,7 @@ function normalizeSingleGroup(object) {
 
 // console.log('state: ', state)
 
+
 // const initialState = {}
 const initialState = {
     session: {},
@@ -233,14 +273,18 @@ const initialState = {
         // In this slice we have much more info about the event than in the allEvents slice. singleEvent: { eventData, Group: { groupData, }, // Note that venue here will have more information than venue did in the all events slice. (Refer to your API Docs for more info) Venue: { venueData, }, EventImages: [imagesData], // These would be extra features, not required for your first 2 CRUD features Members: [membersData], Attendees: [attendeeData], }, }, };
     }
 }
+
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const returnState = {}
+            console.log('reducer action: ', action.list)
+
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-
+            console.log('reducer, returnState: ', returnState)
+            // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
             }

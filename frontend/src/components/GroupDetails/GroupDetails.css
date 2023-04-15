@@ -5,3 +5,173 @@
 .test {
     border: 2px solid black;
 }
+
+.off {
+    display: none
+}
+
+.borderBlack {
+    border: 2px solid black;
+}
+
+.borderGreen {
+    border: 5px solid greenyellow
+}
+
+.borderRed {
+    border: 5px solid red
+}
+
+.borderBlue {
+    border: 5px solid blue;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-directionColumn {
+    flex-direction: column;
+}
+
+.flex-directionRow {
+    flex-direction: row;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.justifyEnd {
+    justify-content: end;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.alignBottom {
+    align-items: flex-end;
+}
+
+.justifySpaceAround {
+    justify-content: space-around;
+}
+
+/* .centerHorizontal {
+    position: relative;
+    left: 50%;
+} */
+
+.eventImage {
+    height: 500rem;
+    width: 7000rem;
+    /* padding-right: 2rem; */
+}
+
+.testing {
+    width: 20px;
+    height: 50px;
+}
+
+.mainText {
+    width: 66rem;
+}
+
+.adjustInfoDiv {
+    width: 66rem;
+}
+
+.buttonHeight {
+    height: 15rem;
+}
+
+.adjustHorizontal {
+    /* position: relative */
+    display: flex;
+}
+
+.textWrap {
+    inline-size: 20rem;
+}
+
+.eventInfo {
+    width: 15rem;
+}
+
+.textSizeGroup {
+    font-size: 150%;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.dotSpacing {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.dotWeight {
+    font-weight: bold;
+}
+
+.infoGeneralSpacing {
+    padding-left: 2rem;
+}
+
+.infoGroupSpacing {
+    padding-left: 2rem;
+}
+
+.infoEventSpacing {
+    padding-left: 1rem;
+    width: 30rem
+}
+
+.noDecoration {
+    text-decoration: none;
+}
+
+.sectionTitle {
+    font-size: 280%
+}
+
+.eventTitleText {
+    font-size: 150%
+}
+
+.dateText {
+    font-size: 115%
+}
+
+.aboutText {
+    font-size: 130%
+}
+
+.marginPaddingDate {
+    margin: 0px;
+    padding-bottom: 0px;
+}
+
+.marginPaddingTitle {
+    margin: 0px;
+    padding: 0px;
+    width: 100%
+}
+
+.eventMargin {
+    margin-bottom: 1rem;
+}
+
+.eventImgDescMargin {
+    margin-top: 1rem;
+}
+
+.textSize {
+    font-size: 110%;
+}
+
+.eventListMarginBottom {
+    margin-bottom: 2rem;
+}
