@@ -12,45 +12,85 @@ import bubblegumImage from '../../assets/Images/atBubblegum.png';
 import iceKingImage from '../../assets/Images/atIceKing.png';
 import mintImage from '../../assets/Images/atMint.png';
 import penguinImage from '../../assets/Images/atPenguin.png';
+import swordImage from '../../assets/Images/atSword.png';
 
 export default function RainbowLine() {
 
     return (
-        <div className='UdisplayFlex UjustifyCenter'>
+        <div className='UdisplayFlex UjustifyCenter marginTopBottom'>
             <img
-                className='dividerPaddingRight'
-                width='20%'
-                src={finnImage}
-            />
-              <img
-                className='dividerPaddingRight'
-                width='20%'
-                src={jakeImage}
-            />
-              <img
-                className='dividerPaddingRight'
-                width='20%'
-                src={bubblegumImage}
-            />
-             <img
-                className='dividerPaddingRight'
-                width='20%'
-                src={iceKingImage}
-            />
-             <img
-                className='dividerPaddingRight'
-                width='20%'
-                src={mintImage}
-            />
-             <img
-                className='dividerPaddingRight'
+                className='dividerPaddingRight iconImages'
                 width='20%'
                 src={penguinImage}
             />
-             <img
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={jakeImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={finnImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={iceKingImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={bubblegumImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={mintImage}
+            />
+            {/* center - raincorn */}
+            <img
+                className='raincornImage'
                 width='20%'
                 src={raincornImage}
             />
+            {/* center - raincorn */}
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={mintImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={bubblegumImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={iceKingImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={finnImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={jakeImage}
+            />
+            <img
+                className='dividerPaddingRight iconImages'
+                width='20%'
+                src={penguinImage}
+            />
+            {/* <img
+                className='dividerPaddingRight'
+                width='20%'
+                src={swordImage}
+            /> */}
+
         </div>
     )
 }
