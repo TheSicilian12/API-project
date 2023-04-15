@@ -352,7 +352,7 @@ function GroupForm({ currentGroup, formType }) {
                         Create Group
                     </button>
                     <button
-                        className={`${editForm} UpurpleButton UbuttonDimensions border-Radius15`}
+                        className={`${editForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
