@@ -63,13 +63,18 @@ function SignupFormModal() {
     err.email = 'Please enter an email.'
   }
 
+  let disableButton;
+  if (Object.values(err).length > 0) {
+    disableButton = 'not-allowedCursor'
+  }
+
   // console.log('errors: ', errors)
   return (
 
     <div className='UfontTreb'>
       <h1>Sign Up</h1>
       <form
-        className='formWidth'
+        className='dimensionsForm textSize'
         onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -154,7 +159,7 @@ function SignupFormModal() {
           />
         </div>
         {displayPasswordErr && <p>{err.password}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
+        <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
           <label className=''>
             Confirm Password
           </label>
@@ -172,7 +177,7 @@ function SignupFormModal() {
         {displayConfirmPasswordErr && <p>{err.confirmPassword}</p>}
         <div className='displayFlex justifyCenter'>
           <button
-            className='buttonWidth'
+            className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
             type="submit"
             disabled={Object.values(err).length > 0}
             >

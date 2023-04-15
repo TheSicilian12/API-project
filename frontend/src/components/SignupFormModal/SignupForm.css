@@ -104,14 +104,23 @@ form {
     color: black
 }
 
-.formWidth {
-    width: 20rem;
-}
-
 .buttonWidth {
     width: 15rem;
 }
 
 .marginBottom {
     margin-bottom: 0.5rem;
+}
+
+.marginBottomLrg {
+    margin-bottom: 1rem;
+}
+
+.dimensionsForm {
+    width: 25rem;
+    height: 20rem;
+}
+
+.textSize {
+    font-size: 150%;
 }
