@@ -112,3 +112,12 @@
 .marginTop {
     margin-top: 1rem;
 }
+
+.imageContainer {
+    width: 15rem;
+    height: 15rem;
+}
+
+.section3Container {
+    width: 20rem;
+}

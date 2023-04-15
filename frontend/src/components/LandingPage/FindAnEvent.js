@@ -9,14 +9,18 @@ function FindAnEvent() {
 
     return (
         <NavLink
-        className='landingPage_findEvent_mainText pointerCursor enable' to='/events'>
+        className='landingPage_findEvent_mainText pointerCursor enable section3Container borderGreen' to='/events'>
             <div
             className='landingPage_findEvent displayFlex flex-directionColumn alignCenter pointerCursor'>
-                <img className=''
+            <div
+                className='imageContainer displayFlex alignCenter justifyCenter borderRed'
+            >
+                <img className='borderRed'
                     src={eventImage}
                     alt="test image"
-                    width='50%'
-                />
+                    width='100%'
+                    />
+                </div>
                 <h2>
                 Find an event
                 </h2>
