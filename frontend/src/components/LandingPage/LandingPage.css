@@ -39,6 +39,13 @@
     overflow-wrap: break-word;
 }
 
+.textWrapCenter{
+    width: 70%;
+    overflow-wrap: break-word;
+    text-align: center
+}
+
+
 .textWrapCentered {
     inline-size: 500px;
     overflow-wrap: break-word;

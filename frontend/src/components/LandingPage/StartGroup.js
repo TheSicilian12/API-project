@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './StartGroup.js';
 import './LandingPage.css';
+import '../UniversalCSS.css';
 import startGroupImage from '../assets/Images/Daco_6030033.png';
 
 function StartGroup({ user }) {
@@ -24,9 +25,9 @@ function StartGroup({ user }) {
                 <h2 >
                     Start a new group
                 </h2>
-                {/* <p className='landingPage_startGroup_additionalText'>
-                    additional text
-                </p> */}
+                <p className='landingPage_startGroup_additionalText textWrapCenter justifyCenter moveUp'>
+                    You don't have to be an expert guild leader to gather people together and have an adventure.
+                </p>
             </div>
         </NavLink>
 

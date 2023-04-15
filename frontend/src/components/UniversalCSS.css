@@ -10,6 +10,10 @@
     border: none;
 }
 
+.UtextWrap {
+    overflow-wrap: break-word;
+}
+
 .UborderBlackTest {
     border: 2px solid blac;
 }

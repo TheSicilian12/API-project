@@ -19,9 +19,9 @@ function SeeAllGroups() {
                 <h2>
                 See all groups
                 </h2>
-                {/* <p className='landingPage_groups_additionalText'>
-                    additional text
-                </p> */}
+                <p className='landingPage_groups_additionalText textWrapCenter justifyCenter moveUp'>
+                    Do what you love and find your community. The rest is history!
+                </p>
             </div>
         </NavLink>
     )
