@@ -200,7 +200,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventName}</p> */}
-                    {displayEventNameErr && <p>{err.eventName}</p>}
+                    {displayEventNameErr && <p className='error'>{err.eventName}</p>}
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <img
@@ -229,9 +229,9 @@ function EventForm({ currentGroup, formType }) {
                                 value={'Online'}
                             >Online</option>
                         </select>
-                        <p className='error'>{errors.eventMeetingType}</p>
+                        {/* <p className='error'>{errors.eventMeetingType}</p> */}
                     </div>
-                    {displayEventMeetingTypeErr && <p>{err.eventMeetingType}</p>}
+                    {displayEventMeetingTypeErr && <p className='error'>{err.eventMeetingType}</p>}
                     <div>
                         <p className='groupFormText'>Is this event private or public?</p>
                         <select
@@ -254,9 +254,9 @@ function EventForm({ currentGroup, formType }) {
                                 onChange={() => setEventStatus(false)}
                             >Public</option>
                         </select>
-                        <p className='error'>{errors.eventStatus}</p>
+                        {/* <p className='error'>{errors.eventStatus}</p> */}
                     </div>
-                    {displayEventStatusErr && <p>{err.eventStatus}</p>}
+                    {displayEventStatusErr && <p className='error'>{err.eventStatus}</p>}
                     <div>
                         <p className='groupFormText'>What is the price for your event?</p>
                         <input
@@ -271,7 +271,7 @@ function EventForm({ currentGroup, formType }) {
                             }}
                         />
                         {/* <p className='error'>{errors.eventPrice}</p> */}
-                        {displayEventPriceErr && <p>{err.eventPrice}</p>}
+                        {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
                     <div className='displayFlex justifyCenter'>
@@ -296,7 +296,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventStartDate}</p> */}
-                    {displayEventStartDateErr && <p>{err.startDate}</p>}
+                    {displayEventStartDateErr && <p className='error'>{err.startDate}</p>}
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
@@ -309,7 +309,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventEndDate}</p> */}
-                    {displayEventEndDateErr && <p>{err.eventEndDate}</p>}
+                    {displayEventEndDateErr && <p className='error'>{err.eventEndDate}</p>}
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <img
@@ -332,7 +332,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventImage}</p> */}
-                    {displayEventImageErr && <p>{err.eventImage}</p>}
+                    {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
                     <div className='displayFlex justifyCenter'>
                         <img
@@ -353,8 +353,8 @@ function EventForm({ currentGroup, formType }) {
                             setDisplayEventAboutErr(true)
                         }}
                     ></textarea>
-                    <p className='error'>{errors.eventAbout}</p>
-                    {displayEventAboutErr && <p>{err.eventAbout}</p>}
+                    {/* <p className='error'>{errors.eventAbout}</p> */}
+                    {displayEventAboutErr && <p className='error'>{err.eventAbout}</p>}
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <button
