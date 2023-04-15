@@ -35,7 +35,7 @@
 }
 
 .textWrap {
-    inline-size: 700px;
+    /* inline-size: 700px; */
     overflow-wrap: break-word;
 }
 
@@ -120,4 +120,8 @@
 
 .section3Container {
     width: 20rem;
+}
+
+.landingPageFontSize {
+    font-size: 120%;
 }

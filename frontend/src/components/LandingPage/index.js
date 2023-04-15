@@ -17,7 +17,7 @@ function LandingPage() {
 
     return (
         <>
-            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop UfontTreb'>
+            <div className='landingPage_intro displayFlex justifyCenter paddingMainTop landingPageFontSize UfontTreb'>
                 <div className='displayFlex flex-directionColumn'>
                     <h1 className='textWrap'>
                         The people platform - Where skills become adventuring parties:
@@ -36,7 +36,7 @@ function LandingPage() {
 
 
             </div>
-            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop UfontTreb'>
+            <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop landingPageFontSize UfontTreb'>
                 <div className='displayFlex flex-directionColumn'>
                 <h2 className='displayFlex justifyCenter'>
                 How Adventureup works
@@ -46,14 +46,14 @@ function LandingPage() {
                 </p>
                 </div>
             </div>
-            <div className='displayFlex justifySpaceAround UfontTreb'>
+            <div className='displayFlex justifySpaceAround landingPageFontSize UfontTreb'>
                 <SeeAllGroups />
                 <FindAnEvent />
                 <StartGroup user={user}/>
             </div>
             <div className='displayFlex justifyCenter paddingButton'>
                 <button
-                    className='landingPage_options_joinButton UpurpleButton UbuttonJoinMeetUpDimensions border-Radius15 UfontTreb'
+                    className='landingPage_options_joinButton UpurpleButton UbuttonJoinMeetUpDimensions border-Radius15 landingPageFontSize UfontTreb'
                     onClick={() => alert('Feature coming soon')}
                 >
                     Join Meetup
