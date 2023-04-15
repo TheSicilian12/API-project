@@ -7,6 +7,7 @@ import './AllEvents.css';
 import { getAllEventsThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 import eventDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+// import eventDividerImage from '../HorizontalLines/RainbowLine';
 // import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 
 import { EventsDisplayComponent } from '../GroupDetails/eventsDisplayComponent'

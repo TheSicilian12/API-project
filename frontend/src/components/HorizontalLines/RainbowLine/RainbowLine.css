@@ -1,0 +1,18 @@
+.borderGreen {
+    border: 2px solid green;
+}
+
+.iconImages {
+    width: 4rem;
+    height: 4rem;
+}
+
+.raincornImage {
+    width: 12rem;
+    /* height: 10rem; */
+}
+
+.marginTopBottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

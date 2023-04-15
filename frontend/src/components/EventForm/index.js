@@ -8,6 +8,7 @@ import '../UniversalCSS.css';
 import { EditEventWrapper } from './editEventWrapper';
 import { addEventByGroupIdThunk } from '../../store/eventsThunk'
 import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
 function EventForm({ currentGroup, formType }) {
@@ -204,14 +205,15 @@ function EventForm({ currentGroup, formType }) {
                     {/* <p className='error'>{errors.eventName}</p> */}
                     {displayEventNameErr && <p className='error'>{err.eventName}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <div>
                         <p className='groupFormText'>Is this an in-person or online group?</p>
@@ -276,14 +278,15 @@ function EventForm({ currentGroup, formType }) {
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
-                    <div className='displayFlex justifyCenter'>
+                    {/* <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
                             width='25%'
                             // height='10%'
                             src={formDividerImage}
                         />
-                    </div>
+                    </div> */}
+                    <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>When does your event start?</p>
                     <input
@@ -313,14 +316,15 @@ function EventForm({ currentGroup, formType }) {
                     {/* <p className='error'>{errors.eventEndDate}</p> */}
                     {displayEventEndDateErr && <p className='error'>{err.eventEndDate}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please add in image url for your event below:</p>
                     <input
@@ -336,14 +340,15 @@ function EventForm({ currentGroup, formType }) {
                     {/* <p className='error'>{errors.eventImage}</p> */}
                     {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
-                    <div className='displayFlex justifyCenter'>
+                    {/* <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
                             width='25%'
                             // height='10%'
                             src={formDividerImage}
                         />
-                    </div>
+                    </div> */}
+                    <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
                     <textarea

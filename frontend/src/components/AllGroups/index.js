@@ -8,7 +8,7 @@ import '../UniversalCSS.css';
 import { getAllGroups } from '../../store/groupsThunk';
 import EventsGroupsNav from "../EventsGroupsNav";
 import groupDividerImage from '../assets/Images/Daco_4730261.png';
-import SwordLine from '../HorizontalLines/SwordLine'
+import RainbowLine from '../HorizontalLines/RainbowLine';
 
 export default function AllGroups() {
     const dispatch = useDispatch();
@@ -47,7 +47,7 @@ export default function AllGroups() {
     return (
         <div className='AllGroups displayFlex flex-directionColumn UfontTreb' >
             <div className='displayFlex justifyCenter'>
-                <p className='mainText textSizeGroup'>
+                <p className='mainText eventGroupHeaderFontSize'>
                     Groups in AdventureUp
                 </p>
             </div>
@@ -55,14 +55,14 @@ export default function AllGroups() {
 
                 <div className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
-                        {/* <SwordLine /> */}
-                        <img
+                        <RainbowLine />
+                        {/* <img
                             className='dividerPadding'
                             height='25%'
                             width='25%'
 
                             src={groupDividerImage}
-                        />
+                        /> */}
                     </div>
                     <div className='displayFlex justifyCenter'>
                         <NavLink
