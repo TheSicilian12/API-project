@@ -191,8 +191,12 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                 </div>
                 <div className='descriptionTextSize'>
-                    <h2>Description</h2>
-                    <p>{event?.description}</p>
+                    <div className='displayFlex alignCenter justifyCenter'>
+                        <div className='arrowCenterWidth'>
+                            <h2>Description</h2>
+                            <p>{event?.description}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
