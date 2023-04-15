@@ -35,9 +35,16 @@
 }
 
 .textWrap {
-    inline-size: 700px;
+    /* inline-size: 700px; */
     overflow-wrap: break-word;
 }
+
+.textWrapCenter{
+    width: 70%;
+    overflow-wrap: break-word;
+    text-align: center
+}
+
 
 .textWrapCentered {
     inline-size: 500px;
@@ -104,4 +111,17 @@
 
 .marginTop {
     margin-top: 1rem;
+}
+
+.imageContainer {
+    width: 15rem;
+    height: 15rem;
+}
+
+.section3Container {
+    width: 20rem;
+}
+
+.landingPageFontSize {
+    font-size: 120%;
 }

@@ -71,7 +71,7 @@ function EventDetails({ event, eventId, user }) {
     console.log('eventPreviewImage: ', eventPreviewImage)
 
     return (
-        <div>
+        <div className='UfontTreb'>
             <div>
                 <div>
                     <div>

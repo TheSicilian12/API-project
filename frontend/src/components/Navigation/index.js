@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
   // console.log('user: ', user)
 
   return (
-      <div className='displayFlex justfiySpaceBetween alignCenter'>
+      <div className='displayFlex justfiySpaceBetween alignCenter UfontTreb'>
         <div className='pointerCursor'>
           {/* <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink> */}
           <img

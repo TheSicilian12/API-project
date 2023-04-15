@@ -44,12 +44,17 @@ function LoginFormModal() {
     err.password = 'Make sure your password is 6+ characters'
   }
 
+  let notAllowed;
+  if (Object.values(err).length > 0) {
+    notAllowed = 'not-allowedCursor'
+  }
+
   return (
-    <div className='displayFlex flex-directionColumn alignCenter'>
+    <div className='displayFlex flex-directionColumn alignCenter UfontTreb'>
       {/* <div> */}
       <h1>Log In</h1>
       <form
-        className='dimensionsForm displayFlex flex-directionColumn justifyCenter alignCenter'
+        className='dimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
         onSubmit={handleSubmit}>
         <div className='displayFlex alignCenter'>
           <div className=''>
@@ -106,7 +111,7 @@ function LoginFormModal() {
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
-            className='width'
+            className={`smallWidth UpurpleButton UpinkBorder UbuttonSmallDimensions ${notAllowed}`}
             type="submit"
             disabled={Object.values(err).length > 0}
             onClick={() => setSubmitted(true)}
@@ -116,7 +121,7 @@ function LoginFormModal() {
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
-            className='width'
+            className='width UpurpleButton UpinkBorder UbuttonDimensions'
             onClick={() => {
               setCredential('demo-user@user.io')
               setPassword('password')

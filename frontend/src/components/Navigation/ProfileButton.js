@@ -45,7 +45,7 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <div className=''>
+    <div className='UfontTreb'>
       <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon'>
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}

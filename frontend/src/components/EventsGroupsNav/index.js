@@ -19,7 +19,7 @@ export default function EventsGroupsNav({isLoaded}) {
   console.log('eventsSeelct: ', eventsSelect)
 
   return (
-    <div className='GroupsPage borderBlack displayFlex justifyCenter marginTop'>
+    <div className='GroupsPage borderBlack displayFlex justifyCenter marginTop UfontTreb'>
       <div className='GroupsPage_eventGroupLinks borderGreen mainText fontSizeNav'>
         <NavLink
           className = {`GroupPage_eventGroupLinks_Event eventSpaceRight ${eventsSelect}`}

@@ -45,7 +45,7 @@ export default function AllGroups() {
     // console.log('groups: ', groups.allGroups['1']?.events)
     // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
     return (
-        <div className='AllGroups displayFlex flex-directionColumn' >
+        <div className='AllGroups displayFlex flex-directionColumn UfontTreb' >
             <div className='displayFlex justifyCenter'>
                 <p className='mainText textSizeGroup'>
                     Groups in AdventureUp
