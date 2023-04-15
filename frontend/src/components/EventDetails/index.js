@@ -86,7 +86,7 @@ function EventDetails({ event, eventId, user }) {
                 </div>
                 <div>
 
-                    <div className='borderRed displayFlex'>
+                    <div className='displayFlex groupEventTextSize'>
                         {/* {eventPreviewImage?.url} */}
                         <img
                             className=''
@@ -155,7 +155,7 @@ function EventDetails({ event, eventId, user }) {
                                     <h4>{event?.type}</h4>
 
                                 </div>
-                                <div className={`${options} displayFlex justifyCenter`}>
+                                <div className={`${options} displayFlex justifyCenter marginBottom`}>
                                     {/* <NavLink to={`/events/${eventId}/edit`}> */}
                                         <button
                                             className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
@@ -175,7 +175,7 @@ function EventDetails({ event, eventId, user }) {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className='descriptionTextSize'>
                     <h2>Description</h2>
                     <p>{event?.description}</p>
                 </div>
