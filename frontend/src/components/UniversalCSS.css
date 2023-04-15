@@ -6,6 +6,10 @@
     text-decoration: none;
 }
 
+.UnoBorder {
+    border: none;
+}
+
 .UborderBlackTest {
     border: 2px solid blac;
 }
