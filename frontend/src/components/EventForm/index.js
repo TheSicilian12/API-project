@@ -71,9 +71,9 @@ function EventForm({ currentGroup, formType }) {
         if (eventPrice < 0) {
             err.eventPrice = 'Price is required';
         }
-        if (typeof eventPrice !== 'number'){
-            err.eventPrice = 'Price must be a number';
-        }
+        // if (typeof eventPrice !== 'number'){
+        //     err.eventPrice = 'Price must be a number';
+        // }
         if (!eventStartDate) {
             err.eventStartDate = 'Event start is required';
         }
@@ -125,7 +125,7 @@ function EventForm({ currentGroup, formType }) {
             ))
         }
 
-        // console.log('newEvent: ', newEvent)
+        console.log('newEvent: ', newEvent)
         if (newEvent?.id) {
             history.push(`/events/${newEvent.id}`)
         }
