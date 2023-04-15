@@ -72,7 +72,7 @@ function EventDetails({ event, eventId, user }) {
     console.log('options: ', options)
 
     return (
-        <div className='UfontTreb'>
+        <div className='displayFlex flex-directionColumn UfontTreb'>
             <div>
                 <div>
                     <div>
@@ -85,24 +85,28 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                 </div>
                 <div>
-
                     <div className='displayFlex groupEventTextSize'>
                         {/* {eventPreviewImage?.url} */}
+
+                    <div className='eventImageWidth borderGreen'>
                         <img
                             className=''
                             src={eventPreviewImage?.url || imageData}
-                            width='50%'
-                            height='50%'
-                        />
+                            width='100%'
+                            height='100%'
+                            />
+                        </div>
 
                         <div className='displayFlex flex-directionColumn infoGeneralSpacing'>
                             <div className='UblackBorderWeighted displayFlex border-Radius15'>
-                                <img
-                                    //group image
-                                    className='border-Radius15'
-                                    src={groupPreviewImage?.url || imageData}
-                                    width='100%'
-                                />
+                                <div className='groupImageWidth'>
+                                    <img
+                                        //group image
+                                        className='border-Radius15'
+                                        src={groupPreviewImage?.url || imageData}
+                                        width='100%'
+                                    />
+                                </div>
 
                                 <div className='infoGroupSpacing'>
                                     <h4 className='textWrap'>{event.Group?.name}</h4>
@@ -157,17 +161,17 @@ function EventDetails({ event, eventId, user }) {
                                 </div>
                                 <div className={`${options} displayFlex justifyCenter marginBottom`}>
                                     {/* <NavLink to={`/events/${eventId}/edit`}> */}
-                                        <button
-                                            className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
-                                            onClick={() => alert("Feature coming soon")}
-                                        >
-                                            Update
-                                        </button>
+                                    <button
+                                        className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
+                                        onClick={() => alert("Feature coming soon")}
+                                    >
+                                        Update
+                                    </button>
                                     {/* </NavLink> */}
                                     <div className={`${options}`}>
                                         <OpenModalDeleteEventButton
                                             buttonText='Delete'
-                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id}/>}
+                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
                                         />
                                     </div>
                                 </div>

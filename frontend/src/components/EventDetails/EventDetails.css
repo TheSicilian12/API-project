@@ -135,3 +135,12 @@
 .descriptionTextSize {
     font-size: 150%;
 }
+
+.groupImageWidth {
+    width: 15rem;
+}
+
+.eventImageWidth {
+    width: 100rem;
+    /* height: 960px; */
+}
