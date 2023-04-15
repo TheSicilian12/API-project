@@ -1,0 +1,15 @@
+.deleteEventWidth {
+    width: 40rem;
+}
+
+.deleteEventButtonsWidth {
+    width: 30rem;
+}
+
+.deleteEventButtonsMarginBottom {
+    margin-bottom: 1rem;
+}
+
+.deleteEventText {
+    font-size: 150%;
+}
