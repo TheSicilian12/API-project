@@ -150,7 +150,7 @@ function EventForm({ currentGroup, formType }) {
     if (!(Number(eventPrice) >= 0)) {
         err.eventPrice = 'Price is required. Price must be a positive number.';
     }
-    console.log('eventPrice type: ', !(Number(eventPrice) >= 0))
+    // console.log('eventPrice type: ', !(Number(eventPrice) >= 0))
     if (!eventEndDate) {
         err.eventEndDate = 'Event end is required';
     }
