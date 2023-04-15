@@ -37,7 +37,7 @@ function DeleteGroupModal ({groupId}) {
                         Yes (Delete Group)
                 </button>
                 <button
-                className='UpurpleButton UbuttonDimensions border-Radius15'
+                className='UgrayButton  UbuttonDimensions border-Radius15'
                 onClick={closeModal}
                 >
                     No (Keep Group)
