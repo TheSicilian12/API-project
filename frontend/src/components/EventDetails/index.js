@@ -74,7 +74,7 @@ function EventDetails({ event, eventId, user }) {
     console.log('options: ', options)
 
     return (
-        <div className='displayFlex flex-directionColumn eventDetailsWidth UfontTreb'>
+        <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>
             <div className=' displayFlex flex-directionColumn'>
                 <div className='eventDetailsWidth'>
                     <div className='displayFlex alignCenter justifyCenter'>

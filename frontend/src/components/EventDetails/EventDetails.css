@@ -154,7 +154,7 @@
 }
 
 .arrowCenterWidth {
-    width: 129rem;
+    width: 140rem;
 }
 
 /* .eventInfoSection {
@@ -164,3 +164,7 @@
 /* .groupInfoSection {
     height: 30rem;
 } */
+
+.eventDetailFontSize {
+    font-size: 180%;
+}
