@@ -113,9 +113,17 @@
 }
 
 .formWidth {
-    width: 75%;
+    width: 60%;
+}
+
+.marginFormTop {
+    margin-top: 3rem;
 }
 
 .marginBottom {
     margin-bottom: 0.5rem;
+}
+
+.dividerImageForm {
+
 }

@@ -158,7 +158,7 @@ function GroupForm({ currentGroup, formType }) {
 
 
     return (
-        <div className='displayFlex justifyCenter'>
+        <div className='displayFlex justifyCenter marginFormTop'>
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder'
                 onSubmit={handleSubmit}>
@@ -168,6 +168,14 @@ function GroupForm({ currentGroup, formType }) {
                     <h3 className={editForm}>Update your Group</h3>
                     <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                     <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
+                </div>
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
                 </div>
                 <div>
                     <h2>
@@ -188,11 +196,14 @@ function GroupForm({ currentGroup, formType }) {
                     ></input>
                     {displayLocErr && <p className='error'>{err.location}</p>}
                 </div>
-                <img
-                    width='25%'
-                    // height='10%'
-                    src={formDividerImage}
-                />
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
                 <div>
                     <h2>
                         What will your group's name be?
@@ -214,11 +225,14 @@ function GroupForm({ currentGroup, formType }) {
                     ></input>
                     {displayGroupNameErr && <p className='error'>{err.name}</p>}
                 </div>
-                <img
-                    width='25%'
-                    // height='10%'
-                    src={formDividerImage}
-                />
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
                 <div>
                     <h2>
                         Describe the purpose of your group
@@ -241,11 +255,14 @@ function GroupForm({ currentGroup, formType }) {
                     ></textarea>
                     {displayGroupAboutErr && <p className='error'>{err.about}</p>}
                 </div>
-                <img
-                    width='25%'
-                    // height='10%'
-                    src={formDividerImage}
-                />
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
                 <div>
                     <h2>
                         Final steps...
