@@ -7,6 +7,7 @@ import '../UniversalCSS.css'
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import { EditWrapper } from './editWrapper';
 import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+import RainbowLine from '../HorizontalLines/RainbowLine';
 // frontend/src/components/assets/Images/rainbow-removebg-preview_1.png
 
 
@@ -179,14 +180,15 @@ function GroupForm({ currentGroup, formType }) {
                     <h2 className={newForm}>We'll walk you through a few steps to build your local community</h2>
                     <h2 className={editForm}>We'll walk you through a few steps to update your group's information</h2>
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <h2>
                         Set your group's location
@@ -207,14 +209,15 @@ function GroupForm({ currentGroup, formType }) {
                     ></input>
                     {displayLocErr && <p className='error'>{err.location}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <h2>
                         What will your group's name be?
@@ -237,14 +240,15 @@ function GroupForm({ currentGroup, formType }) {
                     ></input>
                     {displayGroupNameErr && <p className='error'>{err.name}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <h2>
                         Describe the purpose of your group
@@ -269,14 +273,15 @@ function GroupForm({ currentGroup, formType }) {
                     ></textarea>
                     {displayGroupAboutErr && <p className='error'>{err.about}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                     <img
                         className='dividerImageForm'
                         width='25%'
                         // height='10%'
                         src={formDividerImage}
                     />
-                </div>
+                </div> */}
+                <RainbowLine />
                 <div>
                     <h2>
                         Final steps...
