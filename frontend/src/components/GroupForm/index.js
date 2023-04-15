@@ -157,6 +157,10 @@ function GroupForm({ currentGroup, formType }) {
         err.groupStatus = 'Visibility Type is required'
     }
 
+    let disabled;
+    if(Object.values(err).length > 0) {
+        disabled='not-allowedCursor';
+    }
 
     return (
         <div className='displayFlex justifyCenter marginFormTop'>
@@ -341,10 +345,7 @@ function GroupForm({ currentGroup, formType }) {
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <button
-                        // className={`${newForm} UpurpleButton UbuttonDimensions border-Radius15`}
-                        className={
-                            Object.values(err.length > 0) ? `${newForm} UgrayButton UbuttonDimensions border-Radius15 not-allowedCursor` : `${newForm} UpurpleButton UbuttonDimensions border-Radius15`
-                        }
+                        className={`${newForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
