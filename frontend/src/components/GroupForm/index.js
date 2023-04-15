@@ -178,7 +178,7 @@ function GroupForm({ currentGroup, formType }) {
                         src={formDividerImage}
                     />
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <h2>
                         Set your group's location
                     </h2>
@@ -187,6 +187,7 @@ function GroupForm({ currentGroup, formType }) {
                         We'll connect you with people in your area.
                     </p>
                     <input
+                        className='groupFormInput'
                         type='text'
                         placeholder='City, STATE'
                         value={location}
@@ -205,7 +206,7 @@ function GroupForm({ currentGroup, formType }) {
                         src={formDividerImage}
                     />
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <h2>
                         What will your group's name be?
                     </h2>
@@ -216,6 +217,7 @@ function GroupForm({ currentGroup, formType }) {
                         Feel free to get creative! You can edit this later if you change your mind.
                     </p>
                     <input
+                        className='groupFormInput'
                         type='text'
                         placeholder='What is your group name?'
                         value={groupName}
@@ -234,7 +236,7 @@ function GroupForm({ currentGroup, formType }) {
                         src={formDividerImage}
                     />
                 </div>
-                <div>
+                <div className='marginBottomMed'>
                     <h2>
                         Describe the purpose of your group
                     </h2>
@@ -246,7 +248,9 @@ function GroupForm({ currentGroup, formType }) {
                         <li>Who should join?</li>
                         <li>What will you do at your events?</li>
                     </ol>
+
                     <textarea
+                        className='groupFormInput'
                         placeholder='Please write at least 30 characters'
                         value={groupAbout}
                         onChange={(e) => {
