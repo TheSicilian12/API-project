@@ -158,6 +158,10 @@
     /* height: 40%; */
 }
 
+.UblackColor {
+    color: 	#070c20;
+}
+
 /* this does not have a U in front because so many already exist */
 .pointerCursor {
     cursor: pointer;

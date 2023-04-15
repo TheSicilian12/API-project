@@ -141,6 +141,30 @@
 }
 
 .eventImageWidth {
-    width: 100rem;
-    height: 50rem;
+    /* width: 100rem; */
+    height: 70rem;
+}
+
+.backButtonTextSize {
+    font-size: 150%;
+}
+
+.eventDetailsWidth {
+    width: 150rem;
+}
+
+.arrowCenterWidth {
+    width: 140rem;
+}
+
+/* .eventInfoSection {
+    height: 100rem;
+} */
+
+/* .groupInfoSection {
+    height: 30rem;
+} */
+
+.eventDetailFontSize {
+    font-size: 180%;
 }
