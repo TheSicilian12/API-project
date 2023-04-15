@@ -75,8 +75,8 @@ function EventDetails({ event, eventId, user }) {
 
     return (
         <div className='displayFlex flex-directionColumn eventDetailsWidth UfontTreb'>
-            <div className=' displayFlex flex-directionColumn borderGreen'>
-                <div className='borderGreen eventDetailsWidth'>
+            <div className=' displayFlex flex-directionColumn'>
+                <div className='eventDetailsWidth'>
                     <div className='displayFlex alignCenter justifyCenter'>
                         <div className='arrowCenterWidth'>
                             <img
@@ -88,7 +88,7 @@ function EventDetails({ event, eventId, user }) {
                         </div>
                     </div>
                     <div className=' displayFlex alignCenter justifyCenter'>
-                        <div className='arrowCenterWidth borderGreen'>
+                        <div className='arrowCenterWidth'>
                             <h1>{event.name}</h1>
                             <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
                         </div>
@@ -107,7 +107,7 @@ function EventDetails({ event, eventId, user }) {
                             />
                         </div>
 
-                        <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection borderRed justifyCenter'>
+                        <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection justifyCenter'>
                             <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
                                 <div className='groupImageWidth'>
                                     <img
