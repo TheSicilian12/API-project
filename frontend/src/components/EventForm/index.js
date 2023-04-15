@@ -71,6 +71,9 @@ function EventForm({ currentGroup, formType }) {
         if (eventPrice < 0) {
             err.eventPrice = 'Price is required';
         }
+        if (typeof eventPrice !== 'number'){
+            err.eventPrice = 'Price must be a number';
+        }
         if (!eventStartDate) {
             err.eventStartDate = 'Event start is required';
         }
@@ -144,17 +147,10 @@ function EventForm({ currentGroup, formType }) {
     if (eventStatus === '(select one)') {
         err.eventStatus = 'Visibility is required';
     }
-    // console.log('before if: ', eventPrice)
-    // if (!eventPrice) {
-    //     console.log(eventPrice)
-    //     err.eventPrice = 'Price is required';
-    // }
-    if (eventPrice < 0) {
-        err.eventPrice = 'Price is required';
+    if (!(Number(eventPrice) >= 0)) {
+        err.eventPrice = 'Price is required. Price must be a positive number.';
     }
-    if (!eventStartDate) {
-        err.eventStartDate = 'Event start is required';
-    }
+    console.log('eventPrice type: ', !(Number(eventPrice) >= 0))
     if (!eventEndDate) {
         err.eventEndDate = 'Event end is required';
     }
