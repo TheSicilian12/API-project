@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventForm.css';
+import '../UniversalCSS.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
-import {EditEventWrapper} from './editEventWrapper';
-import {addEventByGroupIdThunk} from '../../store/eventsThunk'
+import { EditEventWrapper } from './editEventWrapper';
+import { addEventByGroupIdThunk } from '../../store/eventsThunk'
+import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+
 
 function EventForm({ currentGroup, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
@@ -74,10 +77,10 @@ function EventForm({ currentGroup, formType }) {
         if (imageRouteCheck !== 'png' &&
             imageRouteCheck !== 'jpg' &&
             imageRouteCheck !== 'jpeg') {
-                // console.log(imageRouteSplit)
-                // console.log(imageRouteCheck)
-                err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
-            }
+            // console.log(imageRouteSplit)
+            // console.log(imageRouteCheck)
+            err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
         if (eventAbout.length < 30) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
@@ -88,7 +91,7 @@ function EventForm({ currentGroup, formType }) {
         let newEvent;
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-            const eventObj={
+            const eventObj = {
                 venueId: null,
                 name: eventName,
                 type: eventMeetingType,
@@ -106,9 +109,9 @@ function EventForm({ currentGroup, formType }) {
 
             newEvent = await dispatch(addEventByGroupIdThunk(
                 {
-                  groupId,
-                  eventObj,
-                  eventImageObj
+                    groupId,
+                    eventObj,
+                    eventImageObj
                 }
             ))
         }
@@ -120,7 +123,7 @@ function EventForm({ currentGroup, formType }) {
         // console.log('errors: ', errors)
     }
 
-// ----------------------------------err real time--------------------------------------------------
+    // ----------------------------------err real time--------------------------------------------------
 
     const err = {}
     if (!eventName) {
@@ -155,161 +158,198 @@ function EventForm({ currentGroup, formType }) {
     if (imageRouteCheck !== 'png' &&
         imageRouteCheck !== 'jpg' &&
         imageRouteCheck !== 'jpeg') {
-            // console.log(imageRouteSplit)
-            // console.log(imageRouteCheck)
-            err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
-        }
+        // console.log(imageRouteSplit)
+        // console.log(imageRouteCheck)
+        err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
+    }
     if (eventAbout.length < 30) {
         err.eventAbout = 'Description must be at least 30 characters long';
     }
 
-// --------------------------------- ^ err real time ^ -----------------------------------------------
+    let disabled;
+    if (Object.values(err).length > 0) {
+        disabled = 'not-allowedCursor';
+    }
+
+    let hideImageUpdate = 'Ushow';
+    if (formType === 'edit') {
+        hideImageUpdate = 'Uhide';
+    }
+
+    // --------------------------------- ^ err real time ^ -----------------------------------------------
 
     return (
         // <div>test create event</div>
-        <form
-            onSubmit={handleSubmit}>
-            <div>
-                <h1>Create a new event for {currentGroup.name}</h1>
-            </div>
-            <div>
-                <p>What is the name of your event?</p>
-                <input
-                    type='text'
-                    placeholder='Event Name'
-                    value={eventName}
-                    onChange={(e) => {
-                        setEventName(e.target.value)
-                        setDisplayEventNameErr(true)
-                    }}
-                ></input>
-                <p className='error'>{errors.eventName}</p>
-            </div>
-            {displayEventNameErr && <p>{err.eventName}</p>}
-            <div>
+        <div className='displayFlex justifyCenter marginFormTop'>
+            <form
+                className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
+                onSubmit={handleSubmit}>
                 <div>
-                    <p>Is this an in-person or online group?</p>
-                    <select
-                        onChange={(e) => {
-                            setEventMeetingType(e.target.value)
-                            setDisplayEventMeetingTypeErr(true)
-                        }}
-                        value={eventMeetingType}
-                    >
-                        <option>(select one)</option>
-                        <option
-                            value={'In Person'}
-                        >In Person</option>
-                        <option
-                            value={'Online'}
-                        >Online</option>
-                    </select>
-                    <p className='error'>{errors.eventMeetingType}</p>
+                    <h1>Create a new event for {currentGroup.name}</h1>
                 </div>
-                {displayEventMeetingTypeErr && <p>{err.eventMeetingType}</p>}
                 <div>
-                    <p>Is this event private or public?</p>
-                    <select
-                        onChange={(e) => {
-                            setEventStatus(e.target.value)
-                            setDisplayEventStatusErr(true)
-                        }}
-                        value={eventStatus}
-                    >
-                        <option>(select one)</option>
-                        <option
-                            value={true}
-                            checked={eventStatus === true}
-                            onChange={() => setEventStatus(true)}
-                        >Private</option>
-                        <option
-                            value={false}
-                            checked={eventStatus === false}
-                            onChange={() => setEventStatus(false)}
-                        >Public</option>
-                    </select>
-                        <p className='error'>{errors.eventStatus}</p>
-                </div>
-                {displayEventStatusErr && <p>{err.eventStatus}</p>}
-                <div>
-                    <p>What is the price for your event?</p>
+                    <p>What is the name of your event?</p>
                     <input
-                        type='decimal'
-                        min="0"
-                        placeholder="0"
-                        // pattern="/d*"
+                        type='text'
+                        placeholder='Event Name'
+                        value={eventName}
                         onChange={(e) => {
-                            setEventPrice(e.target.value)
-                            setDisplayEventPriceErr(true)
+                            setEventName(e.target.value)
+                            setDisplayEventNameErr(true)
                         }}
-                        />
-                        <p className='error'>{errors.eventPrice}</p>
+                    ></input>
+                    {/* <p className='error'>{errors.eventName}</p> */}
                 </div>
-                {displayEventPriceErr && <p>{err.eventPrice}</p>}
-            </div>
-            <div>
-                <p>When does your event start?</p>
-                <input
-                    placeholder='MM/DD/YYYY/HH/mm AM'
-                    type='datetime-local'
-                    // type='date'
-                    value={eventStartDate}
-                    onChange={(e) => {
-                        setEventStartDate(e.target.value)
-                        setDisplayEventStartDateErr(true)
-                    }}
-                ></input>
-                <p className='error'>{errors.eventStartDate}</p>
-                <p>When does your event end?</p>
-                <input
-                    type='datetime-local'
-                    // type='date'
-                    value={eventEndDate}
-                    onChange={(e) => {
-                        setEventEndDate(e.target.value)
-                        setDisplayEventEndDateErr(true)
-                    }}
-                ></input>
-                <p className='error'>{errors.eventEndDate}</p>
-                {displayEventEndDateErr && <p>{err.eventEndDate}</p>}
-            </div>
-            {displayEventStartDateErr && <p>{err.startDate}</p>}
-            <div>
-                <p>Please add in image url for your event below:</p>
-                <input
-                    type='text'
-                    placeholder='Image URL'
-                    value={eventImage}
-                    onChange={(e) => {
-                        setEventImage(e.target.value)
-                        setDisplayEventImageErr(true)
-                    }}
-                ></input>
-                <p className='error'>{errors.eventImage}</p>
-                {displayEventImageErr && <p>{err.eventImage}</p>}
-            </div>
-            <div>
-                <p>Please describe your event</p>
-                <textarea
-                    placeholder='Please include at least 30 characters'
-                    value={eventAbout}
-                    onChange={(e) => {
-                        setEventAbout(e.target.value)
-                        setDisplayEventAboutErr(true)
-                    }}
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
+                {displayEventNameErr && <p>{err.eventName}</p>}
+                <div>
+                    <div>
+                        <p>Is this an in-person or online group?</p>
+                        <select
+                            onChange={(e) => {
+                                setEventMeetingType(e.target.value)
+                                setDisplayEventMeetingTypeErr(true)
+                            }}
+                            value={eventMeetingType}
+                        >
+                            <option>(select one)</option>
+                            <option
+                                value={'In Person'}
+                            >In Person</option>
+                            <option
+                                value={'Online'}
+                            >Online</option>
+                        </select>
+                        <p className='error'>{errors.eventMeetingType}</p>
+                    </div>
+                    {displayEventMeetingTypeErr && <p>{err.eventMeetingType}</p>}
+                    <div>
+                        <p>Is this event private or public?</p>
+                        <select
+                            onChange={(e) => {
+                                setEventStatus(e.target.value)
+                                setDisplayEventStatusErr(true)
+                            }}
+                            value={eventStatus}
+                        >
+                            <option>(select one)</option>
+                            <option
+                                value={true}
+                                checked={eventStatus === true}
+                                onChange={() => setEventStatus(true)}
+                            >Private</option>
+                            <option
+                                value={false}
+                                checked={eventStatus === false}
+                                onChange={() => setEventStatus(false)}
+                            >Public</option>
+                        </select>
+                        <p className='error'>{errors.eventStatus}</p>
+                    </div>
+                    {displayEventStatusErr && <p>{err.eventStatus}</p>}
+                    <div>
+                        <p>What is the price for your event?</p>
+                        <input
+                            type='decimal'
+                            min="0"
+                            placeholder="0"
+                            // pattern="/d*"
+                            onChange={(e) => {
+                                setEventPrice(e.target.value)
+                                setDisplayEventPriceErr(true)
+                            }}
+                        />
+                        {/* <p className='error'>{errors.eventPrice}</p> */}
+                    </div>
+                    <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
+                    {displayEventPriceErr && <p>{err.eventPrice}</p>}
+                </div>
+                <div>
+                    <p>When does your event start?</p>
+                    <input
+                        placeholder='MM/DD/YYYY/HH/mm AM'
+                        type='datetime-local'
+                        // type='date'
+                        value={eventStartDate}
+                        onChange={(e) => {
+                            setEventStartDate(e.target.value)
+                            setDisplayEventStartDateErr(true)
+                        }}
+                    ></input>
+                    <p className='error'>{errors.eventStartDate}</p>
+                    <p>When does your event end?</p>
+                    <input
+                        type='datetime-local'
+                        // type='date'
+                        value={eventEndDate}
+                        onChange={(e) => {
+                            setEventEndDate(e.target.value)
+                            setDisplayEventEndDateErr(true)
+                        }}
+                    ></input>
+                    {/* <p className='error'>{errors.eventEndDate}</p> */}
+                    {displayEventEndDateErr && <p>{err.eventEndDate}</p>}
+                </div>
+                <div className='displayFlex justifyCenter'>
+                    <img
+                        className='dividerImageForm'
+                        width='25%'
+                        // height='10%'
+                        src={formDividerImage}
+                    />
+                </div>
+                {displayEventStartDateErr && <p>{err.startDate}</p>}
+                <div>
+                    <p>Please add in image url for your event below:</p>
+                    <input
+                        type='text'
+                        placeholder='Image URL'
+                        value={eventImage}
+                        onChange={(e) => {
+                            setEventImage(e.target.value)
+                            setDisplayEventImageErr(true)
+                        }}
+                    ></input>
+                    <p className='error'>{errors.eventImage}</p>
+                    {displayEventImageErr && <p>{err.eventImage}</p>}
+                </div>
+                <div>
+                    <p>Please describe your event</p>
+                    <textarea
+                        placeholder='Please include at least 30 characters'
+                        value={eventAbout}
+                        onChange={(e) => {
+                            setEventAbout(e.target.value)
+                            setDisplayEventAboutErr(true)
+                        }}
                     ></textarea>
                     <p className='error'>{errors.eventAbout}</p>
                     {displayEventAboutErr && <p>{err.eventAbout}</p>}
-            </div>
-            <div>
-                <button
-                    type='submit'
-                    disabled={Object.values(err).length > 0}
+                </div>
+                <div>
+                    <button
+                        type='submit'
+                        disabled={Object.values(err).length > 0}
                     >
                         Create Event
                     </button>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     )
 }
 
