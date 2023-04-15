@@ -6,6 +6,14 @@
     display: none
 }
 
+.UcolorBlack {
+    color: #070c20;
+}
+
+.linkGold:hover {
+    color: #ffba1e;
+}
+
 .borderBlack {
     border: 10px solid black;
 }
@@ -93,7 +101,13 @@
 }
 
 .positionMarginLogInSignUp {
-    margin-right: 2rem
+    margin-right: 1.7rem;
+    margin-top: 2rem;
+}
+
+.positionMarginLoggedIn {
+    margin-right: 0.5rem;
+    margin-top: 2rem;
 }
 
 .logInMarginBottom {
@@ -102,10 +116,6 @@
 
 .userMarginBottom {
     margin-bottom: 0.5rem
-}
-
-.test {
-    color: blue
 }
 
 .squareFavicon {
@@ -118,16 +128,18 @@
     height: 5rem;
 }
 
-.adventureUpFont {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3rem;
-    color: black
-}
-
 .width {
     width: 100%;
 }
 
 .marginBottom {
     margin-bottom: 0.5rem;
+}
+
+.marginSquareRight {
+    margin-right: 2rem;
+}
+
+.loggedInTextSize {
+    font-size: 120%;
 }

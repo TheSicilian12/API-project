@@ -167,3 +167,7 @@
 .eventImgDescMargin {
     margin-top: 1rem;
 }
+
+.textSize {
+    font-size: 110%;
+}

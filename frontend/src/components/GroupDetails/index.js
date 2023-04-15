@@ -125,7 +125,7 @@ function GroupDetails({ group, user, events, groupId }) {
     // console.log('eventsArray: ', eventsArray)
 
     return (
-        <div className='GroupDetails UfontTreb'>
+        <div className='GroupDetails UfontTreb textSize'>
             <div className='GroupDetails_GroupsButton'>
                 <p>{'<'}</p>
                 <NavLink to='/groups'>Groups</NavLink>

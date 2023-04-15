@@ -123,3 +123,15 @@
 .marginRight {
     margin-right: 1rem;
 }
+
+.marginBottom {
+    margin-bottom: 1rem;;
+}
+
+.groupEventTextSize {
+    font-size: 110%;
+}
+
+.descriptionTextSize {
+    font-size: 150%;
+}

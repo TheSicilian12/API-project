@@ -18,7 +18,7 @@ function OpenModalButton({
 
   return (
     <button
-      className='UfontTreb'
+      className='UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions'
       onClick={onClick}>{buttonText}</button>
   );
 }

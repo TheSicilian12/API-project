@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import "../Navigation/Navigation.css"
+import "../UniversalCSS.css";
 import unacceptable from "../assets/Images/sticker_2130.png"
 
 
@@ -54,7 +55,7 @@ function LoginFormModal() {
       {/* <div> */}
       <h1>Log In</h1>
       <form
-        className='dimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
+        className='logIndimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
         onSubmit={handleSubmit}>
         <div className='displayFlex alignCenter'>
           <div className=''>

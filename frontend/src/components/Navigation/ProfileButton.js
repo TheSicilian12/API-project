@@ -5,7 +5,8 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import './Navigation.css'
+import './Navigation.css';
+import '../UniversalCSS.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function ProfileButton({ user }) {
 
   return (
     <div className='UfontTreb'>
-      <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon'>
+      <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon marginSquareRight'>
         <i class="fa-solid fa-dragon fa-2xl"></i>
         {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
         {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
@@ -56,25 +57,25 @@ function ProfileButton({ user }) {
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
 
         {user ? (
-          <div className='displayFlex flex-directionColumn justifyCenter alignCenter'>
+          <div className='displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn'>
             <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
             <div className='userMarginBottom'>{user.email}</div>
             <div className='userMarginBottom'>{user.username}</div>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}
 
             <button
-              className='userMarginBottom'
+              className='userMarginBottom UgrayButton UblackBorderWeighted border-Radius15 UbuttonProfileDimensions'
               onClick={logout}>
                 Log Out
             </button>
             <Link
-              className='userMarginBottom'
+              className='userMarginBottom UnoDecoration UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/groups'>
                 View Groups
             </Link>
             <Link
-              className='userMarginBottom'
+              className='userMarginBottom UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/events'>
                 View Events
@@ -85,16 +86,11 @@ function ProfileButton({ user }) {
             {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
             <div className='logInMarginBottom'>
               <OpenModalButton
-
                 buttonText="Log In"
-
                 modalComponent={<LoginFormModal />}
               />
             </div>
-            {/* </ul> */}
-            {/* <ul className='borderBlue justifyCenter'> */}
             <div>
-
               <OpenModalButton
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
