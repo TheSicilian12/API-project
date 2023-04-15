@@ -72,13 +72,19 @@
     font-weight: 550;
     width: 10rem;
     height: 3rem;
-
 }
 
 .UbuttonSmallDimensions {
     font-size: large;
     font-weight: 550;
     width: 5rem;
+    height: 4rem;
+}
+
+.UbuttonProfileDimensions {
+    font-size: large;
+    font-weight: 550;
+    width: 7rem;
     height: 4rem;
 }
 

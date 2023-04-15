@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import "../Navigation/Navigation.css"
+import "../UniversalCSS.css";
 import unacceptable from "../assets/Images/sticker_2130.png"
 
 
