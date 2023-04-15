@@ -83,7 +83,15 @@ form {
   width: 50%;
 }
 
+.smallWidth {
+  height: 100%
+}
+
 .dimensionsForm {
   width: 40rem;
-  height: 25rem;
+  height: 30rem;
+}
+
+.textSize {
+  font-size: 130%;
 }
