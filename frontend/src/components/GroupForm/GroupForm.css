@@ -125,5 +125,9 @@
 }
 
 .dividerImageForm {
+    width: 30%;
+}
 
+.groupFormText {
+    font-size: 120%;
 }

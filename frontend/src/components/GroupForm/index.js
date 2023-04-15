@@ -161,7 +161,7 @@ function GroupForm({ currentGroup, formType }) {
     return (
         <div className='displayFlex justifyCenter marginFormTop'>
             <form
-                className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb'
+                className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
                 <div className=''>
                     {/* <h3 className={newForm}>BECOME AN ORGANIZER</h3> */}
@@ -182,7 +182,7 @@ function GroupForm({ currentGroup, formType }) {
                     <h2>
                         Set your group's location
                     </h2>
-                    <p>
+                    <p className='groupFormText'>
                         AdventureUp groups meet locally, in person, and online.
                         We'll connect you with people in your area.
                     </p>
@@ -209,10 +209,10 @@ function GroupForm({ currentGroup, formType }) {
                     <h2>
                         What will your group's name be?
                     </h2>
-                    <p>
+                    <p className='groupFormText'>
                         Choose a name that will give people a clear idea of what the group is about.
                     </p>
-                    <p>
+                    <p className='groupFormText'>
                         Feel free to get creative! You can edit this later if you change your mind.
                     </p>
                     <input
@@ -238,10 +238,10 @@ function GroupForm({ currentGroup, formType }) {
                     <h2>
                         Describe the purpose of your group
                     </h2>
-                    <p>
+                    <p className='groupFormText'>
                         People will see this when we promote your group, but you'll be able to add to it later, too.
                     </p>
-                    <ol>
+                    <ol className='groupFormText'>
                         <li>What's the purpose of the group?</li>
                         <li>Who should join?</li>
                         <li>What will you do at your events?</li>
@@ -268,7 +268,7 @@ function GroupForm({ currentGroup, formType }) {
                     <h2>
                         Final steps...
                     </h2>
-                    <div className='displayFlex flex-directionColumn'>
+                    <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
                             <label for='meetingType'>
                                 Is this an in person or online group?

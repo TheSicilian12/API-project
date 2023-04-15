@@ -25,7 +25,7 @@ export default function AllEvents() {
         return <div>loading</div>
     }
 
-    console.log('events: ', events)
+    // console.log('events: ', events)
 
     let eventsArray = organizeEventsByDate(events.allEvents);
 
