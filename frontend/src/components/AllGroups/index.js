@@ -47,7 +47,7 @@ export default function AllGroups() {
     return (
         <div className='AllGroups displayFlex flex-directionColumn UfontTreb' >
             <div className='displayFlex justifyCenter'>
-                <p className='mainText textSizeGroup'>
+                <p className='mainText eventGroupHeaderFontSize'>
                     Groups in AdventureUp
                 </p>
             </div>

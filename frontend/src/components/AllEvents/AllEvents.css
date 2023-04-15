@@ -102,3 +102,8 @@
     text-decoration: none;
     color: gray
 }
+
+.eventGroupHeaderFontSize {
+    color: #505c76;
+    font-size: 150%;
+}
