@@ -6,6 +6,14 @@
     display: none
 }
 
+.UcolorBlack {
+    color: #070c20;
+}
+
+.linkGold:hover {
+    color: #ffba1e;
+}
+
 .borderBlack {
     border: 10px solid black;
 }

@@ -69,13 +69,13 @@ function ProfileButton({ user }) {
                 Log Out
             </button>
             <Link
-              className='userMarginBottom'
+              className='userMarginBottom UnoDecoration UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/groups'>
                 View Groups
             </Link>
             <Link
-              className='userMarginBottom'
+              className='userMarginBottom UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/events'>
                 View Events
