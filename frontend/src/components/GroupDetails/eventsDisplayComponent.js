@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import './GroupDetails.css';
 import '../UniversalCSS.css'
 import { organizeEventsByDate } from '../EventOrganizer'
+import eventDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
+import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
 
@@ -54,12 +56,13 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                     </div>
                     {eventsArray.map(e =>
                         <>
-                            <div className={`${seperatorImage} displayFlex justifyCenter`}>
+                            {/* <div className={`${seperatorImage} displayFlex justifyCenter`}>
                                 <img
                                     className={`${seperatorClass}`}
                                     src={seperator}
                                 />
-                            </div>
+                            </div> */}
+                            <RainbowLine />
                             <div className={`pointerCursor eventMargin ${background} border-Radius15 UfontTreb`}>
                                 <NavLink
                                     className='noDecoration'
