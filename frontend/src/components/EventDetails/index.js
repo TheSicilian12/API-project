@@ -88,9 +88,9 @@ function EventDetails({ event, eventId, user }) {
                     <div className='displayFlex groupEventTextSize'>
                         {/* {eventPreviewImage?.url} */}
 
-                    <div className='eventImageWidth borderGreen'>
+                    <div className='eventImageWidth'>
                         <img
-                            className=''
+                            className='border-Radius15'
                             src={eventPreviewImage?.url || imageData}
                             width='100%'
                             height='100%'
