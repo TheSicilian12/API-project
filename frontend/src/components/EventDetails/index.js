@@ -12,7 +12,6 @@ import DeleteEventModal from '../DeleteEventModal'
 import clockImage from '../assets/Images/ATWP.webp'
 import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 
-
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
     const history = useHistory();
