@@ -53,7 +53,7 @@ export default function AllGroups() {
             </div>
             {Object.keys(groups.allGroups).map(e =>
 
-                <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                <div key={`groups${groups.allGroups[e].id}`} className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
                         <RainbowLine />
                         {/* <img
