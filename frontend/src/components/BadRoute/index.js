@@ -1,8 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import badRouteImage from '../assets/Images/badRoute.png'
 import './BadRoute.css';

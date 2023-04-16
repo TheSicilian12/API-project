@@ -1,10 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
 import '../UniversalCSS.css';
-import { getEventThunk } from '../../store/eventsThunk';
+// import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteEventButton from '../DeleteEventModalButton';
