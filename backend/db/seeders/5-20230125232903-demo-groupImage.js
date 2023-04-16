@@ -54,7 +54,12 @@ module.exports = {
       },
       {
         groupId: 7,
-        url: 'https://upload.wikimedia.org/wikipedia/en/4/48/Adventure_Time_-_Marceline.png',
+        url: 'https://i.pinimg.com/originals/08/04/90/080490d5fb8239a1ff1de4a91cd67ae7.jpg',
+        preview: true,
+      },
+      {
+        groupId: 8,
+        url: 'https://adventuretimereviewed.files.wordpress.com/2017/01/mtfp-4.png',
         preview: true,
       },
       {
