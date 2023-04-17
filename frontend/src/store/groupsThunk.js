@@ -195,14 +195,17 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
             // console.log('currentGroupImage: ', currentGroupImage)
 
             //add currentGroupImage with false preview
-            console.log('before')
             const addCurrentImageFalsePreviewResponse = await dispatch(addAGroupImage({
                 groupId: groupObj.groupId,
                 url: currentGroupImage.url,
                 preview: false
             }))
+            // console.log('before')
+            // const test = await addCurrentImageFalsePreviewResponse.json()
+            // console.log('response: ', addCurrentImageFalsePreviewResponse)
 
-            if (addCurrentImageFalsePreviewResponse.ok) {
+            //potential issue
+            if (addCurrentImageFalsePreviewResponse) {
                 console.log('added current image with preview false')
 
                 //add updated image with true preview
@@ -263,7 +266,7 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     })
     if (response.ok) {
         const newImage = await response.json();
-
+        console.log('add a group thunk: ', newImage)
         return newImage;
     }
 }
