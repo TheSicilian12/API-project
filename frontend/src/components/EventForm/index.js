@@ -174,6 +174,12 @@ function EventForm({ currentGroup, formType }) {
     if (eventAbout.length < 30) {
         err.eventAbout = 'Description must be at least 30 characters long';
     }
+    if (Date.parse(eventStartDate) < Date.parse(new Date())) {
+        err.eventStartDate = 'The start date must occur in the future'
+    }
+    if (Date.parse(eventStartDate) > Date.parse(eventEndDate)) {
+        err.evemtEndDate = 'The end date must occur after the start date'
+    }
 
     let disabled;
     if (Object.values(err).length > 0) {
@@ -307,7 +313,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventStartDate}</p> */}
-                    {displayEventStartDateErr && <p className='error'>{err.startDate}</p>}
+                    {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
