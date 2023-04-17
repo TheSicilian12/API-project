@@ -288,7 +288,7 @@ function GroupForm({ currentGroup, formType }) {
                     </h2>
                     <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
-                            <label className='marginRight marginBottomMed' for='meetingType'>
+                            <label className='marginRight marginBottomMed' htmlFor='meetingType'>
                                 Is this an in person or online group?
                             </label>
                             <select
