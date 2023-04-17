@@ -99,7 +99,8 @@ function GroupForm({ currentGroup, formType }) {
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
-                url: groupImage
+                url: groupImage,
+                groupId: currentGroup.id
             }
 
             let createGroup;
@@ -118,7 +119,7 @@ function GroupForm({ currentGroup, formType }) {
 
 
             if (createGroup) {
-                console.log('if createGroup exists createGroup: ', createGroup)
+                // console.log('if createGroup exists createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
             }
             if (updateGroup) {
