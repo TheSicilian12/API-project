@@ -32,7 +32,7 @@ export const getAllGroups = () => async (dispatch) => {
     // console.log('group thunk response: ', response)
     if (response.ok) {
         const list = await response.json();
-        console.log('group thunk: ', list)
+        // console.log('group thunk: ', list)
         // console.log('list: ', list)
         dispatch(load(list));
     }
@@ -67,7 +67,7 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
         //events: groupEventObj key is the groupId
         // const groupEventReturn = {groups: groups, events: groupEventObj}
         // console.log('groupEventReturn: ', groupEventReturn);
-        console.log('thunk groups: ', groups)
+        // console.log('thunk groups: ', groups)
         dispatch(load(groups))
     }
 }
@@ -143,7 +143,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('editGroup thunk: ', groupObj)
-    console.log('edit group thunk')
+    // console.log('edit group thunk')
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
     newGroupObj.about = groupObj.about;
@@ -166,7 +166,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     //     newGroupObj.private = false;
     // }
 
-    console.log('object: ', newGroupObj)
+    // console.log('object: ', newGroupObj)
     // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
@@ -175,7 +175,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
         },
         body: JSON.stringify(newGroupObj)
     })
-    console.log('after fetch')
+    // console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
         return editedGroup;
@@ -279,11 +279,11 @@ const groupReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const returnState = {}
-            console.log('reducer action: ', action.list)
+            // console.log('reducer action: ', action.list)
 
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-            console.log('reducer, returnState: ', returnState)
+            // console.log('reducer, returnState: ', returnState)
             // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
