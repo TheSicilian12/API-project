@@ -30,7 +30,8 @@ export default function AllGroups() {
     if (!groups.allGroups) {
         return <div>loading</div>
     }
-    // console.log('groups: ', groups)
+
+    console.log('groups: ', groups)
     // if (!Object.values(groupEvents)[0].events) {
     //     return <div>loading</div>
     // }
@@ -53,7 +54,7 @@ export default function AllGroups() {
             </div>
             {Object.keys(groups.allGroups).map(e =>
 
-                <div className='displayFlex justifyCenter flex-directionColumn maintext'>
+                <div key={`groups${groups.allGroups[e].id}`} className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
                         <RainbowLine />
                         {/* <img
@@ -86,7 +87,7 @@ export default function AllGroups() {
                                     <div className='displayFlex'>
                                         <p className='alignCenter'>{groups.allGroups[e].events.length} events  </p>
 
-                                        {/* <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i> */}
+
                                         <p className='displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
                                         <p className='alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                                     </div>

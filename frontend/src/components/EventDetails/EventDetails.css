@@ -129,16 +129,13 @@
 }
 
 .groupEventTextSize {
-    font-size: 110%;
+    font-size: 120%;
 }
 
 .descriptionTextSize {
     font-size: 150%;
 }
 
-.groupImageWidth {
-    width: 15rem;
-}
 
 .eventImageWidth {
     /* width: 100rem; */
@@ -153,18 +150,39 @@
     width: 150rem;
 }
 
+.width100 {
+    width: 100%;
+}
+
+.widthContent {
+    width: 50%
+}
+
 .arrowCenterWidth {
     width: 140rem;
 }
 
-/* .eventInfoSection {
-    height: 100rem;
-} */
-
-/* .groupInfoSection {
+.eventInfoSection {
     height: 30rem;
-} */
+}
+
+.groupInfoSection {
+    height: 12rem;
+}
+
+.imageSection {
+    height: 45rem;
+    width: 50rem;
+}
 
 .eventDetailFontSize {
-    font-size: 180%;
+    font-size: 120%;
+}
+
+.paddingLeftDescription {
+    padding-left: 12rem;;
+}
+
+.groupImageDimensions {
+    width: 15rem;
 }

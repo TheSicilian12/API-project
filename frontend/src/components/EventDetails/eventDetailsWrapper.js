@@ -22,7 +22,7 @@ export default function EventDetailsWrapper() {
     if (!event) {
         return <div>loading</div>
     }
-    console.log('event: ', event)
+    // console.log('event: ', event)
 
     return (
         <EventDetails event={event} eventId={eventId} user={user}/>

@@ -48,9 +48,7 @@ function ProfileButton({ user }) {
   return (
     <div className='UfontTreb'>
       <button onClick={openMenu} className='displayFlex alignCenter justifyCenter squareFavicon marginSquareRight'>
-        <i class="fa-solid fa-dragon fa-2xl"></i>
-        {/* <i class="fa-solid fa-hat-wizard fa-2xl"></i> */}
-        {/* <i class="fa-solid fa-dungeon fa-2xl"></i> */}
+        <i className="fa-solid fa-dragon fa-2xl"></i>
       </button>
 
 

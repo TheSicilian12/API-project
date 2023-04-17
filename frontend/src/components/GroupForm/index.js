@@ -55,6 +55,9 @@ function GroupForm({ currentGroup, formType }) {
         if (!groupName) {
             errors.name = 'Name is required'
         }
+        if (groupName && groupName.length > 60) {
+            errors.name = 'Name must be 60 characters or less';
+        }
         if (groupAbout.length < 30) {
             errors.about = 'Description must be at least 30 characters long'
         }
@@ -99,14 +102,15 @@ function GroupForm({ currentGroup, formType }) {
                 about: groupAbout,
                 type: groupMeetingType,
                 private: groupStatus,
-                url: groupImage
+                url: groupImage,
+                groupId: currentGroup.id
             }
 
             let createGroup;
             if (formType === 'new') {
-                console.log('await and payload: ', payload)
+                // console.log('await and payload: ', payload)
                 createGroup = await dispatch(submitGroup(payload));
-                console.log('initial dispatch createGroup: ', createGroup)
+                // console.log('initial dispatch createGroup: ', createGroup)
             }
 
             let updateGroup;
@@ -118,7 +122,7 @@ function GroupForm({ currentGroup, formType }) {
 
 
             if (createGroup) {
-                console.log('if createGroup exists createGroup: ', createGroup)
+                // console.log('if createGroup exists createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
             }
             if (updateGroup) {
@@ -136,6 +140,10 @@ function GroupForm({ currentGroup, formType }) {
     }
     if (!groupName) {
         err.name = 'Name is required'
+    }
+    console.log(groupName.length > 60)
+    if (groupName.length > 60) {
+        err.name = 'Name must be 60 characters or less';
     }
     if (groupAbout.length < 30) {
         err.about = 'Description must be at least 30 characters long'
@@ -288,7 +296,7 @@ function GroupForm({ currentGroup, formType }) {
                     </h2>
                     <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
-                            <label className='marginRight marginBottomMed' for='meetingType'>
+                            <label className='marginRight marginBottomMed' htmlFor='meetingType'>
                                 Is this an in person or online group?
                             </label>
                             <select

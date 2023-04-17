@@ -58,7 +58,7 @@ function LoginFormModal() {
         className='logIndimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter'
         onSubmit={handleSubmit}>
         <div className='displayFlex alignCenter'>
-          <div className=''>
+          <div>
             <ul>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
@@ -67,11 +67,11 @@ function LoginFormModal() {
             <div>
               <div className='space'>
                 <div className='displayFlex justifySpaceBetween'>
-                  <label className=''>
+                  <label >
                     Username or Email
                   </label>
                   <input
-                    className=''
+
                     type="text"
                     value={credential}
                     onChange={(e) => {
@@ -89,7 +89,7 @@ function LoginFormModal() {
                     Password
                   </label>
                   <input
-                    className=''
+                    
                     type="password"
                     value={password}
                     onChange={(e) => {

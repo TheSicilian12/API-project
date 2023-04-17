@@ -96,7 +96,7 @@ function SignupFormModal() {
         </div>
         {displayEmailErr && <p className='error'>{err.email}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
+          <label >
             Username
           </label>
           <input
@@ -112,7 +112,7 @@ function SignupFormModal() {
         </div>
           {displayUsernameErr && <p className='error'>{err.username}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
+          <label >
             First Name
           </label>
           <input
@@ -128,7 +128,7 @@ function SignupFormModal() {
         </div>
         {displayFirstNameErr&& <p className='error'>{err.firstName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
+          <label >
             Last Name
           </label>
           <input
@@ -144,7 +144,7 @@ function SignupFormModal() {
         </div>
         {displayLastNameErr && <p className='error'>{err.lastName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
+          <label >
             Password
           </label>
           <input
@@ -160,7 +160,7 @@ function SignupFormModal() {
         </div>
         {displayPasswordErr && <p className='error'>{err.password}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
-          <label className=''>
+          <label >
             Confirm Password
           </label>
           <input

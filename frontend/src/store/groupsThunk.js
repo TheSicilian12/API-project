@@ -32,7 +32,7 @@ export const getAllGroups = () => async (dispatch) => {
     // console.log('group thunk response: ', response)
     if (response.ok) {
         const list = await response.json();
-        console.log('group thunk: ', list)
+        // console.log('group thunk: ', list)
         // console.log('list: ', list)
         dispatch(load(list));
     }
@@ -67,7 +67,7 @@ export const getAllGroupsWithEventsThunk = () => async (dispatch) => {
         //events: groupEventObj key is the groupId
         // const groupEventReturn = {groups: groups, events: groupEventObj}
         // console.log('groupEventReturn: ', groupEventReturn);
-        console.log('thunk groups: ', groups)
+        // console.log('thunk groups: ', groups)
         dispatch(load(groups))
     }
 }
@@ -125,14 +125,14 @@ export const submitGroup = (groupObj) => async (dispatch) => {
         // console.log('newGroup.id: ', newGroup.id)
 
         let newImageObj = {};
-            newImageObj.url = groupObj.url;
-            newImageObj.preview = true;
-            newImageObj.groupId = newGroup.id;
+        newImageObj.url = groupObj.url;
+        newImageObj.preview = true;
+        newImageObj.groupId = newGroup.id;
 
         // console.log('newImageObj: ', newImageObj)
 
         // dispatch(addAGroupImage(newImageObj))
-       dispatch(addAGroupImage(newImageObj));
+        dispatch(addAGroupImage(newImageObj));
 
         // dispatch(getGroup(newGroup.id));
         return newGroup;
@@ -143,7 +143,7 @@ export const submitGroup = (groupObj) => async (dispatch) => {
 //thunk - edits a group
 export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('editGroup thunk: ', groupObj)
-    console.log('edit group thunk')
+    // console.log('edit group thunk')
     let newGroupObj = {}
     newGroupObj.name = groupObj.name;
     newGroupObj.about = groupObj.about;
@@ -166,7 +166,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     //     newGroupObj.private = false;
     // }
 
-    console.log('object: ', newGroupObj)
+    // console.log('object: ', newGroupObj)
     // console.log('newGroup: ', typeof newGroupObj.private);
     const response = await csrfFetch(`/api/groups/${groupObj.groupId}`, {
         method: 'PUT',
@@ -175,10 +175,84 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
         },
         body: JSON.stringify(newGroupObj)
     })
-    console.log('after fetch')
+    // console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
+        // console.log('editedGroup: ', editedGroup)
+        // console.log('update group ok')
+
+        //if updated - get current image id, which means get group details
+        const responseGroupInfo = await fetch(`/api/groups/${groupObj.groupId}`)
+        if (responseGroupInfo.ok) {
+            // console.log('retreive group info ok')
+
+            const groupInfoData = await responseGroupInfo.json()
+            // console.log('groupInfoData: ', groupInfoData.find((image) => image.preview === true))
+            //if updated - edit current true image to false
+            // console.log('groupInfoData: ', groupInfoData.GroupImages)
+
+            let currentGroupImage = groupInfoData.GroupImages.find((image) => image.preview === true)
+            // console.log('currentGroupImage: ', currentGroupImage)
+
+            //add currentGroupImage with false preview
+            const addCurrentImageFalsePreviewResponse = await dispatch(addAGroupImage({
+                groupId: groupObj.groupId,
+                url: currentGroupImage.url,
+                preview: false
+            }))
+            // console.log('before')
+            // const test = await addCurrentImageFalsePreviewResponse.json()
+            // console.log('response: ', addCurrentImageFalsePreviewResponse)
+
+            //potential issue
+            if (addCurrentImageFalsePreviewResponse) {
+                // console.log('added current image with preview false')
+
+                //add updated image with true preview
+                const addNewImageTruePreviewResponse = await dispatch(addAGroupImage({
+                    groupId: groupObj.groupId,
+                    url: groupObj.url,
+                    preview: true
+                }))
+                // console.log('addNewImage: ', addNewImageTruePreviewResponse)
+
+                if (addNewImageTruePreviewResponse) {
+                    // console.log('before')
+                    const responseDeleteCurrentImageOld = await csrfFetch(`/api/group-images/${currentGroupImage.id}`, {
+                        method: 'DELETE'
+                    })
+                    // console.log('after')
+                    // console.log('delete: ', responseDeleteCurrentImageOld)
+
+                    // if (responseDeleteCurrentImageOld.ok) {
+                    //     return 'yay'
+                    // }
+
+
+                }
+
+            }
+
+            //currentImage added again but with false, then the current deleted
+
+            //new added with true
+
+
+        }
+
+
+        // const addImageResponse = await dispatch(addAGroupImage({
+        //     groupId: groupObj.groupId,
+        //     url: groupObj.url,
+        //     preview: true
+        // }))
+
+
+
+
+        // if (addImageResponse.ok) {
         return editedGroup;
+        // }
     }
 }
 
@@ -196,7 +270,7 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     })
     if (response.ok) {
         const newImage = await response.json();
-
+        console.log('add a group thunk: ', newImage)
         return newImage;
     }
 }
@@ -250,7 +324,7 @@ const initialState = {
             GroupImages: [],
             Organizer: {
                 // organizerData,
-                },
+            },
             Venues: [],
         }
     },
@@ -279,11 +353,11 @@ const groupReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const returnState = {}
-            console.log('reducer action: ', action.list)
+            // console.log('reducer action: ', action.list)
 
             returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
             // console.log('returnState: ', returnState.allGroups[1])
-            console.log('reducer, returnState: ', returnState)
+            // console.log('reducer, returnState: ', returnState)
             // console.log('returnState: ', returnState.allGroups)
             return {
                 ...returnState,
