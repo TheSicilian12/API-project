@@ -179,12 +179,12 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     if (response.ok) {
         const editedGroup = await response.json();
         // console.log('editedGroup: ', editedGroup)
-        console.log('update group ok')
+        // console.log('update group ok')
 
         //if updated - get current image id, which means get group details
         const responseGroupInfo = await fetch(`/api/groups/${groupObj.groupId}`)
         if (responseGroupInfo.ok) {
-            console.log('retreive group info ok')
+            // console.log('retreive group info ok')
 
             const groupInfoData = await responseGroupInfo.json()
             // console.log('groupInfoData: ', groupInfoData.find((image) => image.preview === true))
@@ -206,7 +206,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
 
             //potential issue
             if (addCurrentImageFalsePreviewResponse) {
-                console.log('added current image with preview false')
+                // console.log('added current image with preview false')
 
                 //add updated image with true preview
                 const addNewImageTruePreviewResponse = await dispatch(addAGroupImage({
@@ -214,15 +214,15 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
                     url: groupObj.url,
                     preview: true
                 }))
-                console.log('addNewImage: ', addNewImageTruePreviewResponse)
+                // console.log('addNewImage: ', addNewImageTruePreviewResponse)
 
                 if (addNewImageTruePreviewResponse) {
-                    console.log('before')
+                    // console.log('before')
                     const responseDeleteCurrentImageOld = await csrfFetch(`/api/group-images/${currentGroupImage.id}`, {
                         method: 'DELETE'
                     })
-                    console.log('after')
-                    console.log('delete: ', responseDeleteCurrentImageOld)
+                    // console.log('after')
+                    // console.log('delete: ', responseDeleteCurrentImageOld)
 
                     // if (responseDeleteCurrentImageOld.ok) {
                     //     return 'yay'
