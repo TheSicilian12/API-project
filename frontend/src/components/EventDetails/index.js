@@ -72,131 +72,51 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
     return (
-        <div className='displayFlex flex-directionColumn borderGreen eventDetailFontSize UfontTreb'>
-            <div className=' displayFlex flex-directionColumn'>
-                <div className='eventDetailsWidth'>
-                    <div className='displayFlex alignCenter justifyCenter'>
-                        <div className='arrowCenterWidth'>
-                            <img
-                                className='pointerCursor displayFlex justifyCenter alignCenter'
-                                onClick={() => history.push('/events')}
-                                src={pinkArrowLeft}
-                            />
-                            <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
-                        </div>
-                    </div>
-                    <div className=' displayFlex alignCenter justifyCenter'>
-                        <div className='arrowCenterWidth'>
-                            <h1>{event.name}</h1>
-                            <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div className='displayFlex justifyCenter'>
-                    <div className='displayFlex groupEventTextSize alignCenter justifyCenter'>
-                        {/* {eventPreviewImage?.url} */}
+        <div className='GroupDetails UfontTreb textSize'>
 
-                        <div className='eventImageWidth displayFlex alignCenter justifyCenter'>
-                            <img
-                                className='border-Radius15 padding'
-                                src={eventPreviewImage?.url || imageData}
-                                // width='1000rem'
-                                height='72%'
-                            />
-                        </div>
-
-                        <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection justifyCenter'>
-                            <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
-                                <div className='groupImageWidth'>
-                                    <img
-                                        //group image
-                                        className='border-Radius15'
-                                        src={groupPreviewImage?.url || imageData}
-                                        width='100%'
-                                    // heigth='100%'
-                                    />
-                                </div>
-
-                                <div className='infoGroupSpacing'>
-                                    <h4 className='textWrap'>{event.Group?.name}</h4>
-                                    <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
-                                </div>
-                            </div>
-                            <div className='UblackBorderWeighted border-Radius15 marginTop '>
-                                <div className='displayFlex marginTop marginLeft'>
-
-                                    <img
-                                        width='15%'
-                                        height='15%'
-                                        src={clockImage}
-                                    />
-                                    <div className='timeEventSpacing'>
-                                        <div className='displayFlex alignCenter'>
-                                            <h4 className='startEndSpacing'>
-                                                START:
-                                            </h4>
-                                            {/* date */}
-                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.startDate).toUTCString().split(' ')[2]} {new Date(event?.startDate).toUTCString().split(' ')[1]}, {new Date(event?.startDate).toUTCString().split(' ')[3]}</h4>}
-                                            <h4 className='dotSpacing'>•</h4>
-                                            {/* military time */}
-                                            {<h4>{new Date(event?.startDate).toUTCString().split(' ')[4]}</h4>}
-
-                                        </div>
-                                        <div className='displayFlex alignCenter'>
-                                            <h4 className='startEndSpacing'>
-                                                END:
-                                            </h4>
-                                            {/* date */}
-                                            {<h4>{new Date(event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(event?.endDate).toUTCString().split(' ')[2]} {new Date(event?.endDate).toUTCString().split(' ')[1]}, {new Date(event?.endDate).toUTCString().split(' ')[3]}</h4>}
-                                            <h4 className='dotSpacing'>•</h4>
-                                            {/* military time */}
-                                            {<h4>{new Date(event?.endDate).toUTCString().split(' ')[4]}</h4>}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='displayFlex alignCenter'>
-                                    <div className='moneyDimensions displayFlex justifyCenter'>
-                                        <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
-                                    </div>
-                                    <h4 className='timeEventSpacing'>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
-                                </div>
-                                <div className='displayFlex alignCenter'>
-                                    <div className='moneyDimensions displayFlex justifyCenter'>
-                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
-                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
-                                    </div>
-                                    <h4>{event?.type}</h4>
-
-                                </div>
-                                <div className={`${options} displayFlex justifyCenter marginBottom`}>
-                                    {/* <NavLink to={`/events/${eventId}/edit`}> */}
-                                    <button
-                                        className={`${options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions marginRight`}
-                                        onClick={() => alert("Feature coming soon")}
-                                    >
-                                        Update
-                                    </button>
-                                    {/* </NavLink> */}
-                                    <div className={`${options}`}>
-                                        <OpenModalDeleteEventButton
-                                            buttonText='Delete'
-                                            modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='descriptionTextSize paddingLeftDescription'>
-                    <div className='displayFlex alignCenter justifyCenter'>
-                        <div className='arrowCenterWidth'>
-                            <h2>Description</h2>
-                            <p>{event?.description}</p>
-                        </div>
-                    </div>
+            <div className='GroupDetails_GroupsButton'>
+                <div className='displayFlex'>
+                    <img
+                        className='pointerCursor'
+                        onClick={() => history.push('/groups')}
+                        src={pinkArrowLeft}
+                    />
+                    <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
                 </div>
             </div>
+
+            <div className='GroupDetails_Details displayFlex justifyCenter borderRed'>
+                <div>
+                    <img
+                        className='border-Radius15 padding'
+                        src={eventPreviewImage?.url || imageData}
+                        // width='1000rem'
+                        height='72%'
+                    />
+                </div>
+
+                <div>
+                    <div className='UblackBorderWeighted'>
+                        <div>
+                            <img
+                                //group image
+                                className='border-Radius15'
+                                src={groupPreviewImage?.url || imageData}
+                            />
+                        </div>
+                        <div className='infoGroupSpacing'>
+                            <h4 className='textWrap'>{event.Group?.name}</h4>
+                            <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
+                        </div>
+                    </div>
+
+                    <div>
+                        
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     )
 }
