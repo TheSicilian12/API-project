@@ -110,13 +110,13 @@ function EventDetails({ event, eventId, user }) {
 
                             <div className='displayFlex flex-directionColumn infoGeneralSpacing justifyCenter'>
                                 <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
-                                    <div className='displayFlex groupImageDimensions'>
+                                    <div className='groupImageWidth'>
                                         <img
                                             //group image
                                             className='border-Radius15'
                                             src={groupPreviewImage?.url || imageData}
                                             width='100%'
-                                            heigth='100%'
+                                        // heigth='100%'
                                         />
                                     </div>
 

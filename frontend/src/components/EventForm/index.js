@@ -140,7 +140,7 @@ function EventForm({ currentGroup, formType }) {
         err.eventName = 'Name is required';
     }
     if (eventName && eventName.length < 5) {
-        err.eventName = 'Name must be 5+ characters';
+        err.eventName = 'Name must be 5+ characters'
     }
     if (eventMeetingType === '(select one)') {
         err.eventMeetingType = 'Event Type is required';

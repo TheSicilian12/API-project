@@ -175,9 +175,3 @@
 .eventListMarginBottom {
     margin-bottom: 2rem;
 }
-
-.groupImageContainer {
-    border: 5px solid red;
-    width: 50rem;
-    height: 20rem;
-}

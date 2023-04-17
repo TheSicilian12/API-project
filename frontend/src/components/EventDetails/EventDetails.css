@@ -136,6 +136,9 @@
     font-size: 150%;
 }
 
+.groupImageWidth {
+    width: 15rem;
+}
 
 .eventImageWidth {
     /* width: 100rem; */
@@ -181,8 +184,4 @@
 
 .paddingLeftDescription {
     padding-left: 12rem;;
-}
-
-.groupImageDimensions {
-    width: 15rem;
 }

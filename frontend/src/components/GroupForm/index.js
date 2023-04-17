@@ -55,9 +55,6 @@ function GroupForm({ currentGroup, formType }) {
         if (!groupName) {
             errors.name = 'Name is required'
         }
-        if (groupName && groupName.length > 60) {
-            errors.name = 'Name must be 60 characters or less';
-        }
         if (groupAbout.length < 30) {
             errors.about = 'Description must be at least 30 characters long'
         }
@@ -140,10 +137,6 @@ function GroupForm({ currentGroup, formType }) {
     }
     if (!groupName) {
         err.name = 'Name is required'
-    }
-    console.log(groupName.length > 60)
-    if (groupName.length > 60) {
-        err.name = 'Name must be 60 characters or less';
     }
     if (groupAbout.length < 30) {
         err.about = 'Description must be at least 30 characters long'
