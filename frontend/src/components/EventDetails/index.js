@@ -72,7 +72,7 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
     return (
-        <div className='displayFlex flex-directionColumn borderGreen widthContent eventDetailFontSize UfontTreb'>
+        <div className='displayFlex flex-directionColumn widthContent eventDetailFontSize UfontTreb'>
             <div className=''>
                 <div className=' displayFlex flex-directionColumn'>
                     <div className='eventDetailsWidth'>
@@ -96,7 +96,7 @@ function EventDetails({ event, eventId, user }) {
                     <div className='displayFlex'>
                         <div className='displayFlex groupEventTextSize'>
                             {/* {eventPreviewImage?.url} */}
-                            <div className='displayFlex borderGreen imageSection alignCenter'>
+                            <div className='displayFlex imageSection alignCenter'>
                                 {/* <div className='displayFlex alignCenter borderGreen'> */}
                                     <img
                                         className='border-Radius15 padding'
@@ -108,7 +108,7 @@ function EventDetails({ event, eventId, user }) {
                                 {/* </div> */}
                             </div>
 
-                            <div className='displayFlex flex-directionColumn infoGeneralSpacing borderRed justifyCenter'>
+                            <div className='displayFlex flex-directionColumn infoGeneralSpacing justifyCenter'>
                                 <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
                                     <div className='groupImageWidth'>
                                         <img
@@ -190,8 +190,8 @@ function EventDetails({ event, eventId, user }) {
                             </div>
                         </div>
                     </div>
-                    <div className='descriptionTextSize paddingLeftDescription'>
-                        <div className='displayFlex alignCenter justifyCenter'>
+                    <div className='descriptionTextSize'>
+                        <div className='displayFlex'>
                             <div className='arrowCenterWidth'>
                                 <h2>Description</h2>
                                 <p>{event?.description}</p>
