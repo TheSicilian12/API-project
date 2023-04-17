@@ -29,7 +29,7 @@ function EventDetails({ event, eventId, user }) {
     // console.log('orgranizer: ', organizer)
     // console.log('groupImages: ', groupImages)
 
-    console.log('event: ', event)
+    // console.log('event: ', event)
 
     let groupPreviewImage;
     if (groupImages) {
@@ -70,7 +70,7 @@ function EventDetails({ event, eventId, user }) {
     }
 
     // console.log('eventPreviewImage: ', eventPreviewImage)
-    console.log('options: ', options)
+    // console.log('options: ', options)
 
     return (
         <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>

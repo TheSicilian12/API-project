@@ -126,7 +126,7 @@ function EventForm({ currentGroup, formType }) {
             ))
         }
 
-        console.log('newEvent: ', newEvent)
+        // console.log('newEvent: ', newEvent)
         if (newEvent?.id) {
             history.push(`/events/${newEvent.id}`)
         }

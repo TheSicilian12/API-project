@@ -5,18 +5,18 @@ import './EventsGroupsNav.css';
 
 export default function EventsGroupsNav({isLoaded}) {
   // const {navSelect, setNavSelect} = useSelector()
-  console.log('isLoaded: ', isLoaded)
+  // console.log('isLoaded: ', isLoaded)
 
   let groupsSelect;
   let eventsSelect;
 
-  console.log('isLoaded: ', isLoaded)
+  // console.log('isLoaded: ', isLoaded)
 
   isLoaded === 'groups' ? groupsSelect = 'currentSelection' : groupsSelect = 'notCurrentSelection';
   isLoaded === 'events' ? eventsSelect = 'currentSelection' : eventsSelect = 'notCurrentSelection';
 
-  console.log('groupsSelect: ', groupsSelect)
-  console.log('eventsSeelct: ', eventsSelect)
+  // console.log('groupsSelect: ', groupsSelect)
+  // console.log('eventsSeelct: ', eventsSelect)
 
   return (
     <div className='GroupsPage displayFlex justifyCenter marginTop UfontTreb'>
