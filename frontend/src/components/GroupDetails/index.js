@@ -133,10 +133,10 @@ function GroupDetails({ group, user, events, groupId }) {
             <div className='displayFlex'>
                         <img
                             className='pointerCursor'
-                            onClick={() => history.push('/events')}
+                            onClick={() => history.push('/groups')}
                             src={pinkArrowLeft}
                         />
-                        <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Events</NavLink>
+                        <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
                     </div>
             </div>
             <div className='GroupDetails_Details displayFlex justifyCenter'>

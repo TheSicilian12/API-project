@@ -86,7 +86,7 @@ export default function AllGroups() {
                                     <div className='displayFlex'>
                                         <p className='alignCenter'>{groups.allGroups[e].events.length} events  </p>
 
-                                        {/* <i class="fa-solid fa-circle fa-2xs style=color: #000000; borderGreen displayFlex alignCenter"></i> */}
+                                        
                                         <p className='displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
                                         <p className='alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                                     </div>
