@@ -71,7 +71,6 @@ function EventDetails({ event, eventId, user }) {
 
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
-
     return (
         <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>
             <div className=' displayFlex flex-directionColumn'>
