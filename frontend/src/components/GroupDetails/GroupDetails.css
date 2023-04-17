@@ -181,3 +181,23 @@
     width: 50rem;
     height: 20rem;
 }
+
+.emergencyPaddingTop {
+ /* margin-top: 70rem; */
+}
+
+.emergencyPaddingBottom {
+    margin-bottom: 10rem;
+}
+
+.buttonGroupMargin {
+    margin-top: 5rem;
+}
+
+.eventListMargin {
+    margin-top: 20rem;
+}
+
+.width100 {
+    width: 100%
+}
