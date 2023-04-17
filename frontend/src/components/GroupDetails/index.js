@@ -102,11 +102,11 @@ function GroupDetails({ group, user, events, groupId }) {
                     <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
                 </div>
             </div>
-            <div className='GroupDetails_Details displayFlex justifyCenter'>
+            <div className='GroupDetails_Details displayFlex justifyCenter groupImageContainer'>
                     <img
                         className='border-Radius15'
-                        // height='500rem'
-                        // width='700rem'
+                        height='100%'
+                        width='100%'
                         src={groupPreviewImage?.url || imageData}
                     />
                 <div className='infoGeneralSpacing'>
