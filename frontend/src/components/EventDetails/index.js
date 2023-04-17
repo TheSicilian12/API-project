@@ -72,7 +72,7 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
     return (
-        <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>
+        <div className='displayFlex flex-directionColumn borderGreen width100 justifyCenter eventDetailFontSize UfontTreb'>
             <div className=' displayFlex flex-directionColumn'>
                 <div className='eventDetailsWidth'>
                     <div className='displayFlex alignCenter justifyCenter'>
@@ -101,7 +101,7 @@ function EventDetails({ event, eventId, user }) {
                                 className='border-Radius15 padding'
                                 src={eventPreviewImage?.url || imageData}
                                 // width='1000rem'
-                                height='72%'
+                                height='700rem'
                             />
                         </div>
 
