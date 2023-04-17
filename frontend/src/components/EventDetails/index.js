@@ -101,8 +101,8 @@ function EventDetails({ event, eventId, user }) {
                                 <img
                                     className='border-Radius15 padding'
                                     src={eventPreviewImage?.url || imageData}
-                                    // width='1000rem'
-                                    height='500rem'
+                                    width='1000rem'
+
                                 />
                             </div>
 
