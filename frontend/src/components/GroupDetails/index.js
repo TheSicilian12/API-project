@@ -22,6 +22,8 @@ function GroupDetails({ group, user, events, groupId }) {
         return <div>loading</div>
     }
 
+
+    console.log('group: ', group.singleGroup)
     // console.log('user: ', user)
 
     const totalNumberEvents = Object.values(events).length
@@ -52,45 +54,6 @@ function GroupDetails({ group, user, events, groupId }) {
     if (group.singleGroup.private) {
         groupStatus = 'Private'
     }
-    // console.log('isEventFuture test: ', isEventFuture('2020-02-02'))
-
-    // console.log('group: ', group.singleGroup.about)
-
-    // function isEventFuture(eventEndDate) {
-    //     //returns true if date is today or in the future.
-    //     //false if not
-
-    //     // console.log('eventEndDate: ', eventEndDate)
-    //     // console.log('parse end date: ', Date.parse(eventEndDate))
-
-    //     const todayParse = Date.parse(new Date());
-
-    //     // const today = new Date();
-    //     // const day = today.getDate();
-    //     // const month = today.getMonth();
-    //     // const year = today.getFullYear();
-    //     // const todayDateParse = Date.parse(`${year}-${month}-${day}`)
-
-
-    //     // console.log('today: ', today)
-    //     // console.log('today parse: ', Date.parse(today))
-
-
-    //     const eventEndDateParse = Date.parse(eventEndDate)
-
-    //     return eventEndDateParse >= todayParse;
-    // }
-    // console.log('isDate: ', isDateValid('2023-02-17'))
-
-
-
-    //difference confirmed
-    // console.log('test----------------')
-    // console.log('date 1: 2020-04-04')
-    // console.log('date 1 parse: ', Date.parse('2020-04-04'))
-    // console.log('date 2: 2020-04-04T04:36:00.000Z')
-    // console.log('date 2 parse: ', Date.parse('2020-04-04T04:36:00.000Z'))
-
 
     //determine the userStatus / display
     //organizer or creator, currently just checking if organizer
