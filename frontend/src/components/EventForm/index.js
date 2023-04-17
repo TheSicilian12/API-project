@@ -177,8 +177,11 @@ function EventForm({ currentGroup, formType }) {
     if (Date.parse(eventStartDate) < Date.parse(new Date())) {
         err.eventStartDate = 'The start date must occur in the future'
     }
+    if (Date.parse(eventEndDate) < Date.parse(new Date())) {
+        err.eventEndDate = 'The end date must occur in the future'
+    }
     if (Date.parse(eventStartDate) > Date.parse(eventEndDate)) {
-        err.evemtEndDate = 'The end date must occur after the start date'
+        err.eventEndDate = 'The end date must occur after the start date'
     }
 
     let disabled;
