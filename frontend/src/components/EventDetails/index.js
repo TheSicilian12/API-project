@@ -125,9 +125,8 @@ function EventDetails({ event, eventId, user }) {
                             </div>
                             <div className='UblackBorderWeighted border-Radius15 marginTop '>
                                 <div className='displayFlex marginTop marginLeft'>
-                                    {/* <i class="fa-regular fa-clock fa-2xl style=color: #000000; borderRed displayFlex alignCenter justifyCenter clockDimensions"></i> */}
+
                                     <img
-                                        className=''
                                         width='15%'
                                         height='15%'
                                         src={clockImage}
@@ -158,13 +157,14 @@ function EventDetails({ event, eventId, user }) {
                                 </div>
                                 <div className='displayFlex alignCenter'>
                                     <div className='moneyDimensions displayFlex justifyCenter'>
-                                        <i class="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                        <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
                                     </div>
                                     <h4 className='timeEventSpacing'>{event?.price > 0 ? `$${event?.price}` : 'FREE'}</h4>
                                 </div>
                                 <div className='displayFlex alignCenter'>
                                     <div className='moneyDimensions displayFlex justifyCenter'>
-                                        <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
                                     </div>
                                     <h4>{event?.type}</h4>
 

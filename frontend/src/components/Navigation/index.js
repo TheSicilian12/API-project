@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
         <div className='pointerCursor'>
           {/* <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink> */}
           <img
-            className=''
+            
             width='50%'
             onClick={() => {history.push('/')}}
             src={adventureUpLogo}
