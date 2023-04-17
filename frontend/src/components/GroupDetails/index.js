@@ -23,7 +23,7 @@ function GroupDetails({ group, user, events, groupId }) {
     }
 
 
-    console.log('group: ', group.singleGroup)
+    // console.log('group: ', group.singleGroup)
     // console.log('user: ', user)
 
     const totalNumberEvents = Object.values(events).length
@@ -93,23 +93,22 @@ function GroupDetails({ group, user, events, groupId }) {
     return (
         <div className='GroupDetails UfontTreb textSize'>
             <div className='GroupDetails_GroupsButton'>
-            <div className='displayFlex'>
-                        <img
-                            className='pointerCursor'
-                            onClick={() => history.push('/groups')}
-                            src={pinkArrowLeft}
-                        />
-                        <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
-                    </div>
+                <div className='displayFlex'>
+                    <img
+                        className='pointerCursor'
+                        onClick={() => history.push('/groups')}
+                        src={pinkArrowLeft}
+                    />
+                    <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
+                </div>
             </div>
             <div className='GroupDetails_Details displayFlex justifyCenter'>
-                <img
-                    className='border-Radius15'
-                    height='500rem'
-                    width='700rem'
-                    src={groupPreviewImage?.url || imageData}
-                />
-
+                    <img
+                        className='border-Radius15'
+                        // height='500rem'
+                        // width='700rem'
+                        src={groupPreviewImage?.url || imageData}
+                    />
                 <div className='infoGeneralSpacing'>
                     <h1 className='GroupDetails_Details_GroupName textWrap'>
                         {`${group.singleGroup.name}`}
