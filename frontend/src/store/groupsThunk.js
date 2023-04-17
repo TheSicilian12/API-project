@@ -177,7 +177,7 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     })
     // console.log('after fetch')
     if (response.ok) {
-        // const editedGroup = await response.json();
+        const editedGroup = await response.json();
         // const addImageResponse = await dispatch(addAGroupImage({
         //     groupId: groupObj.groupId,
         //     url: groupObj.url,
