@@ -1,10 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './EventDetails.css';
 import '../UniversalCSS.css';
-import { getEventThunk } from '../../store/eventsThunk';
+// import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
 import OpenModalDeleteEventButton from '../DeleteEventModalButton';
@@ -29,7 +29,7 @@ function EventDetails({ event, eventId, user }) {
     // console.log('orgranizer: ', organizer)
     // console.log('groupImages: ', groupImages)
 
-    console.log('event: ', event)
+    // console.log('event: ', event)
 
     let groupPreviewImage;
     if (groupImages) {
@@ -70,7 +70,7 @@ function EventDetails({ event, eventId, user }) {
     }
 
     // console.log('eventPreviewImage: ', eventPreviewImage)
-    console.log('options: ', options)
+    // console.log('options: ', options)
 
     return (
         <div className='displayFlex flex-directionColumn eventDetailsWidth eventDetailFontSize UfontTreb'>
@@ -94,15 +94,15 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                 </div>
                 <div className='displayFlex justifyCenter'>
-                    <div className='displayFlex groupEventTextSize'>
+                    <div className='displayFlex groupEventTextSize alignCenter justifyCenter'>
                         {/* {eventPreviewImage?.url} */}
 
-                        <div className='eventImageWidth'>
+                        <div className='eventImageWidth displayFlex alignCenter justifyCenter'>
                             <img
-                                className='border-Radius15'
+                                className='border-Radius15 padding'
                                 src={eventPreviewImage?.url || imageData}
-                                // width='100%'
-                                height='100%'
+                                width='1000rem'
+                                height='72%'
                             />
                         </div>
 
@@ -189,7 +189,7 @@ function EventDetails({ event, eventId, user }) {
                         </div>
                     </div>
                 </div>
-                <div className='descriptionTextSize'>
+                <div className='descriptionTextSize paddingLeftDescription'>
                     <div className='displayFlex alignCenter justifyCenter'>
                         <div className='arrowCenterWidth'>
                             <h2>Description</h2>

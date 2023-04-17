@@ -104,9 +104,9 @@ function GroupForm({ currentGroup, formType }) {
 
             let createGroup;
             if (formType === 'new') {
-                console.log('await and payload: ', payload)
+                // console.log('await and payload: ', payload)
                 createGroup = await dispatch(submitGroup(payload));
-                console.log('initial dispatch createGroup: ', createGroup)
+                // console.log('initial dispatch createGroup: ', createGroup)
             }
 
             let updateGroup;
@@ -288,7 +288,7 @@ function GroupForm({ currentGroup, formType }) {
                     </h2>
                     <div className='displayFlex flex-directionColumn groupFormText'>
                         <div className='displayFlex'>
-                            <label className='marginRight marginBottomMed' for='meetingType'>
+                            <label className='marginRight marginBottomMed' htmlFor='meetingType'>
                                 Is this an in person or online group?
                             </label>
                             <select

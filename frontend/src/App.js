@@ -15,6 +15,7 @@ import EventDetails from './components/EventDetails';
 import EventDetailsWrapper from "./components/EventDetails/eventDetailsWrapper";
 import EventForm from "./components/EventForm"
 import EditEventWrapper from './components/EventForm/editEventWrapper'
+import BadRoute from './components/BadRoute'
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route path='/events/:id'>
               <EventDetailsWrapper />
+          </Route>
+          <Route >
+            <BadRoute />
           </Route>
         </Switch>
       )}
