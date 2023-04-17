@@ -94,15 +94,15 @@ function EventDetails({ event, eventId, user }) {
                     </div>
                 </div>
                 <div className='displayFlex justifyCenter'>
-                    <div className='displayFlex groupEventTextSize'>
+                    <div className='displayFlex groupEventTextSize alignCenter justifyCenter'>
                         {/* {eventPreviewImage?.url} */}
 
-                        <div className='eventImageWidth'>
+                        <div className='eventImageWidth displayFlex alignCenter justifyCenter'>
                             <img
-                                className='border-Radius15'
+                                className='border-Radius15 borderGreen padding'
                                 src={eventPreviewImage?.url || imageData}
-                                // width='100%'
-                                height='100%'
+                                width='1000rem'
+                                height='72%'
                             />
                         </div>
 

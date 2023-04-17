@@ -98,23 +98,8 @@ module.exports = {
       },
       {
         eventId: 11,
-        url: "https://pbs.twimg.com/media/FWuMzIsWYAEt_Pm.jpg:large",
+        url: "https://m.media-amazon.com/images/M/MV5BZDIxNjcyYzYtYTA5Yy00ZjA1LWI1NTctMzQ1NjAwYWZiMmNjXkEyXkFqcGdeQXVyOTI2NTUyMjQ@._V1_.jpg",
         preview: true
-      },
-      {
-        eventId: 11,
-        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYkkPPTWp-8qani8wGoJtHUj3g6xVFY1aWGw&usqp=CAU",
-        preview: false
-      },
-      {
-        eventId: 11,
-        url: "https://static.wikia.nocookie.net/adventuretimewithfinnandjake/images/b/b2/S4_E19_Princess_Bubblegum_holding_electro-gun.png/revision/latest?cb=20120820203924",
-        preview: false
-      },
-      {
-        eventId: 11,
-        url: "https://i0.wp.com/thegeekiary.com/wp-content/uploads/2017/09/Adventure_Time_Episode_275_Still-1.jpg?resize=640%2C360&ssl=1",
-        preview: false
       },
       {
         eventId: 12,

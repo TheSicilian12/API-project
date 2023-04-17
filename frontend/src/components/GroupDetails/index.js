@@ -222,18 +222,21 @@ function GroupDetails({ group, user, events, groupId }) {
                     </p>
                 </div>
             </div>
-            <div className={`${showCurrentEvents}`}>
+            <div key='current' className={`${showCurrentEvents}`}>
                 <EventsDisplayComponent
+                    key='current'
                     timeline={'current'} eventsArray={eventsArray[2]}
                 />
             </div>
-            <div className={`${showFutureEvents}`}>
+            <div key='future' className={`${showFutureEvents}`}>
                 <EventsDisplayComponent
+                    key='future'
                     timeline={'future'} eventsArray={eventsArray[1]}
                 />
             </div>
-            <div className={`${showPastEvents}`}>
+            <div key='past' className={`${showPastEvents}`}>
                 <EventsDisplayComponent
+                    key='past'
                     timeline={'past'} eventsArray={eventsArray[0]}
                 />
             </div>
