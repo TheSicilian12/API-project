@@ -72,21 +72,21 @@ function EventDetails({ event, eventId, user }) {
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
     return (
-        <div className='displayFlex flex-directionColumn borderGreen widthContent justifyCenter eventDetailFontSize UfontTreb'>
+        <div className='displayFlex flex-directionColumn borderGreen widthContent eventDetailFontSize UfontTreb'>
             <div className=''>
                 <div className=' displayFlex flex-directionColumn'>
                     <div className='eventDetailsWidth'>
-                        <div className='displayFlex alignCenter justifyCenter'>
+                        <div className='displayFlex alignCenter'>
                             <div className='arrowCenterWidth'>
                                 <img
-                                    className='pointerCursor displayFlex justifyCenter alignCenter'
+                                    className='pointerCursor displayFlex'
                                     onClick={() => history.push('/events')}
                                     src={pinkArrowLeft}
                                 />
                                 <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
                             </div>
                         </div>
-                        <div className=' displayFlex alignCenter justifyCenter'>
+                        <div className=' displayFlex'>
                             <div className='arrowCenterWidth'>
                                 <h1>{event.name}</h1>
                                 <h4>Hosted by {`${organizer?.firstName} ${organizer?.lastName}`}</h4>
@@ -94,10 +94,10 @@ function EventDetails({ event, eventId, user }) {
                         </div>
                     </div>
                     <div className='displayFlex justifyCenter'>
-                        <div className='displayFlex groupEventTextSize alignCenter justifyCenter'>
+                        <div className='displayFlex groupEventTextSize'>
                             {/* {eventPreviewImage?.url} */}
 
-                            <div className='eventImageWidth displayFlex alignCenter justifyCenter'>
+                            <div className='eventImageWidth displayFlex alignCenter '>
                                 <img
                                     className='border-Radius15 padding'
                                     src={eventPreviewImage?.url || imageData}
