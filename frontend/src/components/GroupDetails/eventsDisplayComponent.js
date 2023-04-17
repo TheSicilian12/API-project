@@ -62,13 +62,13 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                                     src={seperator}
                                 />
                             </div> */}
-                            <RainbowLine key={`eventsl${e?.id}`}/>
+                            <RainbowLine key={`rainbow${e?.id}`}/>
                             <div key={`events${e?.id}`} className={`pointerCursor eventMargin ${background} border-Radius15 UfontTreb`}>
                                 <NavLink
                                     className='noDecoration'
                                     to={`/events/${e?.id}`}
                                 >
-                                    <div key={`events${e?.id}`} className='noDecoration displayFlex UjustifyCenter'>
+                                    <div key={`eventsImage${e?.id}`} className='noDecoration displayFlex UjustifyCenter'>
                                         <img
                                             //event image
                                             className='border-Radius15 eventImgDescMargin'
@@ -77,18 +77,18 @@ export function EventsDisplayComponent({ timeline, eventsArray, seperator, seper
                                             width='300rem'
                                         />
                                         <div key={`events${e?.id}`} className='infoEventSpacing eventImgDescMargin'>
-                                            <div key={`events${e?.id}`} className='displayFlex marginpaddingDate dateText'>
+                                            <div key={`eventsDate${e?.id}`} className='displayFlex marginpaddingDate dateText'>
                                                 {/* date */}
                                                 {<h4>{new Date(e?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(e?.startDate).toUTCString().split(' ')[2]} {new Date(e?.startDate).toUTCString().split(' ')[1]}, {new Date(e?.startDate).toUTCString().split(' ')[3]}</h4>}
                                                 <h4 className='dotSpacing'>•</h4>
                                                 {/* military time */}
                                                 {<h4>{new Date(e?.startDate).toUTCString().split(' ')[4]}</h4>}
                                             </div>
-                                            <h4 className='eventTitleText textWrap marginPaddingTitle'>{e?.name}</h4>
-                                            <h4>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
+                                            <h4 key={`eventsTitle${e?.id}`} className='eventTitleText textWrap marginPaddingTitle'>{e?.name}</h4>
+                                            <h4 key={`eventsVenue${e?.id}`}>{e?.Venue?.city ? `${e.Venue?.city}, ${e.Venue?.state}` : 'Venue location TBD'}</h4>
                                         </div>
                                     </div>
-                                    <div key={`eventsl${e?.id}`} className='UdisplayFlex UjustifyCenter'>
+                                    <div key={`eventsText${e?.id}`} className='UdisplayFlex UjustifyCenter'>
                                         <p className='textWrap eventInfo aboutText'>{e?.description}</p>
                                     </div>
                                 </NavLink>
