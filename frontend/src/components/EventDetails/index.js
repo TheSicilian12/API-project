@@ -76,7 +76,7 @@ function EventDetails({ event, eventId, user }) {
             <div className=''>
                 <div className=' displayFlex flex-directionColumn'>
                     <div className='eventDetailsWidth'>
-                        <div className='displayFlex alignCenter'>
+                        <div className='displayFlex'>
                             <div className='arrowCenterWidth'>
                                 <img
                                     className='pointerCursor displayFlex'
@@ -93,7 +93,7 @@ function EventDetails({ event, eventId, user }) {
                             </div>
                         </div>
                     </div>
-                    <div className='displayFlex justifyCenter'>
+                    <div className='displayFlex'>
                         <div className='displayFlex groupEventTextSize'>
                             {/* {eventPreviewImage?.url} */}
 
