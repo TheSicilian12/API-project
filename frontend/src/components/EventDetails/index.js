@@ -101,12 +101,12 @@ function EventDetails({ event, eventId, user }) {
                                 <img
                                     className='border-Radius15 padding'
                                     src={eventPreviewImage?.url || imageData}
-                                    width='100rem'
+                                    width='1000rem'
 
                                 />
                             </div>
 
-                            <div className='displayFlex flex-directionColumn infoGeneralSpacing eventInfoSection justifyCenter'>
+                            <div className='displayFlex flex-directionColumn infoGeneralSpacing borderRed justifyCenter'>
                                 <div className='UblackBorderWeighted displayFlex border-Radius15 groupInfoSection'>
                                     <div className='groupImageWidth'>
                                         <img
@@ -123,9 +123,8 @@ function EventDetails({ event, eventId, user }) {
                                         <h4>{event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                     </div>
                                 </div>
-                                <div className='UblackBorderWeighted border-Radius15 marginTop '>
+                                <div className='UblackBorderWeighted border-Radius15 eventInfoSection marginTop '>
                                     <div className='displayFlex marginTop marginLeft'>
-
                                         <img
                                             width='15%'
                                             height='15%'

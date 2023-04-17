@@ -165,13 +165,13 @@
     width: 140rem;
 }
 
-/* .eventInfoSection {
-    height: 100rem;
-} */
+.eventInfoSection {
+    height: 40rem;
+}
 
-/* .groupInfoSection {
-    height: 30rem;
-} */
+.groupInfoSection {
+    height: 12rem;
+}
 
 .eventDetailFontSize {
     font-size: 180%;
