@@ -214,15 +214,19 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
                     url: groupObj.url,
                     preview: true
                 }))
+                console.log('addNewImage: ', addNewImageTruePreviewResponse)
 
-                if (addNewImageTruePreviewResponse.ok) {
+                if (addNewImageTruePreviewResponse) {
+                    console.log('before')
                     const responseDeleteCurrentImageOld = await csrfFetch(`/api/group-images/${currentGroupImage.id}`, {
                         method: 'DELETE'
                     })
+                    console.log('after')
+                    console.log('delete: ', responseDeleteCurrentImageOld)
 
-                    if (responseDeleteCurrentImageOld.ok) {
-                        return 'yay'
-                    }
+                    // if (responseDeleteCurrentImageOld.ok) {
+                    //     return 'yay'
+                    // }
 
 
                 }
