@@ -173,6 +173,11 @@
     height: 12rem;
 }
 
+.imageSection {
+    height: 52rem;
+    width: 100rem;
+}
+
 .eventDetailFontSize {
     font-size: 180%;
 }
