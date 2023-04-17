@@ -153,6 +153,10 @@
     width: 150rem;
 }
 
+.width100 {
+    width: 100%
+}
+
 .arrowCenterWidth {
     width: 140rem;
 }
