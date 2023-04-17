@@ -178,6 +178,22 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
+        console.log('editedGRoup: ', editedGroup)
+
+
+        //if updated - get current image id, which means get group details
+        
+
+
+            //if updated - edit current true image to false
+
+
+
+        //if current image edited - add new image set to true
+
+
+
+
         // const addImageResponse = await dispatch(addAGroupImage({
         //     groupId: groupObj.groupId,
         //     url: groupObj.url,
