@@ -125,14 +125,14 @@ export const submitGroup = (groupObj) => async (dispatch) => {
         // console.log('newGroup.id: ', newGroup.id)
 
         let newImageObj = {};
-            newImageObj.url = groupObj.url;
-            newImageObj.preview = true;
-            newImageObj.groupId = newGroup.id;
+        newImageObj.url = groupObj.url;
+        newImageObj.preview = true;
+        newImageObj.groupId = newGroup.id;
 
         // console.log('newImageObj: ', newImageObj)
 
         // dispatch(addAGroupImage(newImageObj))
-       dispatch(addAGroupImage(newImageObj));
+        dispatch(addAGroupImage(newImageObj));
 
         // dispatch(getGroup(newGroup.id));
         return newGroup;
@@ -178,13 +178,76 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
     // console.log('after fetch')
     if (response.ok) {
         const editedGroup = await response.json();
+        // console.log('editedGroup: ', editedGroup)
+        console.log('update group ok')
+
+        //if updated - get current image id, which means get group details
+        const responseGroupInfo = await fetch(`/api/groups/${groupObj.groupId}`)
+        if (responseGroupInfo.ok) {
+            console.log('retreive group info ok')
+
+            const groupInfoData = await responseGroupInfo.json()
+            // console.log('groupInfoData: ', groupInfoData.find((image) => image.preview === true))
+            //if updated - edit current true image to false
+            // console.log('groupInfoData: ', groupInfoData.GroupImages)
+
+            let currentGroupImage = groupInfoData.GroupImages.find((image) => image.preview === true)
+            // console.log('currentGroupImage: ', currentGroupImage)
+
+            //add currentGroupImage with false preview
+            const addCurrentImageFalsePreviewResponse = await dispatch(addAGroupImage({
+                groupId: groupObj.groupId,
+                url: currentGroupImage.url,
+                preview: false
+            }))
+            // console.log('before')
+            // const test = await addCurrentImageFalsePreviewResponse.json()
+            // console.log('response: ', addCurrentImageFalsePreviewResponse)
+
+            //potential issue
+            if (addCurrentImageFalsePreviewResponse) {
+                console.log('added current image with preview false')
+
+                //add updated image with true preview
+                const addNewImageTruePreviewResponse = await dispatch(addAGroupImage({
+                    groupId: groupObj.groupId,
+                    url: groupObj.url,
+                    preview: true
+                }))
+
+                if (addNewImageTruePreviewResponse.ok) {
+                    const responseDeleteCurrentImageOld = await csrfFetch(`/api/group-images/${currentGroupImage.id}`, {
+                        method: 'DELETE'
+                    })
+
+                    if (responseDeleteCurrentImageOld.ok) {
+                        return 'yay'
+                    }
+
+
+                }
+
+            }
+
+            //currentImage added again but with false, then the current deleted
+
+            //new added with true
+
+
+        }
+
+
         // const addImageResponse = await dispatch(addAGroupImage({
         //     groupId: groupObj.groupId,
         //     url: groupObj.url,
         //     preview: true
         // }))
+
+
+
+
         // if (addImageResponse.ok) {
-            return editedGroup;
+        return editedGroup;
         // }
     }
 }
@@ -203,7 +266,7 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     })
     if (response.ok) {
         const newImage = await response.json();
-
+        console.log('add a group thunk: ', newImage)
         return newImage;
     }
 }
@@ -257,7 +320,7 @@ const initialState = {
             GroupImages: [],
             Organizer: {
                 // organizerData,
-                },
+            },
             Venues: [],
         }
     },

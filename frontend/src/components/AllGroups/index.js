@@ -30,7 +30,8 @@ export default function AllGroups() {
     if (!groups.allGroups) {
         return <div>loading</div>
     }
-    // console.log('groups: ', groups)
+
+    console.log('groups: ', groups)
     // if (!Object.values(groupEvents)[0].events) {
     //     return <div>loading</div>
     // }
@@ -86,7 +87,7 @@ export default function AllGroups() {
                                     <div className='displayFlex'>
                                         <p className='alignCenter'>{groups.allGroups[e].events.length} events  </p>
 
-                                        
+
                                         <p className='displayFlex justifyCenter dotSpacing dotWeight alignCenter'>·</p>
                                         <p className='alignCenter'>{groups.allGroups[e].private ? 'Private' : 'Public'}</p>
                                     </div>
