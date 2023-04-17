@@ -169,6 +169,6 @@
     font-size: 180%;
 }
 
-/* .padding {
-
-} */
+.paddingLeftDescription {
+    padding-left: 12rem;;
+}
