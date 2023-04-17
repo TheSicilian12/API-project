@@ -151,6 +151,12 @@ function EventForm({ currentGroup, formType }) {
     if (!(Number(eventPrice) >= 0)) {
         err.eventPrice = 'Price is required. Price must be a positive number.';
     }
+    if (eventPrice.includes('.')) {
+        if (eventPrice.split('.')[1].length !== 2) {
+            err.eventPrice = 'Please enter either a rounded amout or two decimals'
+        }
+    }
+
     // console.log('eventPrice type: ', !(Number(eventPrice) >= 0))
     if (!eventEndDate) {
         err.eventEndDate = 'Event end is required';
@@ -167,6 +173,15 @@ function EventForm({ currentGroup, formType }) {
     }
     if (eventAbout.length < 30) {
         err.eventAbout = 'Description must be at least 30 characters long';
+    }
+    if (Date.parse(eventStartDate) < Date.parse(new Date())) {
+        err.eventStartDate = 'The start date must occur in the future'
+    }
+    if (Date.parse(eventEndDate) < Date.parse(new Date())) {
+        err.eventEndDate = 'The end date must occur in the future'
+    }
+    if (Date.parse(eventStartDate) > Date.parse(eventEndDate)) {
+        err.eventEndDate = 'The end date must occur after the start date'
     }
 
     let disabled;
@@ -301,7 +316,7 @@ function EventForm({ currentGroup, formType }) {
                         }}
                     ></input>
                     {/* <p className='error'>{errors.eventStartDate}</p> */}
-                    {displayEventStartDateErr && <p className='error'>{err.startDate}</p>}
+                    {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
