@@ -6,3 +6,9 @@
 .eventGroup-container {
     display: flex;
 }
+
+.eventGroup-info {
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-left: 10px;
+}

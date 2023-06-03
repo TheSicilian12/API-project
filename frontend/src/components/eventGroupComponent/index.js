@@ -23,7 +23,7 @@ export default function EventGroupComponent({ previewImage, info }) {
                     src={previewImage?.url || imageData}
                 />
             </div>
-            <div>
+            <div className="eventGroup-info">
                 <h1 className='GroupDetails_Details_GroupName textWrap'>
                     {`${info.group.singleGroup.name}`} test
                 </h1>
