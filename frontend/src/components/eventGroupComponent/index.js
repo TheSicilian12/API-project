@@ -16,14 +16,14 @@ export default function EventGroupComponent({ previewImage, info }) {
     // console.log("group: ", group)
 
     return (
-        <div>
+        <div className="eventGroup-container">
             <div className="image">
                 <img
                     className='border-Radius15 eventGroup-mainImage'
                     src={previewImage?.url || imageData}
                 />
             </div>
-            <div className="info">
+            <div>
                 <h1 className='GroupDetails_Details_GroupName textWrap'>
                     {`${info.group.singleGroup.name}`} test
                 </h1>

@@ -2,3 +2,7 @@
     height: 500px;
     width: 800px;
 }
+
+.eventGroup-container {
+    display: flex;
+}
