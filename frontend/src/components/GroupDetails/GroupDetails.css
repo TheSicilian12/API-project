@@ -26,6 +26,14 @@
     border: 5px solid blue;
 }
 
+.back-button {
+    width: 1160px;
+}
+
+.eventGroupComponent {
+    margin-top: 10px;
+}
+
 .displayFlex {
     display: flex;
 }
@@ -58,15 +66,9 @@
     justify-content: space-around;
 }
 
-/* .centerHorizontal {
-    position: relative;
-    left: 50%;
-} */
-
 .eventImage {
     height: 500rem;
     width: 7000rem;
-    /* padding-right: 2rem; */
 }
 
 .testing {
@@ -87,7 +89,6 @@
 }
 
 .adjustHorizontal {
-    /* position: relative */
     display: flex;
 }
 
