@@ -31,7 +31,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                     <h4 className='eventGroup-info-color'>
                         {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
                     </h4>
-                    <div className='eventGroup-info-color'>
+                    <div className='eventGroup-info-color eventGroup-events'>
                         <h4 >
                             {`${info.numEvents} events`}
                         </h4>

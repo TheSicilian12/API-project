@@ -20,3 +20,7 @@
 .eventGroup-info-color {
     color: rgb(92, 92, 92);
 }
+
+.eventGroup-events {
+    display: flex;
+}
