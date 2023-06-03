@@ -1,6 +1,9 @@
 .eventGroup-mainImage {
     height: 500px;
     width: 800px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 2px solid black;
 }
 
 .eventGroup-image-info-container {
@@ -11,8 +14,10 @@
     display: flex;
     flex-direction: column;
     border: 2px solid black;
-    border-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     margin-left: 10px;
+    height: 500px;
 }
 
 .eventGroup-group {
@@ -38,7 +43,6 @@
 }
 
 .eventGroup-overall-info {
-    border: 1px solid black;
     width: 1160px;
     margin-top: 10px;
 }

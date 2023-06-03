@@ -26,7 +26,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
             <div className="eventGroup-image-info-container">
                 <div className="image">
                     <img
-                        className='border-Radius15 eventGroup-mainImage'
+                        className='eventGroup-mainImage'
                         src={previewImage?.url || imageData}
                     />
                 </div>
