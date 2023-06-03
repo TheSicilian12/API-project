@@ -8,13 +8,19 @@
 }
 
 .eventGroup-info {
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
     border-radius: 15px;
     margin-left: 10px;
 }
 
 .eventGroup-group {
     margin-left: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .eventGroup-info-color {
@@ -24,3 +30,16 @@
 .eventGroup-events {
     display: flex;
 }
+
+.eventGroup-join {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* .eventGroup-info-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+
+} */

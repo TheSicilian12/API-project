@@ -95,7 +95,10 @@ function GroupDetails({ group, user, events, groupId }) {
     const info = {
         group,
         numEvents: totalNumberEvents,
-        groupStatus
+        groupStatus,
+        displayJoinGroup,
+        hideJoinGroup,
+        joinGroup
     }
     console.log("info: ", info)
 

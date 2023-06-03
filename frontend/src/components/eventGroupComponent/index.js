@@ -24,26 +24,41 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                 />
             </div>
             <div className="eventGroup-info">
-                {type === "group" && <div className="eventGroup-group">
-                    <h1 className='GroupDetails_Details_GroupName textWrap'>
-                        {`${info.group.singleGroup.name}`} test
-                    </h1>
-                    <h4 className='eventGroup-info-color'>
-                        {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
-                    </h4>
-                    <div className='eventGroup-info-color eventGroup-events'>
-                        <h4 >
-                            {`${info.numEvents} events`}
-                        </h4>
-                        <h4 className='eventGroup-info-color dotSpacing'>•</h4>
-                        <h4 className="eventGroup-info-color">
-                            {info.groupStatus}
-                        </h4>
-                    </div>
-                    <h4 className="eventGroup-info-color">
-                        {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
-                    </h4>
-                </div>}
+                {type === "group" &&
+                    <div className="eventGroup-group eventGroup-info-button">
+                        <div>
+                            <h1 className='GroupDetails_Details_GroupName textWrap'>
+                                {`${info.group.singleGroup.name}`} test
+                            </h1>
+                            <h4 className='eventGroup-info-color'>
+                                {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
+                            </h4>
+                            <div className='eventGroup-info-color eventGroup-events'>
+                                <h4 >
+                                    {`${info.numEvents} events`}
+                                </h4>
+                                <h4 className='eventGroup-info-color dotSpacing'>•</h4>
+                                <h4 className="eventGroup-info-color">
+                                    {info.groupStatus}
+                                </h4>
+                            </div>
+                            <h4 className="eventGroup-info-color">
+                                {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
+                            </h4>
+                        </div>
+
+                        <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-join`}>
+                            <button
+                                className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
+                                onClick={() => alert('Feature coming soon')}
+                                disabled={`${info.joinGroup}` === 'true' ? true : false}
+                            >
+                                Join this group
+                                {/* alert for no implementation */}
+                            </button>
+                        </div>
+
+                    </div>}
             </div>
         </div>
     )
