@@ -31,9 +31,10 @@
     display: flex;
 }
 
-.eventGroup-join {
+.eventGroup-button {
     display: flex;
     justify-content: flex-end;
+    margin: 10px;
 }
 
 /* .eventGroup-info-button {

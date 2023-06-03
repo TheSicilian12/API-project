@@ -1,4 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
+import DeleteGroupModal from '../DeleteGroupModal';
+
 import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
 
@@ -47,7 +52,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </h4>
                         </div>
 
-                        <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-join`}>
+                        <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
                             <button
                                 className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
                                 onClick={() => alert('Feature coming soon')}
@@ -57,6 +62,36 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 {/* alert for no implementation */}
                             </button>
                         </div>
+
+                        <div className={`${info.options} eventGroup-button`}>
+                            <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
+
+                                <NavLink to={`/groups/${info.groupId}/events/new`}>
+                                    <button
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                    >
+                                        Create event
+                                    </button>
+                                </NavLink>
+                                <NavLink to={`/groups/${info.groupId}/edit`}>
+                                    <button
+                                        className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                    >
+                                        Update
+                                    </button>
+                                </NavLink>
+                                <div>
+                                    <OpenModalDeleteGroupButton
+
+                                        buttonText="Delete"
+                                        modalComponent={<DeleteGroupModal groupId={info.groupId} />}
+                                    />
+                                </div>
+                            </div>
+
+
+                        </div>
+
 
                     </div>}
             </div>
