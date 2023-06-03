@@ -12,3 +12,11 @@
     border-radius: 15px;
     margin-left: 10px;
 }
+
+.eventGroup-group {
+    margin-left: 10px;
+}
+
+.eventGroup-info-color {
+    color: rgb(92, 92, 92);
+}

@@ -99,9 +99,11 @@ function GroupDetails({ group, user, events, groupId }) {
     }
     console.log("info: ", info)
 
+    const type = "group"
+
     return (
         // <div>hello</div>
-        <EventGroupComponent previewImage={groupPreviewImage} info={info}/>
+        <EventGroupComponent type={type}previewImage={groupPreviewImage} info={info}/>
         // <div className='GroupDetails UfontTreb textSize displayFlex justifyCenter alignCenter Uflexdirection-column'>
         //     <div className='GroupDetails_GroupsButton borderBlue'>
         //         <div className='displayFlex'>

@@ -2,7 +2,7 @@ import React from 'react';
 import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
 
-export default function EventGroupComponent({ previewImage, info }) {
+export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
@@ -24,24 +24,26 @@ export default function EventGroupComponent({ previewImage, info }) {
                 />
             </div>
             <div className="eventGroup-info">
-                <h1 className='GroupDetails_Details_GroupName textWrap'>
-                    {`${info.group.singleGroup.name}`} test
-                </h1>
-                <h4 className='GroupDetails_Details_Location'>
-                    {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
-                </h4>
-                <div className='displayFlex alignCenter'>
-                    <h4 >
-                        {`${info.numEvents} events`}
+                {type === "group" && <div className="eventGroup-group">
+                    <h1 className='GroupDetails_Details_GroupName textWrap'>
+                        {`${info.group.singleGroup.name}`} test
+                    </h1>
+                    <h4 className='eventGroup-info-color'>
+                        {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
                     </h4>
-                    <h4 className='dotSpacing'>•</h4>
-                    <h4 >
-                        {info.groupStatus}
+                    <div className='eventGroup-info-color'>
+                        <h4 >
+                            {`${info.numEvents} events`}
+                        </h4>
+                        <h4 className='eventGroup-info-color dotSpacing'>•</h4>
+                        <h4 className="eventGroup-info-color">
+                            {info.groupStatus}
+                        </h4>
+                    </div>
+                    <h4 className="eventGroup-info-color">
+                        {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
                     </h4>
-                </div>
-                <h4>
-                    {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
-                </h4>
+                </div>}
             </div>
         </div>
     )
