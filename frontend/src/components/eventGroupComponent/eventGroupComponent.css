@@ -3,7 +3,7 @@
     width: 800px;
 }
 
-.eventGroup-container {
+.eventGroup-image-info-container {
     display: flex;
 }
 
@@ -37,10 +37,8 @@
     margin: 10px;
 }
 
-/* .eventGroup-info-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: end;
-
-} */
+.eventGroup-overall-info {
+    border: 1px solid black;
+    width: 1160px;
+    margin-top: 10px;
+}
