@@ -35,6 +35,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                     />}
                 </div>
                 <div className="eventGroup-info">
+                    {/* group */}
                     {type === "group" &&
                         <div className="eventGroup-group eventGroup-info-button">
                             <div>
@@ -96,6 +97,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </div>
                             </div>
                         </div>}
+
+                        {/* event */}
+                        
                 </div>
             </div>
 

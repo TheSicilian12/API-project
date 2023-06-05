@@ -78,8 +78,14 @@ function EventDetails({ event, eventId, user }) {
 
     // console.log('eventPreviewImage: ', eventPreviewImage)
     // console.log('options: ', options)
+
+    const info = {
+        event,
+        organizer
+    }
+
     return (
-        <EventGroupComponent type={type} previewImage={previewImage}/>
+        <EventGroupComponent type={type} previewImage={previewImage} info={info}/>
         // <div className='displayFlex flex-directionColumn widthContent eventDetailFontSize UfontTreb'>
         //     <div className=''>
         //         <div className=' displayFlex flex-directionColumn'>
