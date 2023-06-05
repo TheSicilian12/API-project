@@ -147,9 +147,39 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     height='150px'
                                     src={clockImage}
                                 />
-                                <div></div>
+                                <div>
+                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                    <h4 className='dotSpacing'>•</h4>
+                                    {/* military time */}
+                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                </div>
+                            </div>
+                            <div>
+
+                                <h4>
+                                    END:
+                                </h4>
+                                {/* date */}
+                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                <h4 className='dotSpacing'>•</h4>
+                                {/* military time */}
+                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
+                            </div>
+                            <div className='displayFlex alignCenter'>
+                                <div className='moneyDimensions displayFlex justifyCenter'>
+                                    <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                </div>
+                                <h4 className='timeEventSpacing'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
                             </div>
 
+                            <div className='displayFlex alignCenter'>
+                                <div className='moneyDimensions displayFlex justifyCenter'>
+                                    {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                    <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                </div>
+                                <h4>{info.event?.type}</h4>
+
+                            </div>
 
                             {/* <div className={`${info.options} eventGroup-button`}>
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
