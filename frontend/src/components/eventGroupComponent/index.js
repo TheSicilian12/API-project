@@ -25,10 +25,14 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
             <div className="eventGroup-image-info-container">
                 <div className="image">
-                    <img
+                    {type === "group" && <img
                         className='eventGroup-mainImage'
                         src={previewImage?.url || imageData}
-                    />
+                    />}
+                    {type === "event" && <img
+                        className='eventGroup-mainImage'
+                        src={previewImage || imageData}
+                    />}
                 </div>
                 <div className="eventGroup-info">
                     {type === "group" &&
