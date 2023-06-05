@@ -119,12 +119,12 @@ function GroupDetails({ group, user, events, groupId }) {
                     />
                     <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
                 </div>
+                
                 <div className="eventGroupComponent">
                     <EventGroupComponent type={type} previewImage={groupPreviewImage} info={info} />
                 </div>
 
-
-                <div key='current' className={`${showCurrentEvents} borderGreen eventListMargin`}>
+                <div key='current' className={`${showCurrentEvents} eventListMargin`}>
                     <EventsDisplayComponent
                         key='current'
                         timeline={'current'} eventsArray={eventsArray[2]}
