@@ -101,8 +101,8 @@ function GroupDetails({ group, user, events, groupId }) {
         joinGroup,
         options,
         groupId
-
     }
+    
     console.log("info: ", info)
 
     const type = "group"
@@ -119,7 +119,7 @@ function GroupDetails({ group, user, events, groupId }) {
                     />
                     <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
                 </div>
-                
+
                 <div className="eventGroupComponent">
                     <EventGroupComponent type={type} previewImage={groupPreviewImage} info={info} />
                 </div>

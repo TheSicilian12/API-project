@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
+import clockImage from '../assets/Images/ATWP.webp'
 
 import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
@@ -22,6 +23,11 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
     return (
         <div className="eventGroup-container">
+
+            {type === "event" && <div>
+                <h1>{info.event.name}</h1>
+                <h4>Hosted by {`${info.organizer?.firstName} ${info.organizer?.lastName}`}</h4>
+            </div>}
 
             <div className="eventGroup-image-info-container">
                 <div className="image">
@@ -98,8 +104,80 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </div>
                         </div>}
 
-                        {/* event */}
-                        
+                    {/* event */}
+                    {type === "event" &&
+                        <div className="eventGroup-group eventGroup-info-button">
+                            {/* <div>
+                                <h1 className='GroupDetails_Details_GroupName textWrap'>
+                                    {`${info.group.singleGroup.name}`} test
+                                </h1>
+                                <h4 className='eventGroup-info-color'>
+                                    {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
+                                </h4>
+                                <div className='eventGroup-info-color eventGroup-events'>
+                                    <h4 >
+                                        {`${info.numEvents} events`}
+                                    </h4>
+                                    <h4 className='eventGroup-info-color dotSpacing'>•</h4>
+                                    <h4 className="eventGroup-info-color">
+                                        {info.groupStatus}
+                                    </h4>
+                                </div>
+                                <h4 className="eventGroup-info-color">
+                                    {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
+                                </h4>
+                            </div> */}
+                            <div>
+                                <img
+                                    //group image
+                                    className='border-Radius15'
+                                    src={info.groupPreviewImage || imageData}
+                                    width='300px'
+                                    heigth='200px'
+                                />
+                                <div>
+                                    <h4 className='textWrap'>{info.event.Group?.name}</h4>
+                                    <h4>{info.event.Group?.private === true ? 'Private' : 'Public'}</h4>
+                                </div>
+                            </div>
+
+                            <div>
+                                <img
+                                    width='100px'
+                                    height='150px'
+                                    src={clockImage}
+                                />
+                            </div>
+
+
+                            {/* <div className={`${info.options} eventGroup-button`}>
+                                <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
+
+                                    <NavLink to={`/groups/${info.groupId}/events/new`}>
+                                        <button
+                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                        >
+                                            Create event
+                                        </button>
+                                    </NavLink>
+                                    <NavLink to={`/groups/${info.groupId}/edit`}>
+                                        <button
+                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                        >
+                                            Update
+                                        </button>
+                                    </NavLink>
+                                    <div>
+                                        <OpenModalDeleteGroupButton
+
+                                            buttonText="Delete"
+                                            modalComponent={<DeleteGroupModal groupId={info.groupId} />}
+                                        />
+                                    </div>
+                                </div>
+                            </div> */}
+                        </div>}
+
                 </div>
             </div>
 
