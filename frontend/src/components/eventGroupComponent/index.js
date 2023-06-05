@@ -147,6 +147,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     height='150px'
                                     src={clockImage}
                                 />
+                                <div></div>
                             </div>
 
 
