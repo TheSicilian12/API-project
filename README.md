@@ -23,15 +23,8 @@ After you have signed in you will be able to create groups (and then events), an
 This image shows the homepage of the application.
 
 
-
-
 this is the gif route:
 ![AdventureUp GIF](./adventureUpImage/chrome-capture-2023-5-7.gif)
-
-
-
-
-
 
 
 <!-- instructions on how to launch application locally -->
