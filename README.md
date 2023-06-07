@@ -20,11 +20,21 @@ After you have signed in you will be able to create groups (and then events), an
 
 
 <!-- Image for project -->
-This image shows the homepage of the application.
+## Homepage
+<img src="./shinano_screenshots/adventureUp_homepage.png" />
 
+## All Events Page
+<img src="./shinano_screenshots/adventureUp_eventPage.png" />
 
-this is the gif route:
-![AdventureUp GIF](./adventureUpImage/chrome-capture-2023-5-7.gif)
+## Group Page
+<img src="./shinano_screenshots/adventureUp_groupPage.png" />
+
+## All Groups Page
+<img src="./shinano_screenshots/adventureUp_groupPage.png" />
+
+## Individual Group Page
+<img src="./shinano_screenshots/adventureUp_ind_groupPage.png" />
+
 
 
 <!-- instructions on how to launch application locally -->
