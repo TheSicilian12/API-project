@@ -22,11 +22,11 @@ After you have signed in you will be able to create groups (and then events), an
 <!-- Image for project -->
 This image shows the homepage of the application.
 
-/AdventureUpShowCase.png
+
 
 
 this is the gif route:
-![AdventureUp GIF](/home/mguidera/AppAcademy/mod4/project/projectFile/authenticate-me/adventureUpImage/chrome-capture-2023-5-7.gif)
+![AdventureUp GIF](./adventureUpImage/chrome-capture-2023-5-7.gif)
 
 
 
