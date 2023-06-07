@@ -155,7 +155,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </div>
                             </div>
                             <div>
-
                                 <h4>
                                     END:
                                 </h4>
