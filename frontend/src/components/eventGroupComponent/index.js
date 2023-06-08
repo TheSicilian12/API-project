@@ -184,24 +184,24 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
                             </div>
 
-                            <div className={`${info.options} eventGroup-button`}>
+                            <div className={`eventGroup-button`}>
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
                                     <NavLink to={`/groups/${info.groupId}/events/new`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                            className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions`}
                                         >
                                             Create event
                                         </button>
                                     </NavLink>
                                     <NavLink to={`/groups/${info.groupId}/edit`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                            className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         >
                                             Update
                                         </button>
                                     </NavLink>
-                                    <div>
+                                    <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
 
                                             buttonText="Delete"

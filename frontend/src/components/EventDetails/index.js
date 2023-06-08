@@ -82,7 +82,8 @@ function EventDetails({ event, eventId, user }) {
     const info = {
         event,
         organizer,
-        groupPreviewImage: groupPreviewImage?.url
+        groupPreviewImage: groupPreviewImage?.url,
+        options
     }
 
     return (
