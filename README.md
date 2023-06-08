@@ -35,9 +35,30 @@ After you have signed in you will be able to create groups (and then events), an
 ## Individual Group Page
 <img src="./shinano_screenshots/adventureUp_ind_groupPage.png" />
 
-
-
+## Getting started
+AdventureUp
 <!-- instructions on how to launch application locally -->
 In the frontend and backend folders npm install.
 
 npm start both the frontend and backend folders.
+
+
+# Features
+## Groups
+    - Authorized user can create a group
+    - Any user can view all of the groups
+    - Authorized user can edit a group
+    - AUthoirzed user can delete a group
+
+## Events
+    - Authorized user can create an event
+    - Any user can view all events
+    
+
+
+
+## Contributors
+
+Contributors:
+
+Michael Guidera https://github.com/TheSicilian12

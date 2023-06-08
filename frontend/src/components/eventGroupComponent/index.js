@@ -141,29 +141,32 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </div>
                             </div>
 
-                            <div>
+
+                            <div className="displayFlex">
                                 <img
                                     width='100px'
                                     height='150px'
                                     src={clockImage}
                                 />
                                 <div>
+                                <div className="displayFlex">
+                                    <h4>START:</h4>
                                     {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
                                     <h4 className='dotSpacing'>•</h4>
                                     {/* military time */}
                                     {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
                                 </div>
+                                <div className="displayFlex">
+                                    <h4>END:</h4>
+                                    {/* date */}
+                                    {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                    <h4 className='dotSpacing'>•</h4>
+                                    {/* military time */}
+                                    {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
+                                </div>
+                                </div>
                             </div>
-                            <div>
-                                <h4>
-                                    END:
-                                </h4>
-                                {/* date */}
-                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
-                                <h4 className='dotSpacing'>•</h4>
-                                {/* military time */}
-                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
-                            </div>
+
                             <div className='displayFlex alignCenter'>
                                 <div className='moneyDimensions displayFlex justifyCenter'>
                                     <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
