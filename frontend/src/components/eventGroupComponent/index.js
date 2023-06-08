@@ -167,24 +167,24 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className='displayFlex alignCenter'>
-                                <div className='moneyDimensions displayFlex justifyCenter'>
-                                    <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                            <div className="eventGroup-cost-location">
+                                <div className='displayFlex alignCenter'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className='eventGroup-margin eventGroup-bold'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
                                 </div>
-                                <h4 className='timeEventSpacing eventGroup-bold'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
+
+                                <div className='displayFlex alignCenter eventGroup-bold eventGroup-margin'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className="eventGroup-margin">{info.event?.type}</h4>
+                                </div>
                             </div>
 
-                            <div className='displayFlex alignCenter eventGroup-bold'>
-                                <div className='moneyDimensions displayFlex justifyCenter'>
-                                    {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
-                                    <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
-                                </div>
-                                <h4>{info.event?.type}</h4>
-
-                            </div>
-
-                            <div className={`eventGroup-button`}>
+                            <div className="eventGroup-edit-buttons">
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
                                     <NavLink to={`/groups/${info.groupId}/events/new`}>
@@ -210,6 +210,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>}
 

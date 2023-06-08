@@ -62,5 +62,19 @@
 .eventGroup-bold {
     font-weight: bolder;
     font-size: large;
-    /* color: red; */
+}
+
+.eventGroup-cost-location {
+    display: flex;
+    justify-content: center;
+}
+
+.eventGroup-margin {
+    margin-left: 10px;
+}
+
+.eventGroup-edit-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
 }
