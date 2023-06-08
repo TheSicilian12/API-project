@@ -127,7 +127,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
                                 </h4>
                             </div> */}
-                            <div>
+                            <div className="displayFlex">
                                 <img
                                     //group image
                                     className='border-Radius15'
@@ -135,7 +135,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     width='300px'
                                     heigth='200px'
                                 />
-                                <div>
+                                <div className="eventGroup-eventGroup-info">
                                     <h4 className='textWrap'>{info.event.Group?.name}</h4>
                                     <h4>{info.event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
@@ -144,26 +144,26 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
                             <div className="displayFlex">
                                 <img
-                                    width='100px'
-                                    height='150px'
+                                    width='80px'
+                                    height='120px'
                                     src={clockImage}
                                 />
-                                <div>
-                                <div className="displayFlex">
-                                    <h4>START:</h4>
-                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
-                                    <h4 className='dotSpacing'>•</h4>
-                                    {/* military time */}
-                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
-                                </div>
-                                <div className="displayFlex">
-                                    <h4>END:</h4>
-                                    {/* date */}
-                                    {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
-                                    <h4 className='dotSpacing'>•</h4>
-                                    {/* military time */}
-                                    {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
-                                </div>
+                                <div className="eventGroup-time-info">
+                                    <div className="displayFlex">
+                                        <h4>START:</h4>
+                                        {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                        <h4 className='dotSpacing'>•</h4>
+                                        {/* military time */}
+                                        {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                    </div>
+                                    <div className="displayFlex">
+                                        <h4>END:</h4>
+                                        {/* date */}
+                                        {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                        <h4 className='dotSpacing'>•</h4>
+                                        {/* military time */}
+                                        {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
+                                    </div>
                                 </div>
                             </div>
 
