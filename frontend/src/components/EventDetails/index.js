@@ -87,6 +87,14 @@ function EventDetails({ event, eventId, user }) {
 
     return (
         <>
+            <div className='arrowCenterWidth'>
+                <img
+                    className='pointerCursor displayFlex'
+                    onClick={() => history.push('/events')}
+                    src={pinkArrowLeft}
+                />
+                <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
+            </div>
             <EventGroupComponent type={type} previewImage={previewImage} info={info} />
             <div className='displayFlex flex-directionColumn widthContent eventDetailFontSize UfontTreb'>
                 <div className=''>

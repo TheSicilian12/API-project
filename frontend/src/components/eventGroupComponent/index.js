@@ -184,7 +184,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
                             </div>
 
-                            {/* <div className={`${info.options} eventGroup-button`}>
+                            <div className={`${info.options} eventGroup-button`}>
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
                                     <NavLink to={`/groups/${info.groupId}/events/new`}>
@@ -209,7 +209,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         />
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>}
 
