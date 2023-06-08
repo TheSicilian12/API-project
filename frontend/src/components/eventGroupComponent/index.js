@@ -40,9 +40,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                         src={previewImage || imageData}
                     />}
                 </div>
-                <div className="eventGroup-info">
-                    {/* group */}
-                    {type === "group" &&
+                {/* group */}
+                {type === "group" &&
+                    <div className="eventGroup-info">
                         <div className="eventGroup-group eventGroup-info-button">
                             <div>
                                 <h1 className='GroupDetails_Details_GroupName textWrap'>
@@ -102,10 +102,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>}
+                        </div>
+                    </div>
+                }
 
-                    {/* event */}
-                    {type === "event" &&
+                {/* event */}
+                {type === "event" &&
+                    <div className="eventGroup-info eventGroup-info-event-width">
                         <div className="eventGroup-group eventGroup-info-button">
                             {/* <div>
                                 <h1 className='GroupDetails_Details_GroupName textWrap'>
@@ -148,18 +151,16 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     height='120px'
                                     src={clockImage}
                                 />
-                                <div className="eventGroup-time-info">
+                                <div className="eventGroup-time-info eventGroup-bold">
                                     <div className="displayFlex">
-                                        <h4>START:</h4>
-                                        {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                        {<h4>START: {new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
                                         <h4 className='dotSpacing'>•</h4>
                                         {/* military time */}
                                         {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
                                     </div>
                                     <div className="displayFlex">
-                                        <h4>END:</h4>
                                         {/* date */}
-                                        {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                        {<h4>END: {new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
                                         <h4 className='dotSpacing'>•</h4>
                                         {/* military time */}
                                         {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
@@ -171,10 +172,10 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 <div className='moneyDimensions displayFlex justifyCenter'>
                                     <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
                                 </div>
-                                <h4 className='timeEventSpacing'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
+                                <h4 className='timeEventSpacing eventGroup-bold'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
                             </div>
 
-                            <div className='displayFlex alignCenter'>
+                            <div className='displayFlex alignCenter eventGroup-bold'>
                                 <div className='moneyDimensions displayFlex justifyCenter'>
                                     {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
                                     <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
@@ -209,9 +210,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                 </div>
                             </div> */}
-                        </div>}
+                        </div>
+                    </div>}
 
-                </div>
             </div>
 
             {type === "group" && <div className='eventGroup-overall-info'>

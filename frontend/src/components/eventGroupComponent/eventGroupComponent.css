@@ -20,6 +20,10 @@
     height: 500px;
 }
 
+.eventGroup-info-event-width {
+    width: 500px;
+}
+
 .eventGroup-group {
     margin-left: 10px;
     height: 100%;
@@ -53,4 +57,10 @@
 
 .eventGroup-eventGroup-info {
     margin-left: 10px;
+}
+
+.eventGroup-bold {
+    font-weight: bolder;
+    font-size: large;
+    /* color: red; */
 }
