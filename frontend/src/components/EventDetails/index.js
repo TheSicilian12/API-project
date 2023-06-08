@@ -88,8 +88,8 @@ function EventDetails({ event, eventId, user }) {
 
     return (
         <>
-            <div className="">
-                <div className='arrowCenterWidth'>
+            <div className='event-container'>
+                <div className="event-arrowContainer">
                     <img
                         className='pointerCursor displayFlex'
                         onClick={() => history.push('/events')}
@@ -99,14 +99,11 @@ function EventDetails({ event, eventId, user }) {
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
 
-                <div className='descriptionTextSize'>
-                    <div className='displayFlex'>
-                        <div className='arrowCenterWidth'>
-                            <h2>Description</h2>
-                            <p>{event?.description}</p>
-                        </div>
-                    </div>
+                <div className="event-descriptionContainer descriptionTextSize">
+                <h2>Description</h2>
+                <p>{event?.description}</p>
                 </div>
+
             </div>
         </>
     )
