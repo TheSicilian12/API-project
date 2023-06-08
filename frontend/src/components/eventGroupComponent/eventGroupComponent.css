@@ -20,6 +20,10 @@
     height: 500px;
 }
 
+.eventGroup-info-event-width {
+    width: 500px;
+}
+
 .eventGroup-group {
     margin-left: 10px;
     height: 100%;
@@ -45,4 +49,32 @@
 .eventGroup-overall-info {
     width: 1160px;
     margin-top: 10px;
+}
+
+.eventGroup-time-info {
+    margin-left: 10px;
+}
+
+.eventGroup-eventGroup-info {
+    margin-left: 10px;
+}
+
+.eventGroup-bold {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.eventGroup-cost-location {
+    display: flex;
+    justify-content: center;
+}
+
+.eventGroup-margin {
+    margin-left: 10px;
+}
+
+.eventGroup-edit-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
 }

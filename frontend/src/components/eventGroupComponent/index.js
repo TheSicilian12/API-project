@@ -40,9 +40,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                         src={previewImage || imageData}
                     />}
                 </div>
-                <div className="eventGroup-info">
-                    {/* group */}
-                    {type === "group" &&
+                {/* group */}
+                {type === "group" &&
+                    <div className="eventGroup-info">
                         <div className="eventGroup-group eventGroup-info-button">
                             <div>
                                 <h1 className='GroupDetails_Details_GroupName textWrap'>
@@ -102,10 +102,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>}
+                        </div>
+                    </div>
+                }
 
-                    {/* event */}
-                    {type === "event" &&
+                {/* event */}
+                {type === "event" &&
+                    <div className="eventGroup-info eventGroup-info-event-width">
                         <div className="eventGroup-group eventGroup-info-button">
                             {/* <div>
                                 <h1 className='GroupDetails_Details_GroupName textWrap'>
@@ -127,7 +130,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     {`Organized by ${info.group.singleGroup.Organizer.firstName} ${info.group.singleGroup.Organizer.lastName}`}
                                 </h4>
                             </div> */}
-                            <div>
+                            <div className="displayFlex">
                                 <img
                                     //group image
                                     className='border-Radius15'
@@ -135,69 +138,70 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     width='300px'
                                     heigth='200px'
                                 />
-                                <div>
+                                <div className="eventGroup-eventGroup-info">
                                     <h4 className='textWrap'>{info.event.Group?.name}</h4>
                                     <h4>{info.event.Group?.private === true ? 'Private' : 'Public'}</h4>
                                 </div>
                             </div>
 
-                            <div>
+
+                            <div className="displayFlex">
                                 <img
-                                    width='100px'
-                                    height='150px'
+                                    width='80px'
+                                    height='120px'
                                     src={clockImage}
                                 />
-                                <div>
-                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
-                                    <h4 className='dotSpacing'>•</h4>
-                                    {/* military time */}
-                                    {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                <div className="eventGroup-time-info eventGroup-bold">
+                                    <div className="displayFlex">
+                                        {<h4>START: {new Date(info.event?.startDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.startDate).toUTCString().split(' ')[2]} {new Date(info.event?.startDate).toUTCString().split(' ')[1]}, {new Date(info.event?.startDate).toUTCString().split(' ')[3]}</h4>}
+                                        <h4 className='dotSpacing'>•</h4>
+                                        {/* military time */}
+                                        {<h4>{new Date(info.event?.startDate).toUTCString().split(' ')[4]}</h4>}
+                                    </div>
+                                    <div className="displayFlex">
+                                        {/* date */}
+                                        {<h4>END: {new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
+                                        <h4 className='dotSpacing'>•</h4>
+                                        {/* military time */}
+                                        {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <h4>
-                                    END:
-                                </h4>
-                                {/* date */}
-                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(info.event?.endDate).toUTCString().split(' ')[2]} {new Date(info.event?.endDate).toUTCString().split(' ')[1]}, {new Date(info.event?.endDate).toUTCString().split(' ')[3]}</h4>}
-                                <h4 className='dotSpacing'>•</h4>
-                                {/* military time */}
-                                {<h4>{new Date(info.event?.endDate).toUTCString().split(' ')[4]}</h4>}
-                            </div>
-                            <div className='displayFlex alignCenter'>
-                                <div className='moneyDimensions displayFlex justifyCenter'>
-                                    <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                            <div className="eventGroup-cost-location">
+                                <div className='displayFlex alignCenter'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        <i className="fa-solid fa-dollar-sign fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className='eventGroup-margin eventGroup-bold'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
                                 </div>
-                                <h4 className='timeEventSpacing'>{info.event?.price > 0 ? `$${info.event?.price}` : 'FREE'}</h4>
-                            </div>
 
-                            <div className='displayFlex alignCenter'>
-                                <div className='moneyDimensions displayFlex justifyCenter'>
-                                    {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
-                                    <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                <div className='displayFlex alignCenter eventGroup-bold eventGroup-margin'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className="eventGroup-margin">{info.event?.type}</h4>
                                 </div>
-                                <h4>{info.event?.type}</h4>
-
                             </div>
 
-                            {/* <div className={`${info.options} eventGroup-button`}>
+                            <div className="eventGroup-edit-buttons">
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
                                     <NavLink to={`/groups/${info.groupId}/events/new`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                            className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions`}
                                         >
                                             Create event
                                         </button>
                                     </NavLink>
                                     <NavLink to={`/groups/${info.groupId}/edit`}>
                                         <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                            className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         >
                                             Update
                                         </button>
                                     </NavLink>
-                                    <div>
+                                    <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
 
                                             buttonText="Delete"
@@ -205,10 +209,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         />
                                     </div>
                                 </div>
-                            </div> */}
-                        </div>}
+                            </div>
 
-                </div>
+
+
+                        </div>
+                    </div>}
+
             </div>
 
             {type === "group" && <div className='eventGroup-overall-info'>

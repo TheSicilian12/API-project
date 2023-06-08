@@ -20,14 +20,45 @@ After you have signed in you will be able to create groups (and then events), an
 
 
 <!-- Image for project -->
-This image shows the homepage of the application.
+## Homepage
+<img src="./shinano_screenshots/adventureUp_homepage.png" />
 
+## All Events Page
+<img src="./shinano_screenshots/adventureUp_eventPage.png" />
 
-this is the gif route:
-![AdventureUp GIF](./adventureUpImage/chrome-capture-2023-5-7.gif)
+## Group Page
+<img src="./shinano_screenshots/adventureUp_groupPage.png" />
 
+## All Groups Page
+<img src="./shinano_screenshots/adventureUp_groupPage.png" />
 
+## Individual Group Page
+<img src="./shinano_screenshots/adventureUp_ind_groupPage.png" />
+
+## Getting started
+AdventureUp
 <!-- instructions on how to launch application locally -->
 In the frontend and backend folders npm install.
 
 npm start both the frontend and backend folders.
+
+
+# Features
+## Groups
+    - Authorized user can create a group
+    - Any user can view all of the groups
+    - Authorized user can edit a group
+    - AUthoirzed user can delete a group
+
+## Events
+    - Authorized user can create an event
+    - Any user can view all events
+    
+
+
+
+## Contributors
+
+Contributors:
+
+Michael Guidera https://github.com/TheSicilian12
