@@ -350,12 +350,22 @@ const initialState = {
 
 // THUNK - request membership to a group
 // This is skipping the approval stage to demonstate joining a group.
-export const requestMembershipThunk = (payload) => async (dispatch) => {
+export const membershipIdThunk = (payload) => async (dispatch) => {
     // Need group Id in api route
     // Send userId to api
 
     // console.log("thunk: ", payload)
     const { groupId, user } = payload
+    const userId = user.id
+
+    const response = await fetch(`/api/groups/${userId}/${groupId}/membership`)
+    if (response.ok) {
+        const membership = await response.json()
+        console.log("membership: ", membership)
+        return membership
+    } else {
+        return "Not a member"
+    }
 
     // const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
     //     method: 'POST',
@@ -385,22 +395,24 @@ export const requestMembershipThunk = (payload) => async (dispatch) => {
 
     // }
 
-    const payloadChange = {
-        status: "member",
-        user: user
-    }
+    // const payloadChange = {
+    //     status: "member",
+    //     user: user
+    // }
 
-    const responseChange = await csrfFetch(`/api/groups/${groupId}/membership`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payloadChange)
-    })
-    if (responseChange.ok) {
-        const membershipChange = await responseChange.json();
-        console.log("membershipChange: ", membershipChange)
-    }
+    // const responseChange = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(payloadChange)
+    // })
+    // if (responseChange.ok) {
+    //     const membershipChange = await responseChange.json();
+    //     console.log("membershipChange: ", membershipChange)
+    // }
+
+
 
 }
 

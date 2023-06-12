@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 
-import { requestMembershipThunk } from '../../store/groupsThunk';
+import { membershipIdThunk, requestMembershipThunk } from '../../store/groupsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
 import clockImage from '../assets/Images/ATWP.webp'
@@ -27,14 +27,26 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
     // console.log("group: ", group)
 
-    const joinGroup = () => {
-        // console.log("groupId: ", info.groupId)
-        // console.log("userId: ", user.id)
+    async function joinGroup() {
         const payload = {
             groupId: info.groupId,
             user: user
         }
-        let request = dispatch(requestMembershipThunk(payload))
+        // let request = dispatch(requestMembershipThunk(payload))
+        let membership = await dispatch(membershipIdThunk(payload))
+
+        if (typeof membership.status === "pending") {
+            // already a member
+            
+
+
+        } else {
+            // not a member
+
+
+
+        }
+
     }
 
     return (

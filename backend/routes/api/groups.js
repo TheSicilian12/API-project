@@ -1056,6 +1056,42 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     return res.json(newEventJSON)
 })
 
+// RETRIEVE MEMBERSHIP FOR A USER FOR A GROUP
+router.get('/:userId/:groupId/membership', async (req, res) => {
+    console.log("-------------------------------------")
+    let err = {}
+    const {userId, groupId} = req.params
+    console.log(userId)
+    // let {userId} = req.query
+
+    if (typeof userId !== "number" || typeof groupId !== "number") {
+        const err = new Error("userId or groupId is invalid");
+        err.status = 404
+        err.message = "userId or groupId is invalid"
+        // return next(err);
+    }
+
+    let membership = await Membership.findOne({
+        where: {
+            userId: userId,
+            groupId: groupId
+        }
+    })
+    if (!membership) {
+        const err = new Error("Couldn't find a Membership with the specified id");
+        err.status = 404
+        err.message = "Membership couldn't be found"
+        return res.status(404).json(err);
+    }
+
+    // let membershipJSON = membership.map(e => e.toJSON())
+    let membershipJSON = membership.toJSON()
+    console.log(membershipJSON)
+    // return res.json(membershipJSON)
+    return res.status(200).json(membershipJSON)
+})
+
+
 //CHANGE THE STATUS OF A MEMBERSHIP FOR A GROUP SPECIFIED BY ID
 router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //to change from pending to member
