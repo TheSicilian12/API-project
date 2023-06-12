@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 
-import { membershipIdThunk, requestMembershipThunk } from '../../store/groupsThunk';
+import { membershipIdThunk } from '../../store/groupsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
 import clockImage from '../assets/Images/ATWP.webp'
@@ -17,7 +17,22 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
 
+    const payload = {
+        groupId: info.groupId,
+        user: user
+    }
+    // let membership = dispatch(membershipIdThunk(payload))
+
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+
+    // useEffect(() => {
+    //     const payload = {
+    //         groupId: info.groupId,
+    //         user: user
+    //     }
+    //     dispatch(membershipIdThunk(payload));
+    // }, [])
+
 
 
     // if (!group.singleGroup) {
@@ -26,28 +41,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
 
     // console.log("group: ", group)
-
-    async function joinGroup() {
-        const payload = {
-            groupId: info.groupId,
-            user: user
-        }
-        // let request = dispatch(requestMembershipThunk(payload))
-        let membership = await dispatch(membershipIdThunk(payload))
-
-        if (typeof membership.status === "pending") {
-            // already a member
-            
-
-
-        } else {
-            // not a member
-
-
-
-        }
-
-    }
 
     return (
         <div className="eventGroup-container">
@@ -94,14 +87,18 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </div>
 
                             <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
+                                {/* {membership.status === "member" ||
+                                membership.status === "co-host" ||
+                                membership.status === "host" && */}
                                 <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => joinGroup()}
+                                    onClick={() => alert("Feature coming soon")}
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Join this group
                                     {/* alert for no implementation */}
                                 </button>
+                                // }
                             </div>
 
                             <div className={`${info.options} eventGroup-button`}>
