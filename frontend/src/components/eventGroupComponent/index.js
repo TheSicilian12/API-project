@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+
+import { requestMembershipThunk } from '../../store/groupsThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
 import clockImage from '../assets/Images/ATWP.webp'
@@ -10,6 +14,8 @@ import '../UniversalCSS.css'
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.session.user);
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
@@ -20,6 +26,16 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
 
     // console.log("group: ", group)
+
+    const joinGroup = () => {
+        // console.log("groupId: ", info.groupId)
+        // console.log("userId: ", user.id)
+        const payload = {
+            groupId: info.groupId,
+            user: user
+        }
+        let request = dispatch(requestMembershipThunk(payload))
+    }
 
     return (
         <div className="eventGroup-container">
@@ -68,7 +84,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
                                 <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => alert('Feature coming soon')}
+                                    onClick={() => joinGroup()}
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Join this group

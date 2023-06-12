@@ -348,6 +348,52 @@ const initialState = {
     }
 }
 
+// THUNK - request membership to a group
+// This is skipping the approval stage to demonstate joining a group.
+export const requestMembershipThunk = (payload) => async (dispatch) => {
+    // Need group Id in api route
+    // Send userId to api
+
+    // console.log("thunk: ", payload)
+    const {groupId, user} = payload
+
+    // const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(user)
+    // })
+    // if (response.ok) {
+    //     const newMembership = await response.json();
+    //     console.log('membership: ', newMembership)
+
+    //     const responseChange = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(newMembership)
+    //     })
+    //     if (responseChange.ok) {
+    //         const membershipChange = await responseChange.json();
+    //         console.log("membershipChange: ", membershipChange)
+    //     }
+
+
+    //     return newMembership;
+
+// }
+
+const payloadChange = {
+    status: "member",
+    user: user
+}
+
+console.log("user: ", user)
+
+}
+
 //reducer - group reducer
 const groupReducer = (state = initialState, action) => {
     switch (action.type) {

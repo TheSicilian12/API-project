@@ -1110,6 +1110,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //does membership exist to any group
     //if not then user can be said to have not been found
     //this also means a membership does not exist if it fails
+    
     let memberTest = await Membership.findByPk(memberId)
     if (!memberTest) {
         const err = new Error(`Couldn't find a User with the specified memberId`);
