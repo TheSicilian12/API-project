@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 
-import { membershipsThunk } from '../../store/membershipThunk';
+import { automaticMembershipThunk, membershipsThunk } from '../../store/membershipThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
 import clockImage from '../assets/Images/ATWP.webp'
@@ -21,7 +21,8 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
     const payload = {
         groupId: info.groupId,
-        user: user
+        user: user,
+        membership: membership
     }
     // let membership = dispatch(membershipIdThunk(payload))
 
@@ -35,7 +36,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         dispatch(membershipsThunk(payload));
     }, [])
 
-
+    async function joinGroup() {
+        const payload = {
+            groupId: info.groupId,
+            user: user
+        }
+        const autoMember = await dispatch(automaticMembershipThunk(payload))
+    }
 
     // if (!group.singleGroup) {
     //     return <div>loading</div>
@@ -93,7 +100,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 {membership && membership?.status === "pending" &&
                                     <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => alert("Feature coming soon")}
+                                    onClick={() => joinGroup()}
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Join this group

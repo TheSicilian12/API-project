@@ -1,14 +1,19 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = '/membership';
+const AUTO_MEMBER = '/auto/membership'
 
 const load = (payload) => ({
     type: LOAD,
     payload
 });
 
+const load_auto = (payload) => ({
+    type: AUTO_MEMBER,
+    payload
+})
+
 // THUNK - request membership to a group
-// This is skipping the approval stage to demonstate joining a group.
 export const membershipsThunk = (payload) => async (dispatch) => {
     // Need group Id in api route
     // Send userId to api
@@ -25,6 +30,22 @@ export const membershipsThunk = (payload) => async (dispatch) => {
     }
     else {
         dispatch(load({status: "Not a member"}))
+    }
+}
+
+// THUNK - automatic membership
+export const automaticMembershipThunk = (payload) => async (dispatch) => {
+    const {groupId} = payload
+
+    const response = await fetch(`/api/groups/${groupId}/membership`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        let autoMember = await response.json()
     }
 }
 

@@ -70,7 +70,7 @@ router.get('/', async (req, res) => {
         include: [
             { model: Membership },
             { model: GroupImage },
-            { model: Event}
+            { model: Event }
         ]
     })
 
@@ -1060,7 +1060,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
 router.get('/:userId/:groupId/membership', async (req, res) => {
     console.log("-------------------------------------")
     let err = {}
-    const {userId, groupId} = req.params
+    const { userId, groupId } = req.params
     console.log(userId)
     // let {userId} = req.query
 
@@ -1225,8 +1225,8 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //does membership exist
     // let membershipTest = await Membership.findOne({
-        //     where: { userId: memberId },
-        //     include: [{
+    //     where: { userId: memberId },
+    //     include: [{
     //         model: Group,
     //         where: { id: req.params.groupId }
     //     }]
@@ -1251,7 +1251,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     // if current user is not part of the group an erorr will appear.
     // current membership
     // let currentUserMembership = await Membership.findOne({
-        //     where: { userId: user.id },
+    //     where: { userId: user.id },
     //     include: [{
     //         model: Group,
     //         where: { id: req.params.groupId }
@@ -1555,5 +1555,65 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     return res.status(200).json(membershipRequestJSON)
 })
+
+// Immediately become a member of a group, because of demo
+// Based on group Id
+router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const { membership } = req.body
+
+    if (!user) {
+        const err = new Error(`You need to log in`);
+        err.status = 400
+        err.message = "You need to log in"
+        return next(err);
+    }
+
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`);
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+
+
+    // No status
+    // Join and gain membership status
+    // Dependent on frontend, not good.
+    if (membership.status === "Not a member") {
+        let membershipRequest = await Membership.create({
+            userId: user.id,
+            groupId: req.params.groupId
+        })
+    }
+
+    // Pending status
+    // gain membership status
+    let member = await Membership.findByPk(membership.id, {
+        include: [
+            {
+                model: Group,
+                attributes: ['id'],
+                where: { id: req.params.groupId }
+            }
+        ]
+    })
+
+    member.status = "member"
+    member.save()
+
+
+
+
+    // Already a member
+    // Already a member shouldn't have access to this button
+
+    return member.toJSON()
+})
+
+
+
 
 module.exports = router;
