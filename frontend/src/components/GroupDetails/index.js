@@ -102,8 +102,8 @@ function GroupDetails({ group, user, events, groupId }) {
         options,
         groupId
     }
-    
-    console.log("info: ", info)
+
+    // console.log("info: ", info)
 
     const type = "group"
 

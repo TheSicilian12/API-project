@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 
-import { membershipIdThunk } from '../../store/groupsThunk';
+import { membershipsThunk } from '../../store/membershipThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
 import DeleteGroupModal from '../DeleteGroupModal';
 import clockImage from '../assets/Images/ATWP.webp'
@@ -25,13 +25,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    // useEffect(() => {
-    //     const payload = {
-    //         groupId: info.groupId,
-    //         user: user
-    //     }
-    //     dispatch(membershipIdThunk(payload));
-    // }, [])
+    useEffect(() => {
+        const payload = {
+            groupId: info.groupId,
+            user: user
+        }
+        dispatch(membershipsThunk(payload));
+    }, [])
 
 
 
@@ -87,9 +87,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </div>
 
                             <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
-                                {/* {membership.status === "member" ||
-                                membership.status === "co-host" ||
-                                membership.status === "host" && */}
                                 <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
                                     onClick={() => alert("Feature coming soon")}
@@ -98,7 +95,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     Join this group
                                     {/* alert for no implementation */}
                                 </button>
-                                // }
                             </div>
 
                             <div className={`${info.options} eventGroup-button`}>
