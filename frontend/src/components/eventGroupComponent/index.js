@@ -102,7 +102,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 {membership && membership?.status !== "pending" &&
                                     <button
                                     className='UgoldButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => alert("Feature coming soon")}
+                                    onClick={() => alert("You're a member!")}
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Member
