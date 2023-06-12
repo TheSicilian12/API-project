@@ -355,7 +355,7 @@ export const requestMembershipThunk = (payload) => async (dispatch) => {
     // Send userId to api
 
     // console.log("thunk: ", payload)
-    const {groupId, user} = payload
+    const { groupId, user } = payload
 
     // const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
     //     method: 'POST',
@@ -383,14 +383,24 @@ export const requestMembershipThunk = (payload) => async (dispatch) => {
 
     //     return newMembership;
 
-// }
+    // }
 
-const payloadChange = {
-    status: "member",
-    user: user
-}
+    const payloadChange = {
+        status: "member",
+        user: user
+    }
 
-console.log("user: ", user)
+    const responseChange = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payloadChange)
+    })
+    if (responseChange.ok) {
+        const membershipChange = await responseChange.json();
+        console.log("membershipChange: ", membershipChange)
+    }
 
 }
 
