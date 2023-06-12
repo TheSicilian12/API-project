@@ -16,6 +16,8 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
+    const membership = useSelector(state => state.memberships.membership);
+    console.log("membership: ", membership?.status)
 
     const payload = {
         groupId: info.groupId,
@@ -87,14 +89,25 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </div>
 
                             <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
-                                <button
+
+                                {membership && membership?.status === "pending" &&
+                                    <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
                                     onClick={() => alert("Feature coming soon")}
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Join this group
                                     {/* alert for no implementation */}
-                                </button>
+                                </button>}
+                                {membership && membership?.status !== "pending" &&
+                                    <button
+                                    className='UgoldButton UbuttonDimensions border-Radius15 UfontTreb'
+                                    onClick={() => alert("Feature coming soon")}
+                                    disabled={`${info.joinGroup}` === 'true' ? true : false}
+                                >
+                                    Member
+                                    {/* alert for no implementation */}
+                                </button>}
                             </div>
 
                             <div className={`${info.options} eventGroup-button`}>

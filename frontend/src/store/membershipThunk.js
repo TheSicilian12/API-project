@@ -16,7 +16,7 @@ export const membershipsThunk = (payload) => async (dispatch) => {
     // console.log("thunk: ", payload)
     const { groupId, user } = payload
     const userId = user.id
-    console.log("thunk!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    // console.log("thunk!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     const response = await fetch(`/api/groups/${userId}/${groupId}/membership`)
     if (response.ok) {
         const membership = await response.json()
@@ -35,8 +35,8 @@ const membershipReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const newState = {}
-            console.log("action: ", action.payload)
-            console.log("membership reducer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            // console.log("action: ", action.payload)
+            // console.log("membership reducer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             newState.membership = { ...action.payload }
             return newState
 
