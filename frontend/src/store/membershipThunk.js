@@ -24,7 +24,7 @@ export const membershipsThunk = (payload) => async (dispatch) => {
         dispatch(load(membership))
     }
     else {
-        dispatch(load("Not a member"))
+        dispatch(load({status: "Not a member"}))
     }
 }
 
