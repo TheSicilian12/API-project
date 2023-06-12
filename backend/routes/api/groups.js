@@ -1072,17 +1072,14 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //test
     //error membership does not exist
 
-    const { user, status } = req.body
-
-    console.log("req ------------------------------------- ", req.body)
-    // const { memberId, status } = req.body
-    // if (!memberId) {
-    //     const err = new Error("memberId must be included.");
-    //     err.status = 404
-    //     err.message = "memberId must be included."
-    //     return next(err);
-    // }
-    console.log("status: ", status)
+    const { user } = req
+    const { memberId, status } = req.body
+    if (!memberId) {
+        const err = new Error("memberId must be included.");
+        err.status = 404
+        err.message = "memberId must be included."
+        return next(err);
+    }
     if (!status) {
         const err = new Error("status must be included.");
         err.status = 404
@@ -1113,13 +1110,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     //does membership exist to any group
     //if not then user can be said to have not been found
     //this also means a membership does not exist if it fails
-
-    // let memberTest = await Membership.findByPk(memberId)
-    let memberTest = await Membership.findOne({
-        where: {
-            userId: user.id
-        }
-    })
+    let memberTest = await Membership.findByPk(memberId)
     if (!memberTest) {
         const err = new Error(`Couldn't find a User with the specified memberId`);
         err.status = 400
@@ -1161,8 +1152,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
             {
                 model: Membership,
                 where: {
-                    // id: memberId
-                    userId: user.id
+                    id: memberId
                 }
             }
         ]
