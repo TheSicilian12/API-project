@@ -54,7 +54,7 @@ export const automaticMembershipThunk = (payload) => async (dispatch) => {
     if (response.ok) {
         console.log("auto ok")
         let autoMember = await response.json()
-
+        
     }
 }
 
