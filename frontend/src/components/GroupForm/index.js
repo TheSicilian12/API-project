@@ -37,7 +37,7 @@ function GroupForm({ currentGroup, formType }) {
     // console.log('currentGroup: ', currentGroup)
 
 
-    if (formType === 'edit' && (!user || (user.id !== currentGroup.organizerId && membership?.status !== "host"))) {
+    if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
         // console.log("member: ", membership)
         history.push('/')
     }
