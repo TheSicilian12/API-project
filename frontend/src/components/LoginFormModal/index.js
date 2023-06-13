@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import "../Navigation/Navigation.css"
 import "../UniversalCSS.css";
 import unacceptable from "../assets/Images/sticker_2130.png"
 
-
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [credential, setCredential] = useState("");
   const [displayCredErr, setDisplayCredErr] = useState(false)
   const [password, setPassword] = useState("");
@@ -25,12 +27,15 @@ function LoginFormModal() {
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
+      .then(history.push("/"))
       .catch(
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
+
       );
+
   };
 
   // console.log('submitted: ', submitted)
@@ -89,7 +94,7 @@ function LoginFormModal() {
                     Password
                   </label>
                   <input
-                    
+
                     type="password"
                     value={password}
                     onChange={(e) => {

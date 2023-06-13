@@ -70,7 +70,7 @@ router.get('/', async (req, res) => {
         include: [
             { model: Membership },
             { model: GroupImage },
-            { model: Event}
+            { model: Event }
         ]
     })
 
@@ -1132,19 +1132,6 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     let groupJSON = groupTest.toJSON()
     let organizerId = groupJSON.organizerId
 
-
-    // //does user exist
-    // let userTest = await User.findByPk(memberId)
-    // if (!userTest) {
-    //     const err = new Error(`Couldn't find a User with the specified memberId`);
-    //     err.status = 400
-    //     err.message = "Validation Error"
-    //     err.errors = {
-    //         memberId: "User couldn't be found"
-    //     }
-    //     return next(err);
-    // }
-
     //does a membership exist between the member and the group
     //null if membership fails
     let groupMembershipTest = await Group.findByPk(req.params.groupId, {
@@ -1164,7 +1151,6 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = "Membership between the user and the group does not exits"
         return next(err);
     }
-
 
     //find status for current user
     let currentUsergroupMember = await Group.findByPk(req.params.groupId, {
@@ -1186,15 +1172,6 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
         currentStatus = currentUsergroupMemberJSON.Memberships[0].status
     }
 
-
-    //does membership exist
-    // let membershipTest = await Membership.findOne({
-        //     where: { userId: memberId },
-        //     include: [{
-    //         model: Group,
-    //         where: { id: req.params.groupId }
-    //     }]
-    // })
     let membershipTest = await Membership.findByPk(memberId, {
         include: [{
             model: Group,
@@ -1211,25 +1188,6 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     }
     let membershipTestJSON = membershipTest.toJSON()
     let statusMemberToChange = membershipTestJSON.status
-
-    // if current user is not part of the group an erorr will appear.
-    // current membership
-    // let currentUserMembership = await Membership.findOne({
-        //     where: { userId: user.id },
-    //     include: [{
-    //         model: Group,
-    //         where: { id: req.params.groupId }
-    //     }]
-    // })
-    // if (!currentUserMembership) {
-    //     const err = new Error(`Require proper authorization`);
-    //     err.status = 403
-    //     err.message = `Forbidden`
-    //     return next(err);
-    // }
-
-    // let currentUserMembershipJSON = currentUserMembership.toJSON()
-
 
     if (organizerId !== user.id && currentStatus !== 'host' && currentStatus !== 'co-host') {
         const err = new Error(`Require proper authorization`);
@@ -1309,19 +1267,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    //this is invalid code
-    //check if user to delete exists
-    // let userTest = await User.findByPk(memberToDeleteId)
-    // if (!userTest) {
-    //     const err = new Error(`Couldn't find a User with the specified memberId`)
-    //     err.status = 400
-    //     err.message = "Validation Error"
-    //     err.errors = {
-    //         memberId: "User couldn't be found"
-    //     }
-    //     return next(err);
-    // }
-
     //check if group exists
     let groupTest = await Group.findByPk(req.params.groupId)
     if (!groupTest) {
@@ -1330,23 +1275,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = "Group couldn't be found"
         return next(err);
     }
-
-    //check if membership exists
-    // let membershipTest = await Membership.findByPk(memberToDeleteId, {
-    //     include: [
-    //         {
-    //             model: Group,
-    //             where: { id: req.params.groupId },
-    //             attributes: ['id', 'organizerId']
-    //         }
-    //     ]
-    // })
-    // if (!membershipTest) {
-    //     const err = new Error(`Membership does not exist for this User`)
-    //     err.status = 404
-    //     err.message = "Membership does not exist for this User"
-    //     return next(err);
-    // }
 
     //check if a membership exists (could be for any group!)
     let membershipTest = await Membership.findByPk(memberToDeleteId)
@@ -1400,11 +1328,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.message = `Forbidden`
         return next(err);
     }
-
-
-
-
-
 
     // let membership = await Membership.findByPk(memberToDeleteId)
     // let currentUserMembership = await Membership.findByPk(user.id)
@@ -1519,5 +1442,106 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     return res.status(200).json(membershipRequestJSON)
 })
+
+// Immediately become a member of a group, because of demo
+// Based on group Id
+router.post('/:groupId/automembership', async (req, res) => {
+    const { user } = req
+    const { membership } = req.body
+
+    console.log("---------------------automembership-------------------")
+    console.log("membership --------------------- ", membership.status)
+
+    if (!user) {
+        const err = new Error(`You need to log in`);
+        err.status = 400
+        err.message = "You need to log in"
+        return next(err);
+    }
+
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`);
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
+
+    // No status
+    // Join and gain membership status
+    // Dependent on frontend, not good.
+    if (membership.status === "Not a member") {
+        // Currently set up to create a member instead of pending status,
+        // This is only becuase of the join group feature time limit, not best practice
+        let membershipRequest = await Membership.create({
+            userId: user.id,
+            groupId: req.params.groupId
+        })
+    }
+
+    // Pending status
+    // gain membership status
+    else if (membership.status === "pending") {
+        let member = await Membership.findByPk(membership.id, {
+            include: [
+                {
+                    model: Group,
+                    attributes: ['id'],
+                    where: { id: req.params.groupId }
+                }
+            ]
+        })
+        member.status = "member"
+        member.save()
+    } else {
+        const err = new Error(`You should not have access to this button`);
+        err.status = 404
+        err.message = "You should not have access to this button"
+        return next(err);
+    }
+
+    // Already a member
+    // Already a member shouldn't have access to this button
+
+    return res.status(200).json("success")
+})
+
+// RETRIEVE MEMBERSHIP FOR A USER FOR A GROUP
+router.get('/:userId/:groupId/membership', async (req, res) => {
+    // console.log("-------------------------------------")
+    let err = {}
+    const { userId, groupId } = req.params
+    console.log(userId)
+    // let {userId} = req.query
+
+    if (typeof userId !== "number" || typeof groupId !== "number") {
+        const err = new Error("userId or groupId is invalid");
+        err.status = 404
+        err.message = "userId or groupId is invalid"
+        // return next(err);
+    }
+
+    let membership = await Membership.findOne({
+        where: {
+            userId: userId,
+            groupId: groupId
+        }
+    })
+    if (!membership) {
+        const err = new Error("Couldn't find a Membership with the specified id");
+        err.status = 404
+        err.message = "Membership couldn't be found"
+        return res.status(404).json(err);
+    }
+
+    // let membershipJSON = membership.map(e => e.toJSON())
+    let membershipJSON = membership.toJSON()
+    console.log("membershipJSON: ", membershipJSON)
+    // return res.json(membershipJSON)
+    return res.status(200).json(membershipJSON)
+})
+
+
+
 
 module.exports = router;
