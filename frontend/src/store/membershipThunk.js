@@ -36,16 +36,19 @@ export const membershipsThunk = (payload) => async (dispatch) => {
 // THUNK - automatic membership
 export const automaticMembershipThunk = (payload) => async (dispatch) => {
     const {groupId} = payload
-
-    const response = await fetch(`/api/groups/${groupId}/membership`, {
+    console.log("auto thunk")
+    const response = await fetch(`/api/groups/${groupId}/automembership`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
     })
+    console.log("auto after response: ", response)
     if (response.ok) {
+        console.log("auto ok")
         let autoMember = await response.json()
+
     }
 }
 

@@ -42,6 +42,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
             user: user
         }
         const autoMember = await dispatch(automaticMembershipThunk(payload))
+        // const test =  await dispatch(membershipsThunk(payload));
     }
 
     // if (!group.singleGroup) {
