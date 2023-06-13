@@ -38,7 +38,7 @@ function EventForm({ currentGroup, formType }) {
     const user = useSelector((state) => state.session.user)
 
     if (!user || user.id !== currentGroup.organizerId) {
-        history.push('/')
+        // history.push('/')
     }
 
     // console.log('currentGroup: ', currentGroup)

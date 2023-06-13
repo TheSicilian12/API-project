@@ -31,6 +31,10 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         dispatch(membershipsThunk(payload));
     }, [])
 
+    console.log("info: ", info)
+
+
+
     async function joinGroup() {
         console.log("join group button")
         const payload = {
@@ -242,14 +246,14 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             <div className="eventGroup-edit-buttons">
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
-                                    <NavLink to={`/groups/${info.groupId}/events/new`}>
+                                    <NavLink to={`/groups/${info.event.id}/events/new`}>
                                         <button
                                             className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions`}
                                         >
                                             Create event
                                         </button>
                                     </NavLink>
-                                    <NavLink to={`/groups/${info.groupId}/edit`}>
+                                    <NavLink to={`/groups/${info.event.id}/events/new`}>
                                         <button
                                             className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         >
@@ -258,7 +262,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </NavLink>
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
-
                                             buttonText="Delete"
                                             modalComponent={<DeleteGroupModal groupId={info.groupId} />}
                                         />
