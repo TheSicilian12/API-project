@@ -11,6 +11,7 @@ import clockImage from '../assets/Images/ATWP.webp'
 
 import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
+import DeleteEventModal from '../DeleteEventModal';
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
@@ -246,24 +247,27 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             <div className="eventGroup-edit-buttons">
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
-                                    <NavLink to={`/groups/${info.event.id}/events/new`}>
+                                    {/* <NavLink to={`/groups/${info.event.id}/events/new`}>
                                         <button
                                             className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions`}
                                         >
                                             Create event
                                         </button>
-                                    </NavLink>
-                                    <NavLink to={`/groups/${info.event.id}/events/new`}>
+                                    </NavLink> */}
+                                    {/* <NavLink to={`/groups/${info.event.id}/events/new`}> */}
+
+                                    {/* Edit an event does not work */}
+                                    {/* <NavLink to={`/events/${info.event.id}/edit`}>
                                         <button
                                             className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         >
                                             Update
                                         </button>
-                                    </NavLink>
+                                    </NavLink> */}
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
                                             buttonText="Delete"
-                                            modalComponent={<DeleteGroupModal groupId={info.groupId} />}
+                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.groupId}/>}
                                         />
                                     </div>
                                 </div>
