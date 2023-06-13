@@ -1536,7 +1536,7 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
 
     // let membershipJSON = membership.map(e => e.toJSON())
     let membershipJSON = membership.toJSON()
-    console.log(membershipJSON)
+    console.log("membershipJSON: ", membershipJSON)
     // return res.json(membershipJSON)
     return res.status(200).json(membershipJSON)
 })

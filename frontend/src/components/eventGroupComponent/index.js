@@ -95,9 +95,10 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </h4>
                             </div>
 
-                            {membership && membership?.status !== "host" && <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
-
-                                {membership && membership?.status === "pending" &&
+                            <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
+                                {membership?.status}
+                                {membership &&
+                                (membership?.status === "Not a member" || membership?.status === "pending") &&
                                     <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
                                     onClick={() => joinGroup()}
@@ -106,7 +107,8 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     Join this group
                                     {/* alert for no implementation */}
                                 </button>}
-                                {membership && membership?.status !== "pending" &&
+                                {membership &&
+                                (membership?.status === "member" || membership?.status === "co-host") &&
                                     <button
                                     className='UgoldButton UbuttonDimensions border-Radius15 UfontTreb'
                                     onClick={() => alert("You're a member!")}
@@ -116,9 +118,11 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     {membership?.status}
                                     {/* alert for no implementation */}
                                 </button>}
-                            </div>}
+                            </div>
 
-                            <div className={`${info.options} eventGroup-button`}>
+                            {membership &&
+                            membership?.status === "host" &&
+                            <div className={`eventGroup-button`}>
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
                                     <NavLink to={`/groups/${info.groupId}/events/new`}>
@@ -143,7 +147,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         />
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 }
