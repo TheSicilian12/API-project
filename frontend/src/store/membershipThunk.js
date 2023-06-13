@@ -37,7 +37,8 @@ export const membershipsThunk = (payload) => async (dispatch) => {
 export const automaticMembershipThunk = (payload) => async (dispatch) => {
     const {groupId} = payload
     console.log("auto thunk")
-    const response = await fetch(`/api/groups/${groupId}/automembership`, {
+    console.log("payload: ", payload)
+    const response = await csrfFetch(`/api/groups/${groupId}/automembership`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

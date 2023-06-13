@@ -1329,11 +1329,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-
-
-
-
-
     // let membership = await Membership.findByPk(memberToDeleteId)
     // let currentUserMembership = await Membership.findByPk(user.id)
 
@@ -1455,59 +1450,60 @@ router.post('/:groupId/automembership', async (req, res) => {
     const { membership } = req.body
 
     console.log("---------------------automembership-------------------")
+    console.log("membership --------------------- ", membership.status)
 
-    // if (!user) {
-    //     const err = new Error(`You need to log in`);
-    //     err.status = 400
-    //     err.message = "You need to log in"
-    //     return next(err);
-    // }
+    if (!user) {
+        const err = new Error(`You need to log in`);
+        err.status = 400
+        err.message = "You need to log in"
+        return next(err);
+    }
 
-    // let groupTest = await Group.findByPk(req.params.groupId)
-    // if (!groupTest) {
-    //     const err = new Error(`Couldn't find a Group with the specified id`);
-    //     err.status = 404
-    //     err.message = "Group couldn't be found"
-    //     return next(err);
-    // }
+    let groupTest = await Group.findByPk(req.params.groupId)
+    if (!groupTest) {
+        const err = new Error(`Couldn't find a Group with the specified id`);
+        err.status = 404
+        err.message = "Group couldn't be found"
+        return next(err);
+    }
 
-    // // No status
-    // // Join and gain membership status
-    // // Dependent on frontend, not good.
-    // if (membership.status === "Not a member") {
-    //     // Currently set up to create a member instead of pending status,
-    //     // This is only becuase of the join group feature time limit, not best practice
-    //     let membershipRequest = await Membership.create({
-    //         userId: user.id,
-    //         groupId: req.params.groupId
-    //     })
-    // }
+    // No status
+    // Join and gain membership status
+    // Dependent on frontend, not good.
+    if (membership.status === "Not a member") {
+        // Currently set up to create a member instead of pending status,
+        // This is only becuase of the join group feature time limit, not best practice
+        let membershipRequest = await Membership.create({
+            userId: user.id,
+            groupId: req.params.groupId
+        })
+    }
 
-    // // Pending status
-    // // gain membership status
-    // else if (membership.status === "pending") {
-    //     let member = await Membership.findByPk(membership.id, {
-    //         include: [
-    //             {
-    //                 model: Group,
-    //                 attributes: ['id'],
-    //                 where: { id: req.params.groupId }
-    //             }
-    //         ]
-    //     })
-    //     member.status = "member"
-    //     member.save()
-    // } else {
-    //     const err = new Error(`You should not have access to this button`);
-    //     err.status = 404
-    //     err.message = "You should not have access to this button"
-    //     return next(err);
-    // }
+    // Pending status
+    // gain membership status
+    else if (membership.status === "pending") {
+        let member = await Membership.findByPk(membership.id, {
+            include: [
+                {
+                    model: Group,
+                    attributes: ['id'],
+                    where: { id: req.params.groupId }
+                }
+            ]
+        })
+        member.status = "member"
+        member.save()
+    } else {
+        const err = new Error(`You should not have access to this button`);
+        err.status = 404
+        err.message = "You should not have access to this button"
+        return next(err);
+    }
 
-    // // Already a member
-    // // Already a member shouldn't have access to this button
+    // Already a member
+    // Already a member shouldn't have access to this button
 
-    // return res.status(200)
+    return res.status(200).json("success")
 })
 
 // RETRIEVE MEMBERSHIP FOR A USER FOR A GROUP
@@ -1544,6 +1540,7 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
     // return res.json(membershipJSON)
     return res.status(200).json(membershipJSON)
 })
+
 
 
 

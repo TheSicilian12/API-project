@@ -19,11 +19,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     const membership = useSelector(state => state.memberships.membership);
     console.log("membership: ", membership?.status)
 
-    const payload = {
-        groupId: info.groupId,
-        user: user,
-        membership: membership
-    }
     // let membership = dispatch(membershipIdThunk(payload))
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
@@ -37,11 +32,15 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     }, [])
 
     async function joinGroup() {
+        console.log("join group button")
         const payload = {
             groupId: info.groupId,
+            membership: membership,
             user: user
         }
         const autoMember = await dispatch(automaticMembershipThunk(payload))
+        console.log("autoMember: ", autoMember)
+
         // const test =  await dispatch(membershipsThunk(payload));
     }
 
@@ -96,7 +95,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </h4>
                             </div>
 
-                            <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
+                            {membership && membership?.status !== "host" && <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
 
                                 {membership && membership?.status === "pending" &&
                                     <button
@@ -114,9 +113,10 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Member
+                                    {membership?.status}
                                     {/* alert for no implementation */}
                                 </button>}
-                            </div>
+                            </div>}
 
                             <div className={`${info.options} eventGroup-button`}>
                                 <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
