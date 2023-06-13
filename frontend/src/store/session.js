@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { clearMembershipState } from './membershipThunk';
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
@@ -34,6 +35,7 @@ export const login = (user) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(setUser(data.user));
+  dispatch(clearMembershipState());
   return response;
 };
 
@@ -52,6 +54,7 @@ export const signup = (user) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(setUser(data));
+  dispatch(clearMembershipState());
   return response;
 };
 
@@ -61,6 +64,7 @@ export const logout = () => async (dispatch) => {
     method: 'DELETE',
   });
   dispatch(removeUser());
+  dispatch(clearMembershipState());
   return response;
 };
 

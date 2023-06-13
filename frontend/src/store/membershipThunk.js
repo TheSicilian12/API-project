@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD = '/membership';
 const AUTO_MEMBER = '/auto/membership'
+const CLEAR_STATE = '/membership/clear'
 
 const load = (payload) => ({
     type: LOAD,
@@ -11,6 +12,10 @@ const load = (payload) => ({
 const load_auto = (payload) => ({
     type: AUTO_MEMBER,
     payload
+})
+
+const clear_state = () => ({
+    type: CLEAR_STATE
 })
 
 // THUNK - request membership to a group
@@ -35,7 +40,7 @@ export const membershipsThunk = (payload) => async (dispatch) => {
 
 // THUNK - automatic membership
 export const automaticMembershipThunk = (payload) => async (dispatch) => {
-    const {groupId} = payload
+    const {groupId, user} = payload
     console.log("auto thunk")
     console.log("payload: ", payload)
     const response = await csrfFetch(`/api/groups/${groupId}/automembership`, {
@@ -53,6 +58,10 @@ export const automaticMembershipThunk = (payload) => async (dispatch) => {
     }
 }
 
+export const clearMembershipState = () => async (dispatch) => {
+    dispatch(clear_state())
+}
+
 
 const initialState = {}
 
@@ -64,7 +73,10 @@ const membershipReducer = (state = initialState, action) => {
             // console.log("membership reducer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             newState.membership = { ...action.payload }
             return newState
-
+        case CLEAR_STATE: {
+            const newState = {"membership": "Not a member"}
+            return {...newState}
+        }
         default:
             // console.log('default')
             return state

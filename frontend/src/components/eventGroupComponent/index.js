@@ -38,8 +38,15 @@ export default function EventGroupComponent({ type, previewImage, info }) {
             membership: membership,
             user: user
         }
+        const payloadTwo = {
+            groupId: info.groupId,
+            user: user
+        }
+
         const autoMember = await dispatch(automaticMembershipThunk(payload))
-        console.log("autoMember: ", autoMember)
+        const member = await dispatch(membershipsThunk(payloadTwo));
+
+        // console.log("autoMember: ", autoMember)
 
         // const test =  await dispatch(membershipsThunk(payload));
     }
@@ -95,9 +102,11 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                 </h4>
                             </div>
 
-                            <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}>
-                                {membership?.status}
-                                {membership &&
+                            {/* <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}> */}
+                            <div className={`eventGroup-button`}>
+                               
+
+                                {user &&
                                 (membership?.status === "Not a member" || membership?.status === "pending") &&
                                     <button
                                     className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
@@ -115,7 +124,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     disabled={`${info.joinGroup}` === 'true' ? true : false}
                                 >
                                     Member
-                                    {membership?.status}
+                                    {/* {membership?.status} */}
                                     {/* alert for no implementation */}
                                 </button>}
                             </div>
