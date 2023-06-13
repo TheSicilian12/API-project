@@ -12,6 +12,10 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
 function GroupForm({ currentGroup, formType }) {
+    const history = useHistory();
+    const user = useSelector((state) => state.session.user)
+    const membership = useSelector(state => state.memberships.membership);
+
     const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [displayLocErr, setDisplayLocErr] = useState(false);
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
@@ -26,15 +30,15 @@ function GroupForm({ currentGroup, formType }) {
     const [displayGroupImageErr, setDisplayGroupImageErr] = useState(false);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector((state) => state.session.user)
 
     // console.log('initial meetingStatus: ', typeof groupStatus)
 
     // console.log('user: ', user)
     // console.log('currentGroup: ', currentGroup)
 
-    if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
+
+    if (formType === 'edit' && (!user || (user.id !== currentGroup.organizerId && membership?.status !== "host"))) {
+        // console.log("member: ", membership)
         history.push('/')
     }
 

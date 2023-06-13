@@ -104,7 +104,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
                             {/* <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}> */}
                             <div className={`eventGroup-button`}>
-                               
+                               {membership?.status}
 
                                 {user &&
                                 (membership?.status === "Not a member" || membership?.status === "pending") &&
