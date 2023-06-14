@@ -10,6 +10,15 @@
     color: #070c20;
 }
 
+.aboutLink {
+    color: #ffbc1e9a;
+    margin: 10px;
+}
+
+.links {
+   margin-left: 50px;
+}
+
 .linkGold:hover {
     color: #ffba1e;
 }
