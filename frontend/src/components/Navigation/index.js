@@ -12,14 +12,12 @@ function Navigation({ isLoaded }) {
 
   const user = useSelector((state) => state.session.user);
 
-  // console.log('user: ', user)
-
   return (
       <div className='displayFlex justfiySpaceBetween alignCenter UfontTreb'>
         <div className='pointerCursor'>
           {/* <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink> */}
           <img
-        
+
             width='50%'
             onClick={() => {history.push('/')}}
             src={adventureUpLogo}

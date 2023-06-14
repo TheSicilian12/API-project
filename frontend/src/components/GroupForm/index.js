@@ -11,7 +11,11 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 // frontend/src/components/assets/Images/rainbow-removebg-preview_1.png
 
 
-function GroupForm({ currentGroup, formType }) {
+function GroupForm({ currentGroup, formType, previewImage }) {
+    const history = useHistory();
+    const user = useSelector((state) => state.session.user)
+    const membership = useSelector(state => state.memberships.membership);
+
     const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     const [displayLocErr, setDisplayLocErr] = useState(false);
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
@@ -22,19 +26,19 @@ function GroupForm({ currentGroup, formType }) {
     const [displayGroupMeetingTypeErr, setDisplayGroupMeetingTypeErr] = useState(false);
     const [groupStatus, setGroupStatus] = useState(currentGroup.id ? currentGroup.private : '(select one)');
     const [displayGroupStatusErr, setDisplayGroupStatusErr] = useState(false);
-    const [groupImage, setGroupImage] = useState('');
+    const [groupImage, setGroupImage] = useState(previewImage.length > 0 ? previewImage[0].url : '');
     const [displayGroupImageErr, setDisplayGroupImageErr] = useState(false);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector((state) => state.session.user)
 
     // console.log('initial meetingStatus: ', typeof groupStatus)
 
     // console.log('user: ', user)
-    // console.log('currentGroup: ', currentGroup)
+    console.log('currentGroup: ', currentGroup)
+
 
     if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
+        // console.log("member: ", membership)
         history.push('/')
     }
 
