@@ -17,17 +17,14 @@ function Navigation({ isLoaded }) {
       <div className='pointerCursor'>
         {/* <NavLink exact to="/" className='adventureUpFont'>Adventureup</NavLink> */}
         <img
-
-          width='50%'
+          width='400px'
           onClick={() => { history.push('/') }}
           src={adventureUpLogo}
         />
 
-        <div className='whole'>
-          <div className='links'>
-            <a href="https://github.com/TheSicilian12" rel="noopener noreferrer" target="_blank"><i class="aboutLink fab fa-github fa-2x"></i></a>
-            <a href="https://www.linkedin.com/in/guidera-michael/" rel="noopener noreferrer" target="_blank"><i class="aboutLink fab fa-linkedin fa-2x"></i></a>
-          </div>
+        <div className='links'>
+          <a href="https://github.com/TheSicilian12" rel="noopener noreferrer" target="_blank"><i class="aboutLink fab fa-github fa-2x"></i></a>
+          <a href="https://www.linkedin.com/in/guidera-michael/" rel="noopener noreferrer" target="_blank"><i class="aboutLink fab fa-linkedin fa-2x"></i></a>
         </div>
 
       </div>
