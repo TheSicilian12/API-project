@@ -162,7 +162,6 @@ module.exports = {
         preview: true
       },
 
-
     ], {})
   },
 
