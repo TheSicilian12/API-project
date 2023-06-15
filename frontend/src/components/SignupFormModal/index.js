@@ -135,57 +135,56 @@ function SignupFormModal() {
           />
         </div>
 
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Last Name
-          </label>
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+          {displayLastNameErr &&
+            err.lastName &&
+            <p className='errors'>Last Name* {err.lastName}</p>}
+
           <input
-            placeholder='Last Name'
             type="text"
             value={lastName}
             onChange={(e) => {
-              setLastName(e.target.value)
+              displayLastNameErr(e.target.value)
               setDisplayLastNameErr(true)
             }}
             required
           />
         </div>
-        {displayLastNameErr && <p className='error'>{err.lastName}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Password
-          </label>
+
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayPasswordErr || !err.password) && <p>Password</p>}
+          {displayPasswordErr &&
+            err.lastName &&
+            <p className='errors'>Password* {err.password}</p>}
+
           <input
-            placeholder='Password'
-            type="password"
+            type="text"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
+              displayPasswordErr(e.target.value)
               setDisplayPasswordErr(true)
             }}
             required
           />
         </div>
-        {displayPasswordErr && <p className='error'>{err.password}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
-          <label >
-            Confirm Password
-          </label>
+
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+          {displayConfirmPasswordErr &&
+            err.confirmPassword &&
+            <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
+
           <input
-            placeholder='Confirm Password'
-            type="password"
+            type="text"
             value={confirmPassword}
             onChange={(e) => {
-              setConfirmPassword(e.target.value)
+              displayConfirmPasswordErr(e.target.value)
               setDisplayConfirmPasswordErr(true)
             }}
             required
           />
         </div>
-        {displayConfirmPasswordErr && <p className='error'>{err.confirmPassword}</p>}
-
-
-
 
         <div className='displayFlex justifyCenter'>
           <button
