@@ -89,7 +89,7 @@ function SignupFormModal() {
 
         <div className="displayFlex">
           <div>
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayEmailErr || !err.email) && <p>Email</p>}
               {displayEmailErr &&
                 err.email &&
@@ -106,7 +106,7 @@ function SignupFormModal() {
               />
             </div>
 
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayUsernameErr || !err.username) && <p>Username</p>}
               {displayUsernameErr &&
                 err.username &&
@@ -123,7 +123,7 @@ function SignupFormModal() {
               />
             </div>
 
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
               {displayFirstNameErr &&
                 err.firstName &&
@@ -140,7 +140,7 @@ function SignupFormModal() {
               />
             </div>
 
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
               {displayLastNameErr &&
                 err.lastName &&
@@ -157,7 +157,7 @@ function SignupFormModal() {
               />
             </div>
 
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayPasswordErr || !err.password) && <p>Password</p>}
               {displayPasswordErr &&
                 err.password &&
@@ -174,7 +174,7 @@ function SignupFormModal() {
               />
             </div>
 
-            <div className='UborderBlackTest login-inputs'>
+            <div className='signup-inputs'>
               {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
               {displayConfirmPasswordErr &&
                 err.confirmPassword &&

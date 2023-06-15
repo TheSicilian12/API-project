@@ -65,6 +65,7 @@ form {
 .positionRelative {
     position: relative;
 }
+
 .positionSticky {
     position: sticky;
 }
@@ -133,6 +134,12 @@ form {
 .signup-form {
     width: 40rem;
     height: 35rem;
+}
+
+.signup-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
 }
 
 .finn-good-dimensions {
