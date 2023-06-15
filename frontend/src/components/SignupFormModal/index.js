@@ -210,7 +210,7 @@ function SignupFormModal() {
           </div>
         </div>
 
-        <div className='displayFlex justifyCenter'>
+        <div className='displayFlex justifyCenter signup-button'>
           <button
             className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
             type="submit"

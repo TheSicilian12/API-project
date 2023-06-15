@@ -127,19 +127,20 @@ form {
 }
 
 .signup-dimensions {
-    width: 700px;
+    width: 750px;
     height: 650px;
 }
 
 .signup-form {
-    width: 40rem;
-    height: 35rem;
+    width: 42rem;
+    height: 34rem;
 }
 
 .signup-inputs {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 300px;
+    margin-left: 10px;
 }
 
 .finn-good-dimensions {
@@ -150,4 +151,9 @@ form {
 .finn-bad-dimensions {
     width: 300px;
     height: 400px;
+    margin-left: 10px;
+}
+
+.signup-button {
+    margin-top: 20px;
 }
