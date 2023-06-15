@@ -5,10 +5,16 @@ import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 import '../UniversalCSS.css';
 
+import goodSnail from "../assets/Images/snailGood.webp"
+import badSnail from "../assets/Images/snailBad.png"
+
+import goodFinn from "../assets/Images/finnSignUpGood.png"
+import badFinn from "../assets/Images/finnSignUpBad.png"
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const [displayEmailErr, setDsiplayEmailErr] = useState(false);
+  const [displayEmailErr, setDisplayEmailErr] = useState(false);
   const [username, setUsername] = useState("");
   const [displayUsernameErr, setDisplayUsernameErr] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -71,121 +77,150 @@ function SignupFormModal() {
   // console.log('errors: ', errors)
   return (
 
-    <div className='UfontTreb displayFlex flex-directionColumn alignCenter'>
+    <div className='signup-dimensions displayFlex flex-directionColumn alignCenter UfontTreb signup-textSize'>
       <h1 className=''>Sign Up</h1>
       <form
-        className='dimensionsForm textSize'
+        // className='dimensionsForm textSize'
+        className='signup-form textSize displayFlex flex-directionColumn'
         onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
-            Email
-          </label>
-          <input
-            placeholder='Email'
-            type="text"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-              setDsiplayEmailErr(true);
-            }}
-            required
-          />
-        </div>
-        {displayEmailErr && <p className='error'>{err.email}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Username
-          </label>
-          <input
-            placeholder='Username'
-            type="text"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value)
-              setDisplayUsernameErr(true)
-            }}
-            required
+
+        <div className="displayFlex">
+          <div>
+            <div className='signup-inputs'>
+              {(!displayEmailErr || !err.email) && <p>Email</p>}
+              {displayEmailErr &&
+                err.email &&
+                <p className='errors'>Email* {err.email}</p>}
+
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setDisplayEmailErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='signup-inputs'>
+              {(!displayUsernameErr || !err.username) && <p>Username</p>}
+              {displayUsernameErr &&
+                err.username &&
+                <p className='errors'>Username* {err.username}</p>}
+
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                  setDisplayUsernameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='signup-inputs'>
+              {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+              {displayFirstNameErr &&
+                err.firstName &&
+                <p className='errors'>First Name* {err.firstName}</p>}
+
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value)
+                  setDisplayFirstNameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='signup-inputs'>
+              {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+              {displayLastNameErr &&
+                err.lastName &&
+                <p className='errors'>Last Name* {err.lastName}</p>}
+
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value)
+                  setDisplayLastNameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='signup-inputs'>
+              {(!displayPasswordErr || !err.password) && <p>Password</p>}
+              {displayPasswordErr &&
+                err.password &&
+                <p className='errors'>Password* {err.password}</p>}
+
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setDisplayPasswordErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='signup-inputs'>
+              {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+              {displayConfirmPasswordErr &&
+                err.confirmPassword &&
+                <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
+
+              <input
+                type="text"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value)
+                  setDisplayConfirmPasswordErr(true)
+                }}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <img
+              className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+              src={goodFinn}
             />
+            {(displayEmailErr || displayUsernameErr || displayFirstNameErr || displayLastNameErr || displayPasswordErr || displayConfirmPasswordErr) ? <div>
+              <img
+                className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+                src={badFinn}
+              />
+            </div> :
+              <img
+                className={`finn-good-dimensions`}
+                src={goodFinn}
+              />
+            }
+          </div>
         </div>
-          {displayUsernameErr && <p className='error'>{err.username}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            First Name
-          </label>
-          <input
-            placeholder='First Name'
-            type="text"
-            value={firstName}
-            onChange={(e) => {
-              setFirstName(e.target.value)
-              setDisplayFirstNameErr(true)
-            }}
-            required
-            />
-        </div>
-        {displayFirstNameErr&& <p className='error'>{err.firstName}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Last Name
-          </label>
-          <input
-            placeholder='Last Name'
-            type="text"
-            value={lastName}
-            onChange={(e) => {
-              setLastName(e.target.value)
-              setDisplayLastNameErr(true)
-            }}
-            required
-            />
-        </div>
-        {displayLastNameErr && <p className='error'>{err.lastName}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Password
-          </label>
-          <input
-            placeholder='Password'
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-              setDisplayPasswordErr(true)
-            }}
-            required
-          />
-        </div>
-        {displayPasswordErr && <p className='error'>{err.password}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown marginBottomLrg'>
-          <label >
-            Confirm Password
-          </label>
-          <input
-            placeholder='Confirm Password'
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value)
-              setDisplayConfirmPasswordErr(true)
-            }}
-            required
-            />
-        </div>
-        {displayConfirmPasswordErr && <p className='error'>{err.confirmPassword}</p>}
-        <div className='displayFlex justifyCenter'>
+
+        <div className='displayFlex justifyCenter signup-button'>
           <button
             className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
             type="submit"
             disabled={Object.values(err).length > 0}
-            >
+          >
             Sign Up
           </button>
         </div>
       </form>
-  </div>
+    </div>
   );
 }
 

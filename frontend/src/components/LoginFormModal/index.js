@@ -7,6 +7,8 @@ import "./LoginForm.css";
 import "../Navigation/Navigation.css"
 import "../UniversalCSS.css";
 import unacceptable from "../assets/Images/sticker_2130.png"
+import goodSnail from "../assets/Images/snailGood.webp"
+import badSnail from "../assets/Images/snailBad.png"
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -20,8 +22,6 @@ function LoginFormModal() {
   const [submitted, setSubmitted] = useState(false);
   const { closeModal } = useModal();
 
-  // console.log('test')
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -33,21 +33,15 @@ function LoginFormModal() {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
-
       );
-
   };
 
-  // console.log('submitted: ', submitted)
-  // console.log('displayCredError: ', displayCredErr)
-
   let err = {}
-  // if (submitted) {
   if (credential.length < 4) {
-    err.credential = 'Make sure your password is 4+ characters'
+    err.credential = '4+ characters'
   }
   if (password.length < 6) {
-    err.password = 'Make sure your password is 6+ characters'
+    err.password = '6+ characters'
   }
 
   let notAllowed;
@@ -56,7 +50,7 @@ function LoginFormModal() {
   }
 
   return (
-    <div className='displayFlex flex-directionColumn alignCenter UfontTreb'>
+    <div className='login-dimensions displayFlex flex-directionColumn alignCenter UfontTreb'>
       {/* <div> */}
       <h1>Log In</h1>
       <form
@@ -69,51 +63,71 @@ function LoginFormModal() {
                 <li key={idx}>{error}</li>
               ))}
             </ul>
-            <div>
-              <div className='space'>
-                <div className='displayFlex justifySpaceBetween'>
-                  <label >
-                    Username or Email
-                  </label>
-                  <input
 
-                    type="text"
-                    value={credential}
-                    onChange={(e) => {
-                      setCredential(e.target.value)
-                      setDisplayCredErr(true)
-                    }}
-                    required
-                  />
-                </div>
-                {displayCredErr && <p className='errors'>{err.credential}</p>}
-              </div>
-              <div className='space paddingTop'>
-                <div className='displayFlex justifySpaceBetween'>
-                  <label>
-                    Password
-                  </label>
-                  <input
+            <div className="login-inputs-img">
 
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value)
-                      setDisplayPasErr(true)
-                    }}
-                    required
-                  />
+              <div className="displayFlex">
+                <div className='space'>
+                  <div className='login-inputs justifySpaceBetween'>
+                    {(!displayCredErr || !err.credential) && <p>Username or Email</p>}
+                    {displayCredErr &&
+                      err.credential &&
+                      <p className='errors'>Username or Email* {err.credential}</p>}
+
+                    <input
+                      type="text"
+                      value={credential}
+                      onChange={(e) => {
+                        setCredential(e.target.value)
+                        setDisplayCredErr(true)
+                      }}
+                      required
+                    />
+                  </div>
+
+
+                  <div className='space paddingTop'>
+                    <div className='login-inputs justifySpaceBetween'>
+                      {(!displayPasErr || !err.password) && <p>Password</p>}
+                      {displayPasErr &&
+                        err.password &&
+                        <p className='errors'>Password* {err.password}</p>}
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value)
+                          setDisplayPasErr(true)
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* no errors */}
+              {/* {(!displayPasErr && !displayCredErr) && <div> */}
+              <img
+                className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+                src={goodSnail}
+              />
+              {/* </div>} */}
+
+              {/* errors */}
+              {(displayPasErr || displayCredErr) ? <div>
+                <img
+                  className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+                  src={badSnail}
+                />
+              </div> :
+                <img
+                  className={`snailDimensions`}
+                  src={goodSnail}
+                />
+              }
             </div>
-            {displayPasErr && <p className='errors'>{err.password}</p>}
           </div>
-          {(displayPasErr || displayCredErr) && <div>
-            <img
-              className={`${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
-              src={unacceptable}
-            />
-          </div>}
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button

@@ -65,6 +65,7 @@ form {
 .positionRelative {
     position: relative;
 }
+
 .positionSticky {
     position: sticky;
 }
@@ -121,6 +122,38 @@ form {
     height: 50rem;
 }
 
-.textSize {
-    font-size: 150%;
+.signup-textSize {
+    font-size: 90%;
+}
+
+.signup-dimensions {
+    width: 750px;
+    height: 650px;
+}
+
+.signup-form {
+    width: 42rem;
+    height: 34rem;
+}
+
+.signup-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-left: 10px;
+}
+
+.finn-good-dimensions {
+    width: 400px;
+    height: 400px;
+}
+
+.finn-bad-dimensions {
+    width: 300px;
+    height: 400px;
+    margin-left: 10px;
+}
+
+.signup-button {
+    margin-top: 20px;
 }
