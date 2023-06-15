@@ -102,20 +102,27 @@ function LoginFormModal() {
             {displayPasErr && <p className='errors'>{err.password}</p>}
           </div>
 
-          <img
-            src={goodSnail}
-          />
-          <img
-            src={badSnail}
-          />
-
-
-          {/* {(displayPasErr || displayCredErr) && <div>
+          {/* no errors */}
+          {/* {(!displayPasErr && !displayCredErr) && <div> */}
             <img
-              className={`${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
-              src={unacceptable}
+              className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+              src={goodSnail}
             />
-          </div>} */}
+          {/* </div>} */}
+
+          {/* errors */}
+          {(displayPasErr || displayCredErr) ? <div>
+            <img
+              className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+              src={badSnail}
+            />
+          </div> :
+          <img
+              className={`snailDimensions`}
+              src={goodSnail}
+            />
+          }
+
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
