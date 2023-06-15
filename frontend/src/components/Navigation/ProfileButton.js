@@ -78,6 +78,12 @@ function ProfileButton({ user }) {
               to='/events'>
                 View Events
             </Link>
+            <Link
+              className='userMarginBottom UnoDecoration UcolorBlack linkGold'
+              onClick={() => setShowMenu(false)}
+              to='/groups/yours'>
+                Your Groups
+            </Link>
           </div>
         ) : (
           <div className='displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
