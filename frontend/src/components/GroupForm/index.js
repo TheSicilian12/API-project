@@ -26,7 +26,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     const [displayGroupMeetingTypeErr, setDisplayGroupMeetingTypeErr] = useState(false);
     const [groupStatus, setGroupStatus] = useState(currentGroup.id ? currentGroup.private : '(select one)');
     const [displayGroupStatusErr, setDisplayGroupStatusErr] = useState(false);
-    const [groupImage, setGroupImage] = useState(previewImage.length > 0 ? previewImage[0].url : '');
+    const [groupImage, setGroupImage] = useState((previewImage && previewImage.length > 0) ? previewImage[0].url : '');
     const [displayGroupImageErr, setDisplayGroupImageErr] = useState(false);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
