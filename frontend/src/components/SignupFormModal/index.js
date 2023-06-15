@@ -74,11 +74,11 @@ function SignupFormModal() {
   // console.log('errors: ', errors)
   return (
 
-    <div className='UfontTreb displayFlex flex-directionColumn alignCenter'>
+    <div className='signup-dimensions displayFlex flex-directionColumn alignCenter UfontTreb signup-textSize'>
       <h1 className=''>Sign Up</h1>
       <form
         // className='dimensionsForm textSize'
-        className="logIndimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter"
+        className='signup-form textSize displayFlex flex-directionColumn'
         onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -145,7 +145,7 @@ function SignupFormModal() {
             type="text"
             value={lastName}
             onChange={(e) => {
-              displayLastNameErr(e.target.value)
+              setLastName(e.target.value)
               setDisplayLastNameErr(true)
             }}
             required
@@ -162,7 +162,7 @@ function SignupFormModal() {
             type="text"
             value={password}
             onChange={(e) => {
-              displayPasswordErr(e.target.value)
+              setPassword(e.target.value)
               setDisplayPasswordErr(true)
             }}
             required
@@ -179,12 +179,29 @@ function SignupFormModal() {
             type="text"
             value={confirmPassword}
             onChange={(e) => {
-              displayConfirmPasswordErr(e.target.value)
+              setConfirmPassword(e.target.value)
               setDisplayConfirmPasswordErr(true)
             }}
             required
           />
         </div>
+
+        {/* <img
+          className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+          src={goodSnail}
+        /> */}
+        {(displayEmailErr || displayUsernameErr || displayFirstNameErr || displayLastNameErr || displayPasswordErr || displayConfirmPasswordErr) ? <div>
+          <img
+            className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+            src={badSnail}
+          />
+        </div> :
+          <img
+            className={`snailDimensions`}
+            src={goodSnail}
+          />
+        }
+
 
         <div className='displayFlex justifyCenter'>
           <button

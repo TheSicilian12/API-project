@@ -121,6 +121,16 @@ form {
     height: 50rem;
 }
 
-.textSize {
-    font-size: 150%;
+.signup-textSize {
+    font-size: 90%;
+}
+
+.signup-dimensions {
+    width: 700px;
+    height: 650px;
+}
+
+.signup-form {
+    width: 40rem;
+    height: 35rem;
 }
