@@ -8,6 +8,9 @@ import '../UniversalCSS.css';
 import goodSnail from "../assets/Images/snailGood.webp"
 import badSnail from "../assets/Images/snailBad.png"
 
+import goodFinn from "../assets/Images/finnSignUpGood.png"
+import badFinn from "../assets/Images/finnSignUpBad.png"
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -84,124 +87,128 @@ function SignupFormModal() {
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
 
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayEmailErr || !err.email) && <p>Email</p>}
-          {displayEmailErr &&
-            err.email &&
-            <p className='errors'>Email* {err.email}</p>}
+        <div className="displayFlex">
+          <div>
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayEmailErr || !err.email) && <p>Email</p>}
+              {displayEmailErr &&
+                err.email &&
+                <p className='errors'>Email* {err.email}</p>}
 
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-              setDisplayEmailErr(true)
-            }}
-            required
-          />
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setDisplayEmailErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayUsernameErr || !err.username) && <p>Username</p>}
+              {displayUsernameErr &&
+                err.username &&
+                <p className='errors'>Username* {err.username}</p>}
+
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                  setDisplayUsernameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+              {displayFirstNameErr &&
+                err.firstName &&
+                <p className='errors'>First Name* {err.firstName}</p>}
+
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value)
+                  setDisplayFirstNameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+              {displayLastNameErr &&
+                err.lastName &&
+                <p className='errors'>Last Name* {err.lastName}</p>}
+
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value)
+                  setDisplayLastNameErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayPasswordErr || !err.password) && <p>Password</p>}
+              {displayPasswordErr &&
+                err.password &&
+                <p className='errors'>Password* {err.password}</p>}
+
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setDisplayPasswordErr(true)
+                }}
+                required
+              />
+            </div>
+
+            <div className='UborderBlackTest login-inputs'>
+              {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+              {displayConfirmPasswordErr &&
+                err.confirmPassword &&
+                <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
+
+              <input
+                type="text"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value)
+                  setDisplayConfirmPasswordErr(true)
+                }}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <img
+              className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+              src={goodFinn}
+            />
+            {(displayEmailErr || displayUsernameErr || displayFirstNameErr || displayLastNameErr || displayPasswordErr || displayConfirmPasswordErr) ? <div>
+              <img
+                className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+                src={badFinn}
+              />
+            </div> :
+              <img
+                className={`finn-good-dimensions`}
+                src={goodFinn}
+              />
+            }
+          </div>
         </div>
-
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayUsernameErr || !err.username) && <p>Username</p>}
-          {displayUsernameErr &&
-            err.username &&
-            <p className='errors'>Username* {err.username}</p>}
-
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value)
-              setDisplayUsernameErr(true)
-            }}
-            required
-          />
-        </div>
-
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
-          {displayFirstNameErr &&
-            err.firstName &&
-            <p className='errors'>First Name* {err.firstName}</p>}
-
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => {
-              setFirstName(e.target.value)
-              setDisplayFirstNameErr(true)
-            }}
-            required
-          />
-        </div>
-
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
-          {displayLastNameErr &&
-            err.lastName &&
-            <p className='errors'>Last Name* {err.lastName}</p>}
-
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => {
-              setLastName(e.target.value)
-              setDisplayLastNameErr(true)
-            }}
-            required
-          />
-        </div>
-
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayPasswordErr || !err.password) && <p>Password</p>}
-          {displayPasswordErr &&
-            err.lastName &&
-            <p className='errors'>Password* {err.password}</p>}
-
-          <input
-            type="text"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-              setDisplayPasswordErr(true)
-            }}
-            required
-          />
-        </div>
-
-        <div className='UborderBlackTest login-inputs'>
-          {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
-          {displayConfirmPasswordErr &&
-            err.confirmPassword &&
-            <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
-
-          <input
-            type="text"
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value)
-              setDisplayConfirmPasswordErr(true)
-            }}
-            required
-          />
-        </div>
-
-        {/* <img
-          className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
-          src={goodSnail}
-        /> */}
-        {(displayEmailErr || displayUsernameErr || displayFirstNameErr || displayLastNameErr || displayPasswordErr || displayConfirmPasswordErr) ? <div>
-          <img
-            className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
-            src={badSnail}
-          />
-        </div> :
-          <img
-            className={`snailDimensions`}
-            src={goodSnail}
-          />
-        }
-
 
         <div className='displayFlex justifyCenter'>
           <button
