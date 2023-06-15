@@ -7,6 +7,8 @@ import "./LoginForm.css";
 import "../Navigation/Navigation.css"
 import "../UniversalCSS.css";
 import unacceptable from "../assets/Images/sticker_2130.png"
+import goodSnail from "../assets/Images/snailGood.webp"
+import badSnail from "../assets/Images/snailBad.png"
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -20,8 +22,6 @@ function LoginFormModal() {
   const [submitted, setSubmitted] = useState(false);
   const { closeModal } = useModal();
 
-  // console.log('test')
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -33,16 +33,10 @@ function LoginFormModal() {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
-
       );
-
   };
 
-  // console.log('submitted: ', submitted)
-  // console.log('displayCredError: ', displayCredErr)
-
   let err = {}
-  // if (submitted) {
   if (credential.length < 4) {
     err.credential = 'Make sure your password is 4+ characters'
   }
@@ -94,7 +88,6 @@ function LoginFormModal() {
                     Password
                   </label>
                   <input
-
                     type="password"
                     value={password}
                     onChange={(e) => {
@@ -108,12 +101,21 @@ function LoginFormModal() {
             </div>
             {displayPasErr && <p className='errors'>{err.password}</p>}
           </div>
-          {(displayPasErr || displayCredErr) && <div>
+
+          <img
+            src={goodSnail}
+          />
+          <img
+            src={badSnail}
+          />
+
+
+          {/* {(displayPasErr || displayCredErr) && <div>
             <img
               className={`${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
               src={unacceptable}
             />
-          </div>}
+          </div>} */}
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
