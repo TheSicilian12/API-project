@@ -9,6 +9,7 @@ function UserGroupComponent({group}) {
     return (
         <div>
             hello {group.name}
+            {/*  */}
         </div>
     );
 }

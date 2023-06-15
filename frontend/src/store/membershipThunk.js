@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD = '/membership';
 const LOAD_ALL = '/membership/all';
 const AUTO_MEMBER = '/auto/membership';
+const DELETE_MEMBER = '/membership/delete';
 const CLEAR_STATE = '/membership/clear';
 
 const load = (payload) => ({
@@ -17,6 +18,11 @@ const load_all = (payload) => ({
 
 const load_auto = (payload) => ({
     type: AUTO_MEMBER,
+    payload
+})
+
+const delete_member = (payload) => ({
+    type: DELETE_MEMBER,
     payload
 })
 
@@ -72,6 +78,21 @@ export const automaticMembershipThunk = (payload) => async (dispatch) => {
         console.log("auto ok")
         let autoMember = await response.json()
 
+    }
+}
+
+// THUNK - delete membership
+export const deleteMembershipThunk = (payload) => async (dispatch) => {
+    const {groupId, user} = payload
+    const response = await csrfFetch(`/api/groups/${user.id}/${groupId}/membership/delete`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        let deleteMembership = await response.json()
     }
 }
 
