@@ -89,12 +89,6 @@ function EventDetails({ event, eventId, user }) {
         <>
             <div className='event-container'>
                 <div className="event-arrowContainer">
-                    {/* <img
-                        className='pointerCursor displayFlex'
-                        onClick={() => history.push('/events')}
-                        src={pinkArrowLeft}
-                    /> */}
-                    {/* <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink> */}
                     <BackButton text={"All Events"} link={"/events"}/>
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
