@@ -1569,7 +1569,12 @@ router.get('/memberships/:userId', async (req, res) => {
 
     // membership array
     let membershipsJSON = memberships.map(e => e.toJSON())
-    console.log("memberships: ", membershipsJSON)
+    // console.log("memberships: ", membershipsJSON)
+
+    // groups added
+    Object.values(membershipsJSON).forEach((e) => {
+        console.log(e)
+    })
 
     return res.status(200).json(membershipsJSON)
 })
