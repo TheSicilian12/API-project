@@ -107,3 +107,7 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.login-inputs-img {
+  display: flex;
+}

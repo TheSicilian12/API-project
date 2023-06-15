@@ -63,67 +63,71 @@ function LoginFormModal() {
                 <li key={idx}>{error}</li>
               ))}
             </ul>
-            <div>
-              <div className='space'>
-                <div className='login-inputs justifySpaceBetween'>
-                  {(!displayCredErr || !err.credential) && <p>Username or Email</p>}
-                  {displayCredErr &&
-                  err.credential &&
-                  <p className='errors'>Username or Email* {err.credential}</p>}
 
-                  <input
-                    type="text"
-                    value={credential}
-                    onChange={(e) => {
-                      setCredential(e.target.value)
-                      setDisplayCredErr(true)
-                    }}
-                    required
-                  />
+            <div className="login-inputs-img">
 
+              <div className="displayFlex">
+                <div className='space'>
+                  <div className='login-inputs justifySpaceBetween'>
+                    {(!displayCredErr || !err.credential) && <p>Username or Email</p>}
+                    {displayCredErr &&
+                      err.credential &&
+                      <p className='errors'>Username or Email* {err.credential}</p>}
+
+                    <input
+                      type="text"
+                      value={credential}
+                      onChange={(e) => {
+                        setCredential(e.target.value)
+                        setDisplayCredErr(true)
+                      }}
+                      required
+                    />
+                  </div>
+
+
+                  <div className='space paddingTop'>
+                    <div className='login-inputs justifySpaceBetween'>
+                      {(!displayPasErr || !err.password) && <p>Password</p>}
+                      {displayPasErr &&
+                        err.password &&
+                        <p className='errors'>Password* {err.password}</p>}
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value)
+                          setDisplayPasErr(true)
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className='space paddingTop'>
-                <div className='login-inputs justifySpaceBetween'>
-                  {(!displayPasErr || !err.password) && <p>Password</p>}
-                  {displayPasErr &&
-                  err.password &&
-                  <p className='errors'>Password* {err.password}</p>}
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value)
-                      setDisplayPasErr(true)
-                    }}
-                    required
-                  />
-                </div>
-              </div>
+
+              {/* no errors */}
+              {/* {(!displayPasErr && !displayCredErr) && <div> */}
+              <img
+                className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+                src={goodSnail}
+              />
+              {/* </div>} */}
+
+              {/* errors */}
+              {(displayPasErr || displayCredErr) ? <div>
+                <img
+                  className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
+                  src={badSnail}
+                />
+              </div> :
+                <img
+                  className={`snailDimensions`}
+                  src={goodSnail}
+                />
+              }
             </div>
           </div>
-
-          {/* no errors */}
-          {/* {(!displayPasErr && !displayCredErr) && <div> */}
-          <img
-            className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
-            src={goodSnail}
-          />
-          {/* </div>} */}
-
-          {/* errors */}
-          {(displayPasErr || displayCredErr) ? <div>
-            <img
-              className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
-              src={badSnail}
-            />
-          </div> :
-            <img
-              className={`snailDimensions`}
-              src={goodSnail}
-            />
-          }
-
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
