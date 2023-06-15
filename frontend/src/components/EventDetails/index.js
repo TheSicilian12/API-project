@@ -7,11 +7,10 @@ import '../UniversalCSS.css';
 // import { getEventThunk } from '../../store/eventsThunk';
 import { getGroup } from '../../store/groupsThunk';
 // import { getGroupEventsThunk } from '../../store/eventsThunk';
-import OpenModalDeleteEventButton from '../DeleteEventModalButton';
-import DeleteEventModal from '../DeleteEventModal'
-import clockImage from '../assets/Images/ATWP.webp'
 import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 import EventGroupComponent from '../eventGroupComponent';
+
+import BackButton from '../BackButton';
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
@@ -90,12 +89,13 @@ function EventDetails({ event, eventId, user }) {
         <>
             <div className='event-container'>
                 <div className="event-arrowContainer">
-                    <img
+                    {/* <img
                         className='pointerCursor displayFlex'
                         onClick={() => history.push('/events')}
                         src={pinkArrowLeft}
-                    />
-                    <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink>
+                    /> */}
+                    {/* <NavLink to='/events' className='displayFlex UblackColor UnoDecoration backButtonTextSize'>Back to All Events</NavLink> */}
+                    <BackButton text={"All Events"} link={"/events"}/>
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
 
