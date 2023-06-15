@@ -97,3 +97,13 @@ form {
   height: 200px;
   margin-left: 40px;
 }
+
+.login-dimensions {
+  width: 700px;
+  height: 600px;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+}

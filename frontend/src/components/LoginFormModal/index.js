@@ -38,10 +38,10 @@ function LoginFormModal() {
 
   let err = {}
   if (credential.length < 4) {
-    err.credential = 'Make sure your password is 4+ characters'
+    err.credential = '4+ characters'
   }
   if (password.length < 6) {
-    err.password = 'Make sure your password is 6+ characters'
+    err.password = '6+ characters'
   }
 
   let notAllowed;
@@ -50,7 +50,7 @@ function LoginFormModal() {
   }
 
   return (
-    <div className='displayFlex flex-directionColumn alignCenter UfontTreb'>
+    <div className='login-dimensions displayFlex flex-directionColumn alignCenter UfontTreb'>
       {/* <div> */}
       <h1>Log In</h1>
       <form
@@ -65,12 +65,13 @@ function LoginFormModal() {
             </ul>
             <div>
               <div className='space'>
-                <div className='displayFlex justifySpaceBetween'>
-                  <label >
-                    Username or Email
-                  </label>
-                  <input
+                <div className='login-inputs justifySpaceBetween'>
+                  {(!displayCredErr || !err.credential) && <p>Username or Email</p>}
+                  {displayCredErr &&
+                  err.credential &&
+                  <p className='errors'>Username or Email* {err.credential}</p>}
 
+                  <input
                     type="text"
                     value={credential}
                     onChange={(e) => {
@@ -79,14 +80,15 @@ function LoginFormModal() {
                     }}
                     required
                   />
+
                 </div>
-                {displayCredErr && <p className='errors'>{err.credential}</p>}
               </div>
               <div className='space paddingTop'>
-                <div className='displayFlex justifySpaceBetween'>
-                  <label>
-                    Password
-                  </label>
+                <div className='login-inputs justifySpaceBetween'>
+                  {(!displayPasErr || !err.password) && <p>Password</p>}
+                  {displayPasErr &&
+                  err.password &&
+                  <p className='errors'>Password* {err.password}</p>}
                   <input
                     type="password"
                     value={password}
@@ -99,15 +101,14 @@ function LoginFormModal() {
                 </div>
               </div>
             </div>
-            {displayPasErr && <p className='errors'>{err.password}</p>}
           </div>
 
           {/* no errors */}
           {/* {(!displayPasErr && !displayCredErr) && <div> */}
-            <img
-              className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
-              src={goodSnail}
-            />
+          <img
+            className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
+            src={goodSnail}
+          />
           {/* </div>} */}
 
           {/* errors */}
@@ -117,7 +118,7 @@ function LoginFormModal() {
               src={badSnail}
             />
           </div> :
-          <img
+            <img
               className={`snailDimensions`}
               src={goodSnail}
             />
