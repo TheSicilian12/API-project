@@ -5,10 +5,13 @@ import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 import '../UniversalCSS.css';
 
+import goodSnail from "../assets/Images/snailGood.webp"
+import badSnail from "../assets/Images/snailBad.png"
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const [displayEmailErr, setDsiplayEmailErr] = useState(false);
+  const [displayEmailErr, setDisplayEmailErr] = useState(false);
   const [username, setUsername] = useState("");
   const [displayUsernameErr, setDisplayUsernameErr] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -74,33 +77,37 @@ function SignupFormModal() {
     <div className='UfontTreb displayFlex flex-directionColumn alignCenter'>
       <h1 className=''>Sign Up</h1>
       <form
-        className='dimensionsForm textSize'
+        // className='dimensionsForm textSize'
+        className="logIndimensionsForm textSize displayFlex flex-directionColumn justifyCenter alignCenter"
         onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label className=''>
-            Email
-          </label>
+
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayEmailErr || !err.email) && <p>Email</p>}
+          {displayEmailErr &&
+            err.email &&
+            <p className='errors'>Email* {err.email}</p>}
+
           <input
-            placeholder='Email'
             type="text"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
-              setDsiplayEmailErr(true);
+              setDisplayEmailErr(true)
             }}
             required
           />
         </div>
-        {displayEmailErr && <p className='error'>{err.email}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            Username
-          </label>
+
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayUsernameErr || !err.username) && <p>Username</p>}
+          {displayUsernameErr &&
+            err.username &&
+            <p className='errors'>Username* {err.username}</p>}
+
           <input
-            placeholder='Username'
             type="text"
             value={username}
             onChange={(e) => {
@@ -108,15 +115,16 @@ function SignupFormModal() {
               setDisplayUsernameErr(true)
             }}
             required
-            />
+          />
         </div>
-          {displayUsernameErr && <p className='error'>{err.username}</p>}
-        <div className='displayFlex justfiySpaceBetween paddingDown'>
-          <label >
-            First Name
-          </label>
+
+        <div className='UborderBlackTest login-inputs'>
+          {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+          {displayFirstNameErr &&
+            err.firstName &&
+            <p className='errors'>First Name* {err.firstName}</p>}
+
           <input
-            placeholder='First Name'
             type="text"
             value={firstName}
             onChange={(e) => {
@@ -124,9 +132,9 @@ function SignupFormModal() {
               setDisplayFirstNameErr(true)
             }}
             required
-            />
+          />
         </div>
-        {displayFirstNameErr&& <p className='error'>{err.firstName}</p>}
+
         <div className='displayFlex justfiySpaceBetween paddingDown'>
           <label >
             Last Name
@@ -140,7 +148,7 @@ function SignupFormModal() {
               setDisplayLastNameErr(true)
             }}
             required
-            />
+          />
         </div>
         {displayLastNameErr && <p className='error'>{err.lastName}</p>}
         <div className='displayFlex justfiySpaceBetween paddingDown'>
@@ -172,20 +180,24 @@ function SignupFormModal() {
               setDisplayConfirmPasswordErr(true)
             }}
             required
-            />
+          />
         </div>
         {displayConfirmPasswordErr && <p className='error'>{err.confirmPassword}</p>}
+
+
+
+
         <div className='displayFlex justifyCenter'>
           <button
             className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
             type="submit"
             disabled={Object.values(err).length > 0}
-            >
+          >
             Sign Up
           </button>
         </div>
       </form>
-  </div>
+    </div>
   );
 }
 
