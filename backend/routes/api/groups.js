@@ -1541,6 +1541,38 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
     return res.status(200).json(membershipJSON)
 })
 
+// RETRIEVE ALL MEMBERSHIPS FOR A USER
+router.get('/memberships/:userId', async (req, res) => {
+    console.log("----------------------------RETRIEVE ALL MEMBERSHIPS FOR A USER-------------------------------------")
+    const {userId} = req.params
+
+    console.log("userId: ", userId)
+    if (typeof userId !== "number") {
+        const err = new Error("userId or groupId is invalid");
+        err.status = 404
+        err.message = "userId or groupId is invalid"
+        // return next(err);
+    }
+
+    let memberships = await Membership.findAll({
+        where: {
+            userId: userId
+        }
+    })
+
+    if (!memberships) {
+        const err = new Error("Couldn't find a Membership with the specified id");
+        err.status = 404
+        err.message = "Membership couldn't be found"
+        return res.status(404).json(err);
+    }
+
+    // membership array
+    let membershipsJSON = memberships.map(e => e.toJSON())
+    console.log("memberships: ", membershipsJSON)
+
+    return res.status(200).json(membershipsJSON)
+})
 
 
 

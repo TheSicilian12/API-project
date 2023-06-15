@@ -25,15 +25,15 @@ const clear_state = () => ({
 })
 
 // THUNK - get all groups your a member to
-export const allMembershipThunk = () => async (dispatch) => {
-    const response = await fetch('/api/groups/membership')
+export const allMembershipThunk = (userId) => async (dispatch) => {
+   console.log("userId: ", userId)
+    const response = await fetch(`/api/groups/memberships/${userId}`)
     if (response.ok) {
         const list = await response.json();
+        console.log("list: ", list)
         dispatch(load_all(list))
     }
 }
-
-
 
 // THUNK - request membership to a group
 export const membershipsThunk = (payload) => async (dispatch) => {
@@ -92,7 +92,7 @@ const membershipReducer = (state = initialState, action) => {
             return newState
         case LOAD_ALL: {
             const newState = {}
-            // Not sure how yet
+            newState.membership = { ...action.payload }
             return newState
         }
         case CLEAR_STATE: {
