@@ -1572,11 +1572,19 @@ router.get('/memberships/:userId', async (req, res) => {
     // console.log("memberships: ", membershipsJSON)
 
     // groups added
-    Object.values(membershipsJSON).forEach((e) => {
-        console.log(e)
+    let membershipsArr = {}
+    let promises = Object.values(membershipsJSON).map(async (e) => {
+        console.log("e: ", e)
+        let group = await Group.findByPk(e.groupId)
+        // console.log("group: ", group)
+        membershipsArr[e.groupId] = group.toJSON()
+        console.log("memberships: ", membershipsArr[e.groupId])
     })
 
-    return res.status(200).json(membershipsJSON)
+    await Promise.all(promises)
+
+    console.log("membershipsArr: ", membershipsArr)
+    return res.status(200).json(membershipsArr)
 })
 
 

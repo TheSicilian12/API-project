@@ -15,7 +15,7 @@ function UserGroupComponent({groupId}) {
 
     return (
         <div>
-            hello {groups?.singleGroup.name}
+            hello {groupId}
         </div>
     );
 }
