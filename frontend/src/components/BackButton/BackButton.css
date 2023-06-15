@@ -1,0 +1,12 @@
+.backbutton {
+    position: relative;
+    bottom: 85px;
+    left: 24px;
+    font-weight: 1000;
+    font-size: 20px;
+}
+
+.back-pointer {
+    width: 140px;
+    height: 100px;
+}

@@ -8,6 +8,8 @@ import './LandingPage.css';
 import '../UniversalCSS.css';
 import flowerImage from '../assets/Images/Example.jpg';
 import landingPageInfo from '../assets/Images/pngfind.com-hora-de-aventura-png-6738376.png';
+import OpenModalButton from '../OpenModalButton';
+import SignupFormModal from '../SignupFormModal';
 
 function LandingPage() {
 
@@ -52,12 +54,18 @@ function LandingPage() {
                 <StartGroup user={user}/>
             </div>
             <div className='displayFlex justifyCenter paddingButton'>
-                <button
+                {/* <button
                     className='landingPage_options_joinButton UpurpleButton UbuttonJoinMeetUpDimensions border-Radius15 landingPageFontSize UfontTreb'
                     onClick={() => alert('Feature coming soon')}
                 >
                     Join Meetup
-                </button>
+                </button> */}
+            <div>
+              <OpenModalButton
+                buttonText="Join Meetup"
+                modalComponent={<SignupFormModal />}
+              />
+            </div>
             </div>
             <div className='displayFlex justifyCenter marginTop UfontTreb'>
                 Logo and Icon are thanks to Placeit (logo) and PhotoRoom (editing)!

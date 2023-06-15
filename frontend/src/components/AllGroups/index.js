@@ -12,39 +12,21 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 
 export default function AllGroups() {
     const dispatch = useDispatch();
-    // console.log('useParams: ', useParams())
-
-
-    // useEffect(() => {
-    //     dispatch(getAllGroups());
-    // }, [])
 
     useEffect(() => {
         dispatch(getAllGroups())
     }, [])
 
-    // const groups = useSelector((state) => state.groups)
     const groups = useSelector((state) => state.groups)
-    // const groupEvents = useSelector((state) => state.groups.allGroups)
 
     if (!groups.allGroups) {
         return <div>loading</div>
     }
 
     console.log('groups: ', groups)
-    // if (!Object.values(groupEvents)[0].events) {
-    //     return <div>loading</div>
-    // }
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    // let groupEvents = {};
-    // if (groups.allGroups['1'].events) {
-    //     console.log('groups: ', Object.values(groups.allGroups['1']?.events).length)
-    // } else console.log('something went wrong')
-
-    // console.log('groups: ', groups.allGroups['1']?.events)
-    // console.log('groupEvents: ', Object.values(groupEvents)[0].events)
     return (
         <div className='AllGroups displayFlex flex-directionColumn UfontTreb' >
             <div className='displayFlex justifyCenter'>
@@ -57,19 +39,11 @@ export default function AllGroups() {
                 <div key={`groups${groups.allGroups[e].id}`} className='displayFlex justifyCenter flex-directionColumn maintext'>
                     <div className='displayFlex justifyCenter'>
                         <RainbowLine />
-                        {/* <img
-                            className='dividerPadding'
-                            height='25%'
-                            width='25%'
-
-                            src={groupDividerImage}
-                        /> */}
                     </div>
                     <div className='displayFlex justifyCenter'>
                         <NavLink
                             className='noDecoration pointerCursor'
                             to={`/groups/${groups.allGroups[e].id}`}>
-                            {/* {groups.allGroups[e].previewImage ? imageData = groups.allGroups[e].previewImage : imageData = imageData} */}
                             <div className='AllGroups_group displayFlex justifyCenter mainText pointerCursor'
                                 key={`AllGroups_group${groups.allGroups[e].id}`}
                             >

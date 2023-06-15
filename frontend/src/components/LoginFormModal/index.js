@@ -46,7 +46,7 @@ function LoginFormModal() {
 
   let notAllowed;
   if (Object.values(err).length > 0) {
-    notAllowed = 'not-allowedCursor'
+    notAllowed = 'not-allowedCursor disabledButton'
   }
 
   return (

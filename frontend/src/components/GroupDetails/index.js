@@ -14,8 +14,7 @@ import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 import EventGroupComponent from '../eventGroupComponent';
 // import SignupFormModal from '../SignupFormModal';
 // import backButtonImage from '../assets/52-528836_arrow-pointing-left-cartoon-arrow-pointing-left.jpg'
-
-
+import BackButton from '../BackButton';
 
 function GroupDetails({ group, user, events, groupId }) {
     const history = useHistory();
@@ -112,12 +111,7 @@ function GroupDetails({ group, user, events, groupId }) {
             <div className='GroupDetails UfontTreb textSize displayFlex justifyCenter alignCenter Uflexdirection-column'>
 
                 <div className='back-button'>
-                    <img
-                        className='pointerCursor'
-                        onClick={() => history.push('/groups')}
-                        src={pinkArrowLeft}
-                    />
-                    <NavLink to='/groups' className='displayFlex UblackColor UnoDecoration backButtonTextSize alignCenter'>Back to All Groups</NavLink>
+                    <BackButton text={"All Groups"} link={"/groups"}/>
                 </div>
 
                 <div className="eventGroupComponent">

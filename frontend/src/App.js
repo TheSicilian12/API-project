@@ -16,6 +16,7 @@ import EventDetailsWrapper from "./components/EventDetails/eventDetailsWrapper";
 import EventForm from "./components/EventForm"
 import EditEventWrapper from './components/EventForm/editEventWrapper'
 import BadRoute from './components/BadRoute'
+import UserGroupPage from "./components/UserGroupPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ function App() {
           </Route>
           <Route path= '/groups/new' exact>
             <GroupForm currentGroup={{}} formType={'new'}/>
+          </Route>
+          <Route path='/groups/yours' exact>
+            <UserGroupPage />
           </Route>
           <Route path='/groups/:id' exact>
             <GroupDetailsWrapper />
