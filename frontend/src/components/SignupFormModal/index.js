@@ -71,7 +71,7 @@ function SignupFormModal() {
 
   let disableButton;
   if (Object.values(err).length > 0) {
-    disableButton = 'not-allowedCursor'
+    disableButton = 'not-allowedCursor disabledButton'
   }
 
   // console.log('errors: ', errors)
