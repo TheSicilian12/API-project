@@ -3,19 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { allMembershipThunk } from "../../store/membershipThunk";
 import { getGroup } from "../../store/groupsThunk";
 
-function UserGroupComponent({groupId}) {
+function UserGroupComponent({group}) {
     const dispatch = useDispatch();
-    const groups = useSelector((state) => state.groups)
-
-    console.log("groups: ", groups.singleGroup.name)
-
-    useEffect(() => {
-        dispatch(getGroup(groupId))
-    }, [])
 
     return (
         <div>
-            hello {groupId}
+            hello {group.name}
         </div>
     );
 }

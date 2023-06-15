@@ -23,7 +23,7 @@ function UserGroupPage() {
             <div>
                 Groups you're part of
                 {membershipsGeneral && Object.values(membershipsGeneral).map(e =>
-                <UserGroupComponent groupId={e.groupId}/>)}
+                <UserGroupComponent group={e}/>)}
             </div>
         </div>
     );
