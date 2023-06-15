@@ -196,7 +196,12 @@ function SignupFormModal() {
               className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
               src={goodFinn}
             />
-            {(displayEmailErr || displayUsernameErr || displayFirstNameErr || displayLastNameErr || displayPasswordErr || displayConfirmPasswordErr) ? <div>
+            {(displayEmailErr ||
+              displayUsernameErr ||
+              displayFirstNameErr ||
+              displayLastNameErr ||
+              displayPasswordErr ||
+              displayConfirmPasswordErr) ? <div>
               <img
                 className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
                 src={badFinn}

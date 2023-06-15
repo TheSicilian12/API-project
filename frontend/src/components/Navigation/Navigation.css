@@ -160,3 +160,11 @@
 .loggedInTextSize {
     font-size: 120%;
 }
+
+.profile-info {
+    margin-top: 80px;
+}
+
+.login-signup-info {
+    margin-top: 80px;
+}
