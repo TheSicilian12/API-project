@@ -2,7 +2,7 @@ const express = require('express')
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 
 
-const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize, Venue, Attendance, EventImage } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Event, Sequelize, sequelize, Venue, Attendance, EventImage, Comment } = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
@@ -271,7 +271,7 @@ router.get('/:eventId', async (req, res, next) => {
             { model: EventImage, attributes: ['id', 'url', 'preview'] },
             { model: Attendance, attributes: ['status'] },
             //added organizerId while working on delete an event for the frontend
-            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state', 'organizerId']}
+            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state', 'organizerId']},
                 // include: [
                 //     {
                 //         model: Membership,
@@ -279,7 +279,6 @@ router.get('/:eventId', async (req, res, next) => {
                 //             userId: user.id
                 //         }
                 //     }
-
              //add attributes
         ]
     })
@@ -302,8 +301,21 @@ router.get('/:eventId', async (req, res, next) => {
         }
     }
 
+    let comments = await Comment.findAll({
+        where: {
+            eventId: req.params.eventId
+        }
+    })
+
     eventJSON.numAttending = numberAttending;
     delete eventJSON.Attendances
+
+    if (!comments) {
+        eventJSON.comments = []
+    } else {
+        eventJSON.comments = comments
+    }
+
 
     return res.json(eventJSON)
 })
