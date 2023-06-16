@@ -17,6 +17,7 @@ export default function EventDetailsWrapper() {
     }, [id])
 
     let event = useSelector((state) => state.events)
+    let comments = useSelector((state) => state.comments)
     const user = useSelector((state) => state.session.user)
 // console.log('eventThunk: ', user)
     if (!event) {
@@ -25,7 +26,7 @@ export default function EventDetailsWrapper() {
     // console.log('event: ', event)
 
     return (
-        <EventDetails event={event} eventId={eventId} user={user}/>
+        <EventDetails event={event} eventId={eventId} user={user} comments={comments}/>
     )
 
 }

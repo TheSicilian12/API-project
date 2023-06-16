@@ -14,7 +14,7 @@ import BackButton from '../BackButton';
 import CommentComponent from '../CommentComponent';
 import { getAllEventComments } from '../../store/commentsThunk';
 
-function EventDetails({ event, eventId, user }) {
+function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
     // console.log('event groupId: ', event.groupId)
@@ -100,7 +100,7 @@ function EventDetails({ event, eventId, user }) {
                 <h2>Description</h2>
                 <p>{event?.description}</p>
                 </div>
-                <CommentComponent comment={event.comments}/>
+                <CommentComponent comments={comments}/>
             </div>
         </>
     )

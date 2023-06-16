@@ -301,20 +301,20 @@ router.get('/:eventId', async (req, res, next) => {
         }
     }
 
-    let comments = await Comment.findAll({
-        where: {
-            eventId: req.params.eventId
-        }
-    })
+    // let comments = await Comment.findAll({
+    //     where: {
+    //         eventId: req.params.eventId
+    //     }
+    // })
 
     eventJSON.numAttending = numberAttending;
     delete eventJSON.Attendances
 
-    if (!comments) {
-        eventJSON.comments = []
-    } else {
-        eventJSON.comments = comments
-    }
+    // if (!comments) {
+    //     eventJSON.comments = []
+    // } else {
+    //     eventJSON.comments = comments
+    // }
 
 
     return res.json(eventJSON)
