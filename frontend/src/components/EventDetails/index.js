@@ -11,6 +11,7 @@ import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 import EventGroupComponent from '../eventGroupComponent';
 
 import BackButton from '../BackButton';
+import CommentComponent from '../CommentComponent';
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
@@ -97,7 +98,7 @@ function EventDetails({ event, eventId, user }) {
                 <h2>Description</h2>
                 <p>{event?.description}</p>
                 </div>
-
+                <CommentComponent comment={event.comments}/>
             </div>
         </>
     )
