@@ -8,12 +8,28 @@ function UserGroupPage() {
 
     const user = useSelector((state) => state.session.user)
     const membershipsGeneral = useSelector((state) => state.memberships?.membership)
+    const [loading, setLoading] = useState(true);
 
-    console.log("membershipsGeneral: ", membershipsGeneral)
+
+    // console.log("membershipsGeneral: ", membershipsGeneral)
+
+    // useEffect(() => {
+    //     dispatch(allMembershipThunk(user.id))
+    // }, [])
 
     useEffect(() => {
-        dispatch(allMembershipThunk(user.id))
-    }, [])
+        const fetchMemberships = async () => {
+          await dispatch(allMembershipThunk(user.id));
+          setLoading(false);
+        };
+
+        fetchMemberships();
+      }, [dispatch, user.id]);
+
+      if (loading) {
+        return <div>Loading...</div>;
+      }
+
 
     return (
         <div>
