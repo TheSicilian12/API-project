@@ -24,7 +24,7 @@ function UserGroupComponent({group}) {
 
             <img
                 className="user-group-image-dimensions"
-                src = {group.previewImage.url}
+                src = {group.previewImage?.url}
             />
             hello {group.name}
             <button onClick={() => leaveGroup()}>

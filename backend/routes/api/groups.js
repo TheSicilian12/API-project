@@ -1551,18 +1551,19 @@ router.get('/memberships/:userId', async (req, res) => {
 
     await Promise.all(promises)
 
-    let promisesImages = Object.keys(membershipsObj).map(async (e) => {
+    let promisesImages = Object.keys(membershipsObj).map(async (groupId) => {
         let mainImage = await GroupImage.findOne({
             where: {
+                groupId: groupId,
                 preview: true
             }
         })
-        membershipsObj[e].previewImage = mainImage.toJSON()
+        membershipsObj[groupId].previewImage = mainImage.toJSON()
     })
 
     await Promise.all(promisesImages)
 
-    console.log("membershipsArr: ", membershipsObj)
+    // console.log("membershipsArr: ", membershipsObj)
     return res.status(200).json(membershipsObj)
 })
 
