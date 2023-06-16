@@ -98,7 +98,7 @@ router.post('/:eventId/comments', requireAuth, async (req, res, next) => {
 })
 
 //EDIT A COMMENT
-router.put('/:commentId/edit', requireAuth, async (req, res, next) => {
+router.put('/:commentId/comments', requireAuth, async (req, res, next) => {
 
     const {user} = req
     const {commentId} = req.params
@@ -134,5 +134,32 @@ router.put('/:commentId/edit', requireAuth, async (req, res, next) => {
 })
 
 //DELETE A COMMENT
+router.delete('/:commentId/comments', requireAuth, async (req, res, next) => {
+    const {user} = req
+    const {commentId} = req.params
+
+    // does a current user exist?
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let comment = await Comment.findByPk(commentId)
+    if (!comment) {
+        const err = new Error("Couldn't find a comment with the specified id")
+        err.message = "Comment couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    await comment.destroy();
+
+    return res.status(200).json({
+        "comment": "Successfully deleted",
+        "statusCode": 200
+    })
+})
 
 module.exports = router;
