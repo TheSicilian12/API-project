@@ -13,6 +13,8 @@ import EventGroupComponent from '../eventGroupComponent';
 import BackButton from '../BackButton';
 import CommentComponent from '../CommentComponent';
 import { getAllEventComments } from '../../store/commentsThunk';
+import AddCommentModalButton from '../AddCommentModalButton';
+import AddCommentModal from '../AddCommentModal';
 
 function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
@@ -74,18 +76,17 @@ function EventDetails({ event, eventId, user, comments }) {
 
     const type = "event"
 
-    // console.log("event image: ", eventPreviewImage)
     const previewImage = eventPreviewImage?.url
-    // console.log("previewImage: ", previewImage)
-
-    // console.log('eventPreviewImage: ', eventPreviewImage)
-    // console.log('options: ', options)
 
     const info = {
         event,
         organizer,
         groupPreviewImage: groupPreviewImage?.url,
         options
+    }
+
+    const addComment = () => {
+
     }
 
     return (
@@ -95,11 +96,15 @@ function EventDetails({ event, eventId, user, comments }) {
                     <BackButton text={"All Events"} link={"/events"}/>
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
-
                 <div className="event-descriptionContainer descriptionTextSize">
                 <h2>Description</h2>
                 <p>{event?.description}</p>
                 </div>
+
+                <AddCommentModalButton
+                    buttonText="Add Comment"
+                    modalComponent={<AddCommentModal />}
+                />
                 <CommentComponent comments={comments}/>
             </div>
         </>

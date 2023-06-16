@@ -21,6 +21,23 @@ export const getAllEventComments = (eventId) => async (dispatch) => {
     }
 }
 
+// THUNK - add a comment to an event
+export const addComment = (payload) => async (dispatch) => {
+    const {eventId} = payload
+
+    const response = await csrfFetch(`/api/comments/${eventId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const newComment = await response.json();
+        dispatch(getAllEventComments(eventId))
+    }
+}
+
 
 const initialState = {}
 
