@@ -1255,6 +1255,8 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //error no membership
 
+    console.log("------------------------------delete membership--------------------------------")
+
     const { user } = req
     const { memberId } = req.body
     let memberToDeleteId = memberId
@@ -1283,10 +1285,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         err.status = 400
         err.message = "User couldn't be found"
         return next(err);
-        // const err = new Error(`Membership does not exist for this User`)
-        // err.status = 404
-        // err.message = "Membership does not exist for this User"
-        // return next(err);
     }
 
     let membershipJSON = membershipTest.toJSON()
@@ -1329,38 +1327,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    // let membership = await Membership.findByPk(memberToDeleteId)
-    // let currentUserMembership = await Membership.findByPk(user.id)
-
-    // //check if there is a current user memberhsip
-    // if (!currentUserMembership) {
-    //     const err = new Error(`Require proper authorization`);
-    //     err.status = 403
-    //     err.message = `Forbidden`
-    //     return next(err);
-    // }
-
-    // let membershipJSON = membership.toJSON()
-    // let currentUserMembershipJSON = currentUserMembership.toJSON()
-
-    // let memberStatus = membershipJSON.status
-    // let memberUserId = membershipJSON.id
-    // let currentUserStatus = currentUserMembershipJSON.status
-
-    // // console.log(memberStatus)
-    // console.log(memberUserId)
-    // console.log(currentUserStatus)
-
-
-    // //check if current user is the host or user whose membership is to be deleted
-    // if (currentUserStatus !== 'host' && memberUserId !== user.id) {
-    //     const err = new Error(`Require proper authorization`);
-    //     err.status = 403
-    //     err.message = `Forbidden`
-    //     return next(err);
-    // }
-
-
     let membership = await Membership.findByPk(memberId, {
         where: { groupId: groupId }
     })
@@ -1374,6 +1340,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
         "message": "Successfully deleted membership from group"
     })
 })
+
 
 //REQUEST A MEMBERSHIP FOR A GROUP BASED ON THE GROUP'S ID
 router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
@@ -1572,19 +1539,31 @@ router.get('/memberships/:userId', async (req, res) => {
     // console.log("memberships: ", membershipsJSON)
 
     // groups added
-    let membershipsArr = {}
+    let membershipsObj = {}
     let promises = Object.values(membershipsJSON).map(async (e) => {
         console.log("e: ", e)
         let group = await Group.findByPk(e.groupId)
         // console.log("group: ", group)
-        membershipsArr[e.groupId] = group.toJSON()
-        console.log("memberships: ", membershipsArr[e.groupId])
+        membershipsObj[e.groupId] = group.toJSON()
+        membershipsObj[e.groupId].membershipInfo = e
+        // console.log("memberships: ", membershipsObj[e.groupId])
     })
 
     await Promise.all(promises)
 
-    console.log("membershipsArr: ", membershipsArr)
-    return res.status(200).json(membershipsArr)
+    let promisesImages = Object.keys(membershipsObj).map(async (e) => {
+        let mainImage = await GroupImage.findOne({
+            where: {
+                preview: true
+            }
+        })
+        membershipsObj[e].previewImage = mainImage.toJSON()
+    })
+
+    await Promise.all(promisesImages)
+
+    console.log("membershipsArr: ", membershipsObj)
+    return res.status(200).json(membershipsObj)
 })
 
 
