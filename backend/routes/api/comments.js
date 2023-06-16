@@ -9,7 +9,42 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
-//COMMENTS ARE GOT FROM GROUPS
+//All Comments for an event
+router.get('/:eventId/comments', async (req, res, next) => {
+    const {user} = req
+    const {eventId} = req.params
+
+     // does a current user exist?
+     if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    // does the event exist?
+    let eventTest = await Event.findByPk(eventId)
+    if (!eventTest) {
+        const err = new Error("Couldn't find an Event with the specified id");
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    let comments = await Comment.findAll({
+        where: {
+            eventId: req.params.eventId
+        }
+    })
+
+    if (comments) {
+        returnComments = comments
+    } else {
+        returnComments = []
+    }
+
+    return res.json(returnComments)
+})
 
 //ADD A COMMENT
 router.post('/:eventId/comments', requireAuth, async (req, res, next) => {
@@ -63,6 +98,40 @@ router.post('/:eventId/comments', requireAuth, async (req, res, next) => {
 })
 
 //EDIT A COMMENT
+router.put('/:commentId/edit', requireAuth, async (req, res, next) => {
+
+    const {user} = req
+    const {commentId} = req.params
+    const {text} = req.body
+
+    // does a current user exist?
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    let comment = await Comment.findByPk(commentId)
+    if (!comment) {
+        const err = new Error("Couldn't find a comment with the specified id")
+        err.message = "Comment couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    if (comment.userId !== user.id) {
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
+        return next(err);
+    }
+
+    if (text) comment.comment = text
+
+    await comment.save()
+    return res.json(comment)
+})
 
 //DELETE A COMMENT
 
