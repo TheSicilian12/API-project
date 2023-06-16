@@ -10,9 +10,11 @@ const { handleValidationErrors } = require('../../utils/validation');
 const attendance = require('../../db/models/attendance');
 
 //All Comments for an event
-router.get('/:eventId/comments', async (req, res, next) => {
+router.get('/:eventId', async (req, res, next) => {
     const {user} = req
     const {eventId} = req.params
+
+    console.log("----all comments for an event----")
 
      // does a current user exist?
      if (!user) {
@@ -37,17 +39,15 @@ router.get('/:eventId/comments', async (req, res, next) => {
         }
     })
 
-    if (comments) {
-        returnComments = comments
-    } else {
-        returnComments = []
-    }
-
+    let returnComments = []
+    if (comments) returnComments = comments
+   
+    console.log("return comments: ", returnComments)
     return res.json(returnComments)
 })
 
 //ADD A COMMENT
-router.post('/:eventId/comments', requireAuth, async (req, res, next) => {
+router.post('/:eventId', requireAuth, async (req, res, next) => {
     // current user must be logged in
 
     const {user} = req
@@ -98,7 +98,7 @@ router.post('/:eventId/comments', requireAuth, async (req, res, next) => {
 })
 
 //EDIT A COMMENT
-router.put('/:commentId/comments', requireAuth, async (req, res, next) => {
+router.put('/:commentId', requireAuth, async (req, res, next) => {
 
     const {user} = req
     const {commentId} = req.params
@@ -134,7 +134,7 @@ router.put('/:commentId/comments', requireAuth, async (req, res, next) => {
 })
 
 //DELETE A COMMENT
-router.delete('/:commentId/comments', requireAuth, async (req, res, next) => {
+router.delete('/:commentId', requireAuth, async (req, res, next) => {
     const {user} = req
     const {commentId} = req.params
 

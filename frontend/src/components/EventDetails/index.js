@@ -12,6 +12,7 @@ import EventGroupComponent from '../eventGroupComponent';
 
 import BackButton from '../BackButton';
 import CommentComponent from '../CommentComponent';
+import { getAllEventComments } from '../../store/commentsThunk';
 
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function EventDetails({ event, eventId, user }) {
         // if (event.Group) {
         // console.log('event.groupId: ', event.groupId)
         dispatch(getGroup(event.groupId))
+        dispatch(getAllEventComments(eventId))
         // }
     }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)

@@ -9,7 +9,7 @@ function CommentComponent({comment}) {
     if (comment.length === 0) return (null)
 
 
-    console.log("comment: ", comment)
+    // console.log("comment: ", comment)
     return (
         <div>
         {Object.values(comment).map(info => <div>{info.comment}</div>)}

@@ -32,11 +32,11 @@ const clear_state = () => ({
 
 // THUNK - get all groups your a member to
 export const allMembershipThunk = (userId) => async (dispatch) => {
-   console.log("userId: ", userId)
+//    console.log("userId: ", userId)
     const response = await fetch(`/api/groups/memberships/${userId}`)
     if (response.ok) {
         const list = await response.json();
-        console.log("list: ", list)
+        // console.log("list: ", list)
         dispatch(load_all(list))
     }
 }
@@ -53,7 +53,7 @@ export const membershipsThunk = (payload) => async (dispatch) => {
     const response = await fetch(`/api/groups/${userId}/${groupId}/membership`)
     if (response.ok) {
         const membership = await response.json()
-        console.log("membership: ", membership)
+        // console.log("membership: ", membership)
         dispatch(load(membership))
     }
     else {
@@ -64,8 +64,8 @@ export const membershipsThunk = (payload) => async (dispatch) => {
 // THUNK - automatic membership
 export const automaticMembershipThunk = (payload) => async (dispatch) => {
     const {groupId, user} = payload
-    console.log("auto thunk")
-    console.log("payload: ", payload)
+    // console.log("auto thunk")
+    // console.log("payload: ", payload)
     const response = await csrfFetch(`/api/groups/${groupId}/automembership`, {
         method: 'POST',
         headers: {
@@ -73,9 +73,9 @@ export const automaticMembershipThunk = (payload) => async (dispatch) => {
         },
         body: JSON.stringify(payload)
     })
-    console.log("auto after response: ", response)
+    // console.log("auto after response: ", response)
     if (response.ok) {
-        console.log("auto ok")
+        // console.log("auto ok")
         let autoMember = await response.json()
 
     }
@@ -83,9 +83,9 @@ export const automaticMembershipThunk = (payload) => async (dispatch) => {
 
 // THUNK - delete membership
 export const deleteMembershipThunk = (payload) => async (dispatch) => {
-    console.log("delete membership thunk")
+    // console.log("delete membership thunk")
     const {groupId, user, memberId} = payload
-    console.log("before fetch")
+    // console.log("before fetch")
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
         method: 'DELETE',
         headers: {
@@ -93,10 +93,10 @@ export const deleteMembershipThunk = (payload) => async (dispatch) => {
         },
         body: JSON.stringify(payload)
     })
-    console.log("after fetch")
+    // console.log("after fetch")
     if (response.ok) {
         let deleteMembership = await response.json()
-        console.log("deleteMembership: ", deleteMembership)
+        // console.log("deleteMembership: ", deleteMembership)
         dispatch(delete_member({groupId: groupId}))
     }
 }
