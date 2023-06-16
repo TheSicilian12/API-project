@@ -21,12 +21,13 @@ function UserGroupComponent({group}) {
 
     return (
         <div>
-
+            {/* Divide based on membership status */}
             <img
                 className="user-group-image-dimensions"
                 src = {group.previewImage?.url}
             />
             hello {group.name}
+            {group.membershipInfo.status}
             <button onClick={() => leaveGroup()}>
                 Leave group
             </button>
