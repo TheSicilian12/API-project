@@ -96,6 +96,8 @@ export const deleteMembershipThunk = (payload) => async (dispatch) => {
     console.log("after fetch")
     if (response.ok) {
         let deleteMembership = await response.json()
+        console.log("deleteMembership: ", deleteMembership)
+        dispatch(delete_member({groupId: groupId}))
     }
 }
 
@@ -119,6 +121,11 @@ const membershipReducer = (state = initialState, action) => {
             newState.membership = { ...action.payload }
             return newState
         }
+        case DELETE_MEMBER:
+            const {groupId} = action.payload
+            let updatedMembership = {...state.membership}
+            delete updatedMembership[groupId]
+            return {...state, membership: updatedMembership}
         case CLEAR_STATE: {
             const newState = {"membership": "Not a member"}
             return {...newState}
