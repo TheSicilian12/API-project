@@ -49,6 +49,7 @@ function AddCommentModal({ eventId }) {
                     }}
                 ></textarea>
                 <button
+                    className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions add-comment-button'
                     type="submit"
                 >
                     Add Comment
