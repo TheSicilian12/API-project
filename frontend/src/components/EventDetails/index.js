@@ -95,10 +95,10 @@ function EventDetails({ event, eventId, user, comments }) {
                 <p>{event?.description}</p>
                 </div>
 
-                <OpenModalButton
+                {!alreadyCommented && <OpenModalButton
                     buttonText="Add Comment"
                     modalComponent={<AddCommentModal eventId={event.id}/>}
-                />
+                />}
                 <CommentComponent comments={comments} eventId={eventId}/>
             </div>
         </>
