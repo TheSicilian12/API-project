@@ -99,7 +99,7 @@ function EventDetails({ event, eventId, user, comments }) {
                     buttonText="Add Comment"
                     modalComponent={<AddCommentModal eventId={event.id}/>}
                 />
-                <CommentComponent comments={comments}/>
+                <CommentComponent comments={comments} eventId={eventId}/>
             </div>
         </>
     )

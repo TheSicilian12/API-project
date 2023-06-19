@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./CommentComponent.css"
 import OpenModalButton from "../OpenModalButton";
 import DeleteCommentModal from "../DeleteCommentModal";
 import EditCommentModal from "../EditCommentModal";
+import { clearCommentState } from "../../store/commentsThunk";
 
 function CommentComponent({ comments }) {
+    const dispatch = useDispatch()
+
     const user = useSelector((state) => state.session.user)
     const commentTest = useSelector((state) => state.comments)
     console.log("commentTest: ", commentTest)
+
+    useEffect(() => {
+        dispatch(clearCommentState())
+    }, [])
 
     // if (comments.length === 0) return (null)
     if (commentTest.length === 0) return (null)
