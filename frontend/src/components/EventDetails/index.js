@@ -13,8 +13,8 @@ import EventGroupComponent from '../eventGroupComponent';
 import BackButton from '../BackButton';
 import CommentComponent from '../CommentComponent';
 import { getAllEventComments } from '../../store/commentsThunk';
-import AddCommentModalButton from '../AddCommentModalButton';
 import AddCommentModal from '../AddCommentModal';
+import OpenModalButton from '../OpenModalButton';
 
 function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
@@ -101,7 +101,7 @@ function EventDetails({ event, eventId, user, comments }) {
                 <p>{event?.description}</p>
                 </div>
 
-                <AddCommentModalButton
+                <OpenModalButton
                     buttonText="Add Comment"
                     modalComponent={<AddCommentModal eventId={event.id}/>}
                 />
