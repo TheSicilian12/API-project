@@ -55,6 +55,7 @@ export const deleteComment = (payload) => async (dispatch) => {
     console.log("delete comment after")
     if (response.ok) {
         const deleteComment = await response.json()
+        dispatch(getAllEventComments(eventId))
     }
 }
 
