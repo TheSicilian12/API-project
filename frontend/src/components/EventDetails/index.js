@@ -20,6 +20,7 @@ function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
     // console.log('event groupId: ', event.groupId)
+    console.log("comments event details: ", comments)
 
     useEffect(() => {
         // console.log('useEffect test')
@@ -31,10 +32,6 @@ function EventDetails({ event, eventId, user, comments }) {
     }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
-    // console.log('orgranizer: ', organizer)
-    // console.log('groupImages: ', groupImages)
-
-    // console.log('event: ', event)
 
     let groupPreviewImage;
     if (groupImages) {
@@ -85,9 +82,10 @@ function EventDetails({ event, eventId, user, comments }) {
         options
     }
 
-    const addComment = () => {
+    const alreadyCommented = Object.values(comments).find(e => e.userId === user.id)
 
-    }
+    console.log("alreadyCommented: ", alreadyCommented)
+
 
     return (
         <>

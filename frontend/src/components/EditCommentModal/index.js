@@ -22,8 +22,6 @@ function EditCommentModal({ eventId, commentEdit }) {
     const editCommentOnClick = async (e) => {
         e.preventDefault();
 
-        console.log("add comment button")
-
         const payload = {
             user,
             eventId,

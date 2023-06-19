@@ -7,11 +7,14 @@ import EditCommentModal from "../EditCommentModal";
 
 function CommentComponent({ comments }) {
     const user = useSelector((state) => state.session.user)
+    const commentTest = useSelector((state) => state.comments)
+    console.log("commentTest: ", commentTest)
 
+    console.log("comments comment component: ", comments)
     if (comments.length === 0) return (null)
 
+    Object.values(comments).map(info => console.log("info.comment: ", info.comment))
 
-    console.log("comments: ", comments)
     return (
         <div>
             {Object.values(comments).map(info => <div key={info.eventId}>

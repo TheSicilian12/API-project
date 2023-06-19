@@ -82,8 +82,10 @@ const initialState = {}
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ALL_COMMENTS: {
-           let returnState = {};
-           returnState = {...action.payload};
+            console.log("reducer: ", action.payload)
+           const returnState = { ...state };
+        //    returnState = {...action.payload};
+
            return returnState;
         }
         default:

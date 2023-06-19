@@ -17,8 +17,10 @@ export default function EventDetailsWrapper() {
     }, [id])
 
     let event = useSelector((state) => state.events)
-    let comments = useSelector((state) => state.comments)
+    let comments = useSelector((state) => state.comments || {})
     const user = useSelector((state) => state.session.user)
+
+    console.log("comments event wrapper: ", comments)
 // console.log('eventThunk: ', user)
     if (!event) {
         return <div>loading</div>
