@@ -33,16 +33,20 @@ function DeleteCommentModal({ eventId }) {
 
 
     return (
-        <div>
+        <div className="delete-comment-form-container">
             <h1>Confirm Delete</h1>
-            <button
-                onClick={deleteHandler}>
-                Yes (Delete Comment)
-            </button>
-            <button
-                onClick={closeModal}>
-                No (Keep Comment)
-            </button>
+            <div className="delete-comment-button-container">
+                <button
+                    className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions delete-comment-button"
+                    onClick={deleteHandler}>
+                    Yes (Delete Comment)
+                </button>
+                <button
+                    className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions delete-comment-button"
+                    onClick={closeModal}>
+                    No (Keep Comment)
+                </button>
+            </div>
         </div>
     )
 }
