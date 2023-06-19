@@ -24,3 +24,4 @@ export default function AddCommentModalButton({
         onClick={onClick}>{buttonText}</button>
     );
 }
+
