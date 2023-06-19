@@ -20,6 +20,8 @@ function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    console.log("user: ", user)
+
     useEffect(() => {
         // if (event.Group) {
         dispatch(getGroup(event.groupId))

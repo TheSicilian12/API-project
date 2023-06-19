@@ -32,10 +32,10 @@ function CommentComponent({ comments }) {
                         {info.comment}
                     </div>
                     <div className="comment-buttons-container">
-                        {info.userId === user.id && <OpenModalButton
+                        {user && info.userId === user.id && <OpenModalButton
                             buttonText="Delete Comment"
                             modalComponent={<DeleteCommentModal eventId={info.eventId} />} />}
-                        {info.userId === user.id && <OpenModalButton
+                        {user && info.userId === user.id && <OpenModalButton
                             buttonText="Edit Comment"
                             modalComponent={<EditCommentModal eventId={info.eventId} commentEdit={info.comment} />} />}
                     </div>
