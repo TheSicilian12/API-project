@@ -87,19 +87,21 @@ function EventDetails({ event, eventId, user, comments }) {
         <>
             <div className='event-container'>
                 <div className="event-arrowContainer">
-                    <BackButton text={"All Events"} link={"/events"}/>
+                    <BackButton text={"All Events"} link={"/events"} />
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
                 <div className="event-descriptionContainer descriptionTextSize">
-                <h2>Description</h2>
-                <p>{event?.description}</p>
+                    <h2>Description</h2>
+                    <p>{event?.description}</p>
                 </div>
-
-                {!alreadyCommented && <OpenModalButton
-                    buttonText="Add Comment"
-                    modalComponent={<AddCommentModal eventId={event.id}/>}
-                />}
-                <CommentComponent comments={comments} eventId={eventId}/>
+                <div className="displayFlex">
+                    <h2>Comments</h2>
+                    {!alreadyCommented && <OpenModalButton
+                        buttonText="Add"
+                        modalComponent={<AddCommentModal eventId={event.id} />}
+                    />}
+                </div>
+                <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>
     )
