@@ -80,7 +80,7 @@ export const deleteComment = (payload) => async (dispatch) => {
 }
 
 // Clear state
-export const clearCommentState = () = async (dispatch) => {
+export const clearCommentState = () => async (dispatch) => {
     dispatch(clear_state())
 }
 
