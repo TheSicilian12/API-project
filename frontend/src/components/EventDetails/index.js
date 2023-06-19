@@ -81,8 +81,8 @@ function EventDetails({ event, eventId, user, comments }) {
         options
     }
 
-    let alreadyCommented = true;
-    // user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
+    let alreadyCommented;
+    user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
 
     console.log("alreadyCommented: ", alreadyCommented)
 
@@ -104,8 +104,10 @@ function EventDetails({ event, eventId, user, comments }) {
                         className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
+
                     />}
                 </div>
+
                 <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>
