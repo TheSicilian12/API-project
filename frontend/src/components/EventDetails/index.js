@@ -86,7 +86,6 @@ function EventDetails({ event, eventId, user, comments }) {
 
     console.log("alreadyCommented: ", alreadyCommented)
 
-
     return (
         <>
             <div className='event-container'>
