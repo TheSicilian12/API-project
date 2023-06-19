@@ -40,6 +40,25 @@ export const addComment = (payload) => async (dispatch) => {
     }
 }
 
+// THUNK - delete a comment for an event
+export const deleteComment = (payload) => async (dispatch) => {
+    console.log("----delete comment----")
+    const {eventId, user} = payload
+    console.log("delete comment before")
+    const response = await csrfFetch('/api/comments/delete', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    console.log("delete comment after")
+    if (response.ok) {
+        const deleteComment = await response.json()
+    }
+}
+
+
 
 const initialState = {}
 

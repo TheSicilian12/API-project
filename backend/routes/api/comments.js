@@ -134,8 +134,9 @@ router.put('/:commentId', requireAuth, async (req, res, next) => {
 })
 
 //DELETE A COMMENT
-router.delete('/:commentId', requireAuth, async (req, res, next) => {
+router.delete('/delete', requireAuth, async (req, res, next) => {
     const {user} = req
+    const {eventId} = req.body
     const {commentId} = req.params
 
     // does a current user exist?
@@ -146,7 +147,13 @@ router.delete('/:commentId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let comment = await Comment.findByPk(commentId)
+    // let comment = await Comment.findByPk(commentId)
+    let comment = await Comment.findOne({
+        where: {
+            userId: user.id,
+            eventId: eventId
+        }
+    })
     if (!comment) {
         const err = new Error("Couldn't find a comment with the specified id")
         err.message = "Comment couldn't be found"

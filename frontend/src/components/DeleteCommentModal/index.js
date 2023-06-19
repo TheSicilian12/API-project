@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import '../DeleteGroupModal'
-import { addComment } from "../../store/commentsThunk";
+import { addComment, deleteComment } from "../../store/commentsThunk";
 import '../UniversalCSS.css';
 import './DeleteCommentModal.css';
 
@@ -18,52 +18,31 @@ function DeleteCommentModal({ eventId }) {
     const [comment, setComment] = useState("")
     const [commentErr, setCommentErr] = useState("")
 
-    const addCommentOnClick = async (e) => {
+    const deleteHandler = async (e) => {
         e.preventDefault();
-
-        // let deletion = await dispatch(deleteGroupThunk(groupId))
-
-        // if (deletion) {
-        //     closeModal();
-        //     history.push('/groups');
-        // }
-        console.log("add comment button")
-
+        console.log("delete comment button")
         const payload = {
             user,
-            eventId,
-            comment
+            eventId
         }
 
-        let commentReturn = await dispatch(addComment(payload))
-        console.log("commentReturn: ", commentReturn)
-        closeModal()
+        let deletion = await dispatch(deleteComment(payload))
+        closeModal();
+        console.log("deletion: ", deletion)
     }
-    console.log("comment: ", comment)
+
 
     return (
         <div>
-            <form
-                onSubmit={addCommentOnClick}
-            >
-                Comment
-                <label>Comment</label>
-                <input
-                    // className='groupFormInput'
-                    type='text'
-                    placeholder='comment'
-                    value={comment}
-                    onChange={(e) => {
-                        setComment(e.target.value)
-                        setCommentErr(true)
-                    }}
-                ></input>
-                <button
-                    type="submit"
-                    >
-                    Add Comment
-                </button>
-            </form>
+            <h1>Confirm Delete</h1>
+            <button
+                onClick={deleteHandler}>
+                Yes (Delete Comment)
+            </button>
+            <button
+                onClick={closeModal}>
+                No (Keep Comment)
+            </button>
         </div>
     )
 }
