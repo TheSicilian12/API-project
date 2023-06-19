@@ -16,13 +16,13 @@ router.get('/:eventId', async (req, res, next) => {
 
     console.log("----all comments for an event----")
 
-     // does a current user exist?
-     if (!user) {
-        const err = new Error("You must be logged in.");
-        err.status = 404
-        err.message = "You must be logged in."
-        return next(err);
-    }
+    // //  does a current user exist?
+    //  if (!user) {
+    //     const err = new Error("You must be logged in.");
+    //     err.status = 404
+    //     err.message = "You must be logged in."
+    //     return next(err);
+    // }
 
     // does the event exist?
     let eventTest = await Event.findByPk(eventId)

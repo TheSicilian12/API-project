@@ -26,6 +26,7 @@ function EventDetails({ event, eventId, user, comments }) {
         dispatch(getAllEventComments(eventId))
         // }
     }, [event.groupId])
+
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
 
@@ -78,7 +79,8 @@ function EventDetails({ event, eventId, user, comments }) {
         options
     }
 
-    const alreadyCommented = Object.values(comments).find(e => e.userId === user.id)
+    let alreadyCommented = true;
+    // user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
 
     console.log("alreadyCommented: ", alreadyCommented)
 

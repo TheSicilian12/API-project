@@ -15,9 +15,10 @@ const clear_state = () => ({
 
 // THUNK - get all comments for an event
 export const getAllEventComments = (eventId) => async (dispatch) => {
-    // console.log("get all event before response")
+    console.log("get all event before response")
+    console.log("eventId: ", eventId)
     const response = await csrfFetch(`/api/comments/${eventId}`)
-    // console.log("after response: ", response)
+    console.log("after response: ", response)
     if (response.ok) {
         const eventsList = await response.json();
         let normEventList = normalizeIdArrToObj(eventsList)
