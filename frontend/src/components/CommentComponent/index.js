@@ -27,12 +27,12 @@ function CommentComponent({ comments }) {
             {Object.values(commentTest).map(info => <div key={info.eventId}>
                 {info.comment}
                 userId {info.userId}
-                <OpenModalButton
+                {info.userId === user.id && <OpenModalButton
                     buttonText="Delete Comment"
-                    modalComponent={<DeleteCommentModal eventId = {info.eventId}/>} />
-                <OpenModalButton
+                    modalComponent={<DeleteCommentModal eventId = {info.eventId}/>} />}
+                {info.userId === user.id && <OpenModalButton
                     buttonText="Edit Comment"
-                    modalComponent={<EditCommentModal eventId = {info.eventId} commentEdit = {info.comment} />} />
+                    modalComponent={<EditCommentModal eventId = {info.eventId} commentEdit = {info.comment} />} />}
             </div>)}
         </div>
     );
