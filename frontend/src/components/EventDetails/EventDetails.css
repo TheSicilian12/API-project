@@ -195,3 +195,15 @@
 .groupImageDimensions {
     width: 15rem;
 }
+
+.add-comment-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}
+
+.add-comment-button-modal {
+    width: 80px;
+    height: 40px;
+}

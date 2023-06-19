@@ -94,9 +94,10 @@ function EventDetails({ event, eventId, user, comments }) {
                     <h2>Description</h2>
                     <p>{event?.description}</p>
                 </div>
-                <div className="displayFlex">
+                <div className="add-comment-section-header">
                     <h2>Comments</h2>
-                    {!alreadyCommented && <OpenModalButton
+                    {!user || !alreadyCommented && <OpenModalButton
+                        className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
                     />}
