@@ -174,7 +174,6 @@ router.delete('/delete', requireAuth, async (req, res, next) => {
         console.log("comment: ", comment)
 
     if (comment.dataValues.userId !== user.id) {
-        return {"error": "error"}
         const err = new Error("Not an authorized user")
         err.message = "Not an authorized user"
         err.status = 404

@@ -23,17 +23,23 @@ function CommentComponent({ comments }) {
     Object.values(commentTest).map(info => console.log("INFO EVENT", info.comment))
 
     return (
-        <div>
-            {Object.values(commentTest).map(info => <div key={info.eventId}>
-                {info.comment}
-                userId {info.userId}
-                {info.userId === user.id && <OpenModalButton
-                    buttonText="Delete Comment"
-                    modalComponent={<DeleteCommentModal eventId = {info.eventId}/>} />}
-                {info.userId === user.id && <OpenModalButton
-                    buttonText="Edit Comment"
-                    modalComponent={<EditCommentModal eventId = {info.eventId} commentEdit = {info.comment} />} />}
-            </div>)}
+        <div className="all-comment-container">
+            {Object.values(commentTest).map(info =>
+                <div
+                    className="comment-container"
+                    key={info.eventId}>
+                    <div className="comment-text-container">
+                        {info.comment}
+                    </div>
+                    <div className="comment-buttons-container">
+                        {info.userId === user.id && <OpenModalButton
+                            buttonText="Delete Comment"
+                            modalComponent={<DeleteCommentModal eventId={info.eventId} />} />}
+                        {info.userId === user.id && <OpenModalButton
+                            buttonText="Edit Comment"
+                            modalComponent={<EditCommentModal eventId={info.eventId} commentEdit={info.comment} />} />}
+                    </div>
+                </div>)}
         </div>
     );
 }
