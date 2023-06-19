@@ -1,15 +1,29 @@
-.deleteGroupWidth {
-    width: 40rem;
+.edit-comment-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
 }
 
-.deleteGroupButtonsWidth {
-    width: 30rem;
+.edit-comment-button {
+    width: 150px;
+    height: 60px;
 }
 
-.deleteGroupButtonsMarginBottom {
-    margin-bottom: 1rem;
+.edit-comment-textarea {
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 80px;
+    max-height: 80px;
+    margin-bottom: 10px;
 }
 
-.deleteGroupText {
-    font-size: 150%;
+.edit-comment-button-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80px;
+    margin-bottom: 20px;
 }

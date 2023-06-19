@@ -36,12 +36,12 @@ function EditCommentModal({ eventId, commentEdit }) {
     return (
         <div>
             <form
+                className="edit-comment-form-container"
                 onSubmit={editCommentOnClick}
             >
-                Edit Comment
-                <label>Comment</label>
-                <input
-                    // className='groupFormInput'
+                <h1>Edit Comment</h1>
+                <textarea
+                    className='edit-comment-textarea'
                     type='text'
                     placeholder='comment'
                     value={comment}
@@ -49,11 +49,12 @@ function EditCommentModal({ eventId, commentEdit }) {
                         setComment(e.target.value)
                         setCommentErr(true)
                     }}
-                ></input>
+                ></textarea>
                 <button
+                    className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions edit-comment-button-container"
                     type="submit"
                     >
-                    Edit Comment
+                    Edit
                 </button>
             </form>
         </div>

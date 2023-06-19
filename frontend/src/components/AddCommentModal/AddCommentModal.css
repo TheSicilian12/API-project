@@ -8,8 +8,10 @@
 }
 
 .add-comment-textarea {
-    width: 350px;
-    height: 100px;
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 100px;
+    max-height: 100px;
     margin-bottom: 10px;
 }
 
