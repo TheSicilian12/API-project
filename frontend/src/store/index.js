@@ -5,12 +5,14 @@ import sessionReducer from './session';
 import groupReducer from './groupsThunk';
 import eventReducer from './eventsThunk';
 import membershipReducer from "./membershipThunk";
+import commentReducer from "./commentsThunk";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   groups: groupReducer,
   events: eventReducer,
-  memberships: membershipReducer
+  memberships: membershipReducer,
+  comments: commentReducer
 });
 // ...
 

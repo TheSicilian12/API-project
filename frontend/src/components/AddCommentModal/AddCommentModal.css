@@ -1,0 +1,15 @@
+.deleteGroupWidth {
+    width: 40rem;
+}
+
+.deleteGroupButtonsWidth {
+    width: 30rem;
+}
+
+.deleteGroupButtonsMarginBottom {
+    margin-bottom: 1rem;
+}
+
+.deleteGroupText {
+    font-size: 150%;
+}

@@ -914,7 +914,7 @@ router.get('/:groupId/events', async (req, res, next) => {
             description: event.description
         })
     }
-    console.log(eventObj)
+    // console.log(eventObj)
 
     return res.json(eventObj)
 })
@@ -924,9 +924,9 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //current user must be organizer or co-host
     //mg - or host?
     //assuming organizer, host, or co-host
-    console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    // console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     const { user } = req
-    console.log('req.body: ', req.body)
+    // console.log('req.body: ', req.body)
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
@@ -1255,7 +1255,7 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
 
     //error no membership
 
-    console.log("------------------------------delete membership--------------------------------")
+    // console.log("------------------------------delete membership--------------------------------")
 
     const { user } = req
     const { memberId } = req.body
@@ -1416,8 +1416,8 @@ router.post('/:groupId/automembership', async (req, res) => {
     const { user } = req
     const { membership } = req.body
 
-    console.log("---------------------automembership-------------------")
-    console.log("membership --------------------- ", membership.status)
+    // console.log("---------------------automembership-------------------")
+    // console.log("membership --------------------- ", membership.status)
 
     if (!user) {
         const err = new Error(`You need to log in`);
@@ -1478,7 +1478,7 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
     // console.log("-------------------------------------")
     let err = {}
     const { userId, groupId } = req.params
-    console.log(userId)
+    // console.log(userId)
     // let {userId} = req.query
 
     if (typeof userId !== "number" || typeof groupId !== "number") {
@@ -1503,17 +1503,17 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
 
     // let membershipJSON = membership.map(e => e.toJSON())
     let membershipJSON = membership.toJSON()
-    console.log("membershipJSON: ", membershipJSON)
+    // console.log("membershipJSON: ", membershipJSON)
     // return res.json(membershipJSON)
     return res.status(200).json(membershipJSON)
 })
 
 // RETRIEVE ALL MEMBERSHIPS FOR A USER
 router.get('/memberships/:userId', async (req, res) => {
-    console.log("----------------------------RETRIEVE ALL MEMBERSHIPS FOR A USER-------------------------------------")
+    // console.log("----------------------------RETRIEVE ALL MEMBERSHIPS FOR A USER-------------------------------------")
     const {userId} = req.params
 
-    console.log("userId: ", userId)
+    // console.log("userId: ", userId)
     if (typeof userId !== "number") {
         const err = new Error("userId or groupId is invalid");
         err.status = 404
@@ -1541,7 +1541,7 @@ router.get('/memberships/:userId', async (req, res) => {
     // groups added
     let membershipsObj = {}
     let promises = Object.values(membershipsJSON).map(async (e) => {
-        console.log("e: ", e)
+        // console.log("e: ", e)
         let group = await Group.findByPk(e.groupId)
         // console.log("group: ", group)
         membershipsObj[e.groupId] = group.toJSON()
@@ -1551,18 +1551,19 @@ router.get('/memberships/:userId', async (req, res) => {
 
     await Promise.all(promises)
 
-    let promisesImages = Object.keys(membershipsObj).map(async (e) => {
+    let promisesImages = Object.keys(membershipsObj).map(async (groupId) => {
         let mainImage = await GroupImage.findOne({
             where: {
+                groupId: groupId,
                 preview: true
             }
         })
-        membershipsObj[e].previewImage = mainImage.toJSON()
+        membershipsObj[groupId].previewImage = mainImage.toJSON()
     })
 
     await Promise.all(promisesImages)
 
-    console.log("membershipsArr: ", membershipsObj)
+    // console.log("membershipsArr: ", membershipsObj)
     return res.status(200).json(membershipsObj)
 })
 

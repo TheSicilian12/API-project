@@ -108,10 +108,10 @@ function LoginFormModal() {
 
               {/* no errors */}
               {/* {(!displayPasErr && !displayCredErr) && <div> */}
-              <img
+              {/* <img
                 className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
                 src={goodSnail}
-              />
+              /> */}
               {/* </div>} */}
 
               {/* errors */}
@@ -119,6 +119,10 @@ function LoginFormModal() {
                 <img
                   className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
                   src={badSnail}
+                />
+                <img
+                  className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
+                  src={goodSnail}
                 />
               </div> :
                 <img

@@ -168,32 +168,25 @@ const eventReducer = (state = initialState, action) => {
     switch (action.type) {
         case ALL_GROUPEVENTS:
             const returnState = {}
-            // returnState.allGroups = normalizeIdArrToObj(action.list.Groups)
-            // console.log('action! ', action.list.Events)
-
             const allGroupEvents = {};
             action.list.Events.map((e) => allGroupEvents[e.id] = e)
-            // console.log('allGroupEvents: ', allGroupEvents)
             return {
                 ...allGroupEvents,
             }
         case ALL_EVENTS:
             const returnAllEvents = {}
             returnAllEvents.allEvents = {};
-            // console.log('action: ', action.list.Events)
             action.list.Events.map((e) => returnAllEvents.allEvents[e.id] = e)
             return {
                 ...returnAllEvents
             }
         case ONE_EVENT:
             let returnOneEvent = {}
-            // console.log('action: ', action)
             returnOneEvent = {...action.events}
             return {
                 ...returnOneEvent
             }
         default:
-            // console.log('default')
             return state
     }
 }

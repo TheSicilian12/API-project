@@ -21,7 +21,7 @@ export default function EditWrapper() {
 
     const previewImage = []
     currentGroup.GroupImages.find(image => {if (image.preview === true) previewImage.push(image)})
-    console.log("previewImage: ", previewImage)
+    // console.log("previewImage: ", previewImage)
 
     return (
         <GroupForm currentGroup={currentGroup} formType={'edit'} previewImage={previewImage}/>

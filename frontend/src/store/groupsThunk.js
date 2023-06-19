@@ -270,7 +270,7 @@ export const addAGroupImage = (groupImageObj) => async (dispatch) => {
     })
     if (response.ok) {
         const newImage = await response.json();
-        console.log('add a group thunk: ', newImage)
+        // console.log('add a group thunk: ', newImage)
         return newImage;
     }
 }

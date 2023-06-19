@@ -7,6 +7,7 @@ const eventRouter = require('./events.js');
 const venueRouter = require('./venues.js');
 const eventImageRouter = require('./event-images.js');
 const groupImageRouter = require('./group-images.js');
+const commentRouter = require('./comments.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 // update router and then update the route.
@@ -26,6 +27,8 @@ router.use('/venues', venueRouter);
 router.use('/event-images', eventImageRouter);
 
 router.use('/group-images', groupImageRouter);
+
+router.use('/comments', commentRouter);
 
 //when auth finished comment out
 router.post('/test', function(req, res) {

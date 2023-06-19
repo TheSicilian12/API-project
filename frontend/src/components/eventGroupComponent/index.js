@@ -18,7 +18,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
     const membership = useSelector(state => state.memberships.membership);
-    console.log("membership: ", membership?.status)
+    // console.log("membership: ", membership?.status)
 
     // let membership = dispatch(membershipIdThunk(payload))
 
@@ -32,12 +32,12 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         dispatch(membershipsThunk(payload));
     }, [])
 
-    console.log("info: ", info)
+    // console.log("info: ", info)
 
 
 
     async function joinGroup() {
-        console.log("join group button")
+        // console.log("join group button")
         const payload = {
             groupId: info.groupId,
             membership: membership,

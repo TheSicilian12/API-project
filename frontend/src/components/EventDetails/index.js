@@ -11,25 +11,23 @@ import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 import EventGroupComponent from '../eventGroupComponent';
 
 import BackButton from '../BackButton';
+import CommentComponent from '../CommentComponent';
+import { getAllEventComments } from '../../store/commentsThunk';
+import AddCommentModal from '../AddCommentModal';
+import OpenModalButton from '../OpenModalButton';
 
-function EventDetails({ event, eventId, user }) {
+function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    // console.log('event groupId: ', event.groupId)
 
     useEffect(() => {
-        // console.log('useEffect test')
         // if (event.Group) {
-        // console.log('event.groupId: ', event.groupId)
         dispatch(getGroup(event.groupId))
+        dispatch(getAllEventComments(eventId))
         // }
     }, [event.groupId])
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
-    // console.log('orgranizer: ', organizer)
-    // console.log('groupImages: ', groupImages)
-
-    // console.log('event: ', event)
 
     let groupPreviewImage;
     if (groupImages) {
@@ -71,12 +69,7 @@ function EventDetails({ event, eventId, user }) {
 
     const type = "event"
 
-    // console.log("event image: ", eventPreviewImage)
     const previewImage = eventPreviewImage?.url
-    // console.log("previewImage: ", previewImage)
-
-    // console.log('eventPreviewImage: ', eventPreviewImage)
-    // console.log('options: ', options)
 
     const info = {
         event,
@@ -85,6 +78,11 @@ function EventDetails({ event, eventId, user }) {
         options
     }
 
+    const alreadyCommented = Object.values(comments).find(e => e.userId === user.id)
+
+    console.log("alreadyCommented: ", alreadyCommented)
+
+
     return (
         <>
             <div className='event-container'>
@@ -92,12 +90,16 @@ function EventDetails({ event, eventId, user }) {
                     <BackButton text={"All Events"} link={"/events"}/>
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
-
                 <div className="event-descriptionContainer descriptionTextSize">
                 <h2>Description</h2>
                 <p>{event?.description}</p>
                 </div>
 
+                <OpenModalButton
+                    buttonText="Add Comment"
+                    modalComponent={<AddCommentModal eventId={event.id}/>}
+                />
+                <CommentComponent comments={comments} eventId={eventId}/>
             </div>
         </>
     )

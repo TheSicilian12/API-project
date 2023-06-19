@@ -145,7 +145,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     if (!groupName) {
         err.name = 'Name is required'
     }
-    console.log(groupName.length > 60)
+    // console.log(groupName.length > 60)
     if (groupName.length > 60) {
         err.name = 'Name must be 60 characters or less';
     }
