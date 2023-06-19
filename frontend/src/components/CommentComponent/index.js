@@ -26,6 +26,7 @@ function CommentComponent({ comments }) {
         <div>
             {Object.values(commentTest).map(info => <div key={info.eventId}>
                 {info.comment}
+                userId {info.userId}
                 <OpenModalButton
                     buttonText="Delete Comment"
                     modalComponent={<DeleteCommentModal eventId = {info.eventId}/>} />

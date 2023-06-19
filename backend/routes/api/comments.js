@@ -99,11 +99,13 @@ router.post('/:eventId', requireAuth, async (req, res, next) => {
 
 //EDIT A COMMENT
 router.put('/edit', requireAuth, async (req, res, next) => {
-
+    console.log("---------------------------edit-----------------------------")
     const {user} = req
-    const {commentId} = req.params
+    // const {commentId} = req.params
     const {text, eventId} = req.body
 
+    console.log("-------------------------------------------- user Id: ", user.id)
+    console.log("-------------------------------------------- eventId: ", eventId)
     // does a current user exist?
     if (!user) {
         const err = new Error("You must be logged in.");
@@ -132,6 +134,8 @@ router.put('/edit', requireAuth, async (req, res, next) => {
         err.message = `Forbidden`
         return next(err);
     }
+
+    console.log("--------------------------------------- comment: ", comment.toJSON())
 
     if (text) comment.comment = text
 
@@ -163,6 +167,16 @@ router.delete('/delete', requireAuth, async (req, res, next) => {
     if (!comment) {
         const err = new Error("Couldn't find a comment with the specified id")
         err.message = "Comment couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+        console.log("comment: ", comment)
+
+    if (comment.dataValues.userId !== user.id) {
+        return {"error": "error"}
+        const err = new Error("Not an authorized user")
+        err.message = "Not an authorized user"
         err.status = 404
         return next(err)
     }
