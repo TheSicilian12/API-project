@@ -20,12 +20,15 @@ function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    console.log("user: ", user)
+
     useEffect(() => {
         // if (event.Group) {
         dispatch(getGroup(event.groupId))
         dispatch(getAllEventComments(eventId))
         // }
     }, [event.groupId])
+
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
 
@@ -78,28 +81,33 @@ function EventDetails({ event, eventId, user, comments }) {
         options
     }
 
-    const alreadyCommented = Object.values(comments).find(e => e.userId === user.id)
+    let alreadyCommented;
+    user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
 
     console.log("alreadyCommented: ", alreadyCommented)
-
 
     return (
         <>
             <div className='event-container'>
                 <div className="event-arrowContainer">
-                    <BackButton text={"All Events"} link={"/events"}/>
+                    <BackButton text={"All Events"} link={"/events"} />
                 </div>
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
                 <div className="event-descriptionContainer descriptionTextSize">
-                <h2>Description</h2>
-                <p>{event?.description}</p>
+                    <h2>Description</h2>
+                    <p>{event?.description}</p>
+                </div>
+                <div className="add-comment-section-header">
+                    <h2>Comments</h2>
+                    {!user || !alreadyCommented && <OpenModalButton
+                        className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
+                        buttonText="Add"
+                        modalComponent={<AddCommentModal eventId={event.id} />}
+
+                    />}
                 </div>
 
-                <OpenModalButton
-                    buttonText="Add Comment"
-                    modalComponent={<AddCommentModal eventId={event.id}/>}
-                />
-                <CommentComponent comments={comments} eventId={eventId}/>
+                <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>
     )

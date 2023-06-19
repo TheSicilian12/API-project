@@ -21,8 +21,6 @@ function AddCommentModal({ eventId }) {
     const addCommentOnClick = async (e) => {
         e.preventDefault();
 
-        console.log("add comment button")
-
         const payload = {
             user,
             eventId,
@@ -30,20 +28,18 @@ function AddCommentModal({ eventId }) {
         }
 
         let commentReturn = await dispatch(addComment(payload))
-        console.log("commentReturn: ", commentReturn)
         closeModal()
     }
-    console.log("comment: ", comment)
 
     return (
         <div>
             <form
+                className="add-comment-form-container"
                 onSubmit={addCommentOnClick}
             >
-                Comment
-                <label>Comment</label>
-                <input
-                    // className='groupFormInput'
+                <h1>Comment</h1>
+                <textarea
+                    className='add-comment-textarea'
                     type='text'
                     placeholder='comment'
                     value={comment}
@@ -51,10 +47,11 @@ function AddCommentModal({ eventId }) {
                         setComment(e.target.value)
                         setCommentErr(true)
                     }}
-                ></input>
+                ></textarea>
                 <button
+                    className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions add-comment-button'
                     type="submit"
-                    >
+                >
                     Add Comment
                 </button>
             </form>

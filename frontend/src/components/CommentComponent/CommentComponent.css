@@ -1,4 +1,25 @@
-.user-group-image-dimensions {
-    width: 200px;
-    height: 100px;
+.all-comment-container {
+    width: 1200px;
+    border-top: 1px solid black;
+}
+
+.comment-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-text-container {
+    overflow-wrap: break-word;
+    width: 900px;
+    font-size: large;
+    padding-bottom: 15px;
+    margin: 5px;
+}
+
+.comment-buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 15px;
+    width: 250px;
 }

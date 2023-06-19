@@ -1,15 +1,19 @@
-.deleteGroupWidth {
-    width: 40rem;
+.add-comment-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 260px;
+    align-items: center;
+    justify-content: center;
 }
 
-.deleteGroupButtonsWidth {
-    width: 30rem;
+.add-comment-textarea {
+    width: 350px;
+    height: 100px;
+    margin-bottom: 10px;
 }
 
-.deleteGroupButtonsMarginBottom {
-    margin-bottom: 1rem;
-}
-
-.deleteGroupText {
-    font-size: 150%;
+.add-comment-button {
+    width: 200px;
+    height: 40px;
 }
