@@ -41,7 +41,7 @@ router.get('/:eventId', async (req, res, next) => {
 
     let returnComments = []
     if (comments) returnComments = comments
-   
+
     console.log("return comments: ", returnComments)
     return res.json(returnComments)
 })
@@ -49,7 +49,7 @@ router.get('/:eventId', async (req, res, next) => {
 //ADD A COMMENT
 router.post('/:eventId', requireAuth, async (req, res, next) => {
     // current user must be logged in
-
+    console.log("--------------------------add a comment---------------------------------------------")
     const {user} = req
     const {eventId} = req.params
     const {comment} = req.body

@@ -10,9 +10,9 @@ const allComments = (payload) => ({
 
 // THUNK - get all comments for an event
 export const getAllEventComments = (eventId) => async (dispatch) => {
-    console.log("get all event before response")
+    // console.log("get all event before response")
     const response = await csrfFetch(`/api/comments/${eventId}`)
-    console.log("after response: ", response)
+    // console.log("after response: ", response)
     if (response.ok) {
         const eventsList = await response.json();
         let normEventList = normalizeIdArrToObj(eventsList)
@@ -23,8 +23,9 @@ export const getAllEventComments = (eventId) => async (dispatch) => {
 
 // THUNK - add a comment to an event
 export const addComment = (payload) => async (dispatch) => {
+    console.log("----add comment thunk----")
     const {eventId} = payload
-
+    console.log("add comment before")
     const response = await csrfFetch(`/api/comments/${eventId}`, {
         method: 'POST',
         headers: {
@@ -32,6 +33,7 @@ export const addComment = (payload) => async (dispatch) => {
         },
         body: JSON.stringify(payload)
     })
+    console.log("add comment after")
     if (response.ok) {
         const newComment = await response.json();
         dispatch(getAllEventComments(eventId))

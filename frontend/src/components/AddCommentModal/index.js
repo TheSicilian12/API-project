@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import '../DeleteGroupModal'
+import { addComment } from "../../store/commentsThunk";
 import '../UniversalCSS.css';
 import './AddCommentModal.css';
 
@@ -12,10 +13,12 @@ function AddCommentModal({ eventId }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const user = useSelector((state) => state.session.user)
+
     const [comment, setComment] = useState("")
     const [commentErr, setCommentErr] = useState("")
 
-    const deleteHandler = async (e) => {
+    const addCommentOnClick = async (e) => {
         e.preventDefault();
 
         // let deletion = await dispatch(deleteGroupThunk(groupId))
@@ -24,11 +27,25 @@ function AddCommentModal({ eventId }) {
         //     closeModal();
         //     history.push('/groups');
         // }
+        console.log("add comment button")
+
+        const payload = {
+            user,
+            eventId,
+            comment
+        }
+
+        let commentReturn = await dispatch(addComment(payload))
+        console.log("commentReturn: ", commentReturn)
+        closeModal()
     }
+    console.log("comment: ", comment)
 
     return (
         <div>
-            <form>
+            <form
+                onSubmit={addCommentOnClick}
+            >
                 Comment
                 <label>Comment</label>
                 <input
@@ -41,6 +58,11 @@ function AddCommentModal({ eventId }) {
                         setCommentErr(true)
                     }}
                 ></input>
+                <button
+                    type="submit"
+                    >
+                    Add Comment
+                </button>
             </form>
         </div>
     )
