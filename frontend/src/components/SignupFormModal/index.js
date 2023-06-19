@@ -192,10 +192,10 @@ function SignupFormModal() {
             </div>
           </div>
           <div>
-            <img
+            {/* <img
               className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
               src={goodFinn}
-            />
+            /> */}
             {(displayEmailErr ||
               displayUsernameErr ||
               displayFirstNameErr ||
@@ -205,6 +205,10 @@ function SignupFormModal() {
               <img
                 className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
                 src={badFinn}
+              />
+               <img
+                className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
+                src={goodFinn}
               />
             </div> :
               <img
