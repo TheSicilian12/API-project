@@ -83,8 +83,10 @@ const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ALL_COMMENTS: {
             console.log("reducer: ", action.payload)
-           const returnState = { ...state };
-        //    returnState = {...action.payload};
+            let comments = Object.values(action.payload)
+            const returnState = {};
+        //  returnState = {...action.payload};
+            comments.forEach((e) => returnState[e.id] = e)
 
            return returnState;
         }

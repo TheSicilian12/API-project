@@ -19,13 +19,9 @@ import OpenModalButton from '../OpenModalButton';
 function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    // console.log('event groupId: ', event.groupId)
-    console.log("comments event details: ", comments)
 
     useEffect(() => {
-        // console.log('useEffect test')
         // if (event.Group) {
-        // console.log('event.groupId: ', event.groupId)
         dispatch(getGroup(event.groupId))
         dispatch(getAllEventComments(eventId))
         // }

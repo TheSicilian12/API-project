@@ -8,16 +8,14 @@ import EditCommentModal from "../EditCommentModal";
 function CommentComponent({ comments }) {
     const user = useSelector((state) => state.session.user)
     const commentTest = useSelector((state) => state.comments)
-    console.log("commentTest: ", commentTest)
 
-    console.log("comments comment component: ", comments)
     if (comments.length === 0) return (null)
 
     Object.values(comments).map(info => console.log("info.comment: ", info.comment))
 
     return (
         <div>
-            {Object.values(comments).map(info => <div key={info.eventId}>
+            {Object.values(commentTest).map(info => <div key={info.eventId}>
                 {info.comment}
                 <OpenModalButton
                     buttonText="Delete Comment"
