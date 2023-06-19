@@ -127,8 +127,8 @@ const membershipReducer = (state = initialState, action) => {
             delete updatedMembership[groupId]
             return {...state, membership: updatedMembership}
         case CLEAR_STATE: {
-            const newState = {"membership": "Not a member"}
-            return {...newState}
+            const clearState = {"membership": "Not a member"}
+            return {...clearState}
         }
         default:
             // console.log('default')

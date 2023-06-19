@@ -2,11 +2,16 @@ import { csrfFetch } from './csrf';
 import normalizeIdArrToObj from './normalizer';
 
 const ALL_COMMENTS = '/comments/all';
+const CLEAR_STATE = '/comments/clear'
 
 const allComments = (payload) => ({
     type: ALL_COMMENTS,
     payload
 });
+
+const clear_state = () => ({
+    type: CLEAR_STATE
+})
 
 // THUNK - get all comments for an event
 export const getAllEventComments = (eventId) => async (dispatch) => {
@@ -74,7 +79,10 @@ export const deleteComment = (payload) => async (dispatch) => {
     }
 }
 
-
+// Clear state
+export const clearCommentState = () = async (dispatch) => {
+    dispatch(clear_state())
+}
 
 const initialState = {}
 
@@ -85,6 +93,10 @@ const commentReducer = (state = initialState, action) => {
             console.log("reducer: ", action.payload)
             const returnState = {};
             return {...action.payload};
+        }
+        case CLEAR_STATE: {
+            const clearState = {}
+            return clearState
         }
         default:
             // console.log('default')
