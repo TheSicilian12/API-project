@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import "./CommentComponent.css"
 import OpenModalButton from "../OpenModalButton";
 import DeleteCommentModal from "../DeleteCommentModal";
+import EditCommentModal from "../EditCommentModal";
 
 function CommentComponent({ comments }) {
     const user = useSelector((state) => state.session.user)
@@ -18,6 +19,9 @@ function CommentComponent({ comments }) {
                 <OpenModalButton
                     buttonText="Delete Comment"
                     modalComponent={<DeleteCommentModal eventId = {info.eventId}/>} />
+                <OpenModalButton
+                    buttonText="Edit Comment"
+                    modalComponent={<EditCommentModal eventId = {info.eventId} commentEdit = {info.comment} />} />
             </div>)}
         </div>
     );

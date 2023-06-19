@@ -4,21 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import '../DeleteGroupModal'
-import { addComment } from "../../store/commentsThunk";
+import { editComment } from "../../store/commentsThunk";
 import '../UniversalCSS.css';
-import './AddCommentModal.css';
+import './EditCommentModal.css';
 
-function AddCommentModal({ eventId }) {
+function EditCommentModal({ eventId, commentEdit }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const history = useHistory();
 
     const user = useSelector((state) => state.session.user)
-
-    const [comment, setComment] = useState("")
+    console.log("commentEdit: ", commentEdit)
+    console.log("commentId: ", eventId)
+    const [comment, setComment] = useState(commentEdit ? commentEdit : "")
     const [commentErr, setCommentErr] = useState("")
 
-    const addCommentOnClick = async (e) => {
+    const editCommentOnClick = async (e) => {
         e.preventDefault();
 
         console.log("add comment button")
@@ -26,21 +27,20 @@ function AddCommentModal({ eventId }) {
         const payload = {
             user,
             eventId,
-            comment
+            text: comment
         }
 
-        let commentReturn = await dispatch(addComment(payload))
-        console.log("commentReturn: ", commentReturn)
+        let commentReturn = await dispatch(editComment(payload))
         closeModal()
     }
-    console.log("comment: ", comment)
+
 
     return (
         <div>
             <form
-                onSubmit={addCommentOnClick}
+                onSubmit={editCommentOnClick}
             >
-                Comment
+                Edit Comment
                 <label>Comment</label>
                 <input
                     // className='groupFormInput'
@@ -55,7 +55,7 @@ function AddCommentModal({ eventId }) {
                 <button
                     type="submit"
                     >
-                    Add Comment
+                    Edit Comment
                 </button>
             </form>
         </div>
@@ -63,4 +63,4 @@ function AddCommentModal({ eventId }) {
 }
 
 
-export default AddCommentModal
+export default EditCommentModal

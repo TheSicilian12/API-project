@@ -40,6 +40,21 @@ export const addComment = (payload) => async (dispatch) => {
     }
 }
 
+// THUNK - edit a comment to an event
+export const editComment = (payload) => async (dispatch) => {
+    const {eventId} = payload
+    const response = await csrfFetch('/api/comments/edit', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        dispatch(getAllEventComments(eventId))
+    }
+}
+
 // THUNK - delete a comment for an event
 export const deleteComment = (payload) => async (dispatch) => {
     console.log("----delete comment----")

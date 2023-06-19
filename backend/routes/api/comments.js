@@ -98,11 +98,11 @@ router.post('/:eventId', requireAuth, async (req, res, next) => {
 })
 
 //EDIT A COMMENT
-router.put('/:commentId', requireAuth, async (req, res, next) => {
+router.put('/edit', requireAuth, async (req, res, next) => {
 
     const {user} = req
     const {commentId} = req.params
-    const {text} = req.body
+    const {text, eventId} = req.body
 
     // does a current user exist?
     if (!user) {
@@ -112,7 +112,13 @@ router.put('/:commentId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let comment = await Comment.findByPk(commentId)
+    // let comment = await Comment.findByPk(commentId)
+    let comment = await Comment.findOne({
+        where: {
+            userId: user.id,
+            eventId: eventId
+        }
+    })
     if (!comment) {
         const err = new Error("Couldn't find a comment with the specified id")
         err.message = "Comment couldn't be found"
