@@ -221,6 +221,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
             if (groupMembershipJSON.Memberships.length > 0) {
                 for (let member of groupMembershipJSON.Memberships) {
+                    console.log("----member: ", member)
                     if (member.status === 'host' || member.status === 'co-host' || member.status === 'member') numMembers++
                 }
             }
@@ -250,7 +251,9 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //GET DETAILS OF A GROUP FROM AN ID
 router.get('/:groupId', async (req, res, next) => {
+    console.log("----get details of a group----")
     //error if no group exists
+    const { user } = req
 
     let currentId = req.params.groupId
 
@@ -278,17 +281,17 @@ router.get('/:groupId', async (req, res, next) => {
     let organizerJSON = organizerData.toJSON()
     delete organizerJSON.username;
 
-    // groupObj.Groups.push(group.toJSON())
-
-    //add Organizer
-    // groupObj.Groups[0].Organizer = { id: organizer.dataValues.id, firstName: organizer.dataValues.firstName, lastName: organizer.dataValues.lastName }
-
     //add numMembers
+    let isMember = "false";
+
     let numMembers = 0;
     if (groupJSON.Memberships.length > 0) {
         for (let person of groupJSON.Memberships) {
-            if (person.status === 'member') {
+            if (person.status === 'member' || person.status === 'host' || person.status === 'co-host') {
                 numMembers++
+            }
+            if (user && (person.userId === user.id)) {
+                isMember = "true"
             }
         }
     }
@@ -297,7 +300,7 @@ router.get('/:groupId', async (req, res, next) => {
 
     delete groupJSON.Memberships
 
-    return res.json({ ...groupJSON, numMembers, Organizer })
+    return res.json({ ...groupJSON, numMembers, Organizer, isMember })
     // return res.json(groupObj.Groups[0])
 })
 

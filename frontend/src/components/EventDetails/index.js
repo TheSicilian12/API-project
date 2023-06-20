@@ -29,6 +29,9 @@ function EventDetails({ event, eventId, user, comments }) {
 
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
+    const isMember = useSelector((state) => state.groups.singleGroup?.isMember)
+
+    console.log("isMember: ", isMember)
 
     let groupPreviewImage;
     if (groupImages) {
