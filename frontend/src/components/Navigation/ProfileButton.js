@@ -54,7 +54,7 @@ function ProfileButton({ user }) {
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
 
         {user ? (
-          <div className='displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn profile-info'>
+          <div className='drop-down displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn profile-info'>
             <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
             {/* <div className='userMarginBottom'>{user.email}</div> */}
             <div className='userMarginBottom'>{user.username}</div>
@@ -87,7 +87,7 @@ function ProfileButton({ user }) {
           </div>
 
         ) : (
-          <div className='displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
+          <div className='drop-down displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
             {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
             <div className='logInMarginBottom'>
               <OpenModalButton
