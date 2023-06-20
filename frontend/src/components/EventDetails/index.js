@@ -106,7 +106,7 @@ function EventDetails({ event, eventId, user, comments }) {
 
                     />}
                 </div>
-
+                
                 <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>

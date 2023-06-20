@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { allMembershipThunk } from "../../store/membershipThunk";
 import UserGroupComponent from "../UserGroupComponent";
 
+import './UserGroupPage.css';
+
 function UserGroupPage() {
     const dispatch = useDispatch();
 
@@ -35,6 +37,7 @@ function UserGroupPage() {
 
     return (
         <div>
+            <h1 className="user-group-page-title">Group's your part of:</h1>
             <div>
                 {membershipsGeneral && Object.values(membershipsGeneral).map(e =>
                 <UserGroupComponent group={e}/>)}
