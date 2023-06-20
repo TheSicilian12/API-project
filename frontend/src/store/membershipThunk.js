@@ -51,6 +51,7 @@ export const membershipsThunk = (payload) => async (dispatch) => {
     const userId = user.id
     // console.log("thunk!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     const response = await fetch(`/api/groups/${userId}/${groupId}/membership`)
+    console.log("response: ", response)
     if (response.ok) {
         const membership = await response.json()
         // console.log("membership: ", membership)
