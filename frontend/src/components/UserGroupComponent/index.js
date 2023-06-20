@@ -24,17 +24,22 @@ function UserGroupComponent({ group }) {
     return (
         <div className="user-group-group-component">
             {/* Divide based on membership status */}
-            <NavLink
-                className="user-group-navlink"
-                to={`/groups/${group.id}`}>
-                <img
-                    className="user-group-image-dimensions"
-                    src={group.previewImage?.url}
-                />
+            <div className="displayFlex">
+                <NavLink
+                    to={`/groups/${group.id}`}>
+                    <img
+                        className="user-group-image-dimensions"
+                        src={group.previewImage?.url}
+                    />
+                </NavLink>
                 <div className="user-group-info-component">
                     <div className="user-group-text-info">
-                        <div className="user-group-group-name">{group.name}</div>
-                        <div className="user-group-membership-status">{group.membershipInfo.status}</div>
+                        <NavLink
+                            className="user-group-navlink "
+                            to={`/groups/${group.id}`}>
+                            <div className="user-group-group-name">{group.name}</div>
+                            <div className="user-group-membership-status">{group.membershipInfo.status}</div>
+                        </NavLink>
                     </div>
                     <button
                         className="UfontTreb UpurpleButton UpinkBorder"
@@ -42,7 +47,7 @@ function UserGroupComponent({ group }) {
                         Leave group
                     </button>
                 </div>
-            </NavLink>
+            </div>
         </div>
     );
 }
