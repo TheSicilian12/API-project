@@ -20,8 +20,6 @@ function EventDetails({ event, eventId, user, comments }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    console.log("user: ", user)
-
     useEffect(() => {
         // if (event.Group) {
         dispatch(getGroup(event.groupId))
@@ -36,16 +34,13 @@ function EventDetails({ event, eventId, user, comments }) {
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
     }
-    // console.log('groupPreviewImage: ', groupPreviewImage)
 
     const eventImages = useSelector((state) => state.events.EventImages)
-    // console.log('eventImages: ', eventImages)
 
     let eventPreviewImage;
     if (eventImages) {
         eventPreviewImage = eventImages.find(image => image.preview === true)
     }
-    // console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
@@ -54,15 +49,11 @@ function EventDetails({ event, eventId, user, comments }) {
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    // console.log('group: ', group)
-    // console.log('event: ', event)
-
     let noEventImage = 'off';
     let noGroupImage = 'off';
     // let test = eventPreviewImage.url;
     // eventPreviewImage.url ? noEventImage = 'on' : noEventImage = 'off'
     if (!eventPreviewImage) noEventImage = 'on';
-    // console.log('eventPreviewImage: ', eventPreviewImage)
     if (!groupPreviewImage) noGroupImage = 'on';
 
     let options = 'Uhide';
@@ -84,8 +75,6 @@ function EventDetails({ event, eventId, user, comments }) {
     let alreadyCommented;
     user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
 
-    console.log("alreadyCommented: ", alreadyCommented)
-
     return (
         <>
             <div className='event-container'>
@@ -103,10 +92,8 @@ function EventDetails({ event, eventId, user, comments }) {
                         className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
-
                     />}
                 </div>
-
                 <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>

@@ -14,8 +14,6 @@ router.get('/:eventId', async (req, res, next) => {
     const {user} = req
     const {eventId} = req.params
 
-    console.log("----all comments for an event----")
-
     // //  does a current user exist?
     //  if (!user) {
     //     const err = new Error("You must be logged in.");
@@ -42,14 +40,12 @@ router.get('/:eventId', async (req, res, next) => {
     let returnComments = []
     if (comments) returnComments = comments
 
-    console.log("return comments: ", returnComments)
     return res.json(returnComments)
 })
 
 //ADD A COMMENT
 router.post('/:eventId', requireAuth, async (req, res, next) => {
     // current user must be logged in
-    console.log("--------------------------add a comment---------------------------------------------")
     const {user} = req
     const {eventId} = req.params
     const {comment} = req.body
@@ -99,13 +95,10 @@ router.post('/:eventId', requireAuth, async (req, res, next) => {
 
 //EDIT A COMMENT
 router.put('/edit', requireAuth, async (req, res, next) => {
-    console.log("---------------------------edit-----------------------------")
     const {user} = req
     // const {commentId} = req.params
     const {text, eventId} = req.body
 
-    console.log("-------------------------------------------- user Id: ", user.id)
-    console.log("-------------------------------------------- eventId: ", eventId)
     // does a current user exist?
     if (!user) {
         const err = new Error("You must be logged in.");
@@ -134,8 +127,6 @@ router.put('/edit', requireAuth, async (req, res, next) => {
         err.message = `Forbidden`
         return next(err);
     }
-
-    console.log("--------------------------------------- comment: ", comment.toJSON())
 
     if (text) comment.comment = text
 
@@ -170,8 +161,6 @@ router.delete('/delete', requireAuth, async (req, res, next) => {
         err.status = 404
         return next(err)
     }
-
-        console.log("comment: ", comment)
 
     if (comment.dataValues.userId !== user.id) {
         const err = new Error("Not an authorized user")

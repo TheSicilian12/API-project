@@ -71,7 +71,6 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (membership) {
         let membershipJSON = membership.toJSON()
-        // console.log(membershipJSON.Memberships[0].status)
         status = membershipJSON.Memberships[0].status
     }
 

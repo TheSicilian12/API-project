@@ -14,8 +14,6 @@ function EditCommentModal({ eventId, commentEdit }) {
     const history = useHistory();
 
     const user = useSelector((state) => state.session.user)
-    console.log("commentEdit: ", commentEdit)
-    console.log("commentId: ", eventId)
     const [comment, setComment] = useState(commentEdit ? commentEdit : "")
     const [commentErr, setCommentErr] = useState("")
 

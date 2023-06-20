@@ -31,14 +31,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
 
-    // console.log('initial meetingStatus: ', typeof groupStatus)
-
-    // console.log('user: ', user)
-    console.log('currentGroup: ', currentGroup)
-
-
     if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
-        // console.log("member: ", membership)
         history.push('/')
     }
 
@@ -65,7 +58,6 @@ function GroupForm({ currentGroup, formType, previewImage }) {
         if (groupAbout.length < 30) {
             errors.about = 'Description must be at least 30 characters long'
         }
-        // console.log('groupImage: ', groupImage)
         if (formType === 'new' || groupImage) {
             let imageCheckArr = groupImage.split('.')
             let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];
@@ -83,21 +75,13 @@ function GroupForm({ currentGroup, formType, previewImage }) {
             errors.groupStatus = 'Visibility Type is required'
         }
 
-        // console.log('errors: ', errors)
-
-        // console.log('location: ', location);
-
         if (Object.keys(errors).length > 0) setErrors(errors);
 
         if (Object.keys(errors).length === 0) {
 
             let splitLocation = location.split(', ');
-            // console.log('location? ', location)
             let city = currentGroup.id ? currentGroup.city : splitLocation[0];
             let state = currentGroup.id ? currentGroup.state : splitLocation[1];
-
-            // console.log('city: ', city)
-            // console.log('state: ', state)
 
             const payload = {
                 city,
@@ -112,21 +96,17 @@ function GroupForm({ currentGroup, formType, previewImage }) {
 
             let createGroup;
             if (formType === 'new') {
-                // console.log('await and payload: ', payload)
                 createGroup = await dispatch(submitGroup(payload));
-                // console.log('initial dispatch createGroup: ', createGroup)
             }
 
             let updateGroup;
             if (formType === 'edit') {
-                // console.log('form type edit')
                 payload.groupId = currentGroup.id
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
 
 
             if (createGroup) {
-                // console.log('if createGroup exists createGroup: ', createGroup)
                 history.push(`/groups/${createGroup.id}`)
             }
             if (updateGroup) {
@@ -145,14 +125,12 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     if (!groupName) {
         err.name = 'Name is required'
     }
-    // console.log(groupName.length > 60)
     if (groupName.length > 60) {
         err.name = 'Name must be 60 characters or less';
     }
     if (groupAbout.length < 30) {
         err.about = 'Description must be at least 30 characters long'
     }
-    // console.log('groupImage: ', groupImage)
     if (formType === 'new' || groupImage) {
         let imageCheckArr = groupImage.split('.')
         let imageCheckVal = imageCheckArr[imageCheckArr.length - 1];

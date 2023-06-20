@@ -62,8 +62,6 @@ const validateLogin = [
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
-    // console.log('get all groups backend------------------------------------------------')
-
     //main search
     let groups = await Group.findAll({
         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
@@ -74,10 +72,7 @@ router.get('/', async (req, res) => {
         ]
     })
 
-    // console.log('groups: ', groups)
-
     let groupsJSON = JSON.parse(JSON.stringify(groups))
-    // console.log('backend: ', groupsJSON)
     let groupObj = {};
     groupObj.Groups = [];
 
@@ -85,8 +80,6 @@ router.get('/', async (req, res) => {
 
         let numMembers = 0;
         let previewImage = null;
-
-        // console.log('group: ', group)
 
         //number of members in a group
         if (group.Memberships.length > 0) {
@@ -130,6 +123,7 @@ router.get('/', async (req, res) => {
 
 //GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USE
 router.get('/current', requireAuth, async (req, res) => {
+    console.log("----------get all groups info----------")
     //groups joined or organized by current user
 
     const { user } = req
@@ -199,7 +193,6 @@ router.get('/current', requireAuth, async (req, res) => {
     //just making sure there's actually values in the array
     if (groupIdArray.length > 0) {
         for (let validGroupId of groupIdArray) {
-            console.log("current group Id: ", validGroupId)
 
             let validGroup = await Group.findByPk(validGroupId)
             let validGroupJSON = validGroup.toJSON()
@@ -217,9 +210,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 previewImage = previewImageFindJSON.url
             } else previewImage = null
 
-
-            // console.log(validGroupJSON)
-
             //number members
             //memberships key will be empty array if no memberships
             let groupMembership = await Group.findByPk(validGroupId, {
@@ -231,7 +221,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
             if (groupMembershipJSON.Memberships.length > 0) {
                 for (let member of groupMembershipJSON.Memberships) {
-                    // console.log(member.status)
                     if (member.status === 'host' || member.status === 'co-host' || member.status === 'member') numMembers++
                 }
             }
@@ -366,7 +355,6 @@ router.get('/:groupId/members', async (req, res, next) => {
     let status = "test"
     if (group) {
         let groupJSON = group.toJSON()
-        console.log(groupJSON)
         status = groupJSON.Memberships[0].status
     }
 
@@ -382,18 +370,14 @@ router.get('/:groupId/members', async (req, res, next) => {
     let memberObj = {}
     memberObj.Members = []
     // let arrayCounter = 0;
-    // console.log(groupMembershipJSON.Memberships.length)
 
     if (groupMembershipJSON.Memberships.length > 0) {
         for (let member of groupMembershipJSON.Memberships) {
-            // console.log(member)
 
             //current user organizer, host, or co-host
             if (organizerId === user.id || status === 'host' || status === 'co-host') {
                 let user = await User.findByPk(member.userId)
                 let userJSON = user.toJSON()
-                // console.log(member)
-                // console.log(userJSON)
 
                 memberObj.Members.push({
                     //I'm not sure if this id is supposed to be member id or user id. I'm going with member id
@@ -408,8 +392,6 @@ router.get('/:groupId/members', async (req, res, next) => {
                 //current user NOT organizer, host, or co-host
                 let user = await User.findByPk(member.userId)
                 let userJSON = user.toJSON()
-                // console.log(member)
-                // console.log(userJSON)
 
                 if (member.status !== 'pending') {
                     memberObj.Members.push({
@@ -539,6 +521,14 @@ router.post('/', requireAuth, async (req, res, next) => {
         state
     })
 
+    let newGroupJSON = newGroup.toJSON()
+    // console.log("------------------new Group: ", newGroupJSON)
+
+    let newMembership = await Membership.create({
+        userId: organizerId,
+        groupId: newGroupJSON.id,
+        status: "host"
+    })
 
     return res.status(201).json(newGroup)
 })
@@ -592,7 +582,6 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     //     let private = "Private must be a boolean"
     //     errors.private = private
     // }
-    // console.log('backend: ', private)
     if (typeof private !== 'boolean') {
         let private = "Private must be a boolean"
         errors.private = private
@@ -621,7 +610,6 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
-    console.log('private: ', private)
     if (name) group.name = name
     if (about) group.about = about
     if (type) group.type = type
@@ -630,7 +618,6 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     if (state) group.state = state
 
     await group.save()
-    console.log('group return: ', group)
     return res.json(group)
 })
 
@@ -763,7 +750,6 @@ router.post('/:groupId/venues', requireAuth, async (req, res, next) => {
     if (group) {
         //Check for host and cohost
         status = group.Memberships[0].status
-        // console.log(status)
     }
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
@@ -844,8 +830,6 @@ router.get('/:groupId/events', async (req, res, next) => {
         ]
     })
     let eventJSON = JSON.parse(JSON.stringify(event))
-    // console.log(eventJSON)
-
 
     let eventObj = {}
     eventObj.Events = []
@@ -863,7 +847,6 @@ router.get('/:groupId/events', async (req, res, next) => {
                 state: event.Group.state
             }
         }
-        // console.log(eventJSON)
         let venue = null;
         if (event.Venue) {
             venue = {
@@ -914,7 +897,6 @@ router.get('/:groupId/events', async (req, res, next) => {
             description: event.description
         })
     }
-    // console.log(eventObj)
 
     return res.json(eventObj)
 })
@@ -924,9 +906,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //current user must be organizer or co-host
     //mg - or host?
     //assuming organizer, host, or co-host
-    // console.log('backend create an event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     const { user } = req
-    // console.log('req.body: ', req.body)
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
@@ -957,9 +937,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (group) {
         let groupMembershipJSON = group.toJSON()
-        // console.log(groupMembershipJSON)
         status = groupMembershipJSON.Memberships[0].status
-        // console.log(status)
     }
 
     //Check organizerId, host, and co-host valid user
@@ -1168,7 +1146,6 @@ router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
     let currentStatus = "test"
     if (currentUsergroupMember) {
         let currentUsergroupMemberJSON = currentUsergroupMember.toJSON()
-        // console.log(groupMembershipJSON.Memberships[0].status)
         currentStatus = currentUsergroupMemberJSON.Memberships[0].status
     }
 
@@ -1254,8 +1231,6 @@ router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
     //error if no group
 
     //error no membership
-
-    // console.log("------------------------------delete membership--------------------------------")
 
     const { user } = req
     const { memberId } = req.body
@@ -1416,9 +1391,6 @@ router.post('/:groupId/automembership', async (req, res) => {
     const { user } = req
     const { membership } = req.body
 
-    // console.log("---------------------automembership-------------------")
-    // console.log("membership --------------------- ", membership.status)
-
     if (!user) {
         const err = new Error(`You need to log in`);
         err.status = 400
@@ -1475,10 +1447,8 @@ router.post('/:groupId/automembership', async (req, res) => {
 
 // RETRIEVE MEMBERSHIP FOR A USER FOR A GROUP
 router.get('/:userId/:groupId/membership', async (req, res) => {
-    // console.log("-------------------------------------")
     let err = {}
     const { userId, groupId } = req.params
-    // console.log(userId)
     // let {userId} = req.query
 
     if (typeof userId !== "number" || typeof groupId !== "number") {
@@ -1503,17 +1473,14 @@ router.get('/:userId/:groupId/membership', async (req, res) => {
 
     // let membershipJSON = membership.map(e => e.toJSON())
     let membershipJSON = membership.toJSON()
-    // console.log("membershipJSON: ", membershipJSON)
     // return res.json(membershipJSON)
     return res.status(200).json(membershipJSON)
 })
 
 // RETRIEVE ALL MEMBERSHIPS FOR A USER
 router.get('/memberships/:userId', async (req, res) => {
-    // console.log("----------------------------RETRIEVE ALL MEMBERSHIPS FOR A USER-------------------------------------")
     const {userId} = req.params
 
-    // console.log("userId: ", userId)
     if (typeof userId !== "number") {
         const err = new Error("userId or groupId is invalid");
         err.status = 404
@@ -1536,17 +1503,13 @@ router.get('/memberships/:userId', async (req, res) => {
 
     // membership array
     let membershipsJSON = memberships.map(e => e.toJSON())
-    // console.log("memberships: ", membershipsJSON)
 
     // groups added
     let membershipsObj = {}
     let promises = Object.values(membershipsJSON).map(async (e) => {
-        // console.log("e: ", e)
         let group = await Group.findByPk(e.groupId)
-        // console.log("group: ", group)
         membershipsObj[e.groupId] = group.toJSON()
         membershipsObj[e.groupId].membershipInfo = e
-        // console.log("memberships: ", membershipsObj[e.groupId])
     })
 
     await Promise.all(promises)
@@ -1563,7 +1526,6 @@ router.get('/memberships/:userId', async (req, res) => {
 
     await Promise.all(promisesImages)
 
-    // console.log("membershipsArr: ", membershipsObj)
     return res.status(200).json(membershipsObj)
 })
 

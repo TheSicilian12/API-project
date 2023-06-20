@@ -13,13 +13,10 @@ function DeleteGroupModal ({groupId}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // console.log('groupId: ', groupId)
     const deleteHandler = async (e) => {
         e.preventDefault();
-        // console.log(groupId)
 
         let deletion = await dispatch(deleteGroupThunk(groupId))
-        // console.log('deletion: ', deletion)
         if (deletion) {
             closeModal();
             history.push('/groups');

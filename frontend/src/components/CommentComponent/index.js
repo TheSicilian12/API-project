@@ -11,7 +11,6 @@ function CommentComponent({ comments }) {
 
     const user = useSelector((state) => state.session.user)
     const commentTest = useSelector((state) => state.comments)
-    console.log("commentTest: ", commentTest)
 
     useEffect(() => {
         dispatch(clearCommentState())
@@ -19,8 +18,6 @@ function CommentComponent({ comments }) {
 
     // if (comments.length === 0) return (null)
     if (commentTest.length === 0) return (null)
-
-    Object.values(commentTest).map(info => console.log("INFO EVENT", info.comment))
 
     return (
         <div className="all-comment-container">

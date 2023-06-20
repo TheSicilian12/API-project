@@ -34,11 +34,8 @@ const addEvent = (event) => ({
 //thunk - get all events for a group
 export const getGroupEventsThunk = (groupId) => async (dispatch) => {
     const response = await fetch(`/api/groups/${groupId}/events`)
-    // console.log('test')
-    // console.log('response event: ', response)
     if (response.ok) {
         const eventsList = await response.json();
-        // console.log('eventsList: ', eventsList)
         dispatch(allGroupEvents(eventsList));
     }
 }
@@ -76,12 +73,6 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
     const {groupId, eventImageObj} = eventInfo;
     const eventInfoObj = eventInfo.eventObj;
-    // console.log('eventInfoObj: ', eventInfoObj)
-    // console.log('groupId: ', groupId)
-    // console.log(groupId)
-
-    // console.log('event obj: ', eventInfoObj);
-    // console.log('before fetch')
     const response = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: 'POST',
         headers: {
@@ -89,28 +80,20 @@ export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
         },
         body: JSON.stringify(eventInfoObj)
     })
-    // console.log('after fetch')
-    // console.log('response: ', response);
+
     if (response.ok) {
         const newEvent = await response.json();
-        // console.log('newEvent: ', newEvent)
-        // console.log('newEvent.id: ', newEvent.id)
 
         const addImageObj = {...eventImageObj, eventId: newEvent.id}
 
         dispatch(addImageToEvent(addImageObj))
         return newEvent;
     }
-
 }
 
 //thunk - add an image to an event
 export const addImageToEvent = (imageObj) => async (dispatch) => {
     const {url, preview, eventId} = imageObj;
-    // console.log('thunk - add image to event')
-    // console.log('url: ', url)
-    // console.log('preivew: ', preview)
-    // console.log('eventId: ', eventId)
 
     const response = await csrfFetch(`/api/events/${eventId}/images`, {
         method: 'POST',

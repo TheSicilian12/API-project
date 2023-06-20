@@ -31,7 +31,6 @@ router.get('/', async (req, res, next) => {
     //page min = 1, max = 10, default 1
     if (page) {
         let pageNum = parseInt(page)
-        // console.log(pageNum)
         //check page min
         if (pageNum === 0) {
             pageNum = 1
@@ -44,12 +43,10 @@ router.get('/', async (req, res, next) => {
         page = pageNum
         //page max
         if (page > 10) page = 10
-        // console.log(page)
     }
     //size min = 1, max = 20, default 20
     if (size) {
         let sizeNum = parseInt(size)
-        // console.log(sizeNum)
         //check size min
         if (sizeNum === 0) {
             sizeNum = 1
@@ -62,7 +59,6 @@ router.get('/', async (req, res, next) => {
         size = sizeNum
         //size max
         if (size > 20) size = 20
-        // console.log(size)
     }
 
     //assuming if page or size is sent but not the other than an error should be thrown isntead of a default value set.
@@ -183,22 +179,6 @@ router.get('/', async (req, res, next) => {
             { model: Attendance }
         ]
     })
-    // let eventJSON = JSON.parse(JSON.stringify(events))
-    // let test = JSON.stringify(events)
-    // console.log('test: ', test)
-
-    // for (let e of eventObj.Events) {
-    //     // console.log(e.EventImages)
-    //     // if (e.EventImages[0]) {
-    //     //     e.previewImage = e.EventImages[0].url
-    //     // }
-    //     // delete e.EventImages
-    //     if (e.EventImages.length > 0) {
-    //         console.log(e.EventImages)
-    //         console.log(e.EventImages.preview)
-    //     } else e.previewImage = null
-
-    // }
 
     // update
     //num attending add
@@ -236,9 +216,7 @@ router.get('/', async (req, res, next) => {
 
         //count attendances
         if (eventJSON.Attendances.length > 0) {
-            // console.log("---------------------------")
             for (let person of eventJSON.Attendances) {
-                // console.log(person)
                 if (person.status === 'member' || person.status === "attending") {// I'm not sure if this should just be "member" or also "attending"
                     numAttending++
                 }
@@ -384,7 +362,6 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (eventJSON.Group) {
         status = eventJSON.Group.Memberships[0].status
-        // console.log(status)
     }
 
     //is this a valid user
@@ -488,9 +465,6 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     const { user } = req
     const { url, preview } = req.body
 
-    console.log('backend -------------------add image')
-
-
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
@@ -545,7 +519,6 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
 
         //     return res.json(status)
     }
-    // console.log(status)
 
     //find attendance
     let attendance = await Event.findByPk(req.params.eventId, {
@@ -560,10 +533,7 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
         let attendanceJSON = attendance.toJSON()
         attendanceStatus = attendanceJSON.Attendances[0].status
     }
-    // console.log(attendanceStatus)
 
-    // console.log(user.id)
-    // console.log(attendanceJSON)
     if (organizerId !== user.id
         && status !== 'host'
         && status !== 'co-host'
@@ -586,8 +556,7 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     delete newImageJSON.updatedAt
     delete newImageJSON.createdAt
     delete newImageJSON.eventId
-    // console.log(status)
-    // console.log(attendanceStatus)
+
     // return res.json('end of the route')
     return res.json(newImageJSON)
 })
@@ -687,8 +656,6 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
     // check if organizer, host, or user to be deleted
     //assuming organizer should be included.
-    // console.log(user.id)
-    // console.log(userToDeleteId)
     if (organizerId !== user.id && user.id !== userToDeleteId && status !== 'host') {
         const err = new Error(`Only the User or organizer may delete an Attendance`)
         err.status = 403
@@ -734,7 +701,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     })
     let eventGroupJSON = eventGroup.toJSON()
     let organizerId = eventGroupJSON.Group.organizerId
-    // console.log(organizerId)
 
     //find status
     //group will be null if no members meet the criteria (pretty sure if they don't meet the criteria)
@@ -747,7 +713,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     if (eventJSON.Group) {
         status = eventJSON.Group.Memberships[0].status
     }
-    // console.log(status)
 
     //if no attendance empty array
     let eventAttendee = await Event.findByPk(req.params.eventId, {
@@ -768,7 +733,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
             if (organizerId === user.id || status === 'host' || status === 'co-host') {
                 let user = await User.findByPk(attend.userId)
                 let userJSON = user.toJSON()
-                // console.log(userJSON)
 
                 attendeeObj.Attendees.push({
                     //I'm not sure if the id is for the attendee id or the user id.
@@ -786,7 +750,6 @@ router.get('/:eventId/attendees', async (req, res, next) => {
 
                 let user = await User.findByPk(attend.userId)
                 let userJSON = user.toJSON()
-                // console.log(userJSON)
 
                 if (attend.status !== 'pending') {
                     attendeeObj.Attendees.push({
@@ -859,16 +822,10 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (groupMember) {
         let groupMemberJSON = groupMember.toJSON()
-        // console.log(groupMemberJSON.Memberships[0].status)
         status = groupMemberJSON.Memberships[0].status
     }
-    // console.log(status)
-
 
     // check if current user is organizer, host, or co-host
-
-    // console.log(organizerId)
-    // console.log(status)
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
@@ -1088,11 +1045,9 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
     if (memberJSON.Group) {
         status = memberJSON.Group.Memberships[0].status
     }
-    // console.log(status)
 
     //check if a member of the group
     //not a member of the group
-    // console.log(status)
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host' && status !== 'member') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
@@ -1120,9 +1075,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
         let eventAttendanceJSON = eventAttendanceTest.toJSON()
 
-        // console.log("attendance exists")
         attendStatus = eventAttendanceJSON.Attendances[0].status
-        // console.log(attendStatus)
     }
 
     //check if attendance already exists

@@ -67,12 +67,8 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (membership) {
         let membershipJSON = membership.toJSON()
-        // console.log(membershipJSON)
-        // console.log(membershipJSON.Memberships[0].status)
         status = membershipJSON.Memberships[0].status
     }
-    console.log(status)
-
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);

@@ -10,7 +10,6 @@ export default function GroupDetailsWrapper() {
     const { id } = useParams();
     const groupId = id;
     const dispatch = useDispatch();
-    // console.log('EditWrapperRunning')
 
     useEffect(() => {
         dispatch(getGroup(groupId));
@@ -33,12 +32,6 @@ export default function GroupDetailsWrapper() {
     if (!group.singleGroup) {
         return <div>loading</div>
     }
-
-
-    // console.log('wrapper events: ', events['1']?.endDate)
-    // if (!events['1']) {
-    //     console.log('no events')
-    // }
 
     return (
         <GroupDetails group={group} user={user} events={events} groupId={groupId}/>

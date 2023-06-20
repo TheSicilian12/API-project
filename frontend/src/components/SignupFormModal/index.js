@@ -41,7 +41,6 @@ function SignupFormModal() {
           //change data.errors to an array because of the object issue in setErrors
           if (data && data.errors) {
             // setErrors(data.errors);
-            // console.log(Object.values(data.errors))
             setErrors([...Object.values(data.errors)])
           }
         });
@@ -74,9 +73,7 @@ function SignupFormModal() {
     disableButton = 'not-allowedCursor disabledButton'
   }
 
-  // console.log('errors: ', errors)
   return (
-
     <div className='signup-dimensions displayFlex flex-directionColumn alignCenter UfontTreb signup-textSize'>
       <h1 className=''>Sign Up</h1>
       <form

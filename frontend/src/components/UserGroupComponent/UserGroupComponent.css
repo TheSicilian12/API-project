@@ -1,4 +1,44 @@
+.user-group-overall-component {
+    display: flex;
+    justify-content: center;
+}
+
+.user-group-group-component {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    width: 420px;
+    height: 200px;
+}
+
+.user-group-navlink {
+    text-decoration: none;
+}
+
+.user-group-info-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10px;
+    width: 100px;
+}
+
 .user-group-image-dimensions {
-    width: 200px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.user-group-group-name {
+    font-size: x-large;
+    font-weight: bolder;
+    color: black;
+}
+
+.user-group-membership-status {
+    font-size: large;
+    font-weight: bold;
+    color: black;
 }

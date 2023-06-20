@@ -9,15 +9,12 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
 export function EventsDisplayComponent({ timeline, eventsArray, seperator, seperatorClass}) {
-    // console.log('test')
     //timeline - past, present, future string
     //eventsArray - specific past, current, future
 
     if (eventsArray.length === 0) {
         return null;
     }
-
-    // console.log('seperator: ', seperator)
 
     let seperatorImage = 'Uhide';
     let background = 'UGroup-EventsBackGround'

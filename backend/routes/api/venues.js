@@ -63,7 +63,6 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     let organizerId = venueGroupJSON.Group.organizerId
 
     let status = 'test';
-    // console.log(venueMembershipJSON)
     if (venueMembershipJSON.Group) {
         status = venueMembershipJSON.Group.Memberships[0].status
     }
@@ -77,9 +76,6 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     //     err.message = 'error in the venueJSON.Group'
     //     return next(err);
     // }
-    // console.log('user: ', user.id)
-    // console.log('organizerId: ', organizerId)
-
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);

@@ -23,20 +23,12 @@ function GroupDetails({ group, user, events, groupId }) {
         return <div>loading</div>
     }
 
-
-    // console.log('group: ', group.singleGroup)
-    // console.log('user: ', user)
-
     const totalNumberEvents = Object.values(events).length
 
     let eventsArray = organizeEventsByDate(events);
     let futureEvents = eventsArray[1];
     let pastEvents = eventsArray[0];
     let currentEvents = eventsArray[2];
-
-    // console.log('futureEvents: ', futureEvents)
-
-    // console.log('eventsArray: ', eventsArray)
 
     let showPastEvents = 'Ushow';
     let showFutureEvents = 'Ushow';
@@ -63,8 +55,6 @@ function GroupDetails({ group, user, events, groupId }) {
     let hideJoinGroup = 'Ushow';
     let displayJoinGroup = 'on';
     let options = 'off';
-    // console.log('group - further: ', group.singleGroup)
-    // console.log('user: ', user.id)
 
     if (user) {
         if (group.singleGroup.Organizer.id === user.id) {
@@ -79,17 +69,9 @@ function GroupDetails({ group, user, events, groupId }) {
         hideJoinGroup = 'Uhide';
     }
 
-    // console.log('joinGroup: ', joinGroup)
-
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    // console.log('groups: ', group.singleGroup.GroupImages)
-
     let groupPreviewImage = group.singleGroup.GroupImages.find(e => e.preview === true)
-
-    // console.log('groupPreviewImage: ', groupPreviewImage)
-
-    // console.log('eventsArray: ', eventsArray)
 
     const info = {
         group,
@@ -101,8 +83,6 @@ function GroupDetails({ group, user, events, groupId }) {
         options,
         groupId
     }
-
-    // console.log("info: ", info)
 
     const type = "group"
 

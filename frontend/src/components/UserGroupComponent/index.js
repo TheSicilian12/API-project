@@ -5,7 +5,7 @@ import { allMembershipThunk, deleteMembershipThunk } from "../../store/membershi
 import { getGroup } from "../../store/groupsThunk";
 import "./UserGroupComponent.css"
 
-function UserGroupComponent({group}) {
+function UserGroupComponent({ group }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user)
 
@@ -20,23 +20,37 @@ function UserGroupComponent({group}) {
 
         const deleteMembership = await dispatch(deleteMembershipThunk(payload))
     }
-    // console.log("group: ", group)
+    
     return (
-        <div>
+        <div className="user-group-overall-component">
+        <div className="user-group-group-component">
             {/* Divide based on membership status */}
-            <NavLink
-            to={`/groups/${group.id}`}>
-            <img
-                className="user-group-image-dimensions"
-                src = {group.previewImage?.url}
-                />
-            hello {group.name}
+            <div className="displayFlex">
+                <NavLink
+                    to={`/groups/${group.id}`}>
+                    <img
+                        className="user-group-image-dimensions"
+                        src={group.previewImage?.url}
+                        />
                 </NavLink>
-            {group.membershipInfo.status}
-            <button onClick={() => leaveGroup()}>
-                Leave group
-            </button>
+                <div className="user-group-info-component">
+                    <div className="user-group-text-info">
+                        <NavLink
+                            className="user-group-navlink "
+                            to={`/groups/${group.id}`}>
+                            <div className="user-group-group-name">{group.name}</div>
+                            <div className="user-group-membership-status">{group.membershipInfo.status}</div>
+                        </NavLink>
+                    </div>
+                    <button
+                        className="UfontTreb UpurpleButton UpinkBorder"
+                        onClick={() => leaveGroup()}>
+                        Leave group
+                    </button>
+                </div>
+            </div>
         </div>
+                            </div>
     );
 }
 
