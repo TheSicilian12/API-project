@@ -822,16 +822,10 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     let status = 'test'
     if (groupMember) {
         let groupMemberJSON = groupMember.toJSON()
-        // console.log(groupMemberJSON.Memberships[0].status)
         status = groupMemberJSON.Memberships[0].status
     }
-    // console.log(status)
-
 
     // check if current user is organizer, host, or co-host
-
-    // console.log(organizerId)
-    // console.log(status)
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);
@@ -1051,11 +1045,9 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
     if (memberJSON.Group) {
         status = memberJSON.Group.Memberships[0].status
     }
-    // console.log(status)
 
     //check if a member of the group
     //not a member of the group
-    // console.log(status)
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host' && status !== 'member') {
         const err = new Error(`Require proper authorization`);
         err.status = 403
@@ -1083,9 +1075,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
         let eventAttendanceJSON = eventAttendanceTest.toJSON()
 
-        // console.log("attendance exists")
         attendStatus = eventAttendanceJSON.Attendances[0].status
-        // console.log(attendStatus)
     }
 
     //check if attendance already exists

@@ -62,8 +62,6 @@ const validateLogin = [
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
-    // console.log('get all groups backend------------------------------------------------')
-
     //main search
     let groups = await Group.findAll({
         attributes: ['id', "organizerId", "name", "about", "type", "private", "city", "state", "createdAt", "updatedAt"],
@@ -74,10 +72,7 @@ router.get('/', async (req, res) => {
         ]
     })
 
-    // console.log('groups: ', groups)
-
     let groupsJSON = JSON.parse(JSON.stringify(groups))
-    // console.log('backend: ', groupsJSON)
     let groupObj = {};
     groupObj.Groups = [];
 
@@ -85,8 +80,6 @@ router.get('/', async (req, res) => {
 
         let numMembers = 0;
         let previewImage = null;
-
-        // console.log('group: ', group)
 
         //number of members in a group
         if (group.Memberships.length > 0) {
@@ -199,7 +192,6 @@ router.get('/current', requireAuth, async (req, res) => {
     //just making sure there's actually values in the array
     if (groupIdArray.length > 0) {
         for (let validGroupId of groupIdArray) {
-            console.log("current group Id: ", validGroupId)
 
             let validGroup = await Group.findByPk(validGroupId)
             let validGroupJSON = validGroup.toJSON()
@@ -217,9 +209,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 previewImage = previewImageFindJSON.url
             } else previewImage = null
 
-
-            // console.log(validGroupJSON)
-
             //number members
             //memberships key will be empty array if no memberships
             let groupMembership = await Group.findByPk(validGroupId, {
@@ -231,7 +220,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
             if (groupMembershipJSON.Memberships.length > 0) {
                 for (let member of groupMembershipJSON.Memberships) {
-                    // console.log(member.status)
                     if (member.status === 'host' || member.status === 'co-host' || member.status === 'member') numMembers++
                 }
             }
@@ -366,7 +354,6 @@ router.get('/:groupId/members', async (req, res, next) => {
     let status = "test"
     if (group) {
         let groupJSON = group.toJSON()
-        console.log(groupJSON)
         status = groupJSON.Memberships[0].status
     }
 
@@ -382,18 +369,14 @@ router.get('/:groupId/members', async (req, res, next) => {
     let memberObj = {}
     memberObj.Members = []
     // let arrayCounter = 0;
-    // console.log(groupMembershipJSON.Memberships.length)
 
     if (groupMembershipJSON.Memberships.length > 0) {
         for (let member of groupMembershipJSON.Memberships) {
-            // console.log(member)
 
             //current user organizer, host, or co-host
             if (organizerId === user.id || status === 'host' || status === 'co-host') {
                 let user = await User.findByPk(member.userId)
                 let userJSON = user.toJSON()
-                // console.log(member)
-                // console.log(userJSON)
 
                 memberObj.Members.push({
                     //I'm not sure if this id is supposed to be member id or user id. I'm going with member id
@@ -408,8 +391,6 @@ router.get('/:groupId/members', async (req, res, next) => {
                 //current user NOT organizer, host, or co-host
                 let user = await User.findByPk(member.userId)
                 let userJSON = user.toJSON()
-                // console.log(member)
-                // console.log(userJSON)
 
                 if (member.status !== 'pending') {
                     memberObj.Members.push({
@@ -621,7 +602,6 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
         err.errors = errors
         return next(err)
     }
-    console.log('private: ', private)
     if (name) group.name = name
     if (about) group.about = about
     if (type) group.type = type
@@ -630,7 +610,6 @@ router.put('/:groupId', requireAuth, async (req, res, next) => {
     if (state) group.state = state
 
     await group.save()
-    console.log('group return: ', group)
     return res.json(group)
 })
 
