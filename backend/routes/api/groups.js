@@ -123,6 +123,7 @@ router.get('/', async (req, res) => {
 
 //GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USE
 router.get('/current', requireAuth, async (req, res) => {
+    console.log("----------get all groups info----------")
     //groups joined or organized by current user
 
     const { user } = req
@@ -520,6 +521,14 @@ router.post('/', requireAuth, async (req, res, next) => {
         state
     })
 
+    let newGroupJSON = newGroup.toJSON()
+    // console.log("------------------new Group: ", newGroupJSON)
+
+    let newMembership = await Membership.create({
+        userId: organizerId,
+        groupId: newGroupJSON.id,
+        status: "host"
+    })
 
     return res.status(201).json(newGroup)
 })

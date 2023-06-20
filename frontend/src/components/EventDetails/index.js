@@ -92,10 +92,8 @@ function EventDetails({ event, eventId, user, comments }) {
                         className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
-
                     />}
                 </div>
-
                 <CommentComponent comments={comments} eventId={eventId} />
             </div>
         </>
