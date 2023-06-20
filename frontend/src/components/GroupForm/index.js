@@ -16,8 +16,16 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     const user = useSelector((state) => state.session.user)
     const membership = useSelector(state => state.memberships.membership);
 
-    const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
-    const [displayLocErr, setDisplayLocErr] = useState(false);
+    // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
+    // const [displayLocErr, setDisplayLocErr] = useState(false);
+
+    const [city, setCity] = useState(currentGroup.id ? `${currentGroup.city}` : "");
+    const [displayCityErr, setDisplayCityErr] = useState(false);
+
+    const [state, setState] = useState(currentGroup.id ? `${currentGroup.state}` : "");
+    const [displayStateErr, setDisplayStateErr] = useState(false);
+
+
     const [groupName, setGroupName] = useState(currentGroup.id ? currentGroup.name : "");
     const [displayGroupNameErr, setDisplayGroupNameErr] = useState(false);
     const [groupAbout, setGroupAbout] = useState(currentGroup.id ? currentGroup.about : "");
@@ -43,11 +51,11 @@ function GroupForm({ currentGroup, formType, previewImage }) {
         e.preventDefault();
 
         const errors = {};
-        if (!location) {
-            errors.location = 'Location is required (Enter as "City, State")'
+        if (!city) {
+            errors.city = 'A city is required'
         }
-        if (location.split(',').length !== 2) {
-            errors.location = 'Location is required  (Enter as "City, State")'
+        if (!state) {
+            errors.state = 'A state is required'
         }
         if (!groupName) {
             errors.name = 'Name is required'
@@ -79,13 +87,9 @@ function GroupForm({ currentGroup, formType, previewImage }) {
 
         if (Object.keys(errors).length === 0) {
 
-            let splitLocation = location.split(', ');
-            let city = currentGroup.id ? currentGroup.city : splitLocation[0];
-            let state = currentGroup.id ? currentGroup.state : splitLocation[1];
-
             const payload = {
                 city,
-                state: splitLocation[1],
+                state,
                 name: groupName,
                 about: groupAbout,
                 type: groupMeetingType,
@@ -105,7 +109,6 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                 updateGroup = await dispatch(editGroupThunk(payload));
             }
 
-
             if (createGroup) {
                 history.push(`/groups/${createGroup.id}`)
             }
@@ -116,11 +119,11 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     }
 
     let err = {};
-    if (!location) {
-        err.location = 'Location is required (Enter as "City, State")'
+    if (!city) {
+        err.city = 'A city is required'
     }
-    if (location.split(',').length !== 2) {
-        err.location = 'Location is required  (Enter as "City, State")'
+    if (!state) {
+        err.state = 'A state is required'
     }
     if (!groupName) {
         err.name = 'Name is required'
@@ -190,14 +193,25 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                     <input
                         className='groupFormInput'
                         type='text'
-                        placeholder='City, STATE'
-                        value={location}
+                        placeholder='City'
+                        value={city}
                         onChange={(e) => {
-                            setLocation(e.target.value)
-                            setDisplayLocErr(true)
+                            setCity(e.target.value)
+                            setDisplayCityErr(true)
                         }}
                     ></input>
-                    {displayLocErr && <p className='error'>{err.location}</p>}
+                    <input
+                        className='groupFormInput'
+                        type='text'
+                        placeholder='State'
+                        value={state}
+                        onChange={(e) => {
+                            setState(e.target.value)
+                            setDisplayStateErr(true)
+                        }}
+                    ></input>
+                    {displayCityErr && <p className='error'>{err.city}</p>}
+                    {displayStateErr && <p className='error'>{err.state}</p>}
                 </div>
                 {/* <div className='displayFlex justifyCenter'>
                     <img
