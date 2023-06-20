@@ -39,7 +39,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
 
-    if (formType === 'edit' && (!user || user.id !== currentGroup.organizerId)) {
+    if (!user || user.id !== currentGroup.organizerId) {
         history.push('/')
     }
 
@@ -151,14 +151,14 @@ function GroupForm({ currentGroup, formType, previewImage }) {
         err.groupStatus = 'Visibility Type is required'
     }
 
-    let disabled;
-    if(Object.values(err).length > 0) {
-        disabled='not-allowedCursor';
+    let disabled = 'UpurpleButton';
+    if (Object.values(err).length > 0) {
+        disabled = 'not-allowedCursor UgrayButton';
     }
 
     let hideImageUpdate = 'Ushow';
-    if(formType === 'edit') {
-        hideImageUpdate='Uhide';
+    if (formType === 'edit') {
+        hideImageUpdate = 'Uhide';
     }
 
     return (
@@ -190,26 +190,28 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                         AdventureUp groups meet locally, in person, and online.
                         We'll connect you with people in your area.
                     </p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='City'
-                        value={city}
-                        onChange={(e) => {
-                            setCity(e.target.value)
-                            setDisplayCityErr(true)
-                        }}
-                    ></input>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='State'
-                        value={state}
-                        onChange={(e) => {
-                            setState(e.target.value)
-                            setDisplayStateErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupForm-location groupForm-city'
+                            type='text'
+                            placeholder='City'
+                            value={city}
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                                setDisplayCityErr(true)
+                            }}
+                        ></input>
+                        <input
+                            className='groupForm-location'
+                            type='text'
+                            placeholder='State'
+                            value={state}
+                            onChange={(e) => {
+                                setState(e.target.value)
+                                setDisplayStateErr(true)
+                            }}
+                        ></input>
+                    </div>
                     {displayCityErr && <p className='error'>{err.city}</p>}
                     {displayStateErr && <p className='error'>{err.state}</p>}
                 </div>
@@ -359,14 +361,14 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <button
-                        className={`${newForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        className={`${newForm} UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
                         Create Group
                     </button>
                     <button
-                        className={`${editForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        className={`${editForm} UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >

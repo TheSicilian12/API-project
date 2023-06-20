@@ -54,38 +54,40 @@ function ProfileButton({ user }) {
       <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
 
         {user ? (
-          <div className='displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn profile-info'>
+          <div className='drop-down displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn profile-info'>
             <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
-            <div className='userMarginBottom'>{user.email}</div>
+            {/* <div className='userMarginBottom'>{user.email}</div> */}
             <div className='userMarginBottom'>{user.username}</div>
             {/* <ul>{user.firstName} {user.lastName}</ul> */}
-
-            <button
-              className='userMarginBottom UgrayButton UblackBorderWeighted border-Radius15 UbuttonProfileDimensions'
-              onClick={logout}>
-                Log Out
-            </button>
+            <Link
+              className='your-groups userMarginBottom UnoDecoration UcolorBlack linkGold'
+              onClick={() => setShowMenu(false)}
+              to='/groups/yours'>
+                <div>
+                  Your Groups
+                </div>
+            </Link>
             <Link
               className='userMarginBottom UnoDecoration UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/groups'>
-                View Groups
+                  All Groups
             </Link>
             <Link
               className='userMarginBottom UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
               to='/events'>
-                View Events
+                All Events
             </Link>
-            <Link
-              className='userMarginBottom UnoDecoration UcolorBlack linkGold'
-              onClick={() => setShowMenu(false)}
-              to='/groups/yours'>
-                Your Groups
-            </Link>
+            <button
+              className='userMarginBottom UgrayButton UblackBorderWeighted border-Radius15 UbuttonProfileDimensions'
+              onClick={logout}>
+                Log Out
+            </button>
           </div>
+
         ) : (
-          <div className='displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
+          <div className='drop-down displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
             {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
             <div className='logInMarginBottom'>
               <OpenModalButton

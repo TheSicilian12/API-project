@@ -115,7 +115,6 @@ export const submitGroup = (groupObj) => async (dispatch) => {
         // dispatch(getGroup(newGroup.id));
         return newGroup;
     }
-
 }
 
 //thunk - edits a group

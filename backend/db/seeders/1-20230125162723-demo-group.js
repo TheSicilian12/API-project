@@ -24,7 +24,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         name: "Group1",
-        organizerId: 1,
+        organizerId: 11,
         about: "about group1",
         type: 'In person',
         private: true,

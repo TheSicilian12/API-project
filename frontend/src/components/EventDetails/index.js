@@ -29,6 +29,9 @@ function EventDetails({ event, eventId, user, comments }) {
 
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
+    const isMember = useSelector((state) => state.groups.singleGroup?.isMember)
+
+    console.log("isMember: ", isMember)
 
     let groupPreviewImage;
     if (groupImages) {
@@ -88,7 +91,7 @@ function EventDetails({ event, eventId, user, comments }) {
                 </div>
                 <div className="add-comment-section-header">
                     <h2>Comments</h2>
-                    {!user || !alreadyCommented && <OpenModalButton
+                    {(!user || !alreadyCommented) && isMember === "true" && <OpenModalButton
                         className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
