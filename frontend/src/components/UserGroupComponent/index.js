@@ -5,7 +5,7 @@ import { allMembershipThunk, deleteMembershipThunk } from "../../store/membershi
 import { getGroup } from "../../store/groupsThunk";
 import "./UserGroupComponent.css"
 
-function UserGroupComponent({group}) {
+function UserGroupComponent({ group }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user)
 
@@ -22,20 +22,23 @@ function UserGroupComponent({group}) {
     }
     // console.log("group: ", group)
     return (
-        <div>
+        <div className="user-group-group-component">
             {/* Divide based on membership status */}
             <NavLink
-            to={`/groups/${group.id}`}>
-            <img
-                className="user-group-image-dimensions"
-                src = {group.previewImage?.url}
+                className="user-group-navlink"
+                to={`/groups/${group.id}`}>
+                <img
+                    className="user-group-image-dimensions"
+                    src={group.previewImage?.url}
                 />
-            hello {group.name}
-                </NavLink>
-            {group.membershipInfo.status}
-            <button onClick={() => leaveGroup()}>
-                Leave group
-            </button>
+                <div className="user-group-info-component">
+                    <div>{group.name}</div>
+                    <div>{group.membershipInfo.status}</div>
+                    <button onClick={() => leaveGroup()}>
+                        Leave group
+                    </button>
+                </div>
+            </NavLink>
         </div>
     );
 }

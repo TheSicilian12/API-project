@@ -30,14 +30,12 @@ function UserGroupPage() {
         return <div>Loading...</div>;
       }
 
+      // Groups you manage
+      // Groups you're part of
 
     return (
         <div>
             <div>
-                Groups you manage
-            </div>
-            <div>
-                Groups you're part of
                 {membershipsGeneral && Object.values(membershipsGeneral).map(e =>
                 <UserGroupComponent group={e}/>)}
             </div>

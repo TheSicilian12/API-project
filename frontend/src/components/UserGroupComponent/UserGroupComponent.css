@@ -1,3 +1,16 @@
+.user-group-group-component {
+    border: 1px solid black;
+}
+
+.user-group-navlink {
+    display: flex;
+}
+
+.user-group-info-component {
+    display: flex;
+    flex-direction: column;
+}
+
 .user-group-image-dimensions {
     width: 200px;
     height: 100px;
