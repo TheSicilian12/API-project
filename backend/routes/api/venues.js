@@ -76,9 +76,6 @@ router.put('/:venueId', requireAuth, async (req, res, next) => {
     //     err.message = 'error in the venueJSON.Group'
     //     return next(err);
     // }
-    // console.log('user: ', user.id)
-    // console.log('organizerId: ', organizerId)
-
 
     if (organizerId !== user.id && status !== 'host' && status !== 'co-host') {
         const err = new Error(`Require proper authorization`);

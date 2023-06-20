@@ -14,8 +14,6 @@ import SignupFormModal from '../SignupFormModal';
 function LandingPage() {
 
     const user = useSelector((state) => state.session.user)
-    // console.log('test')
-    // console.log('user: ', user)
 
     return (
         <>

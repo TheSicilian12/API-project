@@ -12,9 +12,6 @@ function UserGroupPage() {
     const membershipsGeneral = useSelector((state) => state.memberships?.membership)
     const [loading, setLoading] = useState(true);
 
-
-    // console.log("membershipsGeneral: ", membershipsGeneral)
-
     // useEffect(() => {
     //     dispatch(allMembershipThunk(user.id))
     // }, [])

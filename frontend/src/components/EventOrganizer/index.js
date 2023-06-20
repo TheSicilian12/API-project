@@ -42,7 +42,6 @@ export function organizeEventsByDate(eventsObj) {
         }
 
     }
-    // console.log('return: ', eventsArray);
     return eventsArray;
 }
 

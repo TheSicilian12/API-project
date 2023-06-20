@@ -20,7 +20,7 @@ function UserGroupComponent({ group }) {
 
         const deleteMembership = await dispatch(deleteMembershipThunk(payload))
     }
-    // console.log("group: ", group)
+    
     return (
         <div className="user-group-overall-component">
         <div className="user-group-group-component">

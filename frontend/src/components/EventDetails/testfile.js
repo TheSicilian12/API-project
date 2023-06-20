@@ -15,35 +15,25 @@ import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    
+
     useEffect(() => {
-        // console.log('useEffect test')
-        // if (event.Group) {
-        // console.log('event.groupId: ', event.groupId)
         dispatch(getGroup(event.groupId))
-        // }
     }, [event.groupId])
+
     const organizer = useSelector((state) => state.groups.singleGroup?.Organizer)
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
-    // console.log('orgranizer: ', organizer)
-    // console.log('groupImages: ', groupImages)
-
-    // console.log('event: ', event)
 
     let groupPreviewImage;
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
     }
-    // console.log('groupPreviewImage: ', groupPreviewImage)
 
     const eventImages = useSelector((state) => state.events.EventImages)
-    // console.log('eventImages: ', eventImages)
 
     let eventPreviewImage;
     if (eventImages) {
         eventPreviewImage = eventImages.find(image => image.preview === true)
     }
-    // console.log('previewImage: ', eventPreviewImage)
 
     if (!event.Group) {
         return <div>loading</div>
@@ -52,15 +42,11 @@ function EventDetails({ event, eventId, user }) {
 
     let imageData = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-    // console.log('group: ', group)
-    // console.log('event: ', event)
-
     let noEventImage = 'off';
     let noGroupImage = 'off';
-    // let test = eventPreviewImage.url;
-    // eventPreviewImage.url ? noEventImage = 'on' : noEventImage = 'off'
+
     if (!eventPreviewImage) noEventImage = 'on';
-    // console.log('eventPreviewImage: ', eventPreviewImage)
+
     if (!groupPreviewImage) noGroupImage = 'on';
 
     let options = 'Uhide';
@@ -68,8 +54,6 @@ function EventDetails({ event, eventId, user }) {
         if (event.Group.organizerId === user.id) options = 'Ushow';
     }
 
-    // console.log('eventPreviewImage: ', eventPreviewImage)
-    // console.log('options: ', options)
     return (
         <div className='GroupDetails UfontTreb textSize'>
 

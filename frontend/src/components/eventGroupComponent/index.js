@@ -18,7 +18,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
     const membership = useSelector(state => state.memberships.membership);
-    // console.log("membership: ", membership?.status)
 
     // let membership = dispatch(membershipIdThunk(payload))
 
@@ -52,9 +51,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     // if (!group.singleGroup) {
     //     return <div>loading</div>
     // }
-
-
-    // console.log("group: ", group)
 
     return (
         <div className="eventGroup-container">

@@ -32,7 +32,6 @@ function EventForm({ currentGroup, formType }) {
     const [errors, setErrors] = useState({});
 
     const groupId = useParams().id;
-    // console.log('groupid: ', groupId)
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((state) => state.session.user)
@@ -40,12 +39,6 @@ function EventForm({ currentGroup, formType }) {
     if (!user || user.id !== currentGroup.organizerId) {
         // history.push('/')
     }
-
-    // console.log('currentGroup: ', currentGroup)
-
-    // console.log('eventName: ', eventName)
-    // console.log('eventStartDate: ', eventStartDate)
-    // console.log('eventEndDate: ', eventEndDate)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -63,9 +56,7 @@ function EventForm({ currentGroup, formType }) {
         if (eventStatus === '(select one)') {
             err.eventStatus = 'Visibility is required';
         }
-        // console.log('before if: ', eventPrice)
         // if (!eventPrice) {
-        //     console.log(eventPrice)
         //     err.eventPrice = 'Price is required';
         // }
         if (eventPrice < 0) {
@@ -86,17 +77,12 @@ function EventForm({ currentGroup, formType }) {
         if (imageRouteCheck !== 'png' &&
             imageRouteCheck !== 'jpg' &&
             imageRouteCheck !== 'jpeg') {
-            // console.log(imageRouteSplit)
-            // console.log(imageRouteCheck)
             err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
         }
         if (eventAbout.length < 30) {
             err.eventAbout = 'Description must be at least 30 characters long';
         }
 
-        // console.log('eventMeetType: ', eventMeetingType)
-
-        // console.log('price: ', typeof Number(eventPrice))
         let newEvent;
         if (Object.keys(err).length > 0) setErrors(err)
         else {
@@ -125,11 +111,9 @@ function EventForm({ currentGroup, formType }) {
             ))
         }
 
-        // console.log('newEvent: ', newEvent)
         if (newEvent?.id) {
             history.push(`/events/${newEvent.id}`)
         }
-        // console.log('errors: ', errors)
     }
 
     // ----------------------------------err real time--------------------------------------------------
@@ -156,7 +140,6 @@ function EventForm({ currentGroup, formType }) {
         }
     }
 
-    // console.log('eventPrice type: ', !(Number(eventPrice) >= 0))
     if (!eventEndDate) {
         err.eventEndDate = 'Event end is required';
     }
@@ -166,8 +149,6 @@ function EventForm({ currentGroup, formType }) {
     if (imageRouteCheck !== 'png' &&
         imageRouteCheck !== 'jpg' &&
         imageRouteCheck !== 'jpeg') {
-        // console.log(imageRouteSplit)
-        // console.log(imageRouteCheck)
         err.eventImage = 'Image URL must end in .png, .jpg, or .jpeg';
     }
     if (eventAbout.length < 30) {
