@@ -33,10 +33,12 @@ function UserGroupComponent({ group }) {
                 />
                 <div className="user-group-info-component">
                     <div>
-                        <div>{group.name}</div>
-                        <div>{group.membershipInfo.status}</div>
+                        <div className="user-group-group-name">{group.name}</div>
+                        <div className="user-group-membership-status">{group.membershipInfo.status}</div>
                     </div>
-                    <button onClick={() => leaveGroup()}>
+                    <button
+                        className="UfontTreb UpurpleButton UpinkBorder"
+                        onClick={() => leaveGroup()}>
                         Leave group
                     </button>
                 </div>

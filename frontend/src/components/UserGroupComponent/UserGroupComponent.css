@@ -16,3 +16,15 @@
     width: 300px;
     height: 200px;
 }
+
+.user-group-group-name {
+    font-size: x-large;
+    font-weight: bolder;
+    color: black;
+}
+
+.user-group-membership-status {
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
