@@ -151,9 +151,9 @@ function GroupForm({ currentGroup, formType, previewImage }) {
         err.groupStatus = 'Visibility Type is required'
     }
 
-    let disabled;
+    let disabled = 'UpurpleButton';
     if (Object.values(err).length > 0) {
-        disabled = 'not-allowedCursor';
+        disabled = 'not-allowedCursor UgrayButton';
     }
 
     let hideImageUpdate = 'Ushow';
@@ -361,14 +361,14 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                 </div>
                 <div className='displayFlex justifyCenter'>
                     <button
-                        className={`${newForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        className={`${newForm} UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
                         Create Group
                     </button>
                     <button
-                        className={`${editForm} UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        className={`${editForm} UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
