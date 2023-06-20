@@ -32,7 +32,7 @@ function UserGroupComponent({ group }) {
                     src={group.previewImage?.url}
                 />
                 <div className="user-group-info-component">
-                    <div>
+                    <div className="user-group-text-info">
                         <div className="user-group-group-name">{group.name}</div>
                         <div className="user-group-membership-status">{group.membershipInfo.status}</div>
                     </div>
