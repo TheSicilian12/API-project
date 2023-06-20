@@ -154,3 +154,12 @@
 .marginRight {
     padding-right: 0.5rem;
 }
+
+.groupForm-location {
+    width: 200px;
+    height: 40px;
+}
+
+.groupForm-city {
+    margin-right: 5px;
+}

@@ -152,13 +152,13 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     }
 
     let disabled;
-    if(Object.values(err).length > 0) {
-        disabled='not-allowedCursor';
+    if (Object.values(err).length > 0) {
+        disabled = 'not-allowedCursor';
     }
 
     let hideImageUpdate = 'Ushow';
-    if(formType === 'edit') {
-        hideImageUpdate='Uhide';
+    if (formType === 'edit') {
+        hideImageUpdate = 'Uhide';
     }
 
     return (
@@ -190,26 +190,28 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                         AdventureUp groups meet locally, in person, and online.
                         We'll connect you with people in your area.
                     </p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='City'
-                        value={city}
-                        onChange={(e) => {
-                            setCity(e.target.value)
-                            setDisplayCityErr(true)
-                        }}
-                    ></input>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='State'
-                        value={state}
-                        onChange={(e) => {
-                            setState(e.target.value)
-                            setDisplayStateErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupForm-location groupForm-city'
+                            type='text'
+                            placeholder='City'
+                            value={city}
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                                setDisplayCityErr(true)
+                            }}
+                        ></input>
+                        <input
+                            className='groupForm-location'
+                            type='text'
+                            placeholder='State'
+                            value={state}
+                            onChange={(e) => {
+                                setState(e.target.value)
+                                setDisplayStateErr(true)
+                            }}
+                        ></input>
+                    </div>
                     {displayCityErr && <p className='error'>{err.city}</p>}
                     {displayStateErr && <p className='error'>{err.state}</p>}
                 </div>
