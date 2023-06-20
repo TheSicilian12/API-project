@@ -32,7 +32,6 @@ function EditCommentModal({ eventId, commentEdit }) {
         closeModal()
     }
 
-
     return (
         <div>
             <form
