@@ -22,6 +22,7 @@ function UserGroupComponent({ group }) {
     }
     // console.log("group: ", group)
     return (
+        <div className="user-group-overall-component">
         <div className="user-group-group-component">
             {/* Divide based on membership status */}
             <div className="displayFlex">
@@ -30,7 +31,7 @@ function UserGroupComponent({ group }) {
                     <img
                         className="user-group-image-dimensions"
                         src={group.previewImage?.url}
-                    />
+                        />
                 </NavLink>
                 <div className="user-group-info-component">
                     <div className="user-group-text-info">
@@ -49,6 +50,7 @@ function UserGroupComponent({ group }) {
                 </div>
             </div>
         </div>
+                            </div>
     );
 }
 
