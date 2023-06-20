@@ -20,7 +20,6 @@ function DeleteCommentModal({ eventId }) {
 
     const deleteHandler = async (e) => {
         e.preventDefault();
-        console.log("delete comment button")
         const payload = {
             user,
             eventId
@@ -28,7 +27,6 @@ function DeleteCommentModal({ eventId }) {
 
         let deletion = await dispatch(deleteComment(payload))
         closeModal();
-        console.log("deletion: ", deletion)
     }
 
 

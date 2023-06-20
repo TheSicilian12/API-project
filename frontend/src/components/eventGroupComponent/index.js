@@ -32,12 +32,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         dispatch(membershipsThunk(payload));
     }, [])
 
-    // console.log("info: ", info)
-
-
-
     async function joinGroup() {
-        // console.log("join group button")
         const payload = {
             groupId: info.groupId,
             membership: membership,
@@ -50,8 +45,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
         const autoMember = await dispatch(automaticMembershipThunk(payload))
         const member = await dispatch(membershipsThunk(payloadTwo));
-
-        // console.log("autoMember: ", autoMember)
 
         // const test =  await dispatch(membershipsThunk(payload));
     }

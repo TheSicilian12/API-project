@@ -15,8 +15,7 @@ import pinkArrowLeft from '../assets/Images/pinkArrowLeft-removebg-preview.png';
 function EventDetails({ event, eventId, user }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    // console.log('event groupId: ', event.groupId)
-
+    
     useEffect(() => {
         // console.log('useEffect test')
         // if (event.Group) {
