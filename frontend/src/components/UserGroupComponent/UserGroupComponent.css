@@ -9,9 +9,10 @@
 .user-group-info-component {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 .user-group-image-dimensions {
-    width: 200px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
 }

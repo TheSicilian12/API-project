@@ -32,8 +32,10 @@ function UserGroupComponent({ group }) {
                     src={group.previewImage?.url}
                 />
                 <div className="user-group-info-component">
-                    <div>{group.name}</div>
-                    <div>{group.membershipInfo.status}</div>
+                    <div>
+                        <div>{group.name}</div>
+                        <div>{group.membershipInfo.status}</div>
+                    </div>
                     <button onClick={() => leaveGroup()}>
                         Leave group
                     </button>
