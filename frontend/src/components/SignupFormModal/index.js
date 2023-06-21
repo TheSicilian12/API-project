@@ -64,10 +64,9 @@ function SignupFormModal() {
   if (!lastName) {
     err.lastName = 'Please enter your last name.'
   }
-  if (!email) {
-    err.email = 'Please enter an email.'
-  }
-
+  const regEx = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+  if (!regEx.test(email)) err.email = 'Please enter a valid email.'
+  
   let disableButton;
   if (Object.values(err).length > 0) {
     disableButton = 'not-allowedCursor disabledButton'

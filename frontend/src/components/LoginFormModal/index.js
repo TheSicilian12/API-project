@@ -60,7 +60,7 @@ function LoginFormModal() {
           <div>
             <ul>
               {errors.map((error, idx) => (
-                <li key={idx}>{error}</li>
+                <ul className="errors" key={idx}>{error}</ul>
               ))}
             </ul>
 
