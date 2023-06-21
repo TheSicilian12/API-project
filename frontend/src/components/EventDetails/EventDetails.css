@@ -45,11 +45,11 @@
 }
 
 .event-arrowContainer {
-    width: 1300px;
+    width: 90vw;
 }
 
 .event-descriptionContainer {
-    width: 1300px;
+    width: 90vw;
 }
 
 .eventImage {
@@ -187,7 +187,7 @@
 .eventDetailFontSize {
     font-size: 120%;
 }
-
+event-descriptionContainer
 .paddingLeftDescription {
     padding-left: 12rem;;
 }
@@ -206,4 +206,11 @@
 .add-comment-button-modal {
     width: 80px;
     height: 40px;
+}
+
+.eventDetails-event-component {
+
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }

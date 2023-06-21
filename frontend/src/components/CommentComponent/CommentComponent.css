@@ -1,11 +1,14 @@
 .all-comment-container {
-    width: 1200px;
+    display: flex;
+    justify-content: center;
+    width: 90vw;
     border-top: 1px solid black;
 }
 
 .comment-container {
+    width: 90vw;
     display: flex;
-    justify-content: space-between;
+    margin-top: 5px;
 }
 
 .comment-text-container {

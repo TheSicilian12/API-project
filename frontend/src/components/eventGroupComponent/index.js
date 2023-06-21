@@ -147,7 +147,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </NavLink>
                                     <div>
                                         <OpenModalDeleteGroupButton
-
                                             buttonText="Delete"
                                             modalComponent={<DeleteGroupModal groupId={info.groupId} />}
                                         />

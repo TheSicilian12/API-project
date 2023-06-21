@@ -84,7 +84,10 @@ function EventDetails({ event, eventId, user, comments }) {
                 <div className="event-arrowContainer">
                     <BackButton text={"All Events"} link={"/events"} />
                 </div>
+
+                <div className="eventDetails-event-component">
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
+                </div>
                 <div className="event-descriptionContainer descriptionTextSize">
                     <h2>Description</h2>
                     <p>{event?.description}</p>
