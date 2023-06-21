@@ -18,14 +18,21 @@ function CommentComponent({ comments }) {
 
     if (commentTest.length === 0) return (null)
 
+    console.log("commentTest: ", commentTest)
+
     return (
         <div className="all-comment-container">
             {Object.values(commentTest).map(info =>
                 <div
                     className="comment-container"
                     key={info.eventId}>
-                    <div className="comment-text-container">
-                        {info.comment}
+                    <div>
+                        <div className="comment-user-container">
+                            By: {info.userInfo.username}
+                        </div>
+                        <div className="comment-text-container">
+                            {info.comment}
+                        </div>
                     </div>
                     <div className="comment-buttons-container">
                         {user && info.userId === user.id && <OpenModalButton

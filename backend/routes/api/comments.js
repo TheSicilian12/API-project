@@ -37,9 +37,20 @@ router.get('/:eventId', async (req, res, next) => {
         }
     })
 
-    let returnComments = []
-    if (comments) returnComments = comments
+    let returnComments = {}
+    // if (comments) returnComments = comments
 
+    for (let comment of comments) {
+        returnComments[comment.dataValues.id] = comment.toJSON()
+
+        let user = await User.findByPk(comment.dataValues.userId)
+
+        returnComments[comment.dataValues.id].userInfo = {
+            "firstName": user.dataValues.firstName,
+            "lastName": user.dataValues.lastName,
+            "username": user.dataValues.username
+        }
+    }
     return res.json(returnComments)
 })
 

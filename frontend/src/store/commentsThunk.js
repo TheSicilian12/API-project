@@ -18,8 +18,8 @@ export const getAllEventComments = (eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/comments/${eventId}`)
     if (response.ok) {
         const eventsList = await response.json();
-        let normEventList = normalizeIdArrToObj(eventsList)
-        dispatch(allComments(normEventList));
+        // let normEventList = normalizeIdArrToObj(eventsList)
+        dispatch(allComments(eventsList));
     }
 }
 

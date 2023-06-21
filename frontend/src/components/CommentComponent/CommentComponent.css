@@ -13,6 +13,13 @@
     margin-top: 5px;
 }
 
+.comment-user-container {
+    overflow-wrap: break-word;
+    width: 900px;
+    font-size: normal;
+    margin: 5px;
+}
+
 .comment-text-container {
     overflow-wrap: break-word;
     width: 900px;
