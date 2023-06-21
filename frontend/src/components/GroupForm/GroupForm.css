@@ -58,20 +58,11 @@
     border: 2px solid black
 }
 
-.positionAbsolute {
-    position: absolute;
-}
-
 .positionRelative {
     position: relative;
 }
 .positionSticky {
     position: sticky;
-}
-
-.positionNavBar {
-    top: 5rem;
-    right: 1rem;
 }
 
 .paddingProfileIconTR {
