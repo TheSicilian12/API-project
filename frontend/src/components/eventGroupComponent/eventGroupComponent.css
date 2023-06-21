@@ -54,7 +54,9 @@
 }
 
 .eventGroup-overall-info {
-    width: 1160px;
+    display: flex;
+    justify-content: left;
+    width: 52vw;
     margin-top: 10px;
 }
 
