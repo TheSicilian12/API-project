@@ -13,14 +13,19 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 
 function EventForm({ currentGroup, currentEvent, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
-    const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
+    let statusType;
+    if (currentEvent.status) {
+        if (currentEvent.status === "Private")
+        if (currentEvent.status === "Public")
+    }
+
+    const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
-    const [eventAbout, setEventAbout] = useState(currentEvent.description ? currentEvent.description : "");
+    const [eventAbout, setEventAbout] = useState(currentEvent?.description ? currentEvent?.description : "");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
-    const [eventMeetingType, setEventMeetingType] = useState(currentEvent.type ? currentEvent.type : "(select one)");
+    const [eventMeetingType, setEventMeetingType] = useState(currentEvent?.type ? currentEvent?.type : "(select one)");
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
-    // eventStatus is not even used, so this needs to be edited.
-    const [eventStatus, setEventStatus] = useState("");
+    const [eventStatus, setEventStatus] = useState(currentEvent.name ? currentEvent.name === "true" : "");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
     const [eventPrice, setEventPrice] = useState("0");
     const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);

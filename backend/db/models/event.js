@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM ("Online", "In Person"),
       defaultValue: "In Person"
     },
+    status: {
+      type: DataTypes.ENUM ("Private", "Public"),
+      defaultValue: "Private"
+    },
     capacity: {
      type: DataTypes.INTEGER,
      allowNull: true

@@ -38,6 +38,10 @@ module.exports = {
         type: Sequelize.ENUM ("Online", "In Person"),
         defaultValue: "In Person"
       },
+      status: {
+        type: Sequelize.ENUM ("Private", "Public"),
+        defaultValue: "Private"
+      },
       capacity: {
         type: Sequelize.INTEGER,
         allowNull: true

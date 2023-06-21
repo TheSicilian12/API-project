@@ -17,8 +17,10 @@ export default function EditEventWrapper({formType}) {
     }, [groupId])
 
     const currentGroup = useSelector((state) => state.groups.singleGroup);
-    const currentEvent = useSelector((state) => state.events)
+    const currentEvent = useSelector((state) => state.events);
+    
     if (!currentGroup) return null;
+    // if (!currentEvent) return null;
 
     return (
         <GroupForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType}/>
