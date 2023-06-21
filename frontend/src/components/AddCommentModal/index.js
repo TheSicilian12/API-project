@@ -47,11 +47,6 @@ function AddCommentModal({ eventId }) {
             >
                 {(!displayCommentErr || !err.comment) && <h1>Comment</h1>}
                 {displayCommentErr && err.comment && <h1 className="errors">Comment* {err.comment}</h1>}
-
-
-                
-
-
                 <textarea
                     className='add-comment-textarea'
                     type='text'

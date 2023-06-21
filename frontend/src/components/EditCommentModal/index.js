@@ -15,7 +15,7 @@ function EditCommentModal({ eventId, commentEdit }) {
 
     const user = useSelector((state) => state.session.user)
     const [comment, setComment] = useState(commentEdit ? commentEdit : "")
-    const [commentErr, setCommentErr] = useState("")
+    const [displayCommentErr, setDisplayCommentErr] = useState("")
 
     const editCommentOnClick = async (e) => {
         e.preventDefault();
@@ -30,13 +30,22 @@ function EditCommentModal({ eventId, commentEdit }) {
         closeModal()
     }
 
+    let err = {}
+    if (comment.length < 10) err.comment = "10+ characters"
+
+    let notAllowed;
+    if (Object.values(err).length > 0) {
+        notAllowed = 'not-allowedCursor disabledButton'
+    }
+
     return (
         <div>
             <form
                 className="edit-comment-form-container"
                 onSubmit={editCommentOnClick}
             >
-                <h1>Edit Comment</h1>
+                {(!displayCommentErr || !err.comment) && <h1>Edit Comment</h1>}
+                {displayCommentErr && err.comment && <h1 className="errors">Edit Comment* {err.comment}</h1>}
                 <textarea
                     className='edit-comment-textarea'
                     type='text'
@@ -44,12 +53,13 @@ function EditCommentModal({ eventId, commentEdit }) {
                     value={comment}
                     onChange={(e) => {
                         setComment(e.target.value)
-                        setCommentErr(true)
+                        setDisplayCommentErr(true)
                     }}
                 ></textarea>
                 <button
-                    className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions edit-comment-button-container"
+                    className={`UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions edit-comment-button-container ${notAllowed}`}
                     type="submit"
+                    disabled={Object.values(err).length > 0}
                     >
                     Edit
                 </button>
