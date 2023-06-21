@@ -11,14 +11,15 @@ import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
-function EventForm({ currentGroup, formType }) {
+function EventForm({ currentGroup, currentEvent, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
-    const [eventName, setEventName] = useState("");
+    const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
-    const [eventAbout, setEventAbout] = useState("");
+    const [eventAbout, setEventAbout] = useState(currentEvent.description ? currentEvent.description : "");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
-    const [eventMeetingType, setEventMeetingType] = useState("(select one)");
+    const [eventMeetingType, setEventMeetingType] = useState(currentEvent.type ? currentEvent.type : "(select one)");
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
+    // eventStatus is not even used, so this needs to be edited.
     const [eventStatus, setEventStatus] = useState("");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
     const [eventPrice, setEventPrice] = useState("0");
@@ -36,8 +37,8 @@ function EventForm({ currentGroup, formType }) {
     const history = useHistory();
     const user = useSelector((state) => state.session.user)
 
-    console.log("currentGroup: ", currentGroup)
     console.log("formType: ", formType)
+    console.log("currentEvent", currentEvent)
 
     if (!user || user.id !== currentGroup.organizerId) {
         history.push('/')
