@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { allMembershipThunk, deleteMembershipThunk } from "../../store/membershipThunk";
 import { getGroup } from "../../store/groupsThunk";
 import "./UserGroupComponent.css"
+import OpenModalDeleteGroupButton from "../DeleteGroupModalButton";
+import DeleteGroupModal from "../DeleteGroupModal";
 
 function UserGroupComponent({ group }) {
     const dispatch = useDispatch();
@@ -19,6 +21,8 @@ function UserGroupComponent({ group }) {
         }
         const deleteMembership = await dispatch(deleteMembershipThunk(payload))
     }
+
+    console.log("group: ", group)
 
     return (
         <div className="user-group-overall-component">
@@ -41,13 +45,19 @@ function UserGroupComponent({ group }) {
                                 <div className="user-group-membership-status">{group.membershipInfo.status}</div>
                             </NavLink>
                         </div>
-                        <div className="user-group-leave-group-button">
+                        {group.membershipInfo.status !== 'host' && <div className="user-group-leave-group-button">
                             <button
                                 className="UfontTreb UpurpleButton UpinkBorder"
                                 onClick={() => leaveGroup()}>
                                 Leave group
                             </button>
-                        </div>
+                        </div>}
+                        {group.membershipInfo.status === 'host' && <div className="user-group-leave-group-button">
+                            <OpenModalDeleteGroupButton
+                                buttonText="Delete"
+                                modalComponent={<DeleteGroupModal groupId={group.id} />}
+                            />
+                        </div>}
                     </div>
                 </div>
             </div>
