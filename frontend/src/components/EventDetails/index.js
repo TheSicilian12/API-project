@@ -97,7 +97,7 @@ function EventDetails({ event, eventId, user, comments }) {
                 </div>
                 <div className="add-comment-section-header">
                     <h2>Comments</h2>
-                    {(!user || !alreadyCommented) && isMember === "true" && <OpenModalButton
+                    {user && isMember === "true" && <OpenModalButton
                         className="UfontTreb UpurpleButton UpinkBorder UbuttonProfileDimensions add-comment-button-modal"
                         buttonText="Add"
                         modalComponent={<AddCommentModal eventId={event.id} />}
