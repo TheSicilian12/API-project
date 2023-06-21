@@ -16,7 +16,6 @@ function CommentComponent({ comments }) {
         dispatch(clearCommentState())
     }, [])
 
-    // if (comments.length === 0) return (null)
     if (commentTest.length === 0) return (null)
 
     return (
