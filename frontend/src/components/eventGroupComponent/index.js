@@ -263,7 +263,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
                                             buttonText="Delete"
-                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.groupId}/>}
+                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.event?.Group.id}/>}
                                         />
                                     </div>
                                 </div>
