@@ -51,13 +51,14 @@ function ProfileButton({ user }) {
       </button>
 
 
-      <div className={`${ulClassName} positionNavBar positionAbsolute marginProfileDropDown`} ref={ulRef}>
+      <ul className={`${ulClassName} positionAbsolute positionNavBar paddingProfileDropDown`} ref={ulRef}>
 
         {user ? (
-          <div className='drop-down displayFlex flex-directionColumn positionMarginLogInSignUp alignCenter'>
-
+          <div className='drop-down displayFlex flex-directionColumn justifyCenter alignCenter loggedInTextSize positionMarginLoggedIn profile-info'>
             <div className='userMarginBottom'>{`Hello, ${user.firstName}`}</div>
+            {/* <div className='userMarginBottom'>{user.email}</div> */}
             <div className='userMarginBottom'>{user.username}</div>
+            {/* <ul>{user.firstName} {user.lastName}</ul> */}
             <Link
               className='your-groups userMarginBottom UnoDecoration UcolorBlack linkGold'
               onClick={() => setShowMenu(false)}
@@ -83,11 +84,11 @@ function ProfileButton({ user }) {
               onClick={logout}>
                 Log Out
             </button>
-
           </div>
-        ) : (
-          <div className='drop-down displayFlex flex-directionColumn positionMarginLogInSignUp alignCenter'>
 
+        ) : (
+          <div className='drop-down displayFlex flex-directionColumn alignCenter positionMarginLogInSignUp login-signup-info'>
+            {/* <ul className='borderRed displayFlex justifyCenter alignCenter'> */}
             <div className='logInMarginBottom'>
               <OpenModalButton
                 buttonText="Log In"
@@ -100,10 +101,10 @@ function ProfileButton({ user }) {
                 modalComponent={<SignupFormModal />}
               />
             </div>
-
+            {/* </ul> */}
           </div>
         )}
-      </div>
+      </ul>
     </div>
   );
 }
