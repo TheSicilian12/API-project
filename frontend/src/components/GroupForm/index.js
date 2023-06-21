@@ -39,7 +39,11 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
 
-    if (!user || user.id !== currentGroup.organizerId) {
+    if (!user) {
+        history.push('/')
+    }
+
+    if (formType === "edit" && (!user || user.id !== currentGroup.organizerId)) {
         history.push('/')
     }
 
