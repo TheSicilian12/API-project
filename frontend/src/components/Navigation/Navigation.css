@@ -90,13 +90,13 @@
 .positionRelative {
     position: relative;
 }
+
 .positionSticky {
     position: sticky;
 }
 
 .positionNavBar {
-    top: 5rem;
-    right: 1rem;
+  right: 100px;
 }
 
 .paddingProfileIconTR {
@@ -115,16 +115,6 @@
 
 .paddingRightStartNewGroup {
     padding-right: 3rem;
-}
-
-.positionMarginLogInSignUp {
-    margin-right: 1.7rem;
-    margin-top: 2rem;
-}
-
-.positionMarginLoggedIn {
-    margin-right: 0.5rem;
-    margin-top: 2rem;
 }
 
 .logInMarginBottom {
@@ -161,7 +151,7 @@
     font-size: 120%;
 }
 
-.profile-info {
+.profileModal-location {
     margin-top: 80px;
 }
 
@@ -182,7 +172,16 @@
 }
 
 .drop-down {
-    background-color: pink;
+    background-color: white;
+    border: 2px solid pink;
     padding: 10px;
     border-radius: 15px;
+}
+
+.drop-down-signup-location {
+    margin-right: 50px;
+}
+
+.drop-down-user-location {
+    margin-right: 20px;
 }
