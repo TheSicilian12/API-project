@@ -68,6 +68,9 @@ function App() {
           <Route path='/groups/:groupId/events/:eventId/edit' exact>
             <EditEventWrapper formType={'edit'}/>
           </Route>
+          <Route path='/events/:id'>
+              <EventDetailsWrapper />
+          </Route>
 
           {/* <Route path='/groups/:id/events/new' exact>
               <EditEventWrapper />
