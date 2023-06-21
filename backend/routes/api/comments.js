@@ -37,9 +37,20 @@ router.get('/:eventId', async (req, res, next) => {
         }
     })
 
-    let returnComments = []
-    if (comments) returnComments = comments
+    let returnComments = {}
+    // if (comments) returnComments = comments
 
+    for (let comment of comments) {
+        returnComments[comment.dataValues.id] = comment.toJSON()
+
+        let user = await User.findByPk(comment.dataValues.userId)
+
+        returnComments[comment.dataValues.id].userInfo = {
+            "firstName": user.dataValues.firstName,
+            "lastName": user.dataValues.lastName,
+            "username": user.dataValues.username
+        }
+    }
     return res.json(returnComments)
 })
 
@@ -68,18 +79,18 @@ router.post('/:eventId', requireAuth, async (req, res, next) => {
     }
 
     // has the current user already commented?
-    let previousCommentTest = await Comment.findOne({
-        where: {
-            userId: user.id,
-            eventId: eventId
-        }
-    })
-    if (previousCommentTest) {
-        const err = new Error("A comment already exists");
-        err.status = 404
-        err.message = "A commente already exists"
-        return next(err);
-    }
+    // let previousCommentTest = await Comment.findOne({
+    //     where: {
+    //         userId: user.id,
+    //         eventId: eventId
+    //     }
+    // })
+    // if (previousCommentTest) {
+    //     const err = new Error("A comment already exists");
+    //     err.status = 404
+    //     err.message = "A commente already exists"
+    //     return next(err);
+    // }
 
     // Add a comment
     let newComment = await Comment.create({

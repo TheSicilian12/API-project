@@ -1,16 +1,28 @@
 .all-comment-container {
-    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 62vw;
     border-top: 1px solid black;
 }
 
 .comment-container {
+    width: 62vw;
     display: flex;
-    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.comment-user-container {
+    width: 45vw;
+    overflow-wrap: break-word;
+    font-size: normal;
+    margin: 5px;
 }
 
 .comment-text-container {
     overflow-wrap: break-word;
-    width: 900px;
+    width: 45vw;
     font-size: large;
     padding-bottom: 15px;
     margin: 5px;

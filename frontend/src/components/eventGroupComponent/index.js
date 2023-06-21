@@ -12,6 +12,7 @@ import clockImage from '../assets/Images/ATWP.webp'
 import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
 import DeleteEventModal from '../DeleteEventModal';
+import OpenModalButton from '../OpenModalButton';
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
@@ -46,6 +47,10 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         const member = await dispatch(membershipsThunk(payloadTwo));
 
         // const test =  await dispatch(membershipsThunk(payload));
+    }
+
+    const editEvent = () => {
+        console.log("edit event")
     }
 
     // if (!group.singleGroup) {
@@ -142,7 +147,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </NavLink>
                                     <div>
                                         <OpenModalDeleteGroupButton
-
                                             buttonText="Delete"
                                             modalComponent={<DeleteGroupModal groupId={info.groupId} />}
                                         />
@@ -251,10 +255,14 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                             Update
                                         </button>
                                     </NavLink> */}
+                                    <button
+                                        className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions"
+                                        onClick={() => editEvent()}>
+                                        Update</button>
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
                                             buttonText="Delete"
-                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.groupId}/>}
+                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.event?.Group.id}/>}
                                         />
                                     </div>
                                 </div>

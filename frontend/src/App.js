@@ -58,17 +58,26 @@ function App() {
           <Route path='/groups/:id' exact>
             <GroupDetailsWrapper />
           </Route>
-          <Route path='/groups/:id/events/new' exact>
-              <EditEventWrapper />
-          </Route>
 
-          {/* This does not render because it is dependent on an id input! */}
-          <Route path='/events/:id/edit' exact>
+          {/* <Route path = '/groups/:id/events/edit'>
               <EditEventWrapper />
+          </Route> */}
+          <Route path='/groups/:groupId/events/new' exact>
+            <EditEventWrapper formType={'new'}/>
+          </Route>
+          <Route path='/groups/:groupId/events/:eventId/edit' exact>
+            <EditEventWrapper formType={'edit'}/>
           </Route>
           <Route path='/events/:id'>
               <EventDetailsWrapper />
           </Route>
+
+          {/* <Route path='/groups/:id/events/new' exact>
+              <EditEventWrapper />
+          </Route> */}
+
+          {/* This does not render because it is dependent on an id input! */}
+
           <Route >
             <BadRoute />
           </Route>
