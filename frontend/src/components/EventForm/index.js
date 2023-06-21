@@ -15,9 +15,10 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
     let statusType;
     if (currentEvent.status) {
-        if (currentEvent.status === "Private")
-        if (currentEvent.status === "Public")
+        if (currentEvent.status === "Private") statusType = true;
+        if (currentEvent.status === "Public") statusType = false;
     }
+    console.log("price: ", currentEvent?.price)
 
     const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
@@ -25,9 +26,9 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState(currentEvent?.type ? currentEvent?.type : "(select one)");
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
-    const [eventStatus, setEventStatus] = useState(currentEvent.name ? currentEvent.name === "true" : "");
+    const [eventStatus, setEventStatus] = useState(currentEvent.name ? statusType : "");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
-    const [eventPrice, setEventPrice] = useState("0");
+    const [eventPrice, setEventPrice] = useState(currentEvent.price ? currentEvent?.price : "0");
     const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);
     const [eventStartDate, setEventStartDate] = useState('');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
