@@ -86,6 +86,7 @@ function EventDetails({ event, eventId, user, comments }) {
                 </div>
 
                 <div className="eventDetails-event-component">
+                
                 <EventGroupComponent type={type} previewImage={previewImage} info={info} />
                 </div>
                 <div className="event-descriptionContainer descriptionTextSize">
