@@ -68,18 +68,18 @@ router.post('/:eventId', requireAuth, async (req, res, next) => {
     }
 
     // has the current user already commented?
-    let previousCommentTest = await Comment.findOne({
-        where: {
-            userId: user.id,
-            eventId: eventId
-        }
-    })
-    if (previousCommentTest) {
-        const err = new Error("A comment already exists");
-        err.status = 404
-        err.message = "A commente already exists"
-        return next(err);
-    }
+    // let previousCommentTest = await Comment.findOne({
+    //     where: {
+    //         userId: user.id,
+    //         eventId: eventId
+    //     }
+    // })
+    // if (previousCommentTest) {
+    //     const err = new Error("A comment already exists");
+    //     err.status = 404
+    //     err.message = "A commente already exists"
+    //     return next(err);
+    // }
 
     // Add a comment
     let newComment = await Comment.create({
