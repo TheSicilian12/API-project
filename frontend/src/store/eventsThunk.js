@@ -91,6 +91,22 @@ export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
     }
 }
 
+//thunk - edit an event by event id
+export const editEventByEventIdThunk = (payload) => async (dispatch) => {
+    const {eventId} = payload;
+
+    const response = await csrfFetch(`/api/events/${eventId}/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({payload})
+    })
+    if (response.ok) {
+        
+    }
+}
+
 //thunk - add an image to an event
 export const addImageToEvent = (imageObj) => async (dispatch) => {
     const {url, preview, eventId} = imageObj;
@@ -100,7 +116,7 @@ export const addImageToEvent = (imageObj) => async (dispatch) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify( {url, preview})
+        body: JSON.stringify({url, preview})
     })
     if (response.ok) {
         const newImage = await response.json();
