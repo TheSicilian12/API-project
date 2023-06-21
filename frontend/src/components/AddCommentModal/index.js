@@ -16,7 +16,7 @@ function AddCommentModal({ eventId }) {
     const user = useSelector((state) => state.session.user)
 
     const [comment, setComment] = useState("")
-    const [commentErr, setCommentErr] = useState("")
+    const [displayCommentErr, setDisplayCommentErr] = useState("")
 
     const addCommentOnClick = async (e) => {
         e.preventDefault();
@@ -31,13 +31,27 @@ function AddCommentModal({ eventId }) {
         closeModal()
     }
 
+    let err = {}
+    if (comment.length < 10) err.comment = "10+ characters"
+
+    let notAllowed;
+    if (Object.values(err).length > 0) {
+        notAllowed = 'not-allowedCursor disabledButton'
+    }
+
     return (
         <div>
             <form
                 className="add-comment-form-container"
                 onSubmit={addCommentOnClick}
             >
-                <h1>Comment</h1>
+                {(!displayCommentErr || !err.comment) && <h1>Comment</h1>}
+                {displayCommentErr && err.comment && <h1 className="errors">Comment* {err.comment}</h1>}
+
+
+                
+
+
                 <textarea
                     className='add-comment-textarea'
                     type='text'
@@ -45,12 +59,13 @@ function AddCommentModal({ eventId }) {
                     value={comment}
                     onChange={(e) => {
                         setComment(e.target.value)
-                        setCommentErr(true)
+                        setDisplayCommentErr(true)
                     }}
                 ></textarea>
                 <button
-                    className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions add-comment-button'
+                    className={`UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions add-comment-button ${notAllowed}`}
                     type="submit"
+                    disabled={Object.values(err).length > 0}
                 >
                     Add Comment
                 </button>
