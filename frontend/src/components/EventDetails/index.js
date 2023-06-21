@@ -76,7 +76,7 @@ function EventDetails({ event, eventId, user, comments }) {
     }
 
     let alreadyCommented;
-    user ?  alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
+    user ? alreadyCommented = Object.values(comments).find(e => e.userId === user.id) : alreadyCommented = true;
 
     return (
         <>
@@ -86,12 +86,14 @@ function EventDetails({ event, eventId, user, comments }) {
                 </div>
 
                 <div className="eventDetails-event-component">
-                
-                <EventGroupComponent type={type} previewImage={previewImage} info={info} />
+
+                    <EventGroupComponent type={type} previewImage={previewImage} info={info} />
                 </div>
                 <div className="event-descriptionContainer descriptionTextSize">
-                    <h2>Description</h2>
-                    <p>{event?.description}</p>
+                    <div>
+                        <h2>Description</h2>
+                        <p>{event?.description}</p>
+                    </div>
                 </div>
                 <div className="add-comment-section-header">
                     <h2>Comments</h2>

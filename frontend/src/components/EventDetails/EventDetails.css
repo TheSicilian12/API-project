@@ -49,7 +49,9 @@
 }
 
 .event-descriptionContainer {
-    width: 90vw;
+    width: 62vw;
+    display: flex;
+    align-items: center;
 }
 
 .eventImage {
