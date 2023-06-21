@@ -95,8 +95,8 @@
 }
 
 .positionNavBar {
-    top: 5rem;
-    right: 1rem;
+    margin-top: 20px;
+    right: 2px;
 }
 
 .paddingProfileIconTR {
@@ -105,8 +105,9 @@
 
 }
 
-.paddingProfileDropDown {
-    padding-right: 1.5rem;
+.marginProfileDropDown {
+    /* padding-right: 1.5rem; */
+    margin-right: 1.5rem;
 }
 
 .paddingRight {
@@ -119,7 +120,6 @@
 
 .positionMarginLogInSignUp {
     margin-right: 1.7rem;
-    margin-top: 2rem;
 }
 
 .positionMarginLoggedIn {
@@ -165,10 +165,6 @@
     margin-top: 80px;
 }
 
-.login-signup-info {
-    margin-top: 80px;
-}
-
 .your-groups {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -182,7 +178,8 @@
 }
 
 .drop-down {
-    background-color: pink;
+    background-color: white;
+    border: 2px solid pink;
     padding: 10px;
     border-radius: 15px;
 }
