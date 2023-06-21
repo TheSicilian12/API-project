@@ -17,40 +17,41 @@ function UserGroupComponent({ group }) {
             groupId: group.id,
             memberId: group.membershipInfo.id
         }
-
         const deleteMembership = await dispatch(deleteMembershipThunk(payload))
     }
-    
+
     return (
         <div className="user-group-overall-component">
-        <div className="user-group-group-component">
-            {/* Divide based on membership status */}
-            <div className="displayFlex">
-                <NavLink
-                    to={`/groups/${group.id}`}>
-                    <img
-                        className="user-group-image-dimensions"
-                        src={group.previewImage?.url}
+            <div className="user-group-group-component">
+                {/* Divide based on membership status */}
+                <div className="displayFlex">
+                    <NavLink
+                        to={`/groups/${group.id}`}>
+                        <img
+                            className="user-group-image-dimensions"
+                            src={group.previewImage?.url}
                         />
-                </NavLink>
-                <div className="user-group-info-component">
-                    <div className="user-group-text-info">
-                        <NavLink
-                            className="user-group-navlink "
-                            to={`/groups/${group.id}`}>
-                            <div className="user-group-group-name">{group.name}</div>
-                            <div className="user-group-membership-status">{group.membershipInfo.status}</div>
-                        </NavLink>
+                    </NavLink>
+                    <div className="user-group-info-component">
+                        <div className="user-group-text-info">
+                            <NavLink
+                                className="user-group-navlink"
+                                to={`/groups/${group.id}`}>
+                                <div className="user-group-group-name">{group.name}</div>
+                                <div className="user-group-membership-status">{group.membershipInfo.status}</div>
+                            </NavLink>
+                        </div>
+                        <div className="user-group-leave-group-button">
+                            <button
+                                className="UfontTreb UpurpleButton UpinkBorder"
+                                onClick={() => leaveGroup()}>
+                                Leave group
+                            </button>
+                        </div>
                     </div>
-                    <button
-                        className="UfontTreb UpurpleButton UpinkBorder"
-                        onClick={() => leaveGroup()}>
-                        Leave group
-                    </button>
                 </div>
             </div>
         </div>
-                            </div>
     );
 }
 
