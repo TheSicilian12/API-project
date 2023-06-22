@@ -16,16 +16,16 @@ export default function EditEventWrapper({formType}) {
         dispatch(getEventThunk(eventId))
     }, [groupId])
 
-    const currentGroup = useSelector((state) => state.groups.singleGroup);
+    // const currentGroup = useSelector((state) => state.groups.singleGroup);
     const currentEvent = useSelector((state) => state.events);
 
-    if (!currentGroup) return null;
+    // if (!currentGroup) return null;
 
     return (
 
         <div>
         {currentEvent.name && (
-          <EventForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType} />
+          <EventForm currentEvent={currentEvent} formType={formType} />
         )}
       </div>
     )

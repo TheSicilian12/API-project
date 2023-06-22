@@ -9,15 +9,17 @@ import { EditEventWrapper } from './editEventWrapper';
 import { addEventByGroupIdThunk } from '../../store/eventsThunk'
 import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
+import { getGroup } from '../../store/groupsThunk';
 
 
-function EventForm({ currentGroup, currentEvent, formType }) {
+function EventForm({ currentEvent, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const groupId = useParams().id;
 
     const event = useSelector((state) => state.events)
     const user = useSelector((state) => state.session.user)
+    const currentGroup = useSelector((state) => state.groups.singleGroup);
 
     let statusType;
     if (currentEvent) {
@@ -29,7 +31,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
 
     // const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
 
-    const [eventName, setEventName] = useState(currentEvent.name || "false");
+    const [eventName, setEventName] = useState(currentEvent?.name || "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
 
     const [eventAbout, setEventAbout] = useState(currentEvent?.description ? currentEvent?.description : "");
@@ -54,11 +56,14 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
-
-
-    if (!user || user.id !== currentGroup.organizerId) {
+    if (!user || user.id !== currentGroup?.organizerId) {
         history.push('/')
     }
+
+    useEffect(() => {
+        dispatch(getGroup(groupId));
+    }, [groupId])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -205,8 +210,8 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
         <div>
-            {formType === "new" && <h1>Create a new event for {currentGroup.name}</h1>}
-            {formType === "edit" && <h1>Edit an event for {currentGroup.name}</h1>}
+            {formType === "new" && <h1>Create a new event for {currentGroup?.name}</h1>}
+            {formType === "edit" && <h1>Edit an event for {currentGroup?.name}</h1>}
         </div>
         <div className='marginBottomMed'>
             <p className='groupFormText'>What is the name of your event?</p>
