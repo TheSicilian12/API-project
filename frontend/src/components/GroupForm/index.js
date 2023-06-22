@@ -378,7 +378,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                     >
                         Update Group
                     </button>
-                    {Object.values(err).length > 0 && <div className={`${newForm} errors`}>
+                    {Object.values(err).length > 0 && <div className={`errors`}>
                         *Add your Group's information
                     </div>}
                 </div>
