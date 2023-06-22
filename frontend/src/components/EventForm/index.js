@@ -28,8 +28,10 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
     }
 
     // const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
-    const [eventName, setEventName] = useState(true ? info.eventName : "false");
+
+    const [eventName, setEventName] = useState(currentEvent.name || "false");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
+
     const [eventAbout, setEventAbout] = useState(currentEvent?.description ? currentEvent?.description : "");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState(currentEvent?.type ? currentEvent?.type : "(select one)");
@@ -43,16 +45,16 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
         ? new Date(currentEvent?.startDate).toISOString().slice(0, 16) : '');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
 
-    const [eventEndDate, setEventEndDate] = useState('');
+    const [eventEndDate, setEventEndDate] = useState(currentEvent?.endDate
+        ? new Date(currentEvent?.endDate).toISOString().slice(0, 16) : '');
     const [displayEventEndDateErr, setDisplayEventEndDateErr] = useState(false);
 
-    // const [eventImage, setEventImage] = useState(currentEvent?.EventImages ? currentEvent?.EventImages[0]?.url : '');
-    const [eventImage, setEventImage] = useState('');
+    const [eventImage, setEventImage] = useState(currentEvent?.EventImages ? currentEvent?.EventImages[0]?.url : '');
 
     const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
-    console.log("eventName: ", eventName)
+
 
     if (!user || user.id !== currentGroup.organizerId) {
         history.push('/')
@@ -193,33 +195,34 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
         hideImageUpdate = 'Uhide';
     }
 
+    console.log("err: ", err)
+
     // --------------------------------- ^ err real time ^ -----------------------------------------------
 
     return (
-        // <div>test create event</div>
         <div className='displayFlex justifyCenter marginFormTop UfontTreb'>
             event name: {currentEvent.name}
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
-                <div>
-                    <h1>Create a new event for {currentGroup.name}</h1>
-                </div>
-                <div className='marginBottomMed'>
-                    <p className='groupFormText'>What is the name of your event?</p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='Event Name'
-                        value={eventName}
-                        onChange={(e) => {
-                            setEventName(e.target.value)
-                            setDisplayEventNameErr(true)
-                        }}
-                    ></input>
+        <div>
+            <h1>Create a new event for {currentGroup.name}</h1>
+        </div>
+        <div className='marginBottomMed'>
+            <p className='groupFormText'>What is the name of your event?</p>
+            <input
+                className='groupFormInput'
+                type='text'
+                placeholder='Event Name'
+                value={eventName}
+                onChange={(e) => {
+                    setEventName(e.target.value)
+                    setDisplayEventNameErr(true)
+                }}
+            ></input>
 
-                    {displayEventNameErr && <p className='error'>{err.eventName}</p>}
-                </div>
+            {displayEventNameErr && <p className='error'>{err.eventName}</p>}
+        </div>
 
                 <RainbowLine />
                 <div className='marginBottomMed'>
