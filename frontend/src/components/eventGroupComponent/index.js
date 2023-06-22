@@ -264,7 +264,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         </button>
                                     </NavLink> */}
                                     <button
-                                        className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions"
+                                        className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         onClick={() => editEvent()}>
                                         Update</button>
                                     <div className={`${info.options}`}>
