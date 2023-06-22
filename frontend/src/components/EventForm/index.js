@@ -11,7 +11,7 @@ import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
-function EventForm({ currentGroup, currentEvent, formType, info }) {
+function EventForm({ currentGroup, currentEvent, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const groupId = useParams().id;
@@ -201,12 +201,12 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
 
     return (
         <div className='displayFlex justifyCenter marginFormTop UfontTreb'>
-            event name: {currentEvent.name}
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
         <div>
-            <h1>Create a new event for {currentGroup.name}</h1>
+            {formType === "new" && <h1>Create a new event for {currentGroup.name}</h1>}
+            {formType === "edit" && <h1>Edit an event for {currentGroup.name}</h1>}
         </div>
         <div className='marginBottomMed'>
             <p className='groupFormText'>What is the name of your event?</p>
@@ -312,30 +312,19 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
                             setDisplayEventStartDateErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventStartDate}</p> */}
                     {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
                         type='datetime-local'
-                        // type='date'
                         value={eventEndDate}
                         onChange={(e) => {
                             setEventEndDate(e.target.value)
                             setDisplayEventEndDateErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventEndDate}</p> */}
                     {displayEventEndDateErr && <p className='error'>{err.eventEndDate}</p>}
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                    <img
-                        className='dividerImageForm'
-                        width='25%'
-                        // height='10%'
-                        src={formDividerImage}
-                    />
-                </div> */}
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please add in image url for your event below:</p>
@@ -349,17 +338,8 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
                             setDisplayEventImageErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventImage}</p> */}
                     {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                        <img
-                            className='dividerImageForm'
-                            width='25%'
-                            // height='10%'
-                            src={formDividerImage}
-                        />
-                    </div> */}
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
@@ -372,17 +352,23 @@ function EventForm({ currentGroup, currentEvent, formType, info }) {
                             setDisplayEventAboutErr(true)
                         }}
                     ></textarea>
-                    {/* <p className='error'>{errors.eventAbout}</p> */}
                     {displayEventAboutErr && <p className='error'>{err.eventAbout}</p>}
                 </div>
                 <div className='eventForm-button'>
-                    <button
+                    {formType === "new" && <button
                         className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
                         Create Event
-                    </button>
+                    </button>}
+                    {formType === "edit" && <button
+                        className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        type='submit'
+                        disabled={Object.values(err).length > 0}
+                    >
+                        Edit Event
+                    </button>}
                     {Object.values(err).length > 0 && <div className={`errors`}>
                         *Add your Event's information
                     </div>}

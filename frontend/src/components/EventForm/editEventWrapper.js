@@ -21,19 +21,11 @@ export default function EditEventWrapper({formType}) {
 
     if (!currentGroup) return null;
 
-    // if (!Object.values(currentEvent).length) return null;
-
-    let info = {
-        eventName: currentEvent.name
-    }
-
-
-
     return (
-   
+
         <div>
         {currentEvent.name && (
-          <EventForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType} info={info} />
+          <EventForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType} />
         )}
       </div>
     )
