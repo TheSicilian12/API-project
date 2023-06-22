@@ -188,7 +188,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     className='border-Radius15'
                                     src={info.groupPreviewImage || imageData}
                                     width='300px'
-                                    heigth='200px'
+                                    height='200px'
                                 />
                                 <div className="eventGroup-eventGroup-info">
                                     <h4 className='textWrap'>{info.event.Group?.name}</h4>
