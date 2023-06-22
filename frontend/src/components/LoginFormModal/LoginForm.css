@@ -112,3 +112,10 @@ form {
   display: flex;
 }
 
+.login-loginButton-warning {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
