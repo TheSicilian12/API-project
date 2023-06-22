@@ -133,7 +133,7 @@ export const editEventThunk = (payload) => async (dispatch) => {
 export const editImageThunk = (payload) => async (dispatch) => {
     console.log("----edit image thunk----")
     const {eventId, eventImageObj} = payload;
-    const response = await csrfFetch(`/api/events/${eventId}/images`, {
+    const response = await csrfFetch(`/api/event-images/${eventId}/images`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
