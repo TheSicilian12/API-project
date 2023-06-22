@@ -15,8 +15,9 @@ import { getGroup } from '../../store/groupsThunk';
 function EventForm({ currentEvent, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const groupId = useParams().id;
-
+    const groupId = useParams().groupId;
+    console.log("groupId params: ", groupId)
+    console.log("user params: ", useParams())
     const event = useSelector((state) => state.events)
     const user = useSelector((state) => state.session.user)
     const currentGroup = useSelector((state) => state.groups.singleGroup);
@@ -28,8 +29,6 @@ function EventForm({ currentEvent, formType }) {
         }
         else statusType = false;
     }
-
-    // const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
 
     const [eventName, setEventName] = useState(currentEvent?.name || "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
@@ -81,6 +80,7 @@ function EventForm({ currentEvent, formType }) {
         if (eventStatus === '(select one)') {
             err.eventStatus = 'Visibility is required';
         }
+
         // if (!eventPrice) {
         //     err.eventPrice = 'Price is required';
         // }
@@ -109,13 +109,18 @@ function EventForm({ currentEvent, formType }) {
         }
 
         let newEvent;
+        let statusType;
+        if (eventStatus === "true") statusType = "Private"
+        if (eventStatus === "false") statusType = "Public"
         if (Object.keys(err).length > 0) setErrors(err)
         else {
+            console.log("eventStatus: ", eventStatus)
+            console.log("statusType: ", statusType)
             const eventObj = {
                 venueId: null,
                 name: eventName,
                 type: eventMeetingType,
-                statusType: eventStatus,
+                statusType,
                 capacity: 1,
                 price: Number(eventPrice),
                 description: eventAbout,
@@ -127,7 +132,7 @@ function EventForm({ currentEvent, formType }) {
                 url: eventImage,
                 preview: true
             }
-
+            console.log("groupId page: ", groupId)
             newEvent = await dispatch(addEventByGroupIdThunk(
                 {
                     groupId,
@@ -200,8 +205,6 @@ function EventForm({ currentEvent, formType }) {
         hideImageUpdate = 'Uhide';
     }
 
-    console.log("err: ", err)
-
     // --------------------------------- ^ err real time ^ -----------------------------------------------
 
     return (
@@ -209,25 +212,25 @@ function EventForm({ currentEvent, formType }) {
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
-        <div>
-            {formType === "new" && <h1>Create a new event for {currentGroup?.name}</h1>}
-            {formType === "edit" && <h1>Edit an event for {currentGroup?.name}</h1>}
-        </div>
-        <div className='marginBottomMed'>
-            <p className='groupFormText'>What is the name of your event?</p>
-            <input
-                className='groupFormInput'
-                type='text'
-                placeholder='Event Name'
-                value={eventName}
-                onChange={(e) => {
-                    setEventName(e.target.value)
-                    setDisplayEventNameErr(true)
-                }}
-            ></input>
+                <div>
+                    {formType === "new" && <h1>Create a new event for {currentGroup?.name}</h1>}
+                    {formType === "edit" && <h1>Edit an event for {currentGroup?.name}</h1>}
+                </div>
+                <div className='marginBottomMed'>
+                    <p className='groupFormText'>What is the name of your event?</p>
+                    <input
+                        className='groupFormInput'
+                        type='text'
+                        placeholder='Event Name'
+                        value={eventName}
+                        onChange={(e) => {
+                            setEventName(e.target.value)
+                            setDisplayEventNameErr(true)
+                        }}
+                    ></input>
 
-            {displayEventNameErr && <p className='error'>{err.eventName}</p>}
-        </div>
+                    {displayEventNameErr && <p className='error'>{err.eventName}</p>}
+                </div>
 
                 <RainbowLine />
                 <div className='marginBottomMed'>
@@ -295,14 +298,6 @@ function EventForm({ currentEvent, formType }) {
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                        <img
-                            className='dividerImageForm'
-                            width='25%'
-                            // height='10%'
-                            src={formDividerImage}
-                        />
-                    </div> */}
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>When does your event start?</p>
@@ -310,7 +305,6 @@ function EventForm({ currentEvent, formType }) {
                         className='groupFormInput'
                         placeholder='MM/DD/YYYY/HH/mm AM'
                         type='datetime-local'
-                        // type='date'
                         value={eventStartDate}
                         onChange={(e) => {
                             setEventStartDate(e.target.value)

@@ -912,6 +912,8 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     const { user } = req
     const { venueId, name, type, statusType, capacity, price, description, startDate, endDate } = req.body
 
+    console.log("-----------------------statysType: ", statusType)
+
     //Check if there is a user
     if (!user) {
         const err = new Error("You must be logged in.")
@@ -987,10 +989,17 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         errors.type = type
     }
     if (!statusType) {
-        let status = "Status must be Private or Public"
+        let status = "Status must be provided"
         errors.status = status
     }
-    if (statusType !== "true" || statusType !== "false") {
+    // if (statusType !== "true" || statusType !== "false") {
+    //     let status = "Status must be Private or Public"
+    //     errors.status = status
+    // }
+    console.log("---------------------", statusType !== "Private")
+    console.log("---------------------", statusType !== "Public")
+    console.log("---------------------", statusType !== "Private" || statusType !== "Public")
+    if (statusType !== "Private" && statusType !== "Public") {
         let status = "Status must be Private or Public"
         errors.status = status
     }

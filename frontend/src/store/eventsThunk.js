@@ -71,7 +71,9 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 
 //thunk - add an event by group id
 export const addEventByGroupIdThunk = (eventInfo) => async (dispatch) => {
+    console.log("----add event----")
     const {groupId, eventImageObj} = eventInfo;
+    console.log("groupId: ", groupId)
     const eventInfoObj = eventInfo.eventObj;
     const response = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: 'POST',
