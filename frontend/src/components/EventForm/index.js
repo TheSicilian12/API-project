@@ -100,6 +100,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                 venueId: null,
                 name: eventName,
                 type: eventMeetingType,
+                statusType: eventStatus,
                 capacity: 1,
                 price: Number(eventPrice),
                 description: eventAbout,
