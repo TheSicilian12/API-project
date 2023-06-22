@@ -128,12 +128,12 @@ form {
 
 .signup-dimensions {
     width: 750px;
-    height: 650px;
+    height: 740px;
 }
 
 .signup-form {
     width: 42rem;
-    height: 34rem;
+    height: 40rem;
 }
 
 .signup-inputs {
@@ -155,5 +155,13 @@ form {
 }
 
 .signup-button {
+    margin-top: 20px;
+}
+
+.signup-signupButton-waring {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
 }
