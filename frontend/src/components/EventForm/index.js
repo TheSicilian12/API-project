@@ -368,7 +368,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                     {/* <p className='error'>{errors.eventAbout}</p> */}
                     {displayEventAboutErr && <p className='error'>{err.eventAbout}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
+                <div className='eventForm-button'>
                     <button
                          className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
@@ -376,6 +376,9 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                     >
                         Create Event
                     </button>
+                    {Object.values(err).length > 0 && <div className={`errors`}>
+                        *Add your Event's information
+                    </div>}
                 </div>
             </form>
         </div>

@@ -154,3 +154,10 @@
 .marginRight {
     padding-right: 0.5rem;
 }
+
+.eventForm-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
