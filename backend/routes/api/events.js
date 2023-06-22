@@ -565,6 +565,108 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     return res.json(newImageJSON)
 })
 
+// EDIT AN EVENT PREVIEW IMAGE
+router.put('/:eventId/images', requireAuth, async (req, res, next) => {
+    console.log("-------------------edit event preview image------------------")
+    const {user} = req
+    const {url} = req.body
+
+    const eventId = req.params.eventId
+
+    if (!user) {
+        const err = new Error("You must be logged in.");
+        err.status = 404
+        err.message = "You must be logged in."
+        return next(err);
+    }
+
+    //does event exist
+    let eventTest = await Event.findByPk(eventId)
+    if (!eventTest) {
+        const err = new Error("Couldn't find an Event with the specified id");
+        err.status = 404
+        err.message = "Event couldn't be found"
+        return next(err);
+    }
+
+    //find organizerId
+    let eventGroup = await Event.findByPk(eventId, {
+        include: [
+            { model: Group }
+        ]
+    })
+    let eventGroupJSON = eventGroup.toJSON()
+
+    let organizerId = eventGroupJSON.Group.organizerId
+
+    // find status
+    let event = await Event.findByPk(req.params.eventId, {
+        include: [
+            {
+                model: Group,
+                attributes: ['id', 'organizerId'],
+                include: [
+                    {
+                        model: Membership,
+                        attributes: ['id', 'userId', 'groupId', 'status'],
+                        where: { userId: user.id }
+                    }
+                ]
+            }
+        ],
+        attributes: ['id', 'groupId']
+    })
+
+    let status = 'test'
+    if (event) {
+        let eventJSON = event.toJSON()
+
+        if (eventJSON.Group) {
+            status = eventJSON.Group.Memberships[0].status
+        }
+
+        //     return res.json(status)
+    }
+
+    //find attendance
+    let attendance = await Event.findByPk(req.params.eventId, {
+        include: [
+            { model: Attendance, where: { userId: user.id } }
+        ]
+    })
+
+    //if statement prevents errors when where does not exist
+    let attendanceStatus = 'test';
+    if (attendance) {
+        let attendanceJSON = attendance.toJSON()
+        attendanceStatus = attendanceJSON.Attendances[0].status
+    }
+
+    if (organizerId !== user.id
+        && status !== 'host'
+        && status !== 'co-host'
+        && attendanceStatus !== 'member'
+        && attendanceStatus !== 'attending') {
+        const err = new Error(`Require proper authorization`);
+        err.status = 403
+        err.message = `Forbidden`
+        return next(err);
+    }
+
+    let image = await EventImage.findOne({
+        where: {
+            eventId: eventId
+        }
+    })
+    image.url = url
+    image.save()
+
+    console.log("-------------image: ", image)
+
+    return res.status(200).json("successfully edited image")
+
+})
+
 //DELETE ATTENDANCE TO AN EVENT SPECIFIED BY ID
 router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     //current user must be organizer, host, or user to be deleted

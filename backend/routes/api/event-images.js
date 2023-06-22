@@ -93,6 +93,15 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     })
 })
 
+
+
+
+
+
+
+
+
+
 // testing if image deleted
 // router.get('/:imageId', async (req, res) => {
 //     let image = await EventImage.findAll()
