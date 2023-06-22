@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
-import GroupForm from './index'
+import EventForm from './index'
 import { getEventThunk } from '../../store/eventsThunk';
 
 
@@ -16,14 +16,18 @@ export default function EditEventWrapper({formType}) {
         dispatch(getEventThunk(eventId))
     }, [groupId])
 
-    const currentGroup = useSelector((state) => state.groups.singleGroup);
+    // const currentGroup = useSelector((state) => state.groups.singleGroup);
     const currentEvent = useSelector((state) => state.events);
-    
-    if (!currentGroup) return null;
-    // if (!currentEvent) return null;
+
+    // if (!currentGroup) return null;
 
     return (
-        <GroupForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType}/>
+
+        <div>
+        {currentEvent.name && (
+          <EventForm currentEvent={currentEvent} formType={formType} />
+        )}
+      </div>
     )
 
 }

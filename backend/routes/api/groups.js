@@ -910,7 +910,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //mg - or host?
     //assuming organizer, host, or co-host
     const { user } = req
-    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    const { venueId, name, type, statusType, capacity, price, description, startDate, endDate } = req.body
 
     //Check if there is a user
     if (!user) {
@@ -986,6 +986,21 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         let type = "Type must be Online or In Person"
         errors.type = type
     }
+    if (!statusType) {
+        let status = "Status must be provided"
+        errors.status = status
+    }
+    // if (statusType !== "true" || statusType !== "false") {
+    //     let status = "Status must be Private or Public"
+    //     errors.status = status
+    // }
+    console.log("---------------------", statusType !== "Private")
+    console.log("---------------------", statusType !== "Public")
+    console.log("---------------------", statusType !== "Private" || statusType !== "Public")
+    if (statusType !== "Private" && statusType !== "Public") {
+        let status = "Status must be Private or Public"
+        errors.status = status
+    }
     if (!capacity || !Number.isInteger(capacity) || capacity < 1) {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
@@ -1017,6 +1032,10 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
+    let statusDisplay;
+    if (statusType === "true") statusDisplay = "Private"
+    if (statusType === "false") statusDisplay = "Public"
+
     //there is a chance group is null, so don't reference group here.
     let newEvent = await Event.create({
         //groupId had referenced group.id which can be null, if error like this occurs again, double check what you are referencing.
@@ -1024,6 +1043,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
         venueId,
         name,
         type,
+        status: statusDisplay,
         capacity,
         price,
         description,

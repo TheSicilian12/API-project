@@ -214,7 +214,7 @@ function SignupFormModal() {
           </div>
         </div>
 
-        <div className='displayFlex justifyCenter signup-button'>
+        <div className='signup-signupButton-waring'>
           <button
             className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
             type="submit"
@@ -222,6 +222,9 @@ function SignupFormModal() {
           >
             Sign Up
           </button>
+          {Object.values(err).length > 0 && <div className="errors">
+            *Add your information
+            </div>}
         </div>
       </form>
     </div>

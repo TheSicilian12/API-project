@@ -6,49 +6,61 @@ import './EventForm.css';
 import '../UniversalCSS.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import { EditEventWrapper } from './editEventWrapper';
-import { addEventByGroupIdThunk } from '../../store/eventsThunk'
+import { addEventByGroupIdThunk, editEventThunk } from '../../store/eventsThunk'
 import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
+import { getGroup } from '../../store/groupsThunk';
 
 
-function EventForm({ currentGroup, currentEvent, formType }) {
-    // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
+function EventForm({ currentEvent, formType }) {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const groupId = useParams().groupId;
+    const event = useSelector((state) => state.events)
+    const user = useSelector((state) => state.session.user)
+    const currentGroup = useSelector((state) => state.groups.singleGroup);
+
     let statusType;
-    if (currentEvent.status) {
-        if (currentEvent.status === "Private") statusType = true;
-        if (currentEvent.status === "Public") statusType = false;
+    if (currentEvent) {
+        if (currentEvent.status === "Private") {
+            statusType = "true";
+        }
+        else statusType = "false";
     }
-    console.log("price: ", currentEvent?.price)
 
-    const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
+    const [eventName, setEventName] = useState(currentEvent?.name || "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
+
     const [eventAbout, setEventAbout] = useState(currentEvent?.description ? currentEvent?.description : "");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState(currentEvent?.type ? currentEvent?.type : "(select one)");
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
-    const [eventStatus, setEventStatus] = useState(currentEvent.name ? statusType : "");
+    const [eventStatus, setEventStatus] = useState(currentEvent?.status ? statusType : "");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
-    const [eventPrice, setEventPrice] = useState(currentEvent.price ? currentEvent?.price : "0");
+    const [eventPrice, setEventPrice] = useState(currentEvent?.price ? String(currentEvent?.price) : "0");
     const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);
-    const [eventStartDate, setEventStartDate] = useState('');
+
+    const [eventStartDate, setEventStartDate] = useState(currentEvent?.startDate
+        ? new Date(currentEvent?.startDate).toISOString().slice(0, 16) : '');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
-    const [eventEndDate, setEventEndDate] = useState('');
+
+    const [eventEndDate, setEventEndDate] = useState(currentEvent?.endDate
+        ? new Date(currentEvent?.endDate).toISOString().slice(0, 16) : '');
     const [displayEventEndDateErr, setDisplayEventEndDateErr] = useState(false);
-    const [eventImage, setEventImage] = useState('');
+
+    const [eventImage, setEventImage] = useState(currentEvent?.EventImages ? currentEvent?.EventImages[0]?.url : '');
+
     const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const groupId = useParams().id;
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector((state) => state.session.user)
-
-    console.log("formType: ", formType)
-    console.log("currentEvent", currentEvent)
-
-    if (!user || user.id !== currentGroup.organizerId) {
+    if (!user || user.id !== currentGroup?.organizerId) {
         history.push('/')
     }
+
+    useEffect(() => {
+        dispatch(getGroup(groupId));
+    }, [groupId])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,6 +78,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
         if (eventStatus === '(select one)') {
             err.eventStatus = 'Visibility is required';
         }
+
         // if (!eventPrice) {
         //     err.eventPrice = 'Price is required';
         // }
@@ -94,12 +107,27 @@ function EventForm({ currentGroup, currentEvent, formType }) {
         }
 
         let newEvent;
+        let statusType;
+        // console.log("eventStatus: ", eventStatus)
+        // console.log("eventStatus === 'false': ", eventStatus === "false")
+        // console.log("eventStatus === false: ", eventStatus === false)
+        if (eventStatus === "true") {
+            // console.log("if statement eventStatus === 'true'")
+            statusType = "Private"}
+
+        if (eventStatus === "false") {
+            // console.log("if statement eventStatus === 'false'")
+            statusType = "Public"
+        }
+
         if (Object.keys(err).length > 0) setErrors(err)
         else {
+            console.log("statusType: ", statusType)
             const eventObj = {
                 venueId: null,
                 name: eventName,
                 type: eventMeetingType,
+                statusType,
                 capacity: 1,
                 price: Number(eventPrice),
                 description: eventAbout,
@@ -112,13 +140,23 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                 preview: true
             }
 
-            newEvent = await dispatch(addEventByGroupIdThunk(
-                {
-                    groupId,
+            if (formType === "new") {
+                newEvent = await dispatch(addEventByGroupIdThunk(
+                    {
+                        groupId,
+                        eventObj,
+                        eventImageObj
+                    }
+                ))
+            }
+            if (formType === "edit") {
+                // newEvent = await dispatch()
+                newEvent = await dispatch(editEventThunk({
+                    eventId: event.id,
                     eventObj,
                     eventImageObj
-                }
-            ))
+                }))
+            }
         }
 
         if (newEvent?.id) {
@@ -187,13 +225,13 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     // --------------------------------- ^ err real time ^ -----------------------------------------------
 
     return (
-        // <div>test create event</div>
         <div className='displayFlex justifyCenter marginFormTop UfontTreb'>
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
                 <div>
-                    <h1>Create a new event for {currentGroup.name}</h1>
+                    {formType === "new" && <h1>Create a new event for {currentGroup?.name}</h1>}
+                    {formType === "edit" && <h1>Edit an event for {currentGroup?.name}</h1>}
                 </div>
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>What is the name of your event?</p>
@@ -207,17 +245,10 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             setDisplayEventNameErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventName}</p> */}
+
                     {displayEventNameErr && <p className='error'>{err.eventName}</p>}
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                    <img
-                        className='dividerImageForm'
-                        width='25%'
-                        // height='10%'
-                        src={formDividerImage}
-                    />
-                </div> */}
+
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <div>
@@ -238,7 +269,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                                 value={'Online'}
                             >Online</option>
                         </select>
-                        {/* <p className='error'>{errors.eventMeetingType}</p> */}
+
                     </div>
                     {displayEventMeetingTypeErr && <p className='error'>{err.eventMeetingType}</p>}
                     <div>
@@ -254,18 +285,19 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             <option>(select one)</option>
                             <option
                                 value={true}
-                                checked={eventStatus === true}
-                                onChange={() => setEventStatus(true)}
+                                checked={eventStatus === "true"}
+                                onChange={() => setEventStatus("true")}
                             >Private</option>
                             <option
                                 value={false}
-                                checked={eventStatus === false}
-                                onChange={() => setEventStatus(false)}
+                                checked={eventStatus === "false"}
+                                onChange={() => setEventStatus("false")}
                             >Public</option>
                         </select>
-                        {/* <p className='error'>{errors.eventStatus}</p> */}
+
                     </div>
                     {displayEventStatusErr && <p className='error'>{err.eventStatus}</p>}
+
                     <div>
                         <p className='groupFormText'>What is the price for your event?</p>
                         <input
@@ -273,62 +305,42 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             type='decimal'
                             min="0"
                             placeholder="0"
-                            // pattern="/d*"
+                            value={eventPrice}
                             onChange={(e) => {
                                 setEventPrice(e.target.value)
                                 setDisplayEventPriceErr(true)
                             }}
                         />
-                        {/* <p className='error'>{errors.eventPrice}</p> */}
+
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
-                    {/* <div className='displayFlex justifyCenter'>
-                        <img
-                            className='dividerImageForm'
-                            width='25%'
-                            // height='10%'
-                            src={formDividerImage}
-                        />
-                    </div> */}
-                    <RainbowLine />
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>When does your event start?</p>
                     <input
                         className='groupFormInput'
                         placeholder='MM/DD/YYYY/HH/mm AM'
                         type='datetime-local'
-                        // type='date'
                         value={eventStartDate}
                         onChange={(e) => {
                             setEventStartDate(e.target.value)
                             setDisplayEventStartDateErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventStartDate}</p> */}
                     {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
                         type='datetime-local'
-                        // type='date'
                         value={eventEndDate}
                         onChange={(e) => {
                             setEventEndDate(e.target.value)
                             setDisplayEventEndDateErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventEndDate}</p> */}
                     {displayEventEndDateErr && <p className='error'>{err.eventEndDate}</p>}
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                    <img
-                        className='dividerImageForm'
-                        width='25%'
-                        // height='10%'
-                        src={formDividerImage}
-                    />
-                </div> */}
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please add in image url for your event below:</p>
@@ -342,18 +354,9 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             setDisplayEventImageErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventImage}</p> */}
                     {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
-                    {/* <div className='displayFlex justifyCenter'>
-                        <img
-                            className='dividerImageForm'
-                            width='25%'
-                            // height='10%'
-                            src={formDividerImage}
-                        />
-                    </div> */}
-                    <RainbowLine />
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
                     <textarea
@@ -365,17 +368,26 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             setDisplayEventAboutErr(true)
                         }}
                     ></textarea>
-                    {/* <p className='error'>{errors.eventAbout}</p> */}
                     {displayEventAboutErr && <p className='error'>{err.eventAbout}</p>}
                 </div>
-                <div className='displayFlex justifyCenter'>
-                    <button
-                         className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                <div className='eventForm-button'>
+                    {formType === "new" && <button
+                        className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >
                         Create Event
-                    </button>
+                    </button>}
+                    {formType === "edit" && <button
+                        className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        type='submit'
+                        disabled={Object.values(err).length > 0}
+                    >
+                        Edit Event
+                    </button>}
+                    {Object.values(err).length > 0 && <div className={`errors`}>
+                        *Add your Event's information
+                    </div>}
                 </div>
             </form>
         </div>

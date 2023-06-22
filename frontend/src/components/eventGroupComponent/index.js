@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import { automaticMembershipThunk, membershipsThunk } from '../../store/membershipThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
@@ -16,7 +16,8 @@ import OpenModalButton from '../OpenModalButton';
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const membership = useSelector(state => state.memberships.membership);
 
@@ -50,7 +51,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
     }
 
     const editEvent = () => {
-        console.log("edit event")
+        history.push(`/groups/${info.event.groupId}/events/${info.event.id}/edit`)
     }
 
     // if (!group.singleGroup) {
@@ -187,7 +188,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     className='border-Radius15'
                                     src={info.groupPreviewImage || imageData}
                                     width='300px'
-                                    heigth='200px'
+                                    height='200px'
                                 />
                                 <div className="eventGroup-eventGroup-info">
                                     <h4 className='textWrap'>{info.event.Group?.name}</h4>
@@ -233,6 +234,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                     </div>
                                     <h4 className="eventGroup-margin">{info.event?.type}</h4>
                                 </div>
+                                <div className='displayFlex alignCenter eventGroup-bold eventGroup-margin'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className="eventGroup-margin">{info.event?.status}</h4>
+                                </div>
                             </div>
 
                             <div className="eventGroup-edit-buttons">
@@ -256,7 +264,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         </button>
                                     </NavLink> */}
                                     <button
-                                        className="UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions"
+                                        className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         onClick={() => editEvent()}>
                                         Update</button>
                                     <div className={`${info.options}`}>

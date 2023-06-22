@@ -363,7 +363,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                         </div>
                     </div>
                 </div>
-                <div className='displayFlex justifyCenter'>
+                <div className='groupForm-button'>
                     <button
                         className={`${newForm} UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
@@ -378,6 +378,9 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                     >
                         Update Group
                     </button>
+                    {Object.values(err).length > 0 && <div className={`errors`}>
+                        *Add your Group's information
+                    </div>}
                 </div>
             </form>
         </div>

@@ -106,15 +106,6 @@ function LoginFormModal() {
                 </div>
               </div>
 
-              {/* no errors */}
-              {/* {(!displayPasErr && !displayCredErr) && <div> */}
-              {/* <img
-                className={`snailDimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
-                src={goodSnail}
-              /> */}
-              {/* </div>} */}
-
-              {/* errors */}
               {(displayPasErr || displayCredErr) ? <div>
                 <img
                   className={`snailDimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
@@ -133,15 +124,24 @@ function LoginFormModal() {
             </div>
           </div>
         </div>
-        <div className='paddingTop displayFlex justifyCenter'>
-          <button
-            className={`smallWidth UpurpleButton UpinkBorder UbuttonSmallDimensions ${notAllowed}`}
-            type="submit"
-            disabled={Object.values(err).length > 0}
-            onClick={() => setSubmitted(true)}
-          >
+        <div className='login-loginButton-warning'>
+
+
+
+
+
+              <button
+              className={`smallWidth UpurpleButton UpinkBorder UbuttonSmallDimensions ${notAllowed}`}
+              type="submit"
+              disabled={Object.values(err).length > 0}
+              onClick={() => setSubmitted(true)}
+              >
             Log In
           </button>
+          {Object.values(err).length > 0 && <div className="errors">
+            *Add your log in information
+            </div>}
+
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
