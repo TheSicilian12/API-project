@@ -40,7 +40,6 @@ function EventDetails({ event, eventId, user, comments }) {
 
     const eventImages = useSelector((state) => state.events.EventImages)
 
-    console.log("groupImges: ", groupImages)
     if(!groupImages) return null;
 
     let eventPreviewImage;
