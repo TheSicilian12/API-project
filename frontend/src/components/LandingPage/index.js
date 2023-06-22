@@ -52,18 +52,12 @@ function LandingPage() {
                 <StartGroup user={user}/>
             </div>
             <div className='displayFlex justifyCenter paddingButton'>
-                {/* <button
-                    className='landingPage_options_joinButton UpurpleButton UbuttonJoinMeetUpDimensions border-Radius15 landingPageFontSize UfontTreb'
-                    onClick={() => alert('Feature coming soon')}
-                >
-                    Join Meetup
-                </button> */}
-            <div>
+            {!user && <div>
               <OpenModalButton
                 buttonText="Join Meetup"
                 modalComponent={<SignupFormModal />}
               />
-            </div>
+            </div>}
             </div>
             <div className='displayFlex justifyCenter marginTop UfontTreb'>
                 Logo and Icon are thanks to Placeit (logo) and PhotoRoom (editing)!
