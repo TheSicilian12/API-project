@@ -31,8 +31,6 @@ function EventDetails({ event, eventId, user, comments }) {
     const groupImages = useSelector((state) => state.groups.singleGroup?.GroupImages)
     const isMember = useSelector((state) => state.groups.singleGroup?.isMember)
 
-    console.log("isMember: ", isMember)
-
     let groupPreviewImage;
     if (groupImages) {
         groupPreviewImage = groupImages.find(image => image.preview === true)
@@ -41,6 +39,8 @@ function EventDetails({ event, eventId, user, comments }) {
     const eventImages = useSelector((state) => state.events.EventImages)
 
     if(!groupImages) return null;
+    if (!groupPreviewImage) return null;
+    if (!organizer) return null;
 
     let eventPreviewImage;
     if (eventImages) {
