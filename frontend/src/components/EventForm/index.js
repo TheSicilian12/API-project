@@ -108,10 +108,15 @@ function EventForm({ currentEvent, formType }) {
 
         let newEvent;
         let statusType;
+        console.log("eventStatus: ", eventStatus)
+        console.log("eventStatus === 'false': ", eventStatus === "false")
+        console.log("eventStatus === false: ", eventStatus === false)
         if (eventStatus === "true") statusType = "Private"
         if (eventStatus === "false") statusType = "Public"
+
         if (Object.keys(err).length > 0) setErrors(err)
         else {
+            console.log("statusType: ", statusType)
             const eventObj = {
                 venueId: null,
                 name: eventName,

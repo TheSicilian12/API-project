@@ -311,10 +311,10 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     //error event does not exist
     console.log("----------------------------------edit an event---------------------------------")
     const { user } = req
-    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    const { venueId, name, type, statusType, capacity, price, description, startDate, endDate } = req.body
 
     console.log("----------------type: ", type)
-
+    console.log("---------------------------statusType: ", statusType)
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
@@ -408,6 +408,14 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         let type = "Type must be Online or In person"
         errors.type = type
     }
+    if (!statusType) {
+        let status = "Status must be provided"
+        errors.status = status
+    }
+    if (statusType !== "Private" && statusType !== "Public") {
+        let status = "Status must be Private or Public"
+        errors.status = status
+    }
     if (!capacity || !Number.isInteger(capacity) || capacity < 1) {
         let capacity = "Capacity must be an integer"
         errors.capacity = capacity
@@ -442,13 +450,14 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     if (venueId || venueId === null) event.venueId = venueId
     if (name) event.name = name
     if (type) event.type = type
+    if (statusType) event.status = statusType
     if (capacity) event.capacity = capacity
     if (price || price === 0) event.price = price
     if (description) event.description = description
     if (startDate) event.startDate = startDate
     if (endDate) event.endDate = endDate
     event.save()
-
+    console.log("-------------------------event: ", event)
     eventResponse = event.toJSON()
     delete eventResponse.Group
     delete eventResponse.Attendances

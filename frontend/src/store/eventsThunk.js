@@ -125,6 +125,7 @@ export const editEventThunk = (payload) => async (dispatch) => {
     if (response.ok) {
         const updatedEvent = await response.json()
         dispatch(editImageThunk({eventId, eventImageObj}))
+        return updatedEvent
     }
 }
 

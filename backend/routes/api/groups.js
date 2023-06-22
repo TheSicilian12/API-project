@@ -912,8 +912,6 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     const { user } = req
     const { venueId, name, type, statusType, capacity, price, description, startDate, endDate } = req.body
 
-    console.log("-----------------------statysType: ", statusType)
-
     //Check if there is a user
     if (!user) {
         const err = new Error("You must be logged in.")
