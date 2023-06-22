@@ -111,8 +111,14 @@ function EventForm({ currentEvent, formType }) {
         console.log("eventStatus: ", eventStatus)
         console.log("eventStatus === 'false': ", eventStatus === "false")
         console.log("eventStatus === false: ", eventStatus === false)
-        if (eventStatus === "true") statusType = "Private"
-        if (eventStatus === "false") statusType = "Public"
+        if (eventStatus === true) {
+            console.log("if statement eventStatus === 'true'")
+            statusType = "Private"}
+
+        if (eventStatus === "false") {
+            console.log("if statement eventStatus === 'false'")
+            statusType = "Public"
+        }
 
         if (Object.keys(err).length > 0) setErrors(err)
         else {
@@ -154,7 +160,8 @@ function EventForm({ currentEvent, formType }) {
         }
 
         if (newEvent?.id) {
-            history.push(`/events/${newEvent.id}`)
+            // history.push(`/events/${newEvent.id}`)
+            console.log("redirect")
         }
     }
 
