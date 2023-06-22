@@ -37,20 +37,20 @@ function App() {
             <LandingPage />
           </Route>
           <Route path='/groups' exact>
-            <EventsGroupsNav isLoaded={'groups'}/>
+            <EventsGroupsNav isLoaded={'groups'} />
             <AllGroups />
           </Route>
           <Route path='/events' exact>
-            <EventsGroupsNav isLoaded={'events'}/>
+            <EventsGroupsNav isLoaded={'events'} />
             <AllEvents />
           </Route>
           {/* add in key for formType */}
           {/* {['/groups/new', '/groups/:id/edit']} */}
-          <Route path= '/groups/:id/edit' exact>
+          <Route path='/groups/:id/edit' exact>
             <EditWrapper />
           </Route>
-          <Route path= '/groups/new' exact>
-            <GroupForm currentGroup={{}} formType={'new'}/>
+          <Route path='/groups/new' exact>
+            <GroupForm currentGroup={{}} formType={'new'} />
           </Route>
           <Route path='/groups/yours' exact>
             <UserGroupPage />
@@ -59,17 +59,14 @@ function App() {
             <GroupDetailsWrapper />
           </Route>
 
-          {/* <Route path = '/groups/:id/events/edit'>
-              <EditEventWrapper />
-          </Route> */}
-          <Route path='/groups/:groupId/events/new' exact>
-            <EditEventWrapper formType={'new'}/>
-          </Route>
           <Route path='/groups/:groupId/events/:eventId/edit' exact>
-            <EditEventWrapper formType={'edit'}/>
+            <EditEventWrapper formType={'edit'} />
+          </Route>
+          <Route path='/groups/:groupId/events/new' exact>
+            <EditEventWrapper formType={'new'} />
           </Route>
           <Route path='/events/:id'>
-              <EventDetailsWrapper />
+            <EventDetailsWrapper />
           </Route>
 
           {/* <Route path='/groups/:id/events/new' exact>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import { automaticMembershipThunk, membershipsThunk } from '../../store/membershipThunk';
 import OpenModalDeleteGroupButton from '../DeleteGroupModalButton';
@@ -16,7 +16,8 @@ import OpenModalButton from '../OpenModalButton';
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const membership = useSelector(state => state.memberships.membership);
 
@@ -48,9 +49,9 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
         // const test =  await dispatch(membershipsThunk(payload));
     }
-
+    
     const editEvent = () => {
-        console.log("edit event")
+        history.push(`/groups/${info.event.groupId}/events/${info.event.id}/edit`)
     }
 
     // if (!group.singleGroup) {
