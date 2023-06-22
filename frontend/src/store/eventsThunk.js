@@ -124,7 +124,7 @@ export const editEventThunk = (payload) => async (dispatch) => {
     console.log("after edit event response")
     if (response.ok) {
         const updatedEvent = await response.json()
-        // dispatch(editImageThunk({eventId, eventImageObj}))
+        dispatch(editImageThunk({eventId, eventImageObj}))
         return updatedEvent
     }
 }

@@ -23,9 +23,9 @@ function EventForm({ currentEvent, formType }) {
     let statusType;
     if (currentEvent) {
         if (currentEvent.status === "Private") {
-            statusType = true;
+            statusType = "true";
         }
-        else statusType = false;
+        else statusType = "false";
     }
 
     const [eventName, setEventName] = useState(currentEvent?.name || "");
@@ -108,15 +108,15 @@ function EventForm({ currentEvent, formType }) {
 
         let newEvent;
         let statusType;
-        console.log("eventStatus: ", eventStatus)
-        console.log("eventStatus === 'false': ", eventStatus === "false")
-        console.log("eventStatus === false: ", eventStatus === false)
-        if (eventStatus === true) {
-            console.log("if statement eventStatus === 'true'")
+        // console.log("eventStatus: ", eventStatus)
+        // console.log("eventStatus === 'false': ", eventStatus === "false")
+        // console.log("eventStatus === false: ", eventStatus === false)
+        if (eventStatus === "true") {
+            // console.log("if statement eventStatus === 'true'")
             statusType = "Private"}
 
         if (eventStatus === "false") {
-            console.log("if statement eventStatus === 'false'")
+            // console.log("if statement eventStatus === 'false'")
             statusType = "Public"
         }
 
@@ -160,8 +160,7 @@ function EventForm({ currentEvent, formType }) {
         }
 
         if (newEvent?.id) {
-            // history.push(`/events/${newEvent.id}`)
-            console.log("redirect")
+            history.push(`/events/${newEvent.id}`)
         }
     }
 
@@ -286,13 +285,13 @@ function EventForm({ currentEvent, formType }) {
                             <option>(select one)</option>
                             <option
                                 value={true}
-                                checked={eventStatus === true}
-                                onChange={() => setEventStatus(true)}
+                                checked={eventStatus === "true"}
+                                onChange={() => setEventStatus("true")}
                             >Private</option>
                             <option
                                 value={false}
-                                checked={eventStatus === false}
-                                onChange={() => setEventStatus(false)}
+                                checked={eventStatus === "false"}
+                                onChange={() => setEventStatus("false")}
                             >Public</option>
                         </select>
 
