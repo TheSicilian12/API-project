@@ -182,28 +182,17 @@ export const editGroupThunk = (groupObj) => async (dispatch) => {
                     // if (responseDeleteCurrentImageOld.ok) {
                     //     return 'yay'
                     // }
-
-
                 }
-
             }
-
             //currentImage added again but with false, then the current deleted
 
             //new added with true
-
-
         }
-
-
         // const addImageResponse = await dispatch(addAGroupImage({
         //     groupId: groupObj.groupId,
         //     url: groupObj.url,
         //     preview: true
         // }))
-
-
-
 
         // if (addImageResponse.ok) {
         return editedGroup;
