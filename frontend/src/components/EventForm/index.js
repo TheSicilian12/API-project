@@ -19,6 +19,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
         if (currentEvent.status === "Public") statusType = false;
     }
     console.log("price: ", typeof currentEvent?.price)
+    console.log("url: ", currentEvent?.EventImages[0].url)
 
     const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
@@ -34,7 +35,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
     const [eventEndDate, setEventEndDate] = useState('');
     const [displayEventEndDateErr, setDisplayEventEndDateErr] = useState(false);
-    const [eventImage, setEventImage] = useState('');
+    const [eventImage, setEventImage] = useState(currentEvent?.EventImages[0] ? currentEvent?.EventImages[0].url : '');
     const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
