@@ -18,7 +18,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
         if (currentEvent.status === "Private") statusType = true;
         if (currentEvent.status === "Public") statusType = false;
     }
-    console.log("price: ", currentEvent?.price)
+    console.log("price: ", typeof currentEvent?.price)
 
     const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
@@ -28,7 +28,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
     const [eventStatus, setEventStatus] = useState(currentEvent.name ? statusType : "");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
-    const [eventPrice, setEventPrice] = useState("0");
+    const [eventPrice, setEventPrice] = useState(currentEvent?.price ? String(currentEvent?.price) : "0");
     const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);
     const [eventStartDate, setEventStartDate] = useState('');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
@@ -208,17 +208,10 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             setDisplayEventNameErr(true)
                         }}
                     ></input>
-                    {/* <p className='error'>{errors.eventName}</p> */}
+
                     {displayEventNameErr && <p className='error'>{err.eventName}</p>}
                 </div>
-                {/* <div className='displayFlex justifyCenter'>
-                    <img
-                        className='dividerImageForm'
-                        width='25%'
-                        // height='10%'
-                        src={formDividerImage}
-                    />
-                </div> */}
+
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <div>
@@ -239,7 +232,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                                 value={'Online'}
                             >Online</option>
                         </select>
-                        {/* <p className='error'>{errors.eventMeetingType}</p> */}
+
                     </div>
                     {displayEventMeetingTypeErr && <p className='error'>{err.eventMeetingType}</p>}
                     <div>
@@ -264,9 +257,10 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                                 onChange={() => setEventStatus(false)}
                             >Public</option>
                         </select>
-                        {/* <p className='error'>{errors.eventStatus}</p> */}
+
                     </div>
                     {displayEventStatusErr && <p className='error'>{err.eventStatus}</p>}
+
                     <div>
                         <p className='groupFormText'>What is the price for your event?</p>
                         <input
@@ -274,13 +268,13 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             type='decimal'
                             min="0"
                             placeholder="0"
-                            // pattern="/d*"
+                            value={eventPrice}
                             onChange={(e) => {
                                 setEventPrice(e.target.value)
                                 setDisplayEventPriceErr(true)
                             }}
                         />
-                        {/* <p className='error'>{errors.eventPrice}</p> */}
+
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
