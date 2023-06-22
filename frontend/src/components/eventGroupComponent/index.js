@@ -49,7 +49,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
 
         // const test =  await dispatch(membershipsThunk(payload));
     }
-    
+
     const editEvent = () => {
         history.push(`/groups/${info.event.groupId}/events/${info.event.id}/edit`)
     }
@@ -233,6 +233,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                         <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
                                     </div>
                                     <h4 className="eventGroup-margin">{info.event?.type}</h4>
+                                </div>
+                                <div className='displayFlex alignCenter eventGroup-bold eventGroup-margin'>
+                                    <div className='moneyDimensions displayFlex justifyCenter'>
+                                        {/* <i class="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i> */}
+                                        <i className="fa-solid fa-map-pin fa-2xl style=color: #000000;"></i>
+                                    </div>
+                                    <h4 className="eventGroup-margin">{info.event?.status}</h4>
                                 </div>
                             </div>
 
