@@ -309,8 +309,11 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     //error venue does not exist
 
     //error event does not exist
+    console.log("----------------------------------edit an event---------------------------------")
     const { user } = req
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+
+    console.log("----------------type: ", type)
 
     if (!user) {
         const err = new Error("You must be logged in.");
@@ -400,7 +403,8 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
         let name = "Name must be at least 5 characters"
         errors.name = name
     }
-    if (!type || type !== 'Online' && type !== 'In person') {
+
+    if (!type || type !== 'Online' && type !== 'In Person') {
         let type = "Type must be Online or In person"
         errors.type = type
     }

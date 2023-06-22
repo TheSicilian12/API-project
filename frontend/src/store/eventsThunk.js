@@ -110,6 +110,21 @@ export const addImageToEvent = (imageObj) => async (dispatch) => {
     }
 }
 
+//thunk - edit an event
+export const editEventThunk = (payload) => async (dispatch) => {
+    const {eventId, eventObj, eventImageObj} = payload
+    const response = await csrfFetch(`/api/events/${eventId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventObj)
+    })
+    if (response.ok) {
+        const updatedEvent = await response.json()
+        return updatedEvent
+    }
+}
 
 // const initialState = {}
 const initialState = {

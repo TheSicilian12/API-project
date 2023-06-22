@@ -6,7 +6,7 @@ import './EventForm.css';
 import '../UniversalCSS.css';
 // import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import { EditEventWrapper } from './editEventWrapper';
-import { addEventByGroupIdThunk } from '../../store/eventsThunk'
+import { addEventByGroupIdThunk, editEventThunk } from '../../store/eventsThunk'
 import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
 import { getGroup } from '../../store/groupsThunk';
@@ -16,8 +16,6 @@ function EventForm({ currentEvent, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const groupId = useParams().groupId;
-    console.log("groupId params: ", groupId)
-    console.log("user params: ", useParams())
     const event = useSelector((state) => state.events)
     const user = useSelector((state) => state.session.user)
     const currentGroup = useSelector((state) => state.groups.singleGroup);
@@ -114,8 +112,6 @@ function EventForm({ currentEvent, formType }) {
         if (eventStatus === "false") statusType = "Public"
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-            console.log("eventStatus: ", eventStatus)
-            console.log("statusType: ", statusType)
             const eventObj = {
                 venueId: null,
                 name: eventName,
@@ -132,14 +128,24 @@ function EventForm({ currentEvent, formType }) {
                 url: eventImage,
                 preview: true
             }
-            console.log("groupId page: ", groupId)
-            newEvent = await dispatch(addEventByGroupIdThunk(
-                {
-                    groupId,
+
+            if (formType === "new") {
+                newEvent = await dispatch(addEventByGroupIdThunk(
+                    {
+                        groupId,
+                        eventObj,
+                        eventImageObj
+                    }
+                ))
+            }
+            if (formType === "edit") {
+                // newEvent = await dispatch()
+                newEvent = await dispatch(editEventThunk({
+                    eventId: event.id,
                     eventObj,
                     eventImageObj
-                }
-            ))
+                }))
+            }
         }
 
         if (newEvent?.id) {
