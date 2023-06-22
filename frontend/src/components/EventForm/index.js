@@ -11,41 +11,48 @@ import formDividerImage from '../assets/Images/rainbow-removebg-preview_1.png';
 import RainbowLine from '../HorizontalLines/RainbowLine';
 
 
-function EventForm({ currentGroup, currentEvent, formType }) {
-    // const [location, setLocation] = useState(currentGroup.id ? `${currentGroup.city}, ${currentGroup.state}` : "");
-    let statusType;
-    if (currentEvent.status) {
-        if (currentEvent.status === "Private") statusType = true;
-        if (currentEvent.status === "Public") statusType = false;
-    }
-    console.log("price: ", typeof currentEvent?.price)
-    console.log("url: ", currentEvent?.EventImages[0].url)
+function EventForm({ currentGroup, currentEvent, formType, info }) {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const groupId = useParams().id;
 
-    const [eventName, setEventName] = useState(currentEvent?.name ? currentEvent?.name : "");
+    const event = useSelector((state) => state.events)
+    const user = useSelector((state) => state.session.user)
+
+    let statusType;
+    if (currentEvent) {
+        if (currentEvent.status === "Private") {
+            statusType = true;
+        }
+        else statusType = false;
+    }
+
+    // const [eventName, setEventName] = useState(currentEvent.name ? currentEvent.name : "");
+    const [eventName, setEventName] = useState(true ? info.eventName : "false");
     const [displayEventNameErr, setDisplayEventNameErr] = useState(false);
     const [eventAbout, setEventAbout] = useState(currentEvent?.description ? currentEvent?.description : "");
     const [displayEventAboutErr, setDisplayEventAboutErr] = useState(false);
     const [eventMeetingType, setEventMeetingType] = useState(currentEvent?.type ? currentEvent?.type : "(select one)");
     const [displayEventMeetingTypeErr, setDisplayEventMeetingTypeErr] = useState(false);
-    const [eventStatus, setEventStatus] = useState(currentEvent.name ? statusType : "");
+    const [eventStatus, setEventStatus] = useState(currentEvent?.status ? statusType : "");
     const [displayEventStatusErr, setDisplayEventStatusErr] = useState(false);
     const [eventPrice, setEventPrice] = useState(currentEvent?.price ? String(currentEvent?.price) : "0");
     const [displayEventPriceErr, setDisplayEventPriceErr] = useState(false);
-    const [eventStartDate, setEventStartDate] = useState('');
+
+    const [eventStartDate, setEventStartDate] = useState(currentEvent?.startDate
+        ? new Date(currentEvent?.startDate).toISOString().slice(0, 16) : '');
     const [displayEventStartDateErr, setDisplayEventStartDateErr] = useState(false);
+
     const [eventEndDate, setEventEndDate] = useState('');
     const [displayEventEndDateErr, setDisplayEventEndDateErr] = useState(false);
-    const [eventImage, setEventImage] = useState(currentEvent?.EventImages[0] ? currentEvent?.EventImages[0].url : '');
+
+    // const [eventImage, setEventImage] = useState(currentEvent?.EventImages ? currentEvent?.EventImages[0]?.url : '');
+    const [eventImage, setEventImage] = useState('');
+
     const [displayEventImageErr, setDisplayEventImageErr] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const groupId = useParams().id;
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector((state) => state.session.user)
-
-    console.log("formType: ", formType)
-    console.log("currentEvent", currentEvent)
+    console.log("eventName: ", eventName)
 
     if (!user || user.id !== currentGroup.organizerId) {
         history.push('/')
@@ -191,6 +198,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
     return (
         // <div>test create event</div>
         <div className='displayFlex justifyCenter marginFormTop UfontTreb'>
+            event name: {currentEvent.name}
             <form
                 className='displayFlex flex-directionColumn formWidth UnoBorder UfontTreb groupFormText'
                 onSubmit={handleSubmit}>
@@ -279,7 +287,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
                 </div>
-                    {/* <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
                             width='25%'
@@ -287,7 +295,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             src={formDividerImage}
                         />
                     </div> */}
-                    <RainbowLine />
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>When does your event start?</p>
                     <input
@@ -341,7 +349,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                     {/* <p className='error'>{errors.eventImage}</p> */}
                     {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
-                    {/* <div className='displayFlex justifyCenter'>
+                {/* <div className='displayFlex justifyCenter'>
                         <img
                             className='dividerImageForm'
                             width='25%'
@@ -349,7 +357,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                             src={formDividerImage}
                         />
                     </div> */}
-                    <RainbowLine />
+                <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
                     <textarea
@@ -366,7 +374,7 @@ function EventForm({ currentGroup, currentEvent, formType }) {
                 </div>
                 <div className='eventForm-button'>
                     <button
-                         className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
+                        className={`UpurpleButton UbuttonDimensions border-Radius15 ${disabled}`}
                         type='submit'
                         disabled={Object.values(err).length > 0}
                     >

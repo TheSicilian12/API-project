@@ -20,11 +20,26 @@ export default function EditEventWrapper({formType}) {
     const currentEvent = useSelector((state) => state.events);
 
     if (!currentGroup) return null;
-    // if (!currentEvent) return null;
+    if (!currentEvent) return null;
+
+    let info = {
+        eventName: currentEvent.name
+    }
+
+    console.log("info: ", info)
+
 
     return (
-        // <div>Edit</div>
-        <EventForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType}/>
+        // <div>
+        //     Edit
+        //     <div>
+        //         {currentEvent.name}
+        //     </div>
+        // </div>
+        <div>
+            {currentEvent.name}
+        <EventForm currentGroup={currentGroup} currentEvent={currentEvent} formType={formType} info={info}/>
+        </div>
     )
 
 }
