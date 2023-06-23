@@ -88,7 +88,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
         // if (typeof eventPrice !== 'number'){
         //     err.eventPrice = 'Price must be a number';
         // }
-        if (!eventStartDate) {
+        if (timeLineStatus === "future" && !eventStartDate) {
             err.eventStartDate = 'Event start is required';
         }
         if (!eventEndDate) {
@@ -113,7 +113,8 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
         // console.log("eventStatus === false: ", eventStatus === false)
         if (eventStatus === "true") {
             // console.log("if statement eventStatus === 'true'")
-            statusType = "Private"}
+            statusType = "Private"
+        }
 
         if (eventStatus === "false") {
             // console.log("if statement eventStatus === 'false'")
@@ -122,17 +123,33 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
 
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-            console.log("statusType: ", statusType)
-            const eventObj = {
-                venueId: null,
-                name: eventName,
-                type: eventMeetingType,
-                statusType,
-                capacity: 1,
-                price: Number(eventPrice),
-                description: eventAbout,
-                startDate: eventStartDate,
-                endDate: eventEndDate,
+            // console.log("statusType: ", statusType)
+
+            let eventObj;
+            if (timeLineStatus === "future") {
+                eventObj = {
+                    venueId: null,
+                    name: eventName,
+                    type: eventMeetingType,
+                    statusType,
+                    capacity: 1,
+                    price: Number(eventPrice),
+                    description: eventAbout,
+                    startDate: eventStartDate,
+                    endDate: eventEndDate,
+                }
+            } else {
+                eventObj = {
+                    venueId: null,
+                    name: eventName,
+                    type: eventMeetingType,
+                    statusType,
+                    capacity: 1,
+                    price: Number(eventPrice),
+                    description: eventAbout,
+                    // startDate: eventStartDate,
+                    endDate: eventEndDate,
+                }
             }
 
             const eventImageObj = {
@@ -202,7 +219,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
     if (eventAbout.length < 30) {
         err.eventAbout = 'Description must be at least 30 characters long';
     }
-    if (Date.parse(eventStartDate) < Date.parse(new Date())) {
+    if (timeLineStatus === "future" && (Date.parse(eventStartDate) < Date.parse(new Date()))) {
         err.eventStartDate = 'The start date must occur in the future'
     }
     if (Date.parse(eventEndDate) < Date.parse(new Date())) {
@@ -221,6 +238,8 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
     if (formType === 'edit') {
         hideImageUpdate = 'Uhide';
     }
+
+    console.log("err: ", err)
 
     // --------------------------------- ^ err real time ^ -----------------------------------------------
 
@@ -319,27 +338,27 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                 <div className='marginBottomMed'>
 
                     {timeLineStatus === "past" &&
-                    <>
-                    <p className='groupFormText'>You're Event Started On: {new Date(eventStartDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(eventStartDate).toUTCString().split(' ')[2]} {new Date(eventStartDate).toUTCString().split(' ')[1]}, {new Date(eventStartDate).toUTCString().split(' ')[3]}
-                    </p>
-                    </>
+                        <>
+                            <p className='groupFormText'>You're Event Started On: {new Date(eventStartDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(eventStartDate).toUTCString().split(' ')[2]} {new Date(eventStartDate).toUTCString().split(' ')[1]}, {new Date(eventStartDate).toUTCString().split(' ')[3]}
+                            </p>
+                        </>
                     }
 
                     {timeLineStatus === "future" &&
-                    <>
-                    <p className='groupFormText'>When does your event start?</p>
-                    <input
-                        className='groupFormInput'
-                        placeholder='MM/DD/YYYY/HH/mm AM'
-                        type='datetime-local'
-                        value={eventStartDate}
-                        onChange={(e) => {
-                            setEventStartDate(e.target.value)
-                            setDisplayEventStartDateErr(true)
-                        }}
-                    ></input>
-                    {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
-                    </>
+                        <>
+                            <p className='groupFormText'>When does your event start?</p>
+                            <input
+                                className='groupFormInput'
+                                placeholder='MM/DD/YYYY/HH/mm AM'
+                                type='datetime-local'
+                                value={eventStartDate}
+                                onChange={(e) => {
+                                    setEventStartDate(e.target.value)
+                                    setDisplayEventStartDateErr(true)
+                                }}
+                            ></input>
+                            {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
+                        </>
                     }
                     <p className='groupFormText'>When does your event end?</p>
                     <input
