@@ -320,13 +320,11 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
 
                     {timeLineStatus === "past" &&
                     <>
-                    <p className='groupFormText'>You're Event Has Already Started</p>
-                    {/* <div>
-                        {eventStartDate}
-                    </div> */}
+                    <p className='groupFormText'>You're Event Started On: {new Date(eventStartDate).toUTCString().split(' ')[0].split(',')[0]}. {new Date(eventStartDate).toUTCString().split(' ')[2]} {new Date(eventStartDate).toUTCString().split(' ')[1]}, {new Date(eventStartDate).toUTCString().split(' ')[3]}
+                    </p>
                     </>
                     }
-                    
+
                     {timeLineStatus === "future" &&
                     <>
                     <p className='groupFormText'>When does your event start?</p>
