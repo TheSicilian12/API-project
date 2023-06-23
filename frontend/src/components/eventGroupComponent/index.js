@@ -288,7 +288,6 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             </div>
                         </div>
                     </div>}
-
             </div>
 
             {type === "group" && <div className='eventGroup-overall-info'>

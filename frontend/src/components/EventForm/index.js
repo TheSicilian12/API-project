@@ -147,7 +147,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                     capacity: 1,
                     price: Number(eventPrice),
                     description: eventAbout,
-                    // startDate: eventStartDate,
+                    startDate: "past",
                     endDate: eventEndDate,
                 }
             }
