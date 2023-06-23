@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { submitGroup, editGroupThunk, getGroup } from '../../store/groupsThunk';
 import EventForm from './index'
 import { getEventThunk } from '../../store/eventsThunk';
-import { timeline } from '../EventOrganizer';
+import { isPast } from '../EventOrganizer';
+
 
 export default function EditEventWrapper({formType}) {
     const { groupId, eventId } = useParams();
@@ -16,20 +17,7 @@ export default function EditEventWrapper({formType}) {
         dispatch(getEventThunk(eventId))
     }, [groupId])
 
-    const isPast = (checkDate) => {
-      const todayParse = Date.parse(new Date());
 
-      const checkDateParse = Date.parse(checkDate);
-
-      let response;
-      if (todayParse > checkDateParse) {
-        response = 'past';
-      } else {
-        response = 'future';
-      }
-
-      return response;
-    }
 
   // const currentGroup = useSelector((state) => state.groups.singleGroup);
   const currentEvent = useSelector((state) => state.events);
