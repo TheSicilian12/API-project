@@ -12,7 +12,7 @@ import RainbowLine from '../HorizontalLines/RainbowLine';
 import { getGroup } from '../../store/groupsThunk';
 
 
-function EventForm({ currentEvent, formType }) {
+function EventForm({ currentEvent, formType, timeLineStatus }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const groupId = useParams().groupId;
@@ -317,6 +317,18 @@ function EventForm({ currentEvent, formType }) {
                 </div>
                 <RainbowLine />
                 <div className='marginBottomMed'>
+
+                    {timeLineStatus === "past" &&
+                    <>
+                    <p className='groupFormText'>You're Event Has Already Started</p>
+                    {/* <div>
+                        {eventStartDate}
+                    </div> */}
+                    </>
+                    }
+                    
+                    {timeLineStatus === "future" &&
+                    <>
                     <p className='groupFormText'>When does your event start?</p>
                     <input
                         className='groupFormInput'
@@ -329,6 +341,8 @@ function EventForm({ currentEvent, formType }) {
                         }}
                     ></input>
                     {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
+                    </>
+                    }
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'

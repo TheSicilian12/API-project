@@ -46,7 +46,7 @@ export function organizeEventsByDate(eventsObj) {
 }
 
 //helper function
-function timeline(eventStartDate, eventEndDate) {
+export function timeline(eventStartDate, eventEndDate) {
     //returns 'ongoing', 'past', or 'future'
     const todayParse = Date.parse(new Date());
 
