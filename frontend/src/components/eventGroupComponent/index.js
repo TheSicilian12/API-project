@@ -13,6 +13,7 @@ import "./eventGroupComponent.css"
 import '../UniversalCSS.css'
 import DeleteEventModal from '../DeleteEventModal';
 import OpenModalButton from '../OpenModalButton';
+import { isPast } from '../EventOrganizer';
 
 export default function EventGroupComponent({ type, previewImage, info }) {
     // const [group, numEvents, groupStatus] = info;
@@ -30,6 +31,13 @@ export default function EventGroupComponent({ type, previewImage, info }) {
         }
         dispatch(membershipsThunk(payload));
     }, [])
+
+
+    let endDateCheck;
+    if (type === "event") {
+        endDateCheck = isPast(info.event.endDate)
+    }
+
 
     async function joinGroup() {
         const payload = {
@@ -103,55 +111,55 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                             {/* <div className={`${info.displayJoinGroup} ${info.hideJoinGroup} eventGroup-button`}> */}
                             <div className={`eventGroup-button`}>
                                 {user &&
-                                (membership?.status === "Not a member" || membership?.status === "pending") &&
+                                    (membership?.status === "Not a member" || membership?.status === "pending") &&
                                     <button
-                                    className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => joinGroup()}
-                                    disabled={`${info.joinGroup}` === 'true' ? true : false}
-                                >
-                                    Join this group
-                                    {/* alert for no implementation */}
-                                </button>}
+                                        className='UgrayButton UbuttonDimensions border-Radius15 UfontTreb'
+                                        onClick={() => joinGroup()}
+                                        disabled={`${info.joinGroup}` === 'true' ? true : false}
+                                    >
+                                        Join this group
+                                        {/* alert for no implementation */}
+                                    </button>}
                                 {membership &&
-                                (membership?.status === "member" || membership?.status === "co-host") &&
+                                    (membership?.status === "member" || membership?.status === "co-host") &&
                                     <button
-                                    className='UgoldButton UbuttonDimensions border-Radius15 UfontTreb'
-                                    onClick={() => alert("You're a member!")}
-                                    disabled={`${info.joinGroup}` === 'true' ? true : false}
-                                >
-                                    Member
-                                    {/* {membership?.status} */}
-                                    {/* alert for no implementation */}
-                                </button>}
+                                        className='UgoldButton UbuttonDimensions border-Radius15 UfontTreb'
+                                        onClick={() => alert("You're a member!")}
+                                        disabled={`${info.joinGroup}` === 'true' ? true : false}
+                                    >
+                                        Member
+                                        {/* {membership?.status} */}
+                                        {/* alert for no implementation */}
+                                    </button>}
                             </div>
 
                             {membership &&
-                            membership?.status === "host" &&
-                            <div className={`eventGroup-button`}>
-                                <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
+                                membership?.status === "host" &&
+                                <div className={`eventGroup-button`}>
+                                    <div className='displayFlex justifySpaceAround eventInfo emergencyPaddingTop'>
 
-                                    <NavLink to={`/groups/${info.groupId}/events/new`}>
-                                        <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
-                                        >
-                                            Create event
-                                        </button>
-                                    </NavLink>
-                                    <NavLink to={`/groups/${info.groupId}/edit`}>
-                                        <button
-                                            className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
-                                        >
-                                            Update
-                                        </button>
-                                    </NavLink>
-                                    <div>
-                                        <OpenModalDeleteGroupButton
-                                            buttonText="Delete"
-                                            modalComponent={<DeleteGroupModal groupId={info.groupId} />}
-                                        />
+                                        <NavLink to={`/groups/${info.groupId}/events/new`}>
+                                            <button
+                                                className='UpinkBorder UpurpleButton UfontTreb UbuttonCreateDimensions'
+                                            >
+                                                Create event
+                                            </button>
+                                        </NavLink>
+                                        <NavLink to={`/groups/${info.groupId}/edit`}>
+                                            <button
+                                                className='UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions'
+                                            >
+                                                Update
+                                            </button>
+                                        </NavLink>
+                                        <div>
+                                            <OpenModalDeleteGroupButton
+                                                buttonText="Delete"
+                                                modalComponent={<DeleteGroupModal groupId={info.groupId} />}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </div>}
+                                </div>}
                         </div>
                     </div>
                 }
@@ -261,24 +269,25 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                             Update
                                         </button>
                                     </NavLink> */}
-                                    <button
+                                    {/* <button
                                         className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         onClick={() => editEvent()}>
-                                        Update</button>
+                                        Update</button> */}
+                                    {endDateCheck === "future" && <button
+                                        className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
+                                        onClick={() => editEvent()}>
+                                        Update</button>}
+                                    {endDateCheck === "past" && <div>This Event is Over</div>}
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
                                             buttonText="Delete"
-                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.event?.Group.id}/>}
+                                            modalComponent={<DeleteEventModal eventId={info.event.id} groupId={info.event?.Group.id} />}
                                         />
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>}
-
             </div>
 
             {type === "group" && <div className='eventGroup-overall-info'>

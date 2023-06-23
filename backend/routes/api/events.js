@@ -164,8 +164,6 @@ router.get('/', async (req, res, next) => {
         return next(err)
     }
 
-
-
     //main search
     //with search options it's more likely for nothing to be returned. Look into if an error is needed or not.
     let events = await Event.findAll({
@@ -205,13 +203,11 @@ router.get('/', async (req, res, next) => {
         //identify images
         if (eventJSON.EventImages.length > 0) {
 
-
             for (let image of eventJSON.EventImages) {
                 if (image.preview === true) {
                     previewImage = image.url
                 }
             }
-
         }
 
         //count attendances
@@ -315,6 +311,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
 
     console.log("----------------type: ", type)
     console.log("---------------------------statusType: ", statusType)
+    console.log("---------------------------startDate: ", startDate)
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
@@ -454,7 +451,7 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     if (capacity) event.capacity = capacity
     if (price || price === 0) event.price = price
     if (description) event.description = description
-    if (startDate) event.startDate = startDate
+    if (startDate && startDate !== "past") event.startDate = startDate
     if (endDate) event.endDate = endDate
     event.save()
     console.log("-------------------------event: ", event)

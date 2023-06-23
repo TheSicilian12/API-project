@@ -46,7 +46,7 @@ export function organizeEventsByDate(eventsObj) {
 }
 
 //helper function
-function timeline(eventStartDate, eventEndDate) {
+export function timeline(eventStartDate, eventEndDate) {
     //returns 'ongoing', 'past', or 'future'
     const todayParse = Date.parse(new Date());
 
@@ -66,3 +66,20 @@ function timeline(eventStartDate, eventEndDate) {
 
     return response;
 }
+
+// ----------------------- check if a date past or future
+
+export function isPast (checkDate) {
+    const todayParse = Date.parse(new Date());
+
+    const checkDateParse = Date.parse(checkDate);
+
+    let response;
+    if (todayParse > checkDateParse) {
+      response = 'past';
+    } else {
+      response = 'future';
+    }
+
+    return response;
+  }
