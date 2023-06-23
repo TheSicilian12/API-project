@@ -269,11 +269,15 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                                             Update
                                         </button>
                                     </NavLink> */}
-                                    {endDateCheck === "future" && <button
+                                    <button
+                                        className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
+                                        onClick={() => editEvent()}>
+                                        Update</button>
+                                    {/* {endDateCheck === "future" && <button
                                         className={`${info.options} UpinkBorder UpurpleButton UfontTreb UbuttonSmallDimensions`}
                                         onClick={() => editEvent()}>
                                         Update</button>}
-                                    {endDateCheck === "past" && <div>This Event is Over</div>}
+                                    {endDateCheck === "past" && <div>This Event is Over</div>} */}
                                     <div className={`${info.options}`}>
                                         <OpenModalDeleteGroupButton
                                             buttonText="Delete"
