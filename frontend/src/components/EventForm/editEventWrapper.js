@@ -32,7 +32,7 @@ export default function EditEventWrapper({formType}) {
   const endDateCheck = isPast(currentEvent.endDate)
 
   // Guard in case endDate is in the past, redirect to event page
-  // if (endDateCheck === "past") history.push(`/events/${currentEvent.id}`)
+  if (endDateCheck === "past") history.push(`/events/${currentEvent.id}`)
 
     return (
         <div>

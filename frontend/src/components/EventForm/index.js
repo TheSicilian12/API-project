@@ -88,7 +88,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
         // if (typeof eventPrice !== 'number'){
         //     err.eventPrice = 'Price must be a number';
         // }
-        if (timeLineStatus === "future" && !eventStartDate) {
+        if ((!timeLineStatus || timeLineStatus === "future") && !eventStartDate) {
             err.eventStartDate = 'Event start is required';
         }
         if (!eventEndDate) {
@@ -126,7 +126,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
             // console.log("statusType: ", statusType)
 
             let eventObj;
-            if (timeLineStatus === "future") {
+            if ((!timeLineStatus || timeLineStatus === "future")) {
                 eventObj = {
                     venueId: null,
                     name: eventName,
@@ -151,6 +151,8 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                     endDate: eventEndDate,
                 }
             }
+
+            console.log("start date: ", eventObj.startDate)
 
             const eventImageObj = {
                 url: eventImage,
@@ -219,7 +221,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
     if (eventAbout.length < 30) {
         err.eventAbout = 'Description must be at least 30 characters long';
     }
-    if (timeLineStatus === "future" && (Date.parse(eventStartDate) < Date.parse(new Date()))) {
+    if ((!timeLineStatus || timeLineStatus === "future") && (Date.parse(eventStartDate) < Date.parse(new Date()))) {
         err.eventStartDate = 'The start date must occur in the future'
     }
     if (Date.parse(eventEndDate) < Date.parse(new Date())) {
@@ -344,7 +346,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                         </>
                     }
 
-                    {timeLineStatus === "future" &&
+                    {(!timeLineStatus || timeLineStatus === "future") &&
                         <>
                             <p className='groupFormText'>When does your event start?</p>
                             <input
@@ -359,7 +361,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                             ></input>
                             {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                         </>
-                    }
+                        }
                     <p className='groupFormText'>When does your event end?</p>
                     <input
                         className='groupFormInput'
