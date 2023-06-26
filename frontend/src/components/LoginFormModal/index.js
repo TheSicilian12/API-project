@@ -84,8 +84,6 @@ function LoginFormModal() {
                       required
                     />
                   </div>
-
-
                   <div className='space paddingTop'>
                     <div className='login-inputs justifySpaceBetween'>
                       {(!displayPasErr || !err.password) && <p>Password</p>}
@@ -125,11 +123,6 @@ function LoginFormModal() {
           </div>
         </div>
         <div className='login-loginButton-warning'>
-
-
-
-
-
               <button
               className={`smallWidth UpurpleButton UpinkBorder UbuttonSmallDimensions ${notAllowed}`}
               type="submit"
@@ -141,7 +134,6 @@ function LoginFormModal() {
           {Object.values(err).length > 0 && <div className="errors">
             *Add your log in information
             </div>}
-
         </div>
         <div className='paddingTop displayFlex justifyCenter'>
           <button
