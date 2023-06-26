@@ -25,7 +25,7 @@ module.exports = {
       {
         name: "Group1",
         organizerId: 11,
-        about: "about group1",
+        about: "This is an about section for group1. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: true,
         city: "Columbus",
@@ -34,7 +34,7 @@ module.exports = {
       {
         name: "Group2",
         organizerId: 2,
-        about: 'about group2',
+        about: "This is an about section for group2. You should consider joining this group if you haven't already.",
         type: 'Online',
         private: true,
         city: "Columbus",
@@ -43,7 +43,7 @@ module.exports = {
       {
         name: "Group3",
         organizerId: 3,
-        about: "about group3",
+        about: "This is an about section for group3. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: true,
         city: "Detroit",
@@ -52,7 +52,7 @@ module.exports = {
       {
         name: "Group4",
         organizerId: 4,
-        about: "about group4",
+        about: "This is an about section for group4. You should consider joining this group if you haven't already.",
         type: 'Online',
         private: false,
         city: "Denver",
@@ -61,7 +61,7 @@ module.exports = {
       {
         name: "Group5",
         organizerId: 2,
-        about: "about group5",
+        about: "This is an about section for group5. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -70,7 +70,7 @@ module.exports = {
       {
         name: "Group6",
         organizerId: 1,
-        about: "about group6",
+        about: "This is an about section for group6. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -79,7 +79,7 @@ module.exports = {
       {
         name: "Group7",
         organizerId: 1,
-        about: "about group7",
+        about: "This is an about section for group7. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -88,7 +88,7 @@ module.exports = {
       {
         name: "Group8",
         organizerId: 1,
-        about: "about group8",
+        about: "This is an about section for group8. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -97,7 +97,7 @@ module.exports = {
       {
         name: "Group9",
         organizerId: 8,
-        about: "about group9",
+        about: "This is an about section for group9. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -106,7 +106,7 @@ module.exports = {
       {
         name: "Group10",
         organizerId: 5,
-        about: "about group10",
+        about: "This is an about section for group10. You should consider joining this group if you haven't already.",
         type: 'In person',
         private: false,
         city: "Denver",
@@ -126,7 +126,7 @@ module.exports = {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4', 'Group5'] }
+      name: { [Op.in]: ['Group1', 'Group2', 'Group3', 'Group4', 'Group5', 'Group6', 'Group7', 'Group8', 'Group9', 'Group10'] }
     }, {});
   }
 };
