@@ -204,7 +204,7 @@ function SignupFormModal() {
               />
             </div>
           </div>
-          <div>
+          <div className="signup-image-button-container">
             {/* <img
               className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
               src={goodFinn}
@@ -220,7 +220,7 @@ function SignupFormModal() {
                 src={badFinn}
               />
               <img
-                className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
+                className={`finn-good-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
                 src={goodFinn}
               />
             </div> :
