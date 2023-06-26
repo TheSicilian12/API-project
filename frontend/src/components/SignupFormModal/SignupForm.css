@@ -127,13 +127,13 @@ form {
 }
 
 .signup-dimensions {
-    width: 750px;
-    height: 740px;
+    width: 50rem;
+    height: 35rem;
 }
 
 .signup-form {
     width: 42rem;
-    height: 40rem;
+    height: 35rem;
 }
 
 .signup-inputs {
