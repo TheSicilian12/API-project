@@ -43,18 +43,34 @@ In the frontend and backend folders npm install.
 
 npm start both the frontend and backend folders.
 
+## Getting started
+Code snippet, oragnizing the events based on their date
+<img src="./adventureUpImage/code_example_1.png" />
+<img src="./adventureUpImage/code_example_2.png" />
+
 # Features
 ## Groups
     - Authorized user can create a group
     - Any user can view all of the groups
     - Authorized user can edit a group
-    - AUthoirzed user can delete a group
+    - Authoirzed user can delete a group
 
 ## Events
     - Authorized user can create an event
     - Any user can view all events
+    - Authorized user can edit an event
+    - Authorized user can delete an event
 
+## Coments
+    - Authorized user can create a comment on an event
+    - Any user can view comments on an event
+    - Authorized user can edit a comment on an event
+    - Authorized user can delete a comment on an event
 
+## Memberships
+    - Authorized user can join a group
+    - Authorized user can view the groups they are members of
+    - Authorized user can delete (leave a group) their membership
 
 
 ## Contributors

@@ -152,7 +152,7 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                 }
             }
 
-            console.log("start date: ", eventObj.startDate)
+            // console.log("start date: ", eventObj.startDate)
 
             const eventImageObj = {
                 url: eventImage,
