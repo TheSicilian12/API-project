@@ -91,7 +91,6 @@ export const clearMembershipState = () => async (dispatch) => {
     dispatch(clear_state())
 }
 
-
 const initialState = {}
 
 const membershipReducer = (state = initialState, action) => {

@@ -50,7 +50,6 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let organizerId = imageGroupJSON.Group.organizerId
 
 
-
     //find status
     // if no membership then membership should return null
     let membership = await Group.findByPk(groupId, {
