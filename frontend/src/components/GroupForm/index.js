@@ -217,7 +217,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 setDisplayStateErr(true)
                             }}
                         ></input>
-                        {(!displayCityErr || !displayStateErr) && <p className="errors">*</p>}
+                        {(!displayCityErr || !displayStateErr) && formType === "new" && <p className="errors">*</p>}
                     </div>
 
                     {displayCityErr && <p className='error'>{err.city}</p>}
@@ -253,7 +253,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 setDisplayGroupNameErr(true)
                             }}
                         ></input>
-                        {!displayGroupNameErr && <p className="errors">*</p>}
+                        {!displayGroupNameErr && formType === "new" && <p className="errors">*</p>}
                     </div>
                     {displayGroupNameErr && <p className='error'>{err.name}</p>}
                 </div>
@@ -288,7 +288,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 setDisplayGroupAboutErr(true)
                             }}
                         ></textarea>
-                        {!displayGroupAboutErr && <p className="errors">*</p>}
+                        {!displayGroupAboutErr && formType === "new" && <p className="errors">*</p>}
                     </div>
                     {displayGroupAboutErr && <p className='error'>{err.about}</p>}
                 </div>
@@ -323,7 +323,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 <option value='In person'>In Person</option>
                                 <option value='Online'>Online</option>
                             </select>
-                            {!displayGroupMeetingTypeErr && <p className="errors">*</p>}
+                            {!displayGroupMeetingTypeErr && formType === "new" && <p className="errors">*</p>}
                         </div>
                         {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
                         <div className='displayFlex flex-directionColumn'>
@@ -351,7 +351,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                         onChange={() => setGroupStatus(false)}
                                     >Public</option>
                                 </select>
-                                {!displayGroupStatusErr && <p className="errors">*</p>}
+                                {!displayGroupStatusErr && formType === "new" && <p className="errors">*</p>}
                             </div>
                         </div>
                         {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
@@ -370,7 +370,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                         setDisplayGroupImageErr(true)
                                     }}
                                 ></input>
-                                {!displayGroupImageErr && <p className="errors">*</p>}
+                                {!displayGroupImageErr && formType === "new" && <p className="errors">*</p>}
                             </div>
                             {displayGroupImageErr && <p className='error'>{err.image}</p>}
                             {/* possibly need to adjust the input type for image */}
