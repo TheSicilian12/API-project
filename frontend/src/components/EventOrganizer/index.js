@@ -40,7 +40,6 @@ export function organizeEventsByDate(eventsObj) {
                 return 0;
             })
         }
-
     }
     return eventsArray;
 }

@@ -43,6 +43,11 @@ In the frontend and backend folders npm install.
 
 npm start both the frontend and backend folders.
 
+## Getting started
+Code snippet, oragnizing the events based on their date
+<img src="./adventureUpImage/code_example_1.png" />
+<img src="./adventureUpImage/code_example_2.png" />
+
 # Features
 ## Groups
     - Authorized user can create a group
