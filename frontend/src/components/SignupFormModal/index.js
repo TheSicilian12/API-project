@@ -85,7 +85,10 @@ function SignupFormModal() {
         <div className="displayFlex">
           <div>
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayEmailErr || !err.email) && <p>Email</p>}
+              {!displayEmailErr && <p className="errors">*</p>}
+              </div>
               {displayEmailErr &&
                 err.email &&
                 <p className='errors'>Email* {err.email}</p>}
