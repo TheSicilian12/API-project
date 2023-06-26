@@ -31,10 +31,8 @@ function LandingPage() {
                     <img className='displayFlex paddingInfoImageLeft'
                         src={landingPageInfo}
                         alt="test image"
-                        width='25%'
+                        width='500px'
                         />
-
-
             </div>
             <div className='landingPage_explaination displayFlex justifyCenter marginWorksTop landingPageFontSize UfontTreb'>
                 <div className='displayFlex flex-directionColumn'>

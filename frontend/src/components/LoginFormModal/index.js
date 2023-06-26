@@ -69,7 +69,10 @@ function LoginFormModal() {
               <div className="displayFlex">
                 <div className='space'>
                   <div className='login-inputs justifySpaceBetween'>
+                    <div className="displayFlex">
                     {(!displayCredErr || !err.credential) && <p>Username or Email</p>}
+                    {!displayCredErr && <p className="errors">*</p>}
+                    </div>
                     {displayCredErr &&
                       err.credential &&
                       <p className='errors'>Username or Email* {err.credential}</p>}
@@ -86,7 +89,10 @@ function LoginFormModal() {
                   </div>
                   <div className='space paddingTop'>
                     <div className='login-inputs justifySpaceBetween'>
+                      <div className="displayFlex">
                       {(!displayPasErr || !err.password) && <p>Password</p>}
+                      {!displayPasErr && <p className="errors">*</p>}
+                      </div>
                       {displayPasErr &&
                         err.password &&
                         <p className='errors'>Password* {err.password}</p>}

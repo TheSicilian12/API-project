@@ -85,7 +85,10 @@ function SignupFormModal() {
         <div className="displayFlex">
           <div>
             <div className='signup-inputs'>
-              {(!displayEmailErr || !err.email) && <p>Email</p>}
+              <div className="displayFlex">
+                {(!displayEmailErr || !err.email) && <p>Email</p>}
+                {!displayEmailErr && <p className="errors">*</p>}
+              </div>
               {displayEmailErr &&
                 err.email &&
                 <p className='errors'>Email* {err.email}</p>}
@@ -102,7 +105,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
-              {(!displayUsernameErr || !err.username) && <p>Username</p>}
+              <div className="displayFlex">
+                {(!displayUsernameErr || !err.username) && <p>Username</p>}
+                {!displayUsernameErr && <p className="errors">*</p>}
+              </div>
               {displayUsernameErr &&
                 err.username &&
                 <p className='errors'>Username* {err.username}</p>}
@@ -119,7 +125,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
-              {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+              <div className="displayFlex">
+                {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+                {!displayFirstNameErr && <p className="errors">*</p>}
+              </div>
               {displayFirstNameErr &&
                 err.firstName &&
                 <p className='errors'>First Name* {err.firstName}</p>}
@@ -136,7 +145,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
-              {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+              <div className="displayFlex">
+                {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+                {!displayLastNameErr && <p className="errors">*</p>}
+              </div>
               {displayLastNameErr &&
                 err.lastName &&
                 <p className='errors'>Last Name* {err.lastName}</p>}
@@ -153,7 +165,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
-              {(!displayPasswordErr || !err.password) && <p>Password</p>}
+              <div className="displayFlex">
+                {(!displayPasswordErr || !err.password) && <p>Password</p>}
+                {!displayPasswordErr && <p className="errors">*</p>}
+              </div>
               {displayPasswordErr &&
                 err.password &&
                 <p className='errors'>Password* {err.password}</p>}
@@ -170,7 +185,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
-              {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+              <div className="displayFlex">
+                {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+                {!displayConfirmPasswordErr && <p className="errors">*</p>}
+              </div>
               {displayConfirmPasswordErr &&
                 err.confirmPassword &&
                 <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
@@ -186,7 +204,7 @@ function SignupFormModal() {
               />
             </div>
           </div>
-          <div>
+          <div className="signup-image-button-container">
             {/* <img
               className={`finn-good-dimensions ${Object.values(err).length === 0 ? 'displayOn' : 'displayOff'}`}
               src={goodFinn}
@@ -201,8 +219,8 @@ function SignupFormModal() {
                 className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
                 src={badFinn}
               />
-               <img
-                className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
+              <img
+                className={`finn-good-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
                 src={goodFinn}
               />
             </div> :
@@ -211,21 +229,21 @@ function SignupFormModal() {
                 src={goodFinn}
               />
             }
+            <div className='signup-signupButton-waring'>
+              <button
+                className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
+                type="submit"
+                disabled={Object.values(err).length > 0}
+              >
+                Sign Up
+              </button>
+              {Object.values(err).length > 0 && <div className="errors">
+                *Add your information
+              </div>}
+            </div>
           </div>
         </div>
 
-        <div className='signup-signupButton-waring'>
-          <button
-            className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
-            type="submit"
-            disabled={Object.values(err).length > 0}
-          >
-            Sign Up
-          </button>
-          {Object.values(err).length > 0 && <div className="errors">
-            *Add your information
-            </div>}
-        </div>
       </form>
     </div>
   );

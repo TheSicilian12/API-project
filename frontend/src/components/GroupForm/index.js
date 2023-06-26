@@ -157,7 +157,8 @@ function GroupForm({ currentGroup, formType, previewImage }) {
 
     let disabled = 'UpurpleButton';
     if (Object.values(err).length > 0) {
-        disabled = 'not-allowedCursor UgrayButton';
+        // disabled = 'not-allowedCursor UgrayButton';
+        disabled = 'not-allowedCursor disabledButton';
     }
 
     let hideImageUpdate = 'Ushow';
@@ -215,7 +216,9 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 setDisplayStateErr(true)
                             }}
                         ></input>
+                        {(!displayCityErr || !displayStateErr) && formType === "new" && <p className="errors">*</p>}
                     </div>
+
                     {displayCityErr && <p className='error'>{err.city}</p>}
                     {displayStateErr && <p className='error'>{err.state}</p>}
                 </div>
@@ -238,16 +241,19 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                     <p className='groupFormText'>
                         Feel free to get creative! You can edit this later if you change your mind.
                     </p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='What is your group name?'
-                        value={groupName}
-                        onChange={(e) => {
-                            setGroupName(e.target.value)
-                            setDisplayGroupNameErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupFormInput'
+                            type='text'
+                            placeholder='What is your group name?'
+                            value={groupName}
+                            onChange={(e) => {
+                                setGroupName(e.target.value)
+                                setDisplayGroupNameErr(true)
+                            }}
+                        ></input>
+                        {!displayGroupNameErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
                     {displayGroupNameErr && <p className='error'>{err.name}</p>}
                 </div>
                 {/* <div className='displayFlex justifyCenter'>
@@ -271,16 +277,18 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                         <li>Who should join?</li>
                         <li>What will you do at your events?</li>
                     </ol>
-
-                    <textarea
-                        className='groupFormInput'
-                        placeholder='Please write at least 30 characters'
-                        value={groupAbout}
-                        onChange={(e) => {
-                            setGroupAbout(e.target.value)
-                            setDisplayGroupAboutErr(true)
-                        }}
-                    ></textarea>
+                    <div className="displayFlex">
+                        <textarea
+                            className='groupFormInput'
+                            placeholder='Please write at least 30 characters'
+                            value={groupAbout}
+                            onChange={(e) => {
+                                setGroupAbout(e.target.value)
+                                setDisplayGroupAboutErr(true)
+                            }}
+                        ></textarea>
+                        {!displayGroupAboutErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
                     {displayGroupAboutErr && <p className='error'>{err.about}</p>}
                 </div>
                 {/* <div className='displayFlex justifyCenter'>
@@ -314,6 +322,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                 <option value='In person'>In Person</option>
                                 <option value='Online'>Online</option>
                             </select>
+                            {!displayGroupMeetingTypeErr && formType === "new" && <p className="errors">*</p>}
                         </div>
                         {displayGroupMeetingTypeErr && <p className='error'>{err.meetingType}</p>}
                         <div className='displayFlex flex-directionColumn'>
@@ -341,6 +350,7 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                                         onChange={() => setGroupStatus(false)}
                                     >Public</option>
                                 </select>
+                                {!displayGroupStatusErr && formType === "new" && <p className="errors">*</p>}
                             </div>
                         </div>
                         {displayGroupStatusErr && <p className='error'>{err.groupStatus}</p>}
@@ -348,16 +358,19 @@ function GroupForm({ currentGroup, formType, previewImage }) {
                             <label className='marginBottomMed marginBottomNone'>
                                 Please add an image url for your group below:
                             </label>
-                            <input
-                                className='groupFormInput marginTopNone'
-                                type='text'
-                                placeholder='Image Url'
-                                value={groupImage}
-                                onChange={(e) => {
-                                    setGroupImage(e.target.value)
-                                    setDisplayGroupImageErr(true)
-                                }}
-                            ></input>
+                            <div className="displayFlex">
+                                <input
+                                    className='groupFormInput marginTopNone'
+                                    type='text'
+                                    placeholder='Image Url'
+                                    value={groupImage}
+                                    onChange={(e) => {
+                                        setGroupImage(e.target.value)
+                                        setDisplayGroupImageErr(true)
+                                    }}
+                                ></input>
+                                {!displayGroupImageErr && formType === "new" && <p className="errors">*</p>}
+                            </div>
                             {displayGroupImageErr && <p className='error'>{err.image}</p>}
                             {/* possibly need to adjust the input type for image */}
                         </div>

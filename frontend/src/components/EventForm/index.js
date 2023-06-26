@@ -233,7 +233,8 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
 
     let disabled;
     if (Object.values(err).length > 0) {
-        disabled = 'not-allowedCursor';
+        // disabled = 'not-allowedCursor';
+        disabled = 'not-allowedCursor disabledButton';
     }
 
     let hideImageUpdate = 'Ushow';
@@ -256,16 +257,19 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                 </div>
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>What is the name of your event?</p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='Event Name'
-                        value={eventName}
-                        onChange={(e) => {
-                            setEventName(e.target.value)
-                            setDisplayEventNameErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupFormInput'
+                            type='text'
+                            placeholder='Event Name'
+                            value={eventName}
+                            onChange={(e) => {
+                                setEventName(e.target.value)
+                                setDisplayEventNameErr(true)
+                            }}
+                        ></input>
+                        {!displayEventNameErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
 
                     {displayEventNameErr && <p className='error'>{err.eventName}</p>}
                 </div>
@@ -274,64 +278,74 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                 <div className='marginBottomMed'>
                     <div>
                         <p className='groupFormText'>Is this an in-person or online group?</p>
-                        <select
-                            className='groupFormInput'
-                            onChange={(e) => {
-                                setEventMeetingType(e.target.value)
-                                setDisplayEventMeetingTypeErr(true)
-                            }}
-                            value={eventMeetingType}
-                        >
-                            <option>(select one)</option>
-                            <option
-                                value={'In Person'}
-                            >In Person</option>
-                            <option
-                                value={'Online'}
-                            >Online</option>
-                        </select>
+                        <div className="displayFlex">
+                            <select
+                                className='groupFormInput'
+                                onChange={(e) => {
+                                    setEventMeetingType(e.target.value)
+                                    setDisplayEventMeetingTypeErr(true)
+                                }}
+                                value={eventMeetingType}
+                            >
+                                <option>(select one)</option>
+                                <option
+                                    value={'In Person'}
+                                >In Person</option>
+                                <option
+                                    value={'Online'}
+                                >Online</option>
+                            </select>
+                            {!displayEventMeetingTypeErr && formType === "new" && <p className="errors">*</p>}
+                        </div>
 
                     </div>
                     {displayEventMeetingTypeErr && <p className='error'>{err.eventMeetingType}</p>}
                     <div>
                         <p className='groupFormText'>Is this event private or public?</p>
-                        <select
-                            className='groupFormInput'
-                            onChange={(e) => {
-                                setEventStatus(e.target.value)
-                                setDisplayEventStatusErr(true)
-                            }}
-                            value={eventStatus}
-                        >
-                            <option>(select one)</option>
-                            <option
-                                value={true}
-                                checked={eventStatus === "true"}
-                                onChange={() => setEventStatus("true")}
-                            >Private</option>
-                            <option
-                                value={false}
-                                checked={eventStatus === "false"}
-                                onChange={() => setEventStatus("false")}
-                            >Public</option>
-                        </select>
+                        <div className="displayFlex">
+                            <select
+                                className='groupFormInput'
+                                onChange={(e) => {
+                                    setEventStatus(e.target.value)
+                                    setDisplayEventStatusErr(true)
+                                }}
+                                value={eventStatus}
+                            >
+                                <option>(select one)</option>
+                                <option
+                                    value={true}
+                                    checked={eventStatus === "true"}
+                                    onChange={() => setEventStatus("true")}
+                                >Private</option>
+                                <option
+                                    value={false}
+                                    checked={eventStatus === "false"}
+                                    onChange={() => setEventStatus("false")}
+                                >Public</option>
+                            </select>
+                            {!displayEventStatusErr && formType === "new" && <p className="errors">*</p>}
+                        </div>
 
                     </div>
                     {displayEventStatusErr && <p className='error'>{err.eventStatus}</p>}
 
                     <div>
                         <p className='groupFormText'>What is the price for your event?</p>
-                        <input
-                            className='groupFormInput'
-                            type='decimal'
-                            min="0"
-                            placeholder="0"
-                            value={eventPrice}
-                            onChange={(e) => {
-                                setEventPrice(e.target.value)
-                                setDisplayEventPriceErr(true)
-                            }}
-                        />
+
+                        <div className="displayFlex">
+                            <input
+                                className='groupFormInput'
+                                type='decimal'
+                                min="0"
+                                placeholder="0"
+                                value={eventPrice}
+                                onChange={(e) => {
+                                    setEventPrice(e.target.value)
+                                    setDisplayEventPriceErr(true)
+                                }}
+                            />
+                            {!displayEventPriceErr && formType === "new" && <p className="errors">*</p>}
+                        </div>
 
                         {displayEventPriceErr && <p className='error'>{err.eventPrice}</p>}
                     </div>
@@ -349,58 +363,70 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                     {(!timeLineStatus || timeLineStatus === "future") &&
                         <>
                             <p className='groupFormText'>When does your event start?</p>
-                            <input
-                                className='groupFormInput'
-                                placeholder='MM/DD/YYYY/HH/mm AM'
-                                type='datetime-local'
-                                value={eventStartDate}
-                                onChange={(e) => {
-                                    setEventStartDate(e.target.value)
-                                    setDisplayEventStartDateErr(true)
-                                }}
-                            ></input>
+                            <div className="displayFlex">
+                                <input
+                                    className='groupFormInput'
+                                    placeholder='MM/DD/YYYY/HH/mm AM'
+                                    type='datetime-local'
+                                    value={eventStartDate}
+                                    onChange={(e) => {
+                                        setEventStartDate(e.target.value)
+                                        setDisplayEventStartDateErr(true)
+                                    }}
+                                ></input>
+                                {!displayEventStartDateErr && formType === "new" && <p className="errors">*</p>}
+                            </div>
                             {displayEventStartDateErr && <p className='error'>{err.eventStartDate}</p>}
                         </>
-                        }
+                    }
                     <p className='groupFormText'>When does your event end?</p>
-                    <input
-                        className='groupFormInput'
-                        type='datetime-local'
-                        value={eventEndDate}
-                        onChange={(e) => {
-                            setEventEndDate(e.target.value)
-                            setDisplayEventEndDateErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupFormInput'
+                            type='datetime-local'
+                            value={eventEndDate}
+                            onChange={(e) => {
+                                setEventEndDate(e.target.value)
+                                setDisplayEventEndDateErr(true)
+                            }}
+                        ></input>
+                        {!displayEventEndDateErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
                     {displayEventEndDateErr && <p className='error'>{err.eventEndDate}</p>}
                 </div>
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please add in image url for your event below:</p>
-                    <input
-                        className='groupFormInput'
-                        type='text'
-                        placeholder='Image URL'
-                        value={eventImage}
-                        onChange={(e) => {
-                            setEventImage(e.target.value)
-                            setDisplayEventImageErr(true)
-                        }}
-                    ></input>
+                    <div className="displayFlex">
+                        <input
+                            className='groupFormInput'
+                            type='text'
+                            placeholder='Image URL'
+                            value={eventImage}
+                            onChange={(e) => {
+                                setEventImage(e.target.value)
+                                setDisplayEventImageErr(true)
+                            }}
+                        ></input>
+                        {!displayEventImageErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
                     {displayEventImageErr && <p className='error'>{err.eventImage}</p>}
                 </div>
                 <RainbowLine />
                 <div className='marginBottomMed'>
                     <p className='groupFormText'>Please describe your event</p>
-                    <textarea
-                        className='groupFormInput'
-                        placeholder='Please include at least 30 characters'
-                        value={eventAbout}
-                        onChange={(e) => {
-                            setEventAbout(e.target.value)
-                            setDisplayEventAboutErr(true)
-                        }}
-                    ></textarea>
+                    <div className="displayFlex">
+                        <textarea
+                            className='groupFormInput'
+                            placeholder='Please include at least 30 characters'
+                            value={eventAbout}
+                            onChange={(e) => {
+                                setEventAbout(e.target.value)
+                                setDisplayEventAboutErr(true)
+                            }}
+                        ></textarea>
+                        {!displayEventAboutErr && formType === "new" && <p className="errors">*</p>}
+                    </div>
                     {displayEventAboutErr && <p className='error'>{err.eventAbout}</p>}
                 </div>
                 <div className='eventForm-button'>
