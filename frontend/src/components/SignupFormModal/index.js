@@ -159,7 +159,7 @@ function SignupFormModal() {
                 <p className='errors'>Password* {err.password}</p>}
 
               <input
-                type="text"
+                type="password"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value)
@@ -176,7 +176,7 @@ function SignupFormModal() {
                 <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
 
               <input
-                type="text"
+                type="password"
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value)
