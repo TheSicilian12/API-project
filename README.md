@@ -42,7 +42,6 @@ In the frontend and backend folders npm install.
 
 npm start both the frontend and backend folders.
 
-
 # Features
 ## Groups
     - Authorized user can create a group
@@ -53,7 +52,7 @@ npm start both the frontend and backend folders.
 ## Events
     - Authorized user can create an event
     - Any user can view all events
-    
+
 
 
 
