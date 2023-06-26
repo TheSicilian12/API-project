@@ -233,7 +233,8 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
 
     let disabled;
     if (Object.values(err).length > 0) {
-        disabled = 'not-allowedCursor';
+        // disabled = 'not-allowedCursor';
+        disabled = 'not-allowedCursor disabledButton';
     }
 
     let hideImageUpdate = 'Ushow';

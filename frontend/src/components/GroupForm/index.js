@@ -159,7 +159,6 @@ function GroupForm({ currentGroup, formType, previewImage }) {
     if (Object.values(err).length > 0) {
         // disabled = 'not-allowedCursor UgrayButton';
         disabled = 'not-allowedCursor disabledButton';
-
     }
 
     let hideImageUpdate = 'Ushow';
