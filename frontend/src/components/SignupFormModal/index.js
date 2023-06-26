@@ -86,8 +86,8 @@ function SignupFormModal() {
           <div>
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayEmailErr || !err.email) && <p>Email</p>}
-              {!displayEmailErr && <p className="errors">*</p>}
+                {(!displayEmailErr || !err.email) && <p>Email</p>}
+                {!displayEmailErr && <p className="errors">*</p>}
               </div>
               {displayEmailErr &&
                 err.email &&
@@ -106,8 +106,8 @@ function SignupFormModal() {
 
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayUsernameErr || !err.username) && <p>Username</p>}
-              {!displayUsernameErr && <p className="errors">*</p>}
+                {(!displayUsernameErr || !err.username) && <p>Username</p>}
+                {!displayUsernameErr && <p className="errors">*</p>}
               </div>
               {displayUsernameErr &&
                 err.username &&
@@ -126,8 +126,8 @@ function SignupFormModal() {
 
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
-              {!displayFirstNameErr && <p className="errors">*</p>}
+                {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+                {!displayFirstNameErr && <p className="errors">*</p>}
               </div>
               {displayFirstNameErr &&
                 err.firstName &&
@@ -146,8 +146,8 @@ function SignupFormModal() {
 
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
-              {!displayLastNameErr && <p className="errors">*</p>}
+                {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+                {!displayLastNameErr && <p className="errors">*</p>}
               </div>
               {displayLastNameErr &&
                 err.lastName &&
@@ -166,8 +166,8 @@ function SignupFormModal() {
 
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayPasswordErr || !err.password) && <p>Password</p>}
-              {!displayPasswordErr && <p className="errors">*</p>}
+                {(!displayPasswordErr || !err.password) && <p>Password</p>}
+                {!displayPasswordErr && <p className="errors">*</p>}
               </div>
               {displayPasswordErr &&
                 err.password &&
@@ -186,8 +186,8 @@ function SignupFormModal() {
 
             <div className='signup-inputs'>
               <div className="displayFlex">
-              {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
-              {!displayConfirmPasswordErr && <p className="errors">*</p>}
+                {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+                {!displayConfirmPasswordErr && <p className="errors">*</p>}
               </div>
               {displayConfirmPasswordErr &&
                 err.confirmPassword &&
@@ -219,7 +219,7 @@ function SignupFormModal() {
                 className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOn' : 'displayOff'}`}
                 src={badFinn}
               />
-               <img
+              <img
                 className={`finn-bad-dimensions ${Object.values(err).length > 0 ? 'displayOff' : 'displayOn'}`}
                 src={goodFinn}
               />
@@ -229,21 +229,21 @@ function SignupFormModal() {
                 src={goodFinn}
               />
             }
+            <div className='signup-signupButton-waring'>
+              <button
+                className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
+                type="submit"
+                disabled={Object.values(err).length > 0}
+              >
+                Sign Up
+              </button>
+              {Object.values(err).length > 0 && <div className="errors">
+                *Add your information
+              </div>}
+            </div>
           </div>
         </div>
 
-        <div className='signup-signupButton-waring'>
-          <button
-            className={`UpinkBorder UpurpleButton UbuttonDimensions ${disableButton}`}
-            type="submit"
-            disabled={Object.values(err).length > 0}
-          >
-            Sign Up
-          </button>
-          {Object.values(err).length > 0 && <div className="errors">
-            *Add your information
-            </div>}
-        </div>
       </form>
     </div>
   );
