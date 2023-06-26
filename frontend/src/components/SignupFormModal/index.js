@@ -105,7 +105,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayUsernameErr || !err.username) && <p>Username</p>}
+              {!displayUsernameErr && <p className="errors">*</p>}
+              </div>
               {displayUsernameErr &&
                 err.username &&
                 <p className='errors'>Username* {err.username}</p>}
@@ -122,7 +125,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayFirstNameErr || !err.firstName) && <p>First Name</p>}
+              {!displayFirstNameErr && <p className="errors">*</p>}
+              </div>
               {displayFirstNameErr &&
                 err.firstName &&
                 <p className='errors'>First Name* {err.firstName}</p>}
@@ -139,7 +145,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayLastNameErr || !err.lastName) && <p>Last Name</p>}
+              {!displayLastNameErr && <p className="errors">*</p>}
+              </div>
               {displayLastNameErr &&
                 err.lastName &&
                 <p className='errors'>Last Name* {err.lastName}</p>}
@@ -156,7 +165,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayPasswordErr || !err.password) && <p>Password</p>}
+              {!displayPasswordErr && <p className="errors">*</p>}
+              </div>
               {displayPasswordErr &&
                 err.password &&
                 <p className='errors'>Password* {err.password}</p>}
@@ -173,7 +185,10 @@ function SignupFormModal() {
             </div>
 
             <div className='signup-inputs'>
+              <div className="displayFlex">
               {(!displayConfirmPasswordErr || !err.confirmPassword) && <p>Confirm Password</p>}
+              {!displayConfirmPasswordErr && <p className="errors">*</p>}
+              </div>
               {displayConfirmPasswordErr &&
                 err.confirmPassword &&
                 <p className='errors'>Confirm Password* {err.confirmPassword}</p>}
