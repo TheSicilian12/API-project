@@ -59,6 +59,8 @@ const validateLogin = [
 //     res.json(groupObj)
 
 // })
+
+// Working on routes for wiki, ended here 6/26/23
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
@@ -121,9 +123,9 @@ router.get('/', async (req, res) => {
 
 })
 
-//GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USE
+//GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USER
 router.get('/current', requireAuth, async (req, res) => {
-    console.log("----------get all groups info----------")
+    // console.log("----------get all groups info----------")
     //groups joined or organized by current user
 
     const { user } = req
@@ -304,7 +306,7 @@ router.get('/:groupId', async (req, res, next) => {
     // return res.json(groupObj.Groups[0])
 })
 
-// GET ALL MEMBERS OF A GROUP SPECIFIED BY ITS ID
+// GET ALL MEMBERSHIPS OF A GROUP SPECIFIED BY ITS ID
 router.get('/:groupId/members', async (req, res, next) => {
     //organizer, co-host
     //mg - or host?
@@ -994,9 +996,6 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     //     let status = "Status must be Private or Public"
     //     errors.status = status
     // }
-    console.log("---------------------", statusType !== "Private")
-    console.log("---------------------", statusType !== "Public")
-    console.log("---------------------", statusType !== "Private" || statusType !== "Public")
     if (statusType !== "Private" && statusType !== "Public") {
         let status = "Status must be Private or Public"
         errors.status = status
