@@ -21,19 +21,20 @@ After you have signed in you will be able to create groups (and then events), an
 
 <!-- Image for project -->
 ## Homepage
-<img src="./shinano_screenshots/adventureUp_homepage.png" />
+<img src="./adventureUpImage/homepage_1.png" />
+<img src="./adventureUpImage/homepage_2.png" />
 
-## All Events Page
-<img src="./shinano_screenshots/adventureUp_eventPage.png" />
-
-## Group Page
-<img src="./shinano_screenshots/adventureUp_groupPage.png" />
+## Login
+<img src="./adventureUpImage/login_start.png" />
+<img src="./adventureUpImage/login_errors.png" />
 
 ## All Groups Page
-<img src="./shinano_screenshots/adventureUp_groupPage.png" />
+<img src="./adventureUpImage/groups.png" />
 
-## Individual Group Page
-<img src="./shinano_screenshots/adventureUp_ind_groupPage.png" />
+## Group Page
+<img src="./adventureUpImage/group_details_1.png" />
+<img src="./adventureUpImage/group_details_2.png" />
+
 
 ## Getting started
 AdventureUp
