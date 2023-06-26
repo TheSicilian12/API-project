@@ -89,7 +89,7 @@ export default function EventGroupComponent({ type, previewImage, info }) {
                         <div className="eventGroup-group eventGroup-info-button">
                             <div>
                                 <h1 className='GroupDetails_Details_GroupName textWrap'>
-                                    {`${info.group.singleGroup.name}`} test
+                                    {`${info.group.singleGroup.name}`}
                                 </h1>
                                 <h4 className='eventGroup-info-color'>
                                     {`${info.group.singleGroup.city}, ${info.group.singleGroup.state}`}
