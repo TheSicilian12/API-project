@@ -18,8 +18,6 @@ function CommentComponent({ comments }) {
 
     if (commentTest.length === 0) return (null)
 
-    console.log("commentTest: ", commentTest)
-
     return (
         <div className="all-comment-container">
             {Object.values(commentTest).map(info =>

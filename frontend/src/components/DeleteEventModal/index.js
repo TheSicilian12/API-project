@@ -12,8 +12,6 @@ function DeleteEventModal ({eventId, groupId}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    console.log("groupId before button: ", groupId)
-
     const deleteHandler = async (e) => {
         e.preventDefault();
 
