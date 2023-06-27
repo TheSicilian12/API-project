@@ -305,13 +305,9 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     //error venue does not exist
 
     //error event does not exist
-    console.log("----------------------------------edit an event---------------------------------")
     const { user } = req
     const { venueId, name, type, statusType, capacity, price, description, startDate, endDate } = req.body
 
-    console.log("----------------type: ", type)
-    console.log("---------------------------statusType: ", statusType)
-    console.log("---------------------------startDate: ", startDate)
     if (!user) {
         const err = new Error("You must be logged in.");
         err.status = 404
@@ -454,7 +450,6 @@ router.put('/:eventId', requireAuth, async (req, res, next) => {
     if (startDate && startDate !== "past") event.startDate = startDate
     if (endDate) event.endDate = endDate
     event.save()
-    console.log("-------------------------event: ", event)
     eventResponse = event.toJSON()
     delete eventResponse.Group
     delete eventResponse.Attendances
@@ -640,7 +635,6 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     })
 
     let attendanceJSON = JSON.parse(JSON.stringify(attendance))
-    console.log(attendanceJSON.Event)
     let organizerId = attendanceJSON.Event.Group.organizerId
 
     let groupId = attendanceJSON.Event.Group.id

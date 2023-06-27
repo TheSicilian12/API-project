@@ -60,7 +60,6 @@ const validateLogin = [
 
 // })
 
-// Working on routes for wiki, ended here 6/26/23
 //GET ALL GROUPS
 router.get('/', async (req, res) => {
 
@@ -125,7 +124,6 @@ router.get('/', async (req, res) => {
 
 //GET ALL GROUPS JOINED OR ORGANIZED BY THE CURRENT USER
 router.get('/current', requireAuth, async (req, res) => {
-    // console.log("----------get all groups info----------")
     //groups joined or organized by current user
 
     const { user } = req
@@ -223,7 +221,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
             if (groupMembershipJSON.Memberships.length > 0) {
                 for (let member of groupMembershipJSON.Memberships) {
-                    console.log("----member: ", member)
                     if (member.status === 'host' || member.status === 'co-host' || member.status === 'member') numMembers++
                 }
             }
@@ -253,7 +250,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //GET DETAILS OF A GROUP FROM AN ID
 router.get('/:groupId', async (req, res, next) => {
-    console.log("----get details of a group----")
     //error if no group exists
     const { user } = req
 
@@ -527,7 +523,6 @@ router.post('/', requireAuth, async (req, res, next) => {
     })
 
     let newGroupJSON = newGroup.toJSON()
-    // console.log("------------------new Group: ", newGroupJSON)
 
     let newMembership = await Membership.create({
         userId: organizerId,
@@ -1467,7 +1462,7 @@ router.post('/:groupId/automembership', async (req, res) => {
     return res.status(200).json("success")
 })
 
-// RETRIEVE MEMBERSHIP FOR A USER FOR A GROUP
+// RETRIEVE A MEMBERSHIP FOR A USER FOR A GROUP
 router.get('/:userId/:groupId/membership', async (req, res) => {
     let err = {}
     const { userId, groupId } = req.params

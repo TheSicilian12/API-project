@@ -23,10 +23,6 @@ export default function EditEventWrapper({formType}) {
   // const currentGroup = useSelector((state) => state.groups.singleGroup);
   const currentEvent = useSelector((state) => state.events);
 
-  // console.log("currentEvent: ", currentEvent)
-  // console.log("today: ", new Date())
-  // console.log("isPast: ", isPast(currentEvent.startDate))
-
   const timeLineStatus = isPast(currentEvent.startDate)
 
   const endDateCheck = isPast(currentEvent.endDate)

@@ -41,7 +41,6 @@ export const allMembershipThunk = (userId) => async (dispatch) => {
 
 // THUNK - request membership to a group
 export const membershipsThunk = (payload) => async (dispatch) => {
-    console.log("----membership thunk----")
     // Need group Id in api route
     // Send userId to api
     const { groupId, user } = payload

@@ -11,7 +11,6 @@ const attendance = require('../../db/models/attendance');
 
 // EDIT AN EVENT PREVIEW IMAGE
 router.put('/:eventId/images', requireAuth, async (req, res, next) => {
-    console.log("-------------------edit event preview image------------------")
     const {user} = req
     const {url} = req.body
 
@@ -104,8 +103,6 @@ router.put('/:eventId/images', requireAuth, async (req, res, next) => {
     })
     image.url = url
     image.save()
-
-    console.log("-------------image: ", image)
 
     return res.status(200).json("successfully edited image")
 

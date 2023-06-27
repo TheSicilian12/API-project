@@ -108,23 +108,16 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
 
         let newEvent;
         let statusType;
-        // console.log("eventStatus: ", eventStatus)
-        // console.log("eventStatus === 'false': ", eventStatus === "false")
-        // console.log("eventStatus === false: ", eventStatus === false)
         if (eventStatus === "true") {
-            // console.log("if statement eventStatus === 'true'")
             statusType = "Private"
         }
 
         if (eventStatus === "false") {
-            // console.log("if statement eventStatus === 'false'")
             statusType = "Public"
         }
 
         if (Object.keys(err).length > 0) setErrors(err)
         else {
-            // console.log("statusType: ", statusType)
-
             let eventObj;
             if ((!timeLineStatus || timeLineStatus === "future")) {
                 eventObj = {
@@ -151,8 +144,6 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
                     endDate: eventEndDate,
                 }
             }
-
-            // console.log("start date: ", eventObj.startDate)
 
             const eventImageObj = {
                 url: eventImage,
@@ -241,8 +232,6 @@ function EventForm({ currentEvent, formType, timeLineStatus }) {
     if (formType === 'edit') {
         hideImageUpdate = 'Uhide';
     }
-
-    console.log("err: ", err)
 
     // --------------------------------- ^ err real time ^ -----------------------------------------------
 
